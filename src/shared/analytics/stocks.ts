@@ -184,18 +184,7 @@ export function pulse(series: Map<string, { d: Int32Array; c: Float64Array }>, m
   const pct200 = elig.length ? fnum(elig.filter((m) => m.above_sma200 === true).length / elig.length) : null;
   const nh = ms.filter((m) => m.last_date === asofIso && m.hi_52w_date === asofIso).length;
   const nl = ms.filter((m) => m.last_date === asofIso && m.lo_52w_date === asofIso).length;
-  const days = [...sums.keys()].sort((a, b) => a - b);
-  let lvl = 100;
-  const yearEnd: Record<string, Num> = {};
-  let firstSize = 0;
-  let lastSize = 0;
-  days.forEach((day, k) => {
-    const rs = sums.get(day)!.s;
-    if (k === 0) firstSize = rs.length;
-    lastSize = rs.length;
-    lvl *= 1 + mean(rs);
-    yearEnd[String(yearOfDay(day))] = fnum(lvl);
-  });
+  const ew = ewLevels(sums);
   return {
     as_of: asofIso,
     tickers_with_bar_on_as_of: today,
@@ -209,12 +198,55 @@ export function pulse(series: Map<string, { d: Int32Array; c: Float64Array }>, m
     ew_index: {
       base_date: baseDate,
       base_level: 100,
-      constituents_on_first_return_date: firstSize,
-      constituents_on_as_of: lastSize,
-      level_as_of: fnum(lvl),
-      year_end_levels: yearEnd,
+      constituents_on_first_return_date: ew.firstSize,
+      constituents_on_as_of: ew.lastSize,
+      level_as_of: fnum(ew.levels.at(-1) ?? 100),
+      year_end_levels: ew.yearEnd,
     },
   };
+}
+
+/** Daily equal-weight levels from per-day return lists (base 100). */
+export function ewLevels(sums: Map<number, { s: number[] }>): {
+  days: number[];
+  levels: number[];
+  counts: number[];
+  yearEnd: Record<string, Num>;
+  firstSize: number;
+  lastSize: number;
+} {
+  const days = [...sums.keys()].sort((a, b) => a - b);
+  let lvl = 100;
+  const levels: number[] = [];
+  const counts: number[] = [];
+  const yearEnd: Record<string, Num> = {};
+  for (const day of days) {
+    const rs = sums.get(day)!.s;
+    lvl *= 1 + mean(rs);
+    levels.push(lvl);
+    counts.push(rs.length);
+    yearEnd[String(yearOfDay(day))] = fnum(lvl);
+  }
+  return { days, levels, counts, yearEnd, firstSize: counts[0] ?? 0, lastSize: counts.at(-1) ?? 0 };
+}
+
+/** EW universe series for charts (same rule as `pulse`). */
+export function ewIndexSeries(series: Map<string, { d: Int32Array; c: Float64Array }>, baseDate = EW_BASE_DATE) {
+  const base = toDayNumber(baseDate);
+  const sums = new Map<number, { s: number[] }>();
+  for (const s of series.values()) {
+    for (let i = 1; i < s.c.length; i++) {
+      const day = s.d[i] as number;
+      if (day <= base) continue;
+      const r = (s.c[i] as number) / (s.c[i - 1] as number) - 1;
+      if (Number.isNaN(r) || !(r < EXTREME_UP) || !(r > EXTREME_DN)) continue;
+      let e = sums.get(day);
+      if (!e) sums.set(day, (e = { s: [] }));
+      e.s.push(r);
+    }
+  }
+  const ew = ewLevels(sums);
+  return { d: [base, ...ew.days].map(fromDayNumber), level: [100, ...ew.levels], constituents: [0, ...ew.counts] };
 }
 
 export type NasdaqResult = {

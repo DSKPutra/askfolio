@@ -5,7 +5,7 @@
 
 const ISO_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
-export function isIsoDate(s: unknown): s is string {
+export function isIsoDate(s: unknown): boolean {
   if (typeof s !== 'string') return false;
   const m = ISO_RE.exec(s);
   if (!m) return false;

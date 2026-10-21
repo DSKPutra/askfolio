@@ -20,7 +20,7 @@ export function normaliseKey(s: string): string {
 export function sanitiseUntrusted(s: string | null | undefined, maxLen = 2000): string {
   if (!s) return '';
   // eslint-disable-next-line no-control-regex
-  const clean = s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F​-‏‪-‮⁦-⁩]/g, '');
+  const clean = s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g, '');
   return clean.length > maxLen ? `${clean.slice(0, maxLen - 1)}…` : clean;
 }
 
