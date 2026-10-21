@@ -54,3 +54,15 @@ export const SRC_DEFI = {
   yields: X('Daily_DeFi_Yield__TVL_Snapshots', 'history.csv'),
   bots: X('Crypto_Trading_Bots__AI_Agents_Dataset_v5', 'dataset.csv'),
 } as const;
+
+export const SRC_Y = {
+  costliving: X('Global_City_Cost_of_Living__Quality_of_Life_Index', 'global_city_col_qol_index.csv'),
+  inflation: X('Global_Inflation__Cost_of_Living_Dataset', 'inflation_cost_of_living_dataset.csv'),
+  poverty: X('Multidimensional_Poverty_Index_MPI', 'MPI_193 countries_data.csv'),
+  ipo: X('IPO_Data_2019-2026-_India_US_UK__Global_IPOs', 'ipo_tracker_2019_2026_sample.csv'),
+  news: {
+    homelessness: { dir: X('Homelessness_News_Dataset_2019-2026', 'data'), sample: 'homelessness-news-sample.csv' },
+    housingnews: { dir: X('Housing_News_Dataset_2019-2026', 'data'), sample: 'housing-news-sample.csv' },
+    population: { dir: X('Population_News_Dataset_2019-2026', 'data'), sample: 'population-news-sample.csv' },
+  },
+} as const;
