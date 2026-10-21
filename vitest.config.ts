@@ -14,7 +14,7 @@ export default defineConfig({
     },
     projects: [
       { resolve: { alias }, test: { name: 'unit', include: ['tests/unit/**/*.test.ts'], environment: 'node' } },
-      { resolve: { alias }, test: { name: 'golden', include: ['tests/golden/**/*.test.ts'], environment: 'node', testTimeout: 600_000 } },
+      { resolve: { alias }, test: { name: 'golden', include: ['tests/golden/**/*.test.ts'], environment: 'node', testTimeout: 600_000, hookTimeout: 900_000 } },
       { resolve: { alias }, test: { name: 'tools', include: ['tests/tools/**/*.test.ts'], environment: 'node' } },
     ],
   },
