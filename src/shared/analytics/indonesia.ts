@@ -584,7 +584,7 @@ function valueCounts(values: string[]): Record<string, number> {
   return Object.fromEntries([...m.entries()].sort((a, b) => b[1] - a[1]));
 }
 
-export function computeIdx(inp: IdxInput, ihsg: DaySeries): IdxResult {
+export function computeIdx(inp: IdxInput, ihsg: DaySeries, topAdmins = 5): IdxResult {
   const companies = inp.companies.map((r) => ({
     code: r.Code!,
     name: r.Name!,
@@ -682,7 +682,9 @@ export function computeIdx(inp: IdxInput, ihsg: DaySeries): IdxResult {
       const v = rows.map((r) => num(r['Return D1'])).filter((x) => !Number.isNaN(x));
       return { k, count: v.length, mean: v.length ? mean(v) : NaN, median: v.length ? median(v) : NaN };
     })
-    .sort((x, y) => y.count - x.count);
+    // Count desc, then name asc. The reference uses pandas' unstable quicksort, so its order among ties
+    // is platform-dependent; golden tests check ties set-wise (see docs/DECISIONS.md).
+    .sort((x, y) => y.count - x.count || (x.k < y.k ? -1 : x.k > y.k ? 1 : 0));
   const bySector: Record<string, number> = {};
   for (const [k, rows] of groupBy(closed, (r) => r.Sector ?? '')) {
     const v = rows.map((r) => num(r['Return D1']));
@@ -704,7 +706,7 @@ export function computeIdx(inp: IdxInput, ihsg: DaySeries): IdxResult {
     median_return_from_listing: fnum(median(closed.map((r) => num(r['Return from Listing Date'])))),
     by_sector_median_D1: bySector,
     by_board_count: valueCounts(closed.map((r) => (r['Listing Board'] ? r['Listing Board'] : '(kosong)'))),
-    top_participant_admin_by_count: admins.slice(0, 5).map((x) => ({
+    top_participant_admin_by_count: admins.slice(0, topAdmins).map((x) => ({
       participant_admin: x.k,
       ipos: x.count,
       mean_D1: fnum(x.mean),
