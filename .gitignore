@@ -1,0 +1,31 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+node_modules/
+dist/
+dev-dist/
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+public/data/
+data/inputs/
+data/extracted/
+data/tmp/
+Dataset/
+*.zip
+FinanDex Master Prompt.md
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+.vercel/
+.netlify/
+android/app/build/
+android/.gradle/
+ios/App/Pods/
+ios/App/build/
+*.keystore
+*.jks
+*.p8
+*.p12
+*.mobileprovision

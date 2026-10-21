@@ -1,0 +1,731 @@
+// © 2026 Dea Saka Kurnia Putra. All rights reserved.
+// The ONLY list of Dex chatbots (master prompt §1, §6.2, §9, §12.3). Navigation, Dex Hub,
+// homepage, global search, chat router, and legal/data-source pages are generated from it.
+
+import type { DexGroupId } from './dex-groups';
+
+export const DEX_IDS = [
+  'finandex-ai',
+  'nasdaqdex',
+  'snp500dex',
+  'commercedex',
+  'ipodex',
+  'idfinandex',
+  'rupiahdex',
+  'idxdex',
+  'reksadex',
+  'cryptdex',
+  'centralbankdex',
+  'inflationdex',
+  'startupdex',
+  'vcdex',
+  'vcnetworkdex',
+  'opencompanydex',
+  'salarydex',
+  'costlivingdex',
+  'idhousingdex',
+  'idfooddeliverydex',
+  'povertydex',
+  'populationdex',
+  'homelessnessdex',
+  'housingdex',
+  'fintechdex',
+  'personalfinandex',
+  'mylaiwyer',
+] as const;
+
+export type DexId = (typeof DEX_IDS)[number];
+
+export type Bilingual = { id: string; en: string };
+export type DexTab = { id: string; label: Bilingual };
+export type DexLicense = 'unknown' | 'CC BY 4.0' | 'CC BY-NC 4.0' | 'mixed';
+export type DexStatus = 'live' | 'partial' | 'pending-data';
+
+export type DexEntry = {
+  id: DexId;
+  name: string;
+  group: DexGroupId;
+  order: number;
+  tagline: Bilingual;
+  icon: string;
+  inputs: number[];
+  /** Declared as-of label from the master prompt §1 (a date, a period, or 'unknown'); the UI shows public/data/manifest.json. */
+  asOf: string;
+  license: DexLicense;
+  commercialUseAllowed: boolean | 'unknown';
+  tabs: DexTab[];
+  status: DexStatus;
+  /** Indonesia-focused Dex (homepage "Indonesia" filter). */
+  indonesia: boolean;
+  /** Dataset is a provider sample, e.g. "sampel 2%". */
+  sample?: Bilingual;
+  /** Extra licence wording where the class alone is not enough (e.g. statutory texts). */
+  licenseNote?: Bilingual;
+  keywords: string[];
+};
+
+const tab = (id: string, idLabel: string, enLabel: string): DexTab => ({
+  id,
+  label: { id: idLabel, en: enLabel },
+});
+const CHAT = tab('chat', 'Chat', 'Chat');
+const DATA = tab('data', 'Data', 'Data');
+const withChatAndData = (...middle: DexTab[]): DexTab[] => [CHAT, ...middle, DATA];
+
+const NEWS_TABS = withChatAndData(
+  tab('coverage', 'Tren Liputan', 'Coverage Trends'),
+  tab('geography', 'Geografi', 'Geography'),
+  tab('themes', 'Tema & Organisasi', 'Themes & Organisations'),
+  tab('research', 'Riset & Paten', 'Research & Patents'),
+  tab('findings', 'Temuan Penyedia', 'Provider Findings'),
+);
+
+const NC: Pick<DexEntry, 'license' | 'commercialUseAllowed'> = {
+  license: 'CC BY-NC 4.0',
+  commercialUseAllowed: false,
+};
+const UNKNOWN: Pick<DexEntry, 'license' | 'commercialUseAllowed'> = {
+  license: 'unknown',
+  commercialUseAllowed: 'unknown',
+};
+
+export const DEX_REGISTRY: readonly DexEntry[] = [
+  {
+    id: 'finandex-ai',
+    name: 'Finandex AI',
+    group: 'global-markets',
+    order: 1,
+    tagline: {
+      id: 'Asisten pasar global: indeks, komoditas, kripto, mata uang (chatbot utama & router)',
+      en: 'Global market assistant: indices, commodities, crypto, currencies (main chatbot & router)',
+    },
+    icon: 'finandex-ai',
+    inputs: [1],
+    asOf: '2026-10-19',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('markets', 'Pasar Global', 'Global Markets'),
+      tab('compare', 'Bandingkan', 'Compare'),
+      tab('correlation', 'Korelasi', 'Correlation'),
+      tab('calendar', 'Kalender Return', 'Calendar Returns'),
+      tab('events', 'Peristiwa', 'Events'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['indeks', 'index', 'komoditas', 'commodity', 'emas', 'gold', 'minyak', 'oil', 'kurs', 'fx'],
+  },
+  {
+    id: 'nasdaqdex',
+    name: 'NASDAQDex',
+    group: 'global-markets',
+    order: 2,
+    tagline: { id: '500 saham NASDAQ, 1962–2026', en: '500 NASDAQ stocks, 1962–2026' },
+    icon: 'nasdaqdex',
+    inputs: [2],
+    asOf: '2026-09-18',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('pulse', 'Pulse', 'Pulse'),
+      tab('screener', 'Screener', 'Screener'),
+      tab('growth', 'Growth Lab', 'Growth Lab'),
+      tab('technical', 'Teknikal', 'Technicals'),
+      tab('compare', 'Bandingkan', 'Compare'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['saham', 'stock', 'nasdaq', 'teknologi', 'tech'],
+  },
+  {
+    id: 'snp500dex',
+    name: 'SnP500Dex',
+    group: 'global-markets',
+    order: 3,
+    tagline: {
+      id: '233 saham S&P 500: total return, dividen, volume',
+      en: '233 S&P 500 stocks: total return, dividends, volume',
+    },
+    icon: 'snp500dex',
+    inputs: [3],
+    asOf: '2026-08-31',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('pulse', 'Pulse', 'Pulse'),
+      tab('dividends', 'Dividen', 'Dividends'),
+      tab('simulator', 'Simulator', 'Simulator'),
+      tab('screener', 'Screener', 'Screener'),
+      tab('volume', 'Volume & Likuiditas', 'Volume & Liquidity'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['saham', 'stock', 'dividen', 'dividend', 's&p'],
+  },
+  {
+    id: 'commercedex',
+    name: 'CommerceDex',
+    group: 'global-markets',
+    order: 4,
+    tagline: {
+      id: '43 raksasa e-commerce dunia: harga, fundamental, makro',
+      en: '43 global e-commerce giants: prices, fundamentals, macro',
+    },
+    icon: 'commercedex',
+    inputs: [4],
+    asOf: '2026-05-13',
+    license: 'CC BY 4.0',
+    commercialUseAllowed: true,
+    tabs: withChatAndData(
+      tab('map', 'Peta Global', 'Global Map'),
+      tab('companies', 'Perusahaan', 'Companies'),
+      tab('fundamentals', 'Fundamental', 'Fundamentals'),
+      tab('index', 'Indeks E-Commerce', 'E-Commerce Index'),
+      tab('macro', 'Makro', 'Macro'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['e-commerce', 'ecommerce', 'marketplace', 'amazon', 'tokopedia'],
+  },
+  {
+    id: 'ipodex',
+    name: 'IPODex',
+    group: 'global-markets',
+    order: 5,
+    tagline: {
+      id: 'IPO global 2019–2026: India, AS, Inggris & 100+ negara',
+      en: 'Global IPOs 2019–2026: India, US, UK & 100+ countries',
+    },
+    icon: 'ipodex',
+    inputs: [40],
+    asOf: '2026-06-18',
+    ...NC,
+    tabs: withChatAndData(
+      tab('overview', 'Ringkasan', 'Overview'),
+      tab('countries', 'Negara & Bursa', 'Countries & Exchanges'),
+      tab('india', 'India SME vs Mainboard', 'India SME vs Mainboard'),
+      tab('search', 'Cari IPO', 'Search IPOs'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['ipo', 'listing', 'penawaran umum'],
+  },
+  {
+    id: 'idfinandex',
+    name: 'IDFinanDex',
+    group: 'indonesia',
+    order: 6,
+    tagline: {
+      id: 'Indonesia multi-aset & makro: IHSG, USD/IDR, BI rate',
+      en: 'Indonesia multi-asset & macro: IHSG, USD/IDR, BI rate',
+    },
+    icon: 'idfinandex',
+    inputs: [5, 6],
+    asOf: '2026-05-29',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('macro', 'Dashboard Makro', 'Macro Dashboard'),
+      tab('assets', 'Aset', 'Assets'),
+      tab('normalized', 'Tren Ter-normalisasi', 'Normalised Trends'),
+      tab('correlation', 'Korelasi', 'Correlation'),
+      tab('rates', 'Rezim Suku Bunga', 'Rate Regimes'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['ihsg', 'bi rate', 'inflasi', 'cpi', 'rupiah'],
+  },
+  {
+    id: 'rupiahdex',
+    name: 'RupiahDex',
+    group: 'indonesia',
+    order: 7,
+    tagline: { id: 'Kurs USD/IDR harian sejak 2001', en: 'Daily USD/IDR exchange rate since 2001' },
+    icon: 'rupiahdex',
+    inputs: [7],
+    asOf: '2026-10-20',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('rate', 'Kurs', 'Exchange Rate'),
+      tab('converter', 'Konverter Historis', 'Historical Converter'),
+      tab('yearly', 'Statistik Tahunan', 'Yearly Statistics'),
+      tab('events', 'Peristiwa', 'Events'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['kurs', 'dolar', 'dollar', 'usd', 'idr', 'rupiah'],
+  },
+  {
+    id: 'idxdex',
+    name: 'IDXDex',
+    group: 'indonesia',
+    order: 8,
+    tagline: {
+      id: 'Saham Bursa Efek Indonesia: harga, fundamental, IPO',
+      en: 'Indonesia Stock Exchange equities: prices, fundamentals, IPOs',
+    },
+    icon: 'idxdex',
+    inputs: [9, 10, 11, 12],
+    asOf: '2024-05-17',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('stocks', 'Saham', 'Stocks'),
+      tab('fundamentals', 'Fundamental', 'Fundamentals'),
+      tab('ipo', 'IPO Center', 'IPO Center'),
+      tab('directory', 'Direktori Emiten', 'Issuer Directory'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['saham', 'bei', 'idx', 'emiten', 'ipo', 'bbca'],
+  },
+  {
+    id: 'reksadex',
+    name: 'ReksaDex',
+    group: 'indonesia',
+    order: 9,
+    tagline: {
+      id: 'Reksa dana Indonesia: AUM, manajer investasi, kinerja',
+      en: 'Indonesian mutual funds: AUM, investment managers, performance',
+    },
+    icon: 'reksadex',
+    inputs: [8],
+    asOf: '2026-05-29',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('industry', 'Industri', 'Industry'),
+      tab('managers', 'Manajer Investasi', 'Investment Managers'),
+      tab('search', 'Cari Reksa Dana', 'Search Funds'),
+      tab('rankings', 'Peringkat', 'Rankings'),
+      tab('custodians', 'Bank Kustodian', 'Custodian Banks'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['reksa dana', 'mutual fund', 'aum', 'nab', 'manajer investasi'],
+  },
+  {
+    id: 'cryptdex',
+    name: 'CryptDex',
+    group: 'crypto-macro',
+    order: 10,
+    tagline: {
+      id: 'Kripto: harga, snapshot pasar, DeFi, fee protokol, edukasi bot',
+      en: 'Crypto: prices, market snapshot, DeFi, protocol fees, bot education',
+    },
+    icon: 'cryptdex',
+    inputs: [13, 14, 15, 25, 26, 27, 28],
+    asOf: '2026-10-20',
+    license: 'mixed',
+    commercialUseAllowed: 'unknown',
+    tabs: withChatAndData(
+      tab('market', 'Pasar Kripto', 'Crypto Market'),
+      tab('history', 'Harga Historis', 'Price History'),
+      tab('defi', 'DeFi', 'DeFi'),
+      tab('yield', 'Yield', 'Yield'),
+      tab('fees', 'Fees & Revenue', 'Fees & Revenue'),
+      tab('bots', 'Bot & AI Agent', 'Bots & AI Agents'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['kripto', 'crypto', 'bitcoin', 'btc', 'ethereum', 'defi', 'tvl', 'stablecoin'],
+  },
+  {
+    id: 'centralbankdex',
+    name: 'CentralBankDex',
+    group: 'crypto-macro',
+    order: 11,
+    tagline: {
+      id: 'Neraca bank sentral & likuiditas global (Fed, ECB, BoJ, 167 negara)',
+      en: 'Central bank balance sheets & global liquidity (Fed, ECB, BoJ, 167 countries)',
+    },
+    icon: 'centralbankdex',
+    inputs: [16],
+    asOf: '2026-10-16',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('g3', 'Neraca G3', 'G3 Balance Sheets'),
+      tab('rates', 'Suku Bunga & Kurva Imbal Hasil', 'Rates & Yield Curve'),
+      tab('money', 'Uang Beredar', 'Money Supply'),
+      tab('countries', 'Peta Negara', 'Country Map'),
+      tab('regimes', 'Label Rezim (penyedia)', 'Regime Labels (provider)'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['fed', 'ecb', 'boj', 'bank sentral', 'central bank', 'likuiditas', 'liquidity'],
+  },
+  {
+    id: 'inflationdex',
+    name: 'InflationDex',
+    group: 'crypto-macro',
+    order: 12,
+    tagline: {
+      id: 'Inflasi & biaya hidup antarnegara',
+      en: 'Inflation & cost of living across countries',
+    },
+    icon: 'inflationdex',
+    inputs: [37],
+    asOf: '2024',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('map', 'Peta Inflasi', 'Inflation Map'),
+      tab('rankings', 'Peringkat', 'Rankings'),
+      tab('goods', 'Biaya Barang', 'Cost of Goods'),
+      tab('regions', 'Wilayah & Pendapatan', 'Regions & Income'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['inflasi', 'inflation', 'harga', 'biaya hidup'],
+  },
+  {
+    id: 'startupdex',
+    name: 'StartupDex',
+    group: 'startup-vc',
+    order: 13,
+    tagline: {
+      id: 'Putaran pendanaan startup global 2019–2026',
+      en: 'Global startup funding rounds 2019–2026',
+    },
+    icon: 'startupdex',
+    inputs: [19],
+    asOf: '2026-06-12',
+    ...NC,
+    tabs: withChatAndData(
+      tab('overview', 'Ringkasan', 'Overview'),
+      tab('stages', 'Tahapan (Stage)', 'Stages'),
+      tab('countries', 'Negara & Sektor', 'Countries & Sectors'),
+      tab('mega', 'Mega-round', 'Mega-rounds'),
+      tab('search', 'Cari Putaran', 'Search Rounds'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['startup', 'pendanaan', 'funding', 'series a', 'seed'],
+  },
+  {
+    id: 'vcdex',
+    name: 'VCDex',
+    group: 'startup-vc',
+    order: 14,
+    tagline: { id: 'Direktori investor startup 2026', en: 'Startup investor directory 2026' },
+    icon: 'vcdex',
+    inputs: [24],
+    asOf: '2019–2026',
+    ...NC,
+    tabs: withChatAndData(
+      tab('directory', 'Direktori', 'Directory'),
+      tab('rankings', 'Peringkat', 'Rankings'),
+      tab('stages', 'Stage Mix', 'Stage Mix'),
+      tab('countries', 'Negara', 'Countries'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['vc', 'venture capital', 'investor', 'angel'],
+  },
+  {
+    id: 'vcnetworkdex',
+    name: 'VCNetworkDex',
+    group: 'startup-vc',
+    order: 15,
+    tagline: {
+      id: 'Jaringan co-investment antar investor VC',
+      en: 'Co-investment network among VC investors',
+    },
+    icon: 'vcnetworkdex',
+    inputs: [23],
+    asOf: '2019–2026',
+    ...NC,
+    tabs: withChatAndData(
+      tab('graph', 'Graf Jaringan', 'Network Graph'),
+      tab('pairs', 'Pasangan Teratas', 'Top Pairs'),
+      tab('investors', 'Investor', 'Investors'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['co-investment', 'jaringan', 'network', 'syndicate'],
+  },
+  {
+    id: 'opencompanydex',
+    name: 'OpenCompanyDex',
+    group: 'startup-vc',
+    order: 16,
+    tagline: {
+      id: 'Direktori 100 ribu perusahaan (sampel Open Company Database)',
+      en: 'Directory of 100k companies (Open Company Database sample)',
+    },
+    icon: 'opencompanydex',
+    inputs: [21],
+    asOf: '2026-10',
+    ...NC,
+    tabs: withChatAndData(
+      tab('map', 'Peta Negara', 'Country Map'),
+      tab('sectors', 'Sektor & Industri', 'Sectors & Industries'),
+      tab('status', 'Status & Pendanaan', 'Status & Funding'),
+      tab('search', 'Cari Perusahaan', 'Search Companies'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['perusahaan', 'company', 'direktori', 'directory'],
+  },
+  {
+    id: 'salarydex',
+    name: 'SalaryDex',
+    group: 'living-cost',
+    order: 17,
+    tagline: {
+      id: 'Gaji global per skill & peran (sampel 100 ribu lowongan)',
+      en: 'Global salaries by skill & role (100k job-posting sample)',
+    },
+    icon: 'salarydex',
+    inputs: [18],
+    asOf: '2026-06',
+    ...NC,
+    tabs: withChatAndData(
+      tab('benchmark', 'Kalkulator Benchmark', 'Benchmark Calculator'),
+      tab('countries', 'Negara', 'Countries'),
+      tab('roles', 'Peran & Senioritas', 'Roles & Seniority'),
+      tab('skills', 'Skill', 'Skills'),
+    ),
+    status: 'live',
+    indonesia: false,
+    sample: { id: 'sampel', en: 'sample' },
+    keywords: ['gaji', 'salary', 'upah', 'skill', 'lowongan'],
+  },
+  {
+    id: 'costlivingdex',
+    name: 'CostLivingDex',
+    group: 'living-cost',
+    order: 18,
+    tagline: {
+      id: 'Biaya & kualitas hidup 148 kota (data sintetis)',
+      en: 'Cost & quality of life in 148 cities (synthetic data)',
+    },
+    icon: 'costlivingdex',
+    inputs: [36],
+    asOf: '2024-06-15',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('rankings', 'Peringkat Kota', 'City Rankings'),
+      tab('profile', 'Profil Kota', 'City Profile'),
+      tab('compare', 'Bandingkan', 'Compare'),
+      tab('change', 'Perubahan 2023→2024', 'Change 2023→2024'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['biaya hidup', 'cost of living', 'kota', 'city', 'sewa', 'rent'],
+  },
+  {
+    id: 'idhousingdex',
+    name: 'IDHousingDex',
+    group: 'living-cost',
+    order: 19,
+    tagline: {
+      id: 'Perumahan subsidi & komersil Indonesia (listing proyek)',
+      en: 'Indonesian subsidised & commercial housing (project listings)',
+    },
+    icon: 'idhousingdex',
+    inputs: [29],
+    asOf: 'unknown',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('overview', 'Ringkasan', 'Overview'),
+      tab('provinces', 'Provinsi & Kota', 'Provinces & Cities'),
+      tab('map', 'Peta Proyek', 'Project Map'),
+      tab('specs', 'Spesifikasi', 'Specifications'),
+      tab('developers', 'Pengembang', 'Developers'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['rumah', 'perumahan', 'housing', 'subsidi', 'kpr', 'properti'],
+  },
+  {
+    id: 'idfooddeliverydex',
+    name: 'IDFoodDeliveryDex',
+    group: 'living-cost',
+    order: 20,
+    tagline: {
+      id: 'Benchmark harga 10 ribu menu food delivery Indonesia',
+      en: 'Price benchmark of 10k Indonesian food-delivery menu items',
+    },
+    icon: 'idfooddeliverydex',
+    inputs: [20],
+    asOf: 'unknown',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('markup', 'Ringkasan Markup', 'Markup Overview'),
+      tab('cities', 'Kota', 'Cities'),
+      tab('cuisines', 'Kuliner', 'Cuisines'),
+      tab('cloud-kitchen', 'Cloud Kitchen', 'Cloud Kitchens'),
+      tab('search', 'Cari Menu', 'Search Menu'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['makanan', 'food', 'gofood', 'grabfood', 'shopeefood', 'menu', 'markup'],
+  },
+  {
+    id: 'povertydex',
+    name: 'PovertyDex',
+    group: 'social',
+    order: 21,
+    tagline: {
+      id: 'Indeks Kemiskinan Multidimensi (MPI) 108 negara',
+      en: 'Multidimensional Poverty Index (MPI) for 108 countries',
+    },
+    icon: 'povertydex',
+    inputs: [41],
+    asOf: 'per-country',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('map', 'Peta MPI', 'MPI Map'),
+      tab('rankings', 'Peringkat', 'Rankings'),
+      tab('dimensions', 'Dimensi', 'Dimensions'),
+      tab('compare', 'Bandingkan', 'Compare'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['kemiskinan', 'poverty', 'mpi'],
+  },
+  {
+    id: 'populationdex',
+    name: 'PopulationDex',
+    group: 'social',
+    order: 22,
+    tagline: {
+      id: 'Liputan berita kependudukan global 2019–2026',
+      en: 'Global population news coverage 2019–2026',
+    },
+    icon: 'populationdex',
+    inputs: [42],
+    asOf: '2026-07-29',
+    ...UNKNOWN,
+    tabs: NEWS_TABS,
+    status: 'live',
+    indonesia: false,
+    keywords: ['penduduk', 'population', 'demografi', 'berita', 'news'],
+  },
+  {
+    id: 'homelessnessdex',
+    name: 'HomelessnessDex',
+    group: 'social',
+    order: 23,
+    tagline: {
+      id: 'Liputan berita isu tunawisma global 2019–2026',
+      en: 'Global homelessness news coverage 2019–2026',
+    },
+    icon: 'homelessnessdex',
+    inputs: [38],
+    asOf: '2026-07-29',
+    ...UNKNOWN,
+    tabs: NEWS_TABS,
+    status: 'live',
+    indonesia: false,
+    keywords: ['tunawisma', 'homeless', 'homelessness', 'berita', 'news'],
+  },
+  {
+    id: 'housingdex',
+    name: 'HousingDex',
+    group: 'social',
+    order: 24,
+    tagline: {
+      id: 'Liputan berita perumahan global 2019–2026',
+      en: 'Global housing news coverage 2019–2026',
+    },
+    icon: 'housingdex',
+    inputs: [39],
+    asOf: '2026-07-23',
+    ...UNKNOWN,
+    tabs: NEWS_TABS,
+    status: 'live',
+    indonesia: false,
+    keywords: ['perumahan', 'housing', 'sewa', 'berita', 'news'],
+  },
+  {
+    id: 'fintechdex',
+    name: 'FintechDex',
+    group: 'sentiment',
+    order: 25,
+    tagline: {
+      id: 'Adopsi & ulasan produk fintech dari 14 platform',
+      en: 'Fintech product adoption & reviews from 14 platforms',
+    },
+    icon: 'fintechdex',
+    inputs: [17],
+    asOf: '2026-09-08',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('sentiment', 'Sentimen', 'Sentiment'),
+      tab('topics', 'Topik & Aspek', 'Topics & Aspects'),
+      tab('explore', 'Jelajah Ulasan', 'Explore Reviews'),
+      tab('trends', 'Tren', 'Trends'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['fintech', 'ulasan', 'review', 'sentimen', 'sentiment', 'paylater'],
+  },
+  {
+    id: 'personalfinandex',
+    name: 'PersonalFinanDex',
+    group: 'sentiment',
+    order: 26,
+    tagline: {
+      id: 'Diskusi keuangan pribadi & kebebasan finansial',
+      en: 'Personal finance & financial independence discussions',
+    },
+    icon: 'personalfinandex',
+    inputs: [22],
+    asOf: '2026-09-16',
+    ...UNKNOWN,
+    tabs: withChatAndData(
+      tab('sentiment', 'Sentimen', 'Sentiment'),
+      tab('topics', 'Topik', 'Topics'),
+      tab('explore', 'Jelajah Diskusi', 'Explore Discussions'),
+      tab('trends', 'Tren', 'Trends'),
+    ),
+    status: 'live',
+    indonesia: false,
+    keywords: ['keuangan pribadi', 'personal finance', 'fire', 'tabungan', 'budget'],
+  },
+  {
+    id: 'mylaiwyer',
+    name: 'My LAIwyer',
+    group: 'law',
+    order: 27,
+    tagline: {
+      id: 'Konsultasi informasi hukum: UUD 1945, KUHAP lama & baru, UU 1/1946',
+      en: 'Legal information: 1945 Constitution, old & new Criminal Procedure Code, Law 1/1946',
+    },
+    icon: 'mylaiwyer',
+    inputs: [30, 31, 32, 33, 34, 35],
+    asOf: 'per-document',
+    license: 'unknown',
+    commercialUseAllowed: true,
+    licenseNote: {
+      id: 'Dokumen peraturan perundang-undangan (sebut sumber).',
+      en: 'Statutory documents (cite the source).',
+    },
+    tabs: withChatAndData(
+      tab('sources', 'Sumber Hukum', 'Legal Sources'),
+      tab('articles', 'Jelajah Pasal', 'Browse Articles'),
+      tab('compare', 'Bandingkan KUHAP Lama–Baru', 'Compare Old–New KUHAP'),
+      tab('glossary', 'Glosarium', 'Glossary'),
+    ),
+    status: 'partial',
+    indonesia: true,
+    keywords: ['hukum', 'law', 'pasal', 'uud', 'kuhap', 'kuhp', 'pidana', 'advokat'],
+  },
+];
+
+export type Distribution = 'noncommercial' | 'commercial';
+
+/** In a commercial build, Dex whose data licence forbids commercial use are hidden (§12.3). */
+export function visibleDex(distribution: Distribution): DexEntry[] {
+  return DEX_REGISTRY.filter((d) => distribution === 'noncommercial' || d.commercialUseAllowed !== false);
+}
+
+const BY_ID = new Map<string, DexEntry>(DEX_REGISTRY.map((d) => [d.id, d]));
+
+export function getDex(id: string): DexEntry | undefined {
+  return BY_ID.get(id);
+}
+
+export function isDexId(id: string): id is DexId {
+  return BY_ID.has(id);
+}

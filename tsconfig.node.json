@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["server", "api", "netlify", "scripts", "tests", "vite.config.ts", "vitest.config.ts", "eslint.config.js", "src/config", "src/shared"]
+}

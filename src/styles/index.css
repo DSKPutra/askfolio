@@ -1,0 +1,79 @@
+/* © 2026 Dea Saka Kurnia Putra. All rights reserved. */
+@import 'tailwindcss';
+
+:root,
+[data-theme='dark'] {
+  --bg: #0a0f0c;
+  --surface: #111915;
+  --surface-2: #17221c;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #eef3ef;
+  --text-muted: #9db0a4;
+  --brand: #19f23a;
+  --brand-text: #19f23a;
+  --positive: #19f23a;
+  --negative: #ff5a5f;
+  --warning: #ffb020;
+  --info: #4da3ff;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --surface-2: #eef2f0;
+  --border: rgba(10, 15, 12, 0.1);
+  --text: #0a0f0c;
+  --text-muted: #4a5b51;
+  --brand: #19f23a;
+  --brand-text: #0a7d24;
+  --positive: #0a7d24;
+  --negative: #c62828;
+  --warning: #a15c00;
+  --info: #1565c0;
+  color-scheme: light;
+}
+
+[data-colorblind='true'] {
+  --positive: #4da3ff;
+  --negative: #ff9f1c;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-brand: var(--brand);
+  --color-brand-text: var(--brand-text);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
