@@ -45,3 +45,12 @@ export const SRC_X = {
   vcdirectory: X('VC_Investor_Directory_2026-_35k_Startup_Investors', 'vc_investor_directory_sample.csv'),
   housing: X('Indonesia_Affordable_Housing', 'indonesia_housing_dataset.csv'),
 } as const;
+
+const DEFI = X('DeFi_Daily-_TVL_Stablecoins_DEX__Yields');
+export const SRC_DEFI = {
+  dir: DEFI,
+  csv: (name: string) => join(DEFI, `${name}.csv`),
+  fees: X('Daily_DeFi_Fees__Revenue', 'history.csv'),
+  yields: X('Daily_DeFi_Yield__TVL_Snapshots', 'history.csv'),
+  bots: X('Crypto_Trading_Bots__AI_Agents_Dataset_v5', 'dataset.csv'),
+} as const;
