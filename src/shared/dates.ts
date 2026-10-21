@@ -153,10 +153,8 @@ export function fromUsSlashDate(s: string): string {
   const parts = s.trim().split('/');
   if (parts.length !== 3) throw new Error(`Invalid M/D/Y date: ${s}`);
   const [m, d, y] = parts.map(Number) as [number, number, number];
-  const z = dayNumberFromParts(y, m, d);
-  const iso = fromDayNumber(z);
-  if (!isIsoDate(iso) || monthOf(iso) !== m) throw new Error(`Invalid M/D/Y date: ${s}`);
-  return iso;
+  if (!(m >= 1 && m <= 12 && d >= 1 && d <= daysInMonth(y, m))) throw new Error(`Invalid M/D/Y date: ${s}`);
+  return fromDayNumber(dayNumberFromParts(y, m, d));
 }
 
 const ID_MONTHS: Record<string, number> = {
