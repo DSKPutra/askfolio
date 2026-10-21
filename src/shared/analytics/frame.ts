@@ -128,7 +128,3 @@ export function maxStr(values: (string | null)[]): string | null {
   return m;
 }
 
-/** Integer-valued numbers stay integers in JSON; others pass through fnum. */
-export function intOrNum(x: number): Num {
-  return fnum(x);
-}
