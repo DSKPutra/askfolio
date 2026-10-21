@@ -20,6 +20,9 @@ export default tseslint.config(
       ...jsxA11y.flatConfigs.recommended.rules,
       '@typescript-eslint/consistent-type-imports': 'error',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      // Numeric code indexes typed arrays under noUncheckedIndexedAccess; bounds are checked by loops.
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true }],
     },
   },
   {

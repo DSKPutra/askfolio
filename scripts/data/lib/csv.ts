@@ -12,7 +12,7 @@ export function streamCsv(path: string, onRow: (row: Row) => void): Promise<numb
     Papa.parse<Row>(createReadStream(path, { encoding: 'utf8' }) as unknown as File, {
       header: true,
       skipEmptyLines: true,
-      transformHeader: (h, i) => (i === 0 ? h.replace(/^﻿/, '') : h),
+      transformHeader: (h, i) => (i === 0 ? h.replace(/^\uFEFF/, '') : h),
       step: (res) => {
         n++;
         onRow(res.data);
@@ -25,7 +25,7 @@ export function streamCsv(path: string, onRow: (row: Row) => void): Promise<numb
 
 /** Read a small CSV fully into memory. */
 export function readCsv(path: string): Row[] {
-  const text = readFileSync(path, 'utf8').replace(/^﻿/, '');
+  const text = readFileSync(path, 'utf8').replace(/^\uFEFF/, '');
   const res = Papa.parse<Row>(text, { header: true, skipEmptyLines: true });
   if (res.errors.length) {
     const fatal = res.errors.filter((e) => e.type !== 'FieldMismatch');
@@ -44,7 +44,7 @@ export function num(s: string | undefined): number {
 
 /** Read a CSV fully, also returning the header fields (for column counts). */
 export function readCsvFields(path: string): { rows: Row[]; fields: string[] } {
-  const text = readFileSync(path, 'utf8').replace(/^﻿/, '');
+  const text = readFileSync(path, 'utf8').replace(/^\uFEFF/, '');
   const res = Papa.parse<Row>(text, { header: true, skipEmptyLines: true });
   return { rows: res.data, fields: res.meta.fields ?? [] };
 }
