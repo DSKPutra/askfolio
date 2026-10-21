@@ -41,3 +41,10 @@ export function num(s: string | undefined): number {
   if (t === '' || t.toLowerCase() === 'nan') return NaN;
   return Number(t);
 }
+
+/** Read a CSV fully, also returning the header fields (for column counts). */
+export function readCsvFields(path: string): { rows: Row[]; fields: string[] } {
+  const text = readFileSync(path, 'utf8').replace(/^﻿/, '');
+  const res = Papa.parse<Row>(text, { header: true, skipEmptyLines: true });
+  return { rows: res.data, fields: res.meta.fields ?? [] };
+}

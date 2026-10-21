@@ -30,3 +30,18 @@ export const SRC_ID = {
   idxWarrant: X('e-IPO_Indonesia_Data_-_Investment', 'Warrant - Price D1.csv'),
   idxCompanies: X('Indonesian_Public_Companies', 'idx_listed_companies.csv'),
 } as const;
+
+export const SRC_X = {
+  cryptoPrices: X('Crypto_Prices_Historical_Data'),
+  coingecko: X('Daily_Crypto_Market_Tracker_CoinGecko', 'crypto_daily_history.csv'),
+  centralbank: X('Central_Bank_Balance_Sheets__Global_Liquidity', 'central_bank_balance_sheets_global_liquidity_enriched.csv'),
+  fintech: X('Fintech_Product_Adoption_and_Reviews', 'fintech-product-adoption-and-reviews.csv', 'fintech_product_adoption_and_reviews__2026-09-08__f94b9fc2.csv'),
+  salary: X('Global_Salary_Data_by_Skill__Role_620k_jobs', 'skill_salary_percentiles_global_sample.csv'),
+  startup: X('Global_Startup_Funding_Rounds_2019_2026', 'global_startup_funding_sample.csv'),
+  food: X('Indonesian_Food_Delivery_Benchmark_-_10k_Menus', 'indonesian_food_delivery_benchmark.csv'),
+  companies: X('Open_Company_Database_5M_companies_2026', 'open_company_database_sample.csv'),
+  personalfinance: X('Personal_Finance_and_Financial_Independence', 'personal-finance-and-financial-independence.csv', 'personal_finance_and_financial_independence__2026-09-16__f1d77e5b.csv'),
+  vcnetwork: X('VC_Co-Investment_Network-_303k_Investor_Pairs', 'investor_coinvestment_network_sample.csv'),
+  vcdirectory: X('VC_Investor_Directory_2026-_35k_Startup_Investors', 'vc_investor_directory_sample.csv'),
+  housing: X('Indonesia_Affordable_Housing', 'indonesia_housing_dataset.csv'),
+} as const;
