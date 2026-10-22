@@ -12,7 +12,7 @@ const SKIP_DIRS = new Set([
   'node_modules', 'dist', 'dev-dist', 'coverage', 'kit', 'data', 'Dataset', '.git', 'android', 'ios',
   'playwright-report', 'test-results', '.vercel', '.netlify', '.lighthouseci',
 ]);
-const SKIP_PATHS = new Set(['public/data', 'public/pdfjs']);
+const SKIP_PATHS = new Set(['public/data', 'public/pdfjs', '.vercel', '.netlify']);
 
 function walk(dir: string, out: string[]): void {
   for (const name of readdirSync(dir)) {

@@ -35,3 +35,4 @@ reports/
 .claude/
 public/pdfjs/
 public/licenses.json
+.vercel

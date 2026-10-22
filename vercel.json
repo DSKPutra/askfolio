@@ -6,7 +6,7 @@
   "outputDirectory": "dist",
   "functions": { "api/index.ts": { "maxDuration": 60 } },
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api?route=:path*" },
+    { "source": "/api/(.*)", "destination": "/api?route=$1" },
     { "source": "/((?!api/|api$|data/|assets/|icons/|brand/|pdfjs/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "headers": [
@@ -23,7 +23,7 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://finandex.vercel.app https://finandex.netlify.app; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://finandex-beta.vercel.app https://finandex-beta.netlify.app; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
