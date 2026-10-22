@@ -108,6 +108,48 @@ function periodFrom(q: string): string | null {
   return null;
 }
 
+/** Scenario keywords for scam questions (id/en). */
+const SCAM_PATTERNS: [RegExp, string][] = [
+  [/\botp\b|phishing|kode verifikasi|password|pin\b|akun (saya )?(dibobol|diretas)|apk|mengaku (dari )?bank|social engineering|saldo (saya )?(terkuras|hilang)/i, 'phishing_otp'],
+  [/investasi (bodong|ilegal)|ponzi|robot trading|skema piramida|imbal hasil (tinggi|pasti)|fraudulent investment/i, 'investasi_ilegal'],
+  [/pinjol|pinjaman (online|daring)|debt collector|penagihan|online loan|lender/i, 'pinjol_ilegal'],
+  [/salah transfer|keliru transfer|wrong account|mistaken transfer|dana (asing|nyasar)/i, 'salah_transfer'],
+  [/skimming|transaksi (yang )?tidak (saya )?(kenal|lakukan)|kartu (kredit|debit) (dibobol|disalahgunakan)|unrecogni[sz]ed/i, 'skimming_fraud'],
+  [/rekening (penampung|bodong)|money mule|(pinjam|minjam|jual|sewa)\w* (nomor )?rekening|lend (my )?account|sell (my )?account/i, 'rekening_penampung'],
+  [/data (pribadi )?(saya )?(bocor|disalahgunakan)|kebocoran data|data leak/i, 'kebocoran_data'],
+  [/jual beli online|belanja online|marketplace|olshop|penjual fiktif|online shopping|transfer ke (rekening )?penipu|kena tipu|ditipu|tertipu|scammed|was scammed/i, 'penipuan_online'],
+];
+const SCAM_WORD = /tipu|penipuan|scam|ditipu|kena tipu|penipu|fraud|dibobol|terkuras|bodong|ilegal|lapor(kan)? penipuan|report (a )?scam/i;
+const FINANCE_WORD = /bank|perbankan|ojk|otoritas jasa keuangan|bank indonesia|\bbi\b|lps|simpanan|deposito|kredit|nasabah|rahasia bank|transfer|konsumen|consumer|asuransi|pinjaman|pinjol|data pribadi|personal data|ite\b|pencucian uang|tppu|money laundering|investasi|e-wallet|dompet digital|uang elektronik|p2sk|pojk|pbi|banking|deposit/i;
+
+/** English legal terms → the Indonesian words used in the statutes (search runs on Indonesian text). */
+const EN_ID: Record<string, string> = {
+  rights: 'hak', right: 'hak', consumer: 'konsumen', consumers: 'konsumen', negligent: 'kelalaian', negligence: 'kelalaian', lose: 'kerugian', loss: 'kerugian', losses: 'kerugian', compensation: 'ganti rugi',
+  investigator: 'penyidik', investigators: 'penyidik', suspect: 'tersangka', defendant: 'terdakwa', detention: 'penahanan', arrest: 'penangkapan', pretrial: 'praperadilan', evidence: 'alat bukti', witness: 'saksi',
+  fraud: 'penipuan', scam: 'penipuan', penalty: 'pidana', penalties: 'pidana', criminal: 'pidana', prison: 'penjara', fine: 'denda', secrecy: 'rahasia', customer: 'nasabah', customers: 'nasabah', deposit: 'simpanan', deposits: 'simpanan',
+  transfer: 'transfer dana', laundering: 'pencucian uang', data: 'data pribadi', personal: 'pribadi', complaint: 'pengaduan', complaints: 'pengaduan', lender: 'penyelenggara pendanaan', loan: 'pinjaman', collection: 'penagihan', license: 'izin', licence: 'izin',
+  state: 'negara', sovereignty: 'kedaulatan', republic: 'republik', president: 'presiden', definition: 'yang dimaksud dengan',
+};
+
+function lawPlan(question: string, qw: string[]): { calls: Call[] } | null {
+  const art = /(?:pasal|article)\s+(\d+)/i.exec(question);
+  if (art) {
+    const doc = /uud|constitution|1945/i.test(question) ? 'uud-1945-naskah-asli' : /kuhap baru|new kuhap|20\/2025/i.test(question) ? 'uu-20-2025-kuhap' : /kuhap|criminal procedure|8\/1981/i.test(question) ? 'uu-8-1981-kuhap' : null;
+    if (doc) return { calls: [{ name: 'get_pasal', input: { doc_id: doc, nomor: art[1]!, ayat: null } }] };
+  }
+  qw = qw.flatMap((w) => (EN_ID[w] ? EN_ID[w].split(' ') : [w]));
+  const scenario = SCAM_PATTERNS.find(([re]) => re.test(question))?.[1] ?? null;
+  const keywords = qw.filter((w) => !['saya', 'apa', 'bagaimana', 'harus', 'lakukan', 'bisakah', 'menurut', 'hukum', 'law', 'what', 'should', 'do'].includes(w)).join(' ').slice(0, 180) || 'penipuan';
+  if (scenario) return { calls: [{ name: 'scam_guide', input: { scenario } }] };
+  if (SCAM_WORD.test(question) || /lapor|report|melapor|mengadu|pengaduan|complain/i.test(question)) return { calls: [{ name: 'scam_guide', input: { scenario: null } }] };
+  if (FINANCE_WORD.test(question)) return { calls: [{ name: 'search_law', input: { query: keywords, doc_ids: null, part: 'batang_tubuh', limit: 5, scope: 'finance' } }] };
+  if (/sumber hukum|dokumen (apa|hukum)|legal sources|which (laws|sources)/i.test(question)) return { calls: [{ name: 'list_sources', input: {} }] };
+  if (/(lama dan baru|lama & baru|bandingkan kuhap|old and new|compare .*kuhap)/i.test(question)) return { calls: [{ name: 'compare_versions', input: { topic: keywords.replace(/kuhap|lama|baru|old|new|bandingkan|compare/gi, '').trim() || 'penahanan' } }] };
+  const docs = /kuhap|criminal procedure|acara pidana/i.test(question) ? ['uu-8-1981-kuhap', 'uu-20-2025-kuhap'] : /uud|constitution|undang-undang dasar/i.test(question) ? ['uud-1945-naskah-asli'] : null;
+  const q = keywords.replace(/\b(kuhap|uud|1945|constitution|criminal|procedure)\b/gi, ' ').replace(/\s+/g, ' ').trim() || keywords;
+  return { calls: [{ name: 'search_law', input: { query: q, doc_ids: docs, part: null, limit: 5, scope: null } }] };
+}
+
 /** Time-series metric named by the question (rank tools take a free-text metric key). */
 function metricFrom(q: string): string {
   if (/volatil/i.test(q)) return 'vol_1Y';
@@ -143,6 +185,12 @@ export class DataLlm implements Llm {
 
     if (/siapa (pembuat|yang membuat)|who (made|built|created)|pencipta/i.test(question)) return { calls: [{ name: 'app_info', input: {} }] };
     if (/kualitas data|data quality|sumber data|data source|dataset apa|data apa|what data/i.test(question)) return { calls: [{ name: 'dataset_info', input: {} }, { name: 'data_quality', input: { id: null } }].filter((c) => this.has(c.name)) };
+
+    // 1b) My LAIwyer: scam help and financial-law questions.
+    if (this.dex === 'mylaiwyer') {
+      const law = lawPlan(question, qw);
+      if (law) return law;
+    }
 
     // 2) Entities in time-series Dex.
     const ad = makeAdapters(this.store)[this.dex];
@@ -434,6 +482,35 @@ export function compose(results: Results, dex: DexId, L: Locale, tools: ToolDef[
         parts.push(L === 'id' ? 'Finandex dirancang dan dikembangkan oleh Dea Saka Kurnia Putra.' : 'Finandex is designed and developed by Dea Saka Kurnia Putra.');
         continue;
       }
+      if (tool === 'scam_guide') {
+        const g = data as { label?: string; scenarios?: { label: string }[]; signs?: string[]; steps?: string[]; channels?: { name: string; how: string }[]; legal_basis?: { document: string; pasal: string | null; page: number; quote: string }[]; caution?: string };
+        if (g.scenarios) {
+          const out = [L === 'id' ? '**Bila Anda menjadi korban penipuan keuangan, segera:**' : '**If you are a victim of a financial scam, act now:**'];
+          out.push(...(g.channels ?? []).map((c, i) => `${i + 1}. **${c.name}** — ${c.how}`));
+          out.push(L === 'id' ? `\nUntuk langkah & dasar hukum yang lebih spesifik, sebutkan jenis kejadiannya: ${g.scenarios.map((x) => x.label).join('; ')}.` : `\nFor specific steps and the legal basis, tell me which applies: ${g.scenarios.map((x) => x.label).join('; ')}.`);
+          parts.push(out.join('\n'));
+          continue;
+        }
+        const out = [`**${g.label ?? ''}**`];
+        if (g.signs?.length) out.push(L === 'id' ? '\n**Ciri-ciri:**' : '\n**Signs:**', ...g.signs.map((x) => `- ${x}`));
+        if (g.steps?.length) out.push(L === 'id' ? '\n**Yang perlu segera dilakukan:**' : '\n**What to do now:**', ...g.steps.map((x, i) => `${i + 1}. ${x}`));
+        if (g.channels?.length) out.push(L === 'id' ? '\n**Lapor ke:**' : '\n**Report to:**', ...g.channels.map((c) => `- **${c.name}** — ${c.how}`));
+        if (g.legal_basis?.length) out.push(L === 'id' ? '\n**Dasar hukum yang relevan (kutipan teks resmi):**' : '\n**Relevant legal basis (official text quotes):**', ...g.legal_basis.slice(0, 5).map((b) => `- ${b.document}${b.pasal ? `, ${b.pasal}` : ''} (${L === 'id' ? 'hal.' : 'p.'} ${b.page}): “${b.quote.replace(/\s+/g, ' ').slice(0, 260)}…”`));
+        if (g.caution) out.push(`\n_${g.caution}_`);
+        parts.push(out.join('\n'));
+        continue;
+      }
+      if (tool === 'get_pasal' && typeof data.text === 'string') {
+        parts.push(`**${String(data.document ?? '')}, ${String(data.pasal ?? '')}${data.ayat ? ` ayat (${String(data.ayat)})` : ''}** (${L === 'id' ? 'hal.' : 'p.'} ${String(data.page ?? '')}):\n\n> ${data.text.replace(/\s+/g, ' ').slice(0, 1200)}${data.note ? `\n\n_${String(data.note)}_` : ''}`);
+        continue;
+      }
+      if (tool === 'search_law') {
+        const r = data as { results?: { document: string; pasal: string | null; page: number; quote: string }[] };
+        if (r.results?.length) {
+          parts.push([L === 'id' ? '**Ketentuan yang ditemukan dalam teks peraturan:**' : '**Provisions found in the regulations:**', ...r.results.slice(0, 5).map((b) => `- **${b.document}${b.pasal ? `, ${b.pasal}` : ''}** (${L === 'id' ? 'hal.' : 'p.'} ${b.page}): “${b.quote.replace(/\s+/g, ' ').slice(0, 320)}…”`)].join('\n'));
+          continue;
+        }
+      }
       if (tool === 'dataset_info') {
         const files = (data.source_files as { file: string }[] | undefined)?.map((f) => f.file).join(', ');
         parts.push(L === 'id' ? `Dataset ${d?.name ?? dex}: ${files ?? '-'} · data per ${String(data.as_of ?? '-')}${data.entities ? ` · ${formatNumber(data.entities as number, L)} entitas` : ''} · lisensi ${String(data.licence ?? '-')}.` : `${d?.name ?? dex} dataset: ${files ?? '-'} · as of ${String(data.as_of ?? '-')}${data.entities ? ` · ${formatNumber(data.entities as number, L)} entities` : ''} · licence ${String(data.licence ?? '-')}.`);
@@ -448,6 +525,10 @@ export function compose(results: Results, dex: DexId, L: Locale, tools: ToolDef[
     return L === 'id'
       ? `Data untuk pertanyaan ini belum ditemukan di ${d?.name ?? dex}${why ? ` (${why})` : ''}. Coba sebut nama aset/entitas secara spesifik, atau gunakan salah satu saran pertanyaan.`
       : `No matching data was found in ${d?.name ?? dex}${why ? ` (${why})` : ''}. Try naming a specific asset/entity, or use one of the suggested questions.`;
+  }
+  if (dex === 'mylaiwyer') {
+    const lawNote = L === 'id' ? '_Informasi hukum berdasarkan dokumen yang tersedia, bukan nasihat hukum dan tidak menggantikan advokat. Untuk kasus nyata, hubungi advokat atau Lembaga Bantuan Hukum. Dalam keadaan darurat, hubungi 112._' : '_Legal information based on the available documents; not legal advice and not a substitute for a lawyer. For real cases, contact a lawyer or a Legal Aid Institute (LBH). In an emergency, call 112._';
+    return `${parts.join('\n\n')}\n\n${lawNote}`;
   }
   const note = L === 'id' ? '_Jawaban disusun otomatis langsung dari dataset (grafik & rincian perhitungan di bawah). Data historis untuk edukasi, bukan nasihat investasi._' : '_Answer assembled directly from the dataset (charts and calculation details below). Historical data for education, not investment advice._';
   return `${parts.join('\n\n')}\n\n${note}`;

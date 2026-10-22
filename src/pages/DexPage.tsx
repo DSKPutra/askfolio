@@ -15,7 +15,9 @@ import { EntityDetail } from '../features/dex/EntityDetail';
 import { GlobalMarkets } from '../features/dex/GlobalMarkets';
 import { tabConfig } from '../features/dex/panels';
 import { ToolPanel } from '../features/dex/ToolPanel';
+import { FinanceLaw } from '../features/law/FinanceLaw';
 import { LawGlossary } from '../features/law/LawGlossary';
+import { ScamHelp } from '../features/law/ScamHelp';
 import { useManifest } from '../lib/data';
 import { useLocale } from '../lib/locale';
 
@@ -65,7 +67,9 @@ function FeatureTab({ dex, tab, entity }: { dex: DexEntry; tab: string; entity: 
       )}
       {cfg.special === 'global-markets' && <GlobalMarkets />}
       {cfg.special === 'law-glossary' && <LawGlossary />}
-      {cfg.panels.map((p, i) => (
+      {cfg.special === 'law-scam' && <ScamHelp />}
+      {cfg.special === 'law-finance' && !search && <FinanceLaw />}
+      {!(cfg.special === 'law-scam' || (cfg.special === 'law-finance' && !search)) && cfg.panels.map((p, i) => (
         <ToolPanel key={`${tab}-${i}-${p.tool}-${search?.value ?? ''}`} dex={dex.id} panel={p} entity={entity} search={cfg.searchKey && p.input && cfg.searchKey in p.input ? search : undefined} />
       ))}
     </div>

@@ -10,7 +10,7 @@ export type Panel = {
   fixed?: string[];
 };
 /** Special, non-tool views. */
-export type Special = 'global-markets' | 'entity' | 'law-glossary';
+export type Special = 'global-markets' | 'entity' | 'law-glossary' | 'law-scam' | 'law-finance';
 export type TabConfig = { panels: Panel[]; special?: Special; searchKey?: string };
 
 /** Input keys that receive the `:entity` route parameter. */
@@ -176,6 +176,8 @@ export const TABS: Record<DexId, Record<string, TabConfig>> = {
   fintechdex: SOCIAL,
   personalfinandex: SOCIAL,
   mylaiwyer: {
+    scam: { special: 'law-scam', panels: [P('scam_guide', { scenario: null })] },
+    finance: { special: 'law-finance', panels: [P('search_law', { query: 'penipuan', scope: 'finance', limit: 6 })], searchKey: 'query' },
     sources: { panels: [P('list_sources')] },
     articles: { panels: [P('search_law', { query: 'penyidik', limit: 10 }), P('get_pasal', { doc_id: 'uud-1945-naskah-asli', nomor: '1', ayat: null })], searchKey: 'query' },
     compare: { panels: [P('compare_versions', { topic: 'penahanan' })] },

@@ -7,6 +7,7 @@ import { Card } from '../../components/ui';
 import { DATA_NOTES } from '../../config/data-notes';
 import type { DexEntry } from '../../config/dex-registry';
 import { INPUT_FILES } from '../../config/inputs';
+import { FINANCE_LAW_DOCS } from '../../config/law-finance';
 import { useManifest } from '../../lib/data';
 import { useLocale } from '../../lib/locale';
 import { formatNumber } from '../../shared/format';
@@ -36,6 +37,22 @@ export function DataTab({ dex }: { dex: DexEntry }) {
             </li>
           ))}
         </ul>
+        {dex.id === 'mylaiwyer' && (
+          <>
+            <p className="mb-1 mt-3 text-sm font-semibold">{locale === 'id' ? 'Korpus hukum sektor keuangan (sumber resmi)' : 'Financial-sector law corpus (official sources)'}</p>
+            <ul className="space-y-1 text-xs">
+              {FINANCE_LAW_DOCS.map((d) => (
+                <li key={d.doc_id} className="break-all">
+                  <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand-text underline">
+                    {d.short[locale]}
+                  </a>{' '}
+                  <span className="text-muted">· {d.pages} {locale === 'id' ? 'hal.' : 'pp.'} · SHA-256 {d.sha256.slice(0, 12)}…</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-1 text-xs text-muted">{locale === 'id' ? 'Teks peraturan perundang-undangan tidak dilindungi hak cipta (UU 28/2014 Pasal 42).' : 'Statutory texts are not subject to copyright in Indonesia (Law 28/2014 Art. 42).'}</p>
+          </>
+        )}
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
           <AsOfBadge asOf={entry?.as_of ?? dex.asOf} />
           <span className="text-xs text-muted">{t('data.realtime')}</span>

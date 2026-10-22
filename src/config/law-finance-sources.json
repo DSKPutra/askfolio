@@ -1,0 +1,410 @@
+{
+ "note": "Official sources of Indonesian financial-sector law for My LAIwyer (downloaded from government sites; mirrored in GitHub release law-docs-v1). Statutory texts: UU 28/2014 Pasal 42 — no copyright on laws and regulations.",
+ "docs": [
+  {
+   "doc_id": "uu-4-2023-p2sk",
+   "kind": "UU",
+   "number": "4",
+   "year": 2023,
+   "title": "Undang-Undang Nomor 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan",
+   "short": {
+    "id": "UU 4/2023 (P2SK)",
+    "en": "Law 4/2023 (Financial Sector Development)"
+   },
+   "url": "https://peraturan.go.id/files/uu-no-4-tahun-2023.pdf",
+   "file": "uu-4-2023-p2sk.pdf",
+   "topics": [
+    "sektor keuangan",
+    "perbankan",
+    "ojk",
+    "pelindungan konsumen",
+    "pidana perbankan"
+   ],
+   "bytes": 15428030,
+   "sha256": "b9fa3b06922d3f727b7189c9cb21f698c04defcdda2c46fbc1da3df64ca16944",
+   "pages": 819,
+   "max_pasal": 898
+  },
+  {
+   "doc_id": "uu-4-2026-perubahan-p2sk",
+   "kind": "UU",
+   "number": "4",
+   "year": 2026,
+   "title": "Undang-Undang Nomor 4 Tahun 2026 tentang Perubahan atas Undang-Undang Nomor 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan",
+   "short": {
+    "id": "UU 4/2026 (Perubahan P2SK)",
+    "en": "Law 4/2026 (P2SK amendment)"
+   },
+   "url": "https://peraturan.go.id/files/uu-no-4-tahun-2026.pdf",
+   "file": "uu-4-2026-perubahan-p2sk.pdf",
+   "topics": [
+    "sektor keuangan"
+   ],
+   "bytes": 13974767,
+   "sha256": "dab7d3f02b6b4755c4f64eb3859ea6d717559465fc7947b0f10d0cb79a884483",
+   "pages": 207,
+   "max_pasal": 908
+  },
+  {
+   "doc_id": "uu-21-2011-ojk",
+   "kind": "UU",
+   "number": "21",
+   "year": 2011,
+   "title": "Undang-Undang Nomor 21 Tahun 2011 tentang Otoritas Jasa Keuangan",
+   "short": {
+    "id": "UU 21/2011 (OJK)",
+    "en": "Law 21/2011 (OJK)"
+   },
+   "url": "https://peraturan.go.id/files/uu21-2011bt.pdf",
+   "file": "uu-21-2011-ojk.pdf",
+   "topics": [
+    "ojk",
+    "pengawasan"
+   ],
+   "bytes": 165584,
+   "sha256": "9083309cbe6c681743eac8349dfba8000806bb45ff7969a5f8996f93faade6e2",
+   "pages": 36,
+   "max_pasal": 71
+  },
+  {
+   "doc_id": "uu-7-1992-perbankan",
+   "kind": "UU",
+   "number": "7",
+   "year": 1992,
+   "title": "Undang-Undang Nomor 7 Tahun 1992 tentang Perbankan",
+   "short": {
+    "id": "UU 7/1992 (Perbankan)",
+    "en": "Law 7/1992 (Banking)"
+   },
+   "url": "https://peraturan.go.id/files/UU+NO+7+TH+1992.pdf",
+   "file": "uu-7-1992-perbankan.pdf",
+   "topics": [
+    "perbankan",
+    "rahasia bank"
+   ],
+   "bytes": 179045,
+   "sha256": "8e3a861bb0a9691d9a591633375a3c74a6e28b61291bc971419019c1510cddc4",
+   "pages": 68,
+   "max_pasal": 61
+  },
+  {
+   "doc_id": "uu-10-1998-perbankan",
+   "kind": "UU",
+   "number": "10",
+   "year": 1998,
+   "title": "Undang-Undang Nomor 10 Tahun 1998 tentang Perubahan atas Undang-Undang Nomor 7 Tahun 1992 tentang Perbankan",
+   "short": {
+    "id": "UU 10/1998 (Perubahan Perbankan)",
+    "en": "Law 10/1998 (Banking amendment)"
+   },
+   "url": "https://peraturan.go.id/files/uu10-1998.pdf",
+   "file": "uu-10-1998-perbankan.pdf",
+   "topics": [
+    "perbankan",
+    "rahasia bank"
+   ],
+   "bytes": 139998,
+   "sha256": "c2fbb457d4417e2324c4b002b9158fb3d3e832e2341adde4fdcbda7a46d45548",
+   "pages": 63,
+   "max_pasal": 378
+  },
+  {
+   "doc_id": "uu-23-1999-bank-indonesia",
+   "kind": "UU",
+   "number": "23",
+   "year": 1999,
+   "title": "Undang-Undang Nomor 23 Tahun 1999 tentang Bank Indonesia",
+   "short": {
+    "id": "UU 23/1999 (Bank Indonesia)",
+    "en": "Law 23/1999 (Bank Indonesia)"
+   },
+   "url": "https://peraturan.go.id/files/uu23-1999.pdf",
+   "file": "uu-23-1999-bank-indonesia.pdf",
+   "topics": [
+    "bank indonesia",
+    "sistem pembayaran"
+   ],
+   "bytes": 235107,
+   "sha256": "129238b44e356a09074a931ad8d2ea19372c79e5fed0ee71c6d4cd89172aa378",
+   "pages": 55,
+   "max_pasal": 79
+  },
+  {
+   "doc_id": "uu-24-2004-lps",
+   "kind": "UU",
+   "number": "24",
+   "year": 2004,
+   "title": "Undang-Undang Nomor 24 Tahun 2004 tentang Lembaga Penjamin Simpanan",
+   "short": {
+    "id": "UU 24/2004 (LPS)",
+    "en": "Law 24/2004 (Deposit Insurance)"
+   },
+   "url": "https://peraturan.go.id/files/uu24-2004.pdf",
+   "file": "uu-24-2004-lps.pdf",
+   "topics": [
+    "penjaminan simpanan"
+   ],
+   "bytes": 150185,
+   "sha256": "4e8d55756d67b9c869e85ced7d24d8380bf1cb2b70a3576d58fa90cb3396f6fc",
+   "pages": 30,
+   "max_pasal": 103
+  },
+  {
+   "doc_id": "uu-8-1999-perlindungan-konsumen",
+   "kind": "UU",
+   "number": "8",
+   "year": 1999,
+   "title": "Undang-Undang Nomor 8 Tahun 1999 tentang Perlindungan Konsumen",
+   "short": {
+    "id": "UU 8/1999 (Perlindungan Konsumen)",
+    "en": "Law 8/1999 (Consumer Protection)"
+   },
+   "url": "https://peraturan.go.id/files/uu8-1999.pdf",
+   "file": "uu-8-1999-perlindungan-konsumen.pdf",
+   "topics": [
+    "perlindungan konsumen",
+    "ganti rugi"
+   ],
+   "bytes": 192920,
+   "sha256": "df253c489e78e66d9da5337c85bebe1384c68763af2001335b4880b0f225d816",
+   "pages": 54,
+   "max_pasal": 65
+  },
+  {
+   "doc_id": "uu-3-2011-transfer-dana",
+   "kind": "UU",
+   "number": "3",
+   "year": 2011,
+   "title": "Undang-Undang Nomor 3 Tahun 2011 tentang Transfer Dana",
+   "short": {
+    "id": "UU 3/2011 (Transfer Dana)",
+    "en": "Law 3/2011 (Fund Transfer)"
+   },
+   "url": "https://peraturan.go.id/files/uu3-2011bt.pdf",
+   "file": "uu-3-2011-transfer-dana.pdf",
+   "topics": [
+    "transfer dana",
+    "salah transfer"
+   ],
+   "bytes": 119669,
+   "sha256": "8ad80350de0df65ea6ae56d7efea72dc61efd512a79fee1bb21fbb71846f4ab2",
+   "pages": 45,
+   "max_pasal": 91
+  },
+  {
+   "doc_id": "uu-8-2010-tppu",
+   "kind": "UU",
+   "number": "8",
+   "year": 2010,
+   "title": "Undang-Undang Nomor 8 Tahun 2010 tentang Pencegahan dan Pemberantasan Tindak Pidana Pencucian Uang",
+   "short": {
+    "id": "UU 8/2010 (TPPU)",
+    "en": "Law 8/2010 (Anti-Money Laundering)"
+   },
+   "url": "https://peraturan.go.id/files/uu8-2010bt.pdf",
+   "file": "uu-8-2010-tppu.pdf",
+   "topics": [
+    "pencucian uang",
+    "rekening penampung"
+   ],
+   "bytes": 115368,
+   "sha256": "34e763d0a51ecf9cc7b4504aabb1cfd27c4995d0d6e7d7952a037f91cfdd2666",
+   "pages": 41,
+   "max_pasal": 100
+  },
+  {
+   "doc_id": "uu-11-2008-ite",
+   "kind": "UU",
+   "number": "11",
+   "year": 2008,
+   "title": "Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "short": {
+    "id": "UU 11/2008 (ITE)",
+    "en": "Law 11/2008 (EIT)"
+   },
+   "url": "https://peraturan.go.id/files/UU+11+Tahun+2008.pdf",
+   "file": "uu-11-2008-ite.pdf",
+   "topics": [
+    "ite",
+    "penipuan online",
+    "berita bohong"
+   ],
+   "bytes": 273973,
+   "sha256": "3c174f55b4a7982af268a24316e3353c8e712fc8a57e87a9fdf0502da4ea0af3",
+   "pages": 38,
+   "max_pasal": 54
+  },
+  {
+   "doc_id": "uu-19-2016-ite",
+   "kind": "UU",
+   "number": "19",
+   "year": 2016,
+   "title": "Undang-Undang Nomor 19 Tahun 2016 tentang Perubahan atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "short": {
+    "id": "UU 19/2016 (Perubahan ITE)",
+    "en": "Law 19/2016 (EIT amendment)"
+   },
+   "url": "https://peraturan.go.id/files/UU+19+Tahun+2016.pdf",
+   "file": "uu-19-2016-ite.pdf",
+   "topics": [
+    "ite"
+   ],
+   "bytes": 709687,
+   "sha256": "d412325d49f6c61beb403f69c4ed5c4b6df9ab216c72531054ff75988f5f170a",
+   "pages": 22,
+   "max_pasal": 458
+  },
+  {
+   "doc_id": "uu-1-2024-ite",
+   "kind": "UU",
+   "number": "1",
+   "year": 2024,
+   "title": "Undang-Undang Nomor 1 Tahun 2024 tentang Perubahan Kedua atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "short": {
+    "id": "UU 1/2024 (Perubahan Kedua ITE)",
+    "en": "Law 1/2024 (2nd EIT amendment)"
+   },
+   "url": "https://peraturan.go.id/files/uu-no-1-tahun-2024.pdf",
+   "file": "uu-1-2024-ite.pdf",
+   "topics": [
+    "ite",
+    "berita bohong",
+    "kerugian konsumen"
+   ],
+   "bytes": 2178368,
+   "sha256": "8cdb6721dd5f46e45f13e8a3588c6c1efc614ea4361ce94efebe40e8e4289d5f",
+   "pages": 39,
+   "max_pasal": 458
+  },
+  {
+   "doc_id": "uu-27-2022-pdp",
+   "kind": "UU",
+   "number": "27",
+   "year": 2022,
+   "title": "Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi",
+   "short": {
+    "id": "UU 27/2022 (PDP)",
+    "en": "Law 27/2022 (Personal Data Protection)"
+   },
+   "url": "https://peraturan.go.id/files/Salinan+UU+Nomor+27+Tahun+2022.pdf",
+   "file": "uu-27-2022-pdp.pdf",
+   "topics": [
+    "data pribadi",
+    "kebocoran data"
+   ],
+   "bytes": 2977828,
+   "sha256": "ed952dea04b87d14ecf037f9f324a65d50b396ddd34fc28ddf9ff014391971f6",
+   "pages": 50,
+   "max_pasal": 76
+  },
+  {
+   "doc_id": "uu-1-2023-kuhp",
+   "kind": "UU",
+   "number": "1",
+   "year": 2023,
+   "title": "Undang-Undang Nomor 1 Tahun 2023 tentang Kitab Undang-Undang Hukum Pidana",
+   "short": {
+    "id": "UU 1/2023 (KUHP baru)",
+    "en": "Law 1/2023 (new Criminal Code)"
+   },
+   "url": "https://peraturan.go.id/files/uu1-2023.pdf",
+   "file": "uu-1-2023-kuhp.pdf",
+   "topics": [
+    "penipuan",
+    "penggelapan",
+    "pidana"
+   ],
+   "bytes": 5304627,
+   "sha256": "f8ed69187c909a87062f20ffcae77eda22bbb2ab5948aed2d4ec7c6652339ab1",
+   "pages": 345,
+   "max_pasal": 623
+  },
+  {
+   "doc_id": "pojk-22-2023-pelindungan-konsumen",
+   "kind": "POJK",
+   "number": "22",
+   "year": 2023,
+   "title": "Peraturan Otoritas Jasa Keuangan Nomor 22 Tahun 2023 tentang Pelindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan",
+   "short": {
+    "id": "POJK 22/2023 (Pelindungan Konsumen)",
+    "en": "OJK Reg. 22/2023 (Consumer Protection)"
+   },
+   "url": "https://peraturan.bpk.go.id/Download/362621/POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf",
+   "file": "pojk-22-2023-pelindungan-konsumen.pdf",
+   "topics": [
+    "pengaduan",
+    "ganti rugi",
+    "pelindungan konsumen"
+   ],
+   "bytes": 868593,
+   "sha256": "5615b0125906213112a0050f59ea24fcdbb93a3f0f3cbe8da424215bf30363b8",
+   "pages": 131,
+   "max_pasal": 125
+  },
+  {
+   "doc_id": "pojk-12-2024-anti-fraud",
+   "kind": "POJK",
+   "number": "12",
+   "year": 2024,
+   "title": "Peraturan Otoritas Jasa Keuangan Nomor 12 Tahun 2024 tentang Penerapan Strategi Anti Fraud bagi Lembaga Jasa Keuangan",
+   "short": {
+    "id": "POJK 12/2024 (Anti Fraud)",
+    "en": "OJK Reg. 12/2024 (Anti-Fraud)"
+   },
+   "url": "https://peraturan.bpk.go.id/Download/361581/POJK%2012%20Tahun%202024%20Penerapan%20Strategi%20Anti%20Fraud%20bagi%20Lembaga%20Jasa%20Keuangan.pdf",
+   "file": "pojk-12-2024-anti-fraud.pdf",
+   "topics": [
+    "fraud",
+    "skimming"
+   ],
+   "bytes": 766316,
+   "sha256": "2a7ab320b54eae233dddbcca86a6e330c084c55c11f429e85f2b7effff3b04a7",
+   "pages": 67,
+   "max_pasal": 25
+  },
+  {
+   "doc_id": "pojk-40-2024-lpbbti",
+   "kind": "POJK",
+   "number": "40",
+   "year": 2024,
+   "title": "Peraturan Otoritas Jasa Keuangan Nomor 40 Tahun 2024 tentang Layanan Pendanaan Bersama Berbasis Teknologi Informasi",
+   "short": {
+    "id": "POJK 40/2024 (Pinjaman Daring)",
+    "en": "OJK Reg. 40/2024 (P2P Lending)"
+   },
+   "url": "https://ojk.go.id/id/regulasi/Documents/Pages/POJK-40-Tahun-2024-Layanan-Pendanaan-Bersama-Berbasis-Teknologi-Informasi/POJK%2040%20Tahun%202024%20Layanan%20Pendanaan%20Bersama%20Berbasis%20Teknologi%20Informasi.pdf",
+   "file": "pojk-40-2024-lpbbti.pdf",
+   "topics": [
+    "pinjol",
+    "penagihan",
+    "pinjaman online"
+   ],
+   "bytes": 3443568,
+   "sha256": "6cce988bf7634584143b66cde027922d260e6c3746a5675e84fa865e349f6a55",
+   "pages": 217,
+   "max_pasal": 237
+  },
+  {
+   "doc_id": "pbi-3-2023-pelindungan-konsumen",
+   "kind": "PBI",
+   "number": "3",
+   "year": 2023,
+   "title": "Peraturan Bank Indonesia Nomor 3 Tahun 2023 tentang Pelindungan Konsumen Bank Indonesia",
+   "short": {
+    "id": "PBI 3/2023 (Pelindungan Konsumen BI)",
+    "en": "BI Reg. 3/2023 (Consumer Protection)"
+   },
+   "url": "https://peraturan.bpk.go.id/Download/317631/peraturan-bi-no-3-tahun-2023.pdf",
+   "file": "pbi-3-2023-pelindungan-konsumen.pdf",
+   "topics": [
+    "sistem pembayaran",
+    "dompet digital",
+    "pengaduan"
+   ],
+   "bytes": 455898,
+   "sha256": "7cf83667086c339bdf068fc2dcf2e2dbcd54563f0e60c649d9ddb01a8aed7a37",
+   "pages": 40,
+   "max_pasal": 65
+  }
+ ]
+}

@@ -363,12 +363,15 @@
    "Share of non-English content"
   ],
   "mylaiwyer": [
+   "I was scammed into transferring money, what should I do?",
+   "Someone posing as my bank asked for my OTP and drained my balance",
+   "What does the law say about illegal online lenders collecting with threats?",
+   "I transferred money to the wrong account, can I get it back?",
+   "What are the criminal penalties for fraudulent investments under the P2SK Law?",
+   "What are my rights as a consumer if a bank is negligent and I lose money?",
+   "Where do I report a financial scam?",
    "What does Article 1 of the 1945 Constitution say?",
-   "Definition of investigator under the KUHAP",
-   "When does the new KUHAP take effect?",
-   "Suspect's rights under the old and new KUHAP",
-   "What is pretrial review (praperadilan)?",
-   "Which legal sources are available?"
+   "Definition of investigator under the KUHAP"
   ]
  },
  "whitepaper": {
@@ -385,5 +388,19 @@
   "asOf": "As of",
   "license": "Licence",
   "formula": "Formula"
+ },
+ "law": {
+  "scamTitle": "Hit by a financial scam?",
+  "scamIntro": "Pick what is closest to what happened. You will get immediate steps, official reporting channels, and the legal basis quoted from the regulations.",
+  "scamAsk": "Tell My LAIwyer what happened",
+  "scamPlaceholder": "Example: someone posing as my bank asked for my OTP and then my balance was drained…",
+  "urgent": "Important: call your bank right away to block, then report to IASC (iasc.ojk.go.id) and the police. Never share OTPs, PINs, or passwords.",
+  "financeTitle": "Financial-sector & banking law",
+  "financeIntro": "19 official texts: P2SK Law & its amendment, OJK, Banking, Bank Indonesia, LPS, Consumer Protection, Fund Transfer, AML, EIT, PDP, the 2023 Criminal Code, OJK Regs 22/2023, 12/2024, 40/2024, BI Reg 3/2023.",
+  "topics": "Topics",
+  "documents": "Documents",
+  "official": "Official source",
+  "view": "View page 1",
+  "ask": "Ask"
  }
 }

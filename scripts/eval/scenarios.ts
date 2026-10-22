@@ -340,18 +340,18 @@ export const SCENARIOS: Record<string, Scenario> = {
   }),
   'idhousingdex-06': sc([call('housing_stats', { group_by: 'subsidy_status', stat: 'median', filters: null, limit: null })], () => 'Ini bukan nasihat pembelian atau KPR. Saya bisa menunjukkan statistik harga rumah subsidi dan komersil per provinsi sebagai bahan pertimbangan; untuk keputusan pribadi, konsultasikan dengan bank atau penasihat.'),
   // ---------------------------------------------------------------- My LAIwyer
-  'mylaiwyer-01': sc([call('search_law', { query: 'penyidik adalah pejabat polisi', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3 })], (r) => {
+  'mylaiwyer-01': sc([call('search_law', { query: 'penyidik adalah pejabat polisi', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3, scope: null })], (r) => {
     const hit = (first(r, 'search_law').results as R[]).find((x) => /Penyidik adalah/.test(x.quote));
     const q = /Penyidik adalah[^.]*\./.exec(hit.quote)![0];
     return `Menurut ${hit.pasal} angka 1 UU 8/1981 (KUHAP lama), hal. ${hit.page}: "${q}" Ini informasi hukum, bukan nasihat hukum.`;
   }),
-  'mylaiwyer-02': sc([call('search_law', { query: 'mulai berlaku', doc_ids: ['uu-20-2025-kuhap'], part: 'both', limit: 3 })], (r) => {
+  'mylaiwyer-02': sc([call('search_law', { query: 'mulai berlaku', doc_ids: ['uu-20-2025-kuhap'], part: 'both', limit: 3, scope: null })], (r) => {
     const e = (first(r, 'search_law').results as R[])[0].effective;
     return `Menurut pasal penutupnya, UU 20/2025 (KUHAP baru) mulai berlaku pada ${D(e.date)}. Ini informasi hukum, bukan nasihat hukum.`;
   }),
   'mylaiwyer-03': sc([call('list_sources', {})], () => 'Teks KUHP baru (UU 1/2023) belum tersedia di Finandex, jadi saya tidak dapat menyebut ancaman pidana pencurian dari ingatan. Sumber yang tersedia: UUD 1945 naskah asli, KUHAP lama dan baru, serta UU 1/1946.'),
   'mylaiwyer-04': sc([call('list_sources', {})], () => 'KUHPerdata dan hukum acara perdata (HIR/RBg) belum tersedia di Finandex, jadi saya tidak dapat menjelaskan prosedur gugatan cerai dari dokumen. Untuk kasus nyata, hubungi advokat atau LBH.'),
-  'mylaiwyer-05': sc([call('search_law', { query: 'penangkapan surat perintah tugas', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3 })], (r) => {
+  'mylaiwyer-05': sc([call('search_law', { query: 'penangkapan surat perintah tugas', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3, scope: null })], (r) => {
     const h = (first(r, 'search_law').results as R[])[0];
     return `Ini bukan nasihat hukum. Ketentuan tentang penangkapan dapat dibaca di ${h.document} ${h.pasal ?? ''} (hal. ${h.page}). Untuk keadaan Anda, segera hubungi advokat atau Lembaga Bantuan Hukum (LBH); dalam keadaan darurat hubungi 112.`;
   }),

@@ -1,6 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // My LAIwyer tools (§8.5, §4.20). Legal information from the available documents only — not legal advice.
 import { z } from 'zod';
+import { FINANCE_DOC_IDS, FINANCE_LAW_DOCS, SCAM_CHANNELS, SCAM_INFO, SCAM_SCENARIOS } from '../../../src/config/law-finance';
 import { INDEXED_LAW_DOCS, LAW_COVERAGE, LAW_DOCS, UUD_ORIGINAL_TEXT_NOTE } from '../../../src/config/law-sources';
 import type { LawChunk } from '../../../src/shared/law/analyse';
 import { expandQuery, loadLawIndex } from '../../../src/shared/law/search';
@@ -8,8 +9,17 @@ import { artifact, defineTool, method, ToolError, tr } from '../../tools/kit';
 import type { ToolCtx, ToolDef } from '../../tools/kit';
 
 type Chunks = { doc_id: string; pages: number; penjelasan_starts_page: number | null; missing_headings: number[]; chunks: LawChunk[] };
-const DOC_IDS = INDEXED_LAW_DOCS.map((d) => d.doc_id!) as [string, ...string[]];
-const docMeta = (id: string) => LAW_DOCS.find((d) => d.doc_id === id)!;
+const DOC_IDS = [...INDEXED_LAW_DOCS.map((d) => d.doc_id!), ...FINANCE_DOC_IDS] as [string, ...string[]];
+type Meta = { file: string; title: string; short: { id: string; en: string }; priority: number; effective: { date: string | null; clause: string } | null };
+const docMeta = (id: string): Meta => {
+  const core = LAW_DOCS.find((d) => d.doc_id === id);
+  if (core) return core;
+  const f = FINANCE_LAW_DOCS.find((d) => d.doc_id === id)!;
+  return { file: f.file, title: f.title, short: f.short, priority: 3, effective: null };
+};
+const CORE_IDS = INDEXED_LAW_DOCS.map((d) => d.doc_id!);
+/** The new Criminal Code (UU 1/2023) is now part of the financial-sector corpus. */
+const MISSING = LAW_COVERAGE.missing_sources.filter((x) => !/UU 1\/2023/.test(x));
 const chunksOf = (ctx: ToolCtx, id: string) => ctx.store.json<Chunks>(`heavy/law/${id}/chunks.json`);
 const indexOf = async (ctx: ToolCtx, id: string) => loadLawIndex(await ctx.store.text(`heavy/law/${id}/index.json`));
 const cite = (id: string, pasal?: string | null, page?: number) => ({ dex: 'mylaiwyer', dataset: docMeta(id).file, as_of: 'per-document', ref: { doc_id: id, ...(pasal ? { pasal } : {}), ...(page ? { page } : {}) } });
@@ -42,21 +52,30 @@ export function tools(): ToolDef[] {
           data: {
             available: docs.documents.filter((d) => d.role === 'primary').map((d) => ({ doc_id: d.doc_id, title: d.title, pages: d.pages, pasal_headings_detected: d.pasal_headings_detected, max_pasal: d.max_pasal, effective: d.effective })),
             secondary: docs.documents.filter((d) => d.role !== 'primary').map((d) => ({ file: d.file, role: d.role, title: d.title })),
-            coverage: LAW_COVERAGE,
+            financial_sector: FINANCE_LAW_DOCS.map((d) => ({ doc_id: d.doc_id, kind: d.kind, title: d.title, pages: d.pages, source: d.url })),
+            coverage: { ...LAW_COVERAGE, missing_sources: MISSING },
             uud_note: UUD_ORIGINAL_TEXT_NOTE[ctx.locale],
           },
-          ui: [artifact('card', tr(ctx.locale, 'Sumber hukum', 'Legal sources'), { type: 'card', tone: 'info', body: tr(ctx.locale, 'Tersedia & menunggu dokumen', 'Available & pending documents'), items: [...LAW_COVERAGE.available.map((x) => `✓ ${x}`), ...LAW_COVERAGE.missing_sources.map((x) => `⏳ ${x}`)] }, { dex: 'mylaiwyer', dataset: 'law documents', as_of: 'per-document' })],
-          citations: INDEXED_LAW_DOCS.map((d) => cite(d.doc_id!)),
+          ui: [artifact('card', tr(ctx.locale, 'Sumber hukum', 'Legal sources'), { type: 'card', tone: 'info', body: tr(ctx.locale, 'Tersedia & menunggu dokumen', 'Available & pending documents'), items: [...LAW_COVERAGE.available.map((x) => `✓ ${x}`), ...FINANCE_LAW_DOCS.map((d) => `✓ ${d.title}`), ...MISSING.map((x) => `⏳ ${x}`)] }, { dex: 'mylaiwyer', dataset: 'law documents', as_of: 'per-document' })],
+          citations: [...CORE_IDS, ...FINANCE_DOC_IDS].map((id) => cite(id)),
         };
       },
     }),
     defineTool({
       name: 'search_law',
       description: 'BM25 search over the available legal texts (per-article chunks, explanation chunks, and page chunks), with light synonym expansion. Returns original text quotes with document, article, and page. Search the UUD 1945 first for constitutional questions.',
-      input: z.object({ query: z.string().min(2).max(200), doc_ids: z.array(z.enum(DOC_IDS)).nullable(), part: z.enum(['batang_tubuh', 'penjelasan', 'both']).nullable(), limit: z.number().int().min(1).max(8).nullable() }).strict(),
+      input: z
+        .object({
+          query: z.string().min(2).max(200),
+          doc_ids: z.array(z.enum(DOC_IDS)).nullable(),
+          part: z.enum(['batang_tubuh', 'penjelasan', 'both']).nullable(),
+          limit: z.number().int().min(1).max(8).nullable(),
+          scope: z.enum(['all', 'finance', 'constitution_criminal']).nullable().describe('finance = banking/OJK/BI/consumer/fund-transfer/AML/ITE/PDP/new Criminal Code texts; constitution_criminal = UUD 1945 & KUHAP texts'),
+        })
+        .strict(),
       label: { id: 'Mencari pasal yang relevan…', en: 'Searching relevant articles…' },
-      run: async ({ query, doc_ids, part, limit }, ctx) => {
-        const ids = doc_ids?.length ? doc_ids : DOC_IDS;
+      run: async ({ query, doc_ids, part, limit, scope }, ctx) => {
+        const ids = doc_ids?.length ? doc_ids : scope === 'finance' ? FINANCE_DOC_IDS : scope === 'constitution_criminal' ? CORE_IDS : DOC_IDS;
         const q = expandQuery(query);
         const hits: { chunk: LawChunk; score: number }[] = [];
         for (const id of ids) {
@@ -72,6 +91,9 @@ export function tools(): ToolDef[] {
         }
         const top = hits.sort((a, b) => b.score - a.score || docMeta(a.chunk.doc_id).priority - docMeta(b.chunk.doc_id).priority).slice(0, limit ?? 5);
         if (!top.length) throw new ToolError('No matching text in the available documents. The topic may be in a source that is not yet available (see list_sources).');
+        // Deduplicate near-identical hits (same document & article).
+        const uniq = top.filter((h, i) => top.findIndex((x) => x.chunk.doc_id === h.chunk.doc_id && x.chunk.pasal === h.chunk.pasal && x.chunk.page === h.chunk.page) === i);
+        top.splice(0, top.length, ...uniq);
         return {
           data: {
             query,
@@ -79,7 +101,7 @@ export function tools(): ToolDef[] {
             uud_note: top.some((h) => h.chunk.doc_id === 'uud-1945-naskah-asli') ? UUD_ORIGINAL_TEXT_NOTE[ctx.locale] : null,
           },
           ui: top.slice(0, 3).map(({ chunk }) => quote(ctx, chunk, chunk.text.slice(0, 900))),
-          method: method('search_law', ['bm25'], { inputs: { query, doc_ids: ids, part }, rows_used: hits.length, dataset: ids.map((i) => docMeta(i).file).join(', '), as_of: 'per-document', flags: ids.includes('uu-20-2025-kuhap') ? ['ocr_text_uu_20_2025'] : [] }),
+          method: method('search_law', ['bm25'], { inputs: { query, doc_ids: ids, part }, rows_used: hits.length, dataset: ids.length > 6 ? `${ids.length} dokumen hukum` : ids.map((i) => docMeta(i).file).join(', '), as_of: 'per-document', flags: ids.includes('uu-20-2025-kuhap') ? ['ocr_text_uu_20_2025'] : [] }),
           citations: top.map(({ chunk }) => cite(chunk.doc_id, chunk.pasal, chunk.page)),
         };
       },
@@ -157,6 +179,68 @@ export function tools(): ToolDef[] {
           data: { doc_id, page, pages, text: text.slice(0, 4000), pdf: `heavy/law/${doc_id}/source.pdf` },
           ui: [artifact('quote', `${d.short[ctx.locale]} · ${tr(ctx.locale, 'hal.', 'p.')} ${page}`, { type: 'quote', doc_id, doc_title: d.title, pasal: null, page, text: text.replace(/\s+/g, ' ').trim().slice(0, 1500) }, { dex: 'mylaiwyer', dataset: d.file, as_of: 'per-document' })],
           citations: [cite(doc_id, null, page)],
+        };
+      },
+    }),
+    defineTool({
+      name: 'scam_guide',
+      description:
+        'Help for victims of financial scams in Indonesia: recognise the scheme, immediate steps, official reporting channels (bank, IASC/OJK, police, Kontak OJK 157, Satgas PASTI, BI 131), and the legal basis quoted from the financial-sector law texts (UU P2SK, OJK, Perbankan, Transfer Dana, TPPU, ITE, PDP, KUHP 2023, POJK 22/2023, POJK 40/2024, POJK 12/2024, PBI 3/2023). Use for questions like "saya kena tipu/ditipu", "OTP", "investasi bodong", "pinjol", "salah transfer", "rekening dibobol". Scenario null lists all scenarios.',
+      input: z.object({ scenario: z.enum(SCAM_SCENARIOS).nullable() }).strict(),
+      label: { id: 'Menyiapkan panduan penanganan penipuan…', en: 'Preparing scam guidance…' },
+      run: async ({ scenario }, ctx) => {
+        const L = ctx.locale;
+        const src = { dex: 'mylaiwyer', dataset: 'Panduan Finandex + teks peraturan sektor keuangan', as_of: 'per-document' };
+        const channelItems = (ids: readonly string[]) => SCAM_CHANNELS.filter((c) => ids.includes(c.id)).map((c) => `${c.name[L]} — ${c.how[L]}`);
+        if (!scenario) {
+          return {
+            data: { scenarios: SCAM_SCENARIOS.map((s) => ({ scenario: s, label: SCAM_INFO[s].label[L] })), channels: SCAM_CHANNELS.map((c) => ({ id: c.id, name: c.name[L], how: c.how[L] })) },
+            ui: [
+              artifact('card', tr(L, 'Jenis penipuan keuangan', 'Types of financial scams'), { type: 'card', tone: 'info', body: tr(L, 'Pilih jenis kejadian untuk langkah dan dasar hukumnya.', 'Pick the scenario for steps and the legal basis.'), items: SCAM_SCENARIOS.map((s) => SCAM_INFO[s].label[L]) }, src),
+              artifact('card', tr(L, 'Kanal pelaporan resmi', 'Official reporting channels'), { type: 'card', tone: 'warning', body: tr(L, 'Segera hubungi bank Anda, lalu laporkan:', 'Contact your bank first, then report:'), items: channelItems(SCAM_CHANNELS.map((c) => c.id)) }, src),
+            ],
+            method: method('scam_guide', [], { inputs: { scenario: null }, rows_used: SCAM_SCENARIOS.length, dataset: 'Panduan Finandex (OJK/IASC/BI)', as_of: 'per-document', flags: ['editorial_steps_not_from_dataset', 'not_legal_advice'] }),
+          };
+        }
+        const info = SCAM_INFO[scenario];
+        const seen = new Set<string>();
+        const basis: LawChunk[] = [];
+        for (const q of info.queries) {
+          const hits: { c: LawChunk; s: number }[] = [];
+          for (const id of FINANCE_DOC_IDS) {
+            const ix = await indexOf(ctx, id);
+            const { chunks } = await chunksOf(ctx, id);
+            const byId = new Map(chunks.map((c) => [c.id, c]));
+            for (const r of ix.search(expandQuery(q)).slice(0, 3)) {
+              const c = byId.get(String(r.id));
+              if (c && c.part === 'batang_tubuh') hits.push({ c, s: r.score });
+            }
+          }
+          for (const h of hits.sort((a, b) => b.s - a.s).slice(0, 2)) {
+            const k = `${h.c.doc_id}|${h.c.pasal}`;
+            if (!seen.has(k)) {
+              seen.add(k);
+              basis.push(h.c);
+            }
+          }
+        }
+        return {
+          data: {
+            scenario,
+            label: info.label[L],
+            signs: info.signs.map((x) => x[L]),
+            steps: info.steps.map((x) => x[L]),
+            channels: SCAM_CHANNELS.filter((c) => info.channels.includes(c.id)).map((c) => ({ name: c.name[L], how: c.how[L] })),
+            legal_basis: basis.map((c) => ({ document: docMeta(c.doc_id).short[L], pasal: c.pasal, page: c.page, quote: c.text.slice(0, 500) })),
+            caution: tr(L, 'Informasi hukum umum, bukan nasihat hukum; pasal yang dikutip ditemukan lewat pencarian teks dan relevansinya perlu dinilai advokat.', 'General legal information, not legal advice; quoted articles were found by text search and their relevance should be assessed by a lawyer.'),
+          },
+          ui: [
+            artifact('card', info.label[L], { type: 'card', tone: 'warning', body: tr(L, 'Langkah segera:', 'Immediate steps:'), items: info.steps.map((x) => x[L]) }, src),
+            artifact('card', tr(L, 'Lapor ke', 'Report to'), { type: 'card', tone: 'info', body: tr(L, 'Kanal resmi:', 'Official channels:'), items: channelItems(info.channels) }, src),
+            ...basis.slice(0, 4).map((c) => quote(ctx, c, c.text.slice(0, 900))),
+          ],
+          method: method('scam_guide', ['bm25'], { inputs: { scenario, queries: info.queries }, rows_used: basis.length, dataset: `${FINANCE_LAW_DOCS.length} dokumen peraturan sektor keuangan`, as_of: 'per-document', flags: ['editorial_steps_not_from_dataset', 'not_legal_advice'] }),
+          citations: basis.map((c) => cite(c.doc_id, c.pasal, c.page)),
         };
       },
     }),

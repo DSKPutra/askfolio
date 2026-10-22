@@ -7,6 +7,8 @@ export const INPUTS = join(ROOT, 'data', 'inputs');
 export const EXTRACTED = join(ROOT, 'data', 'extracted');
 export const KIT = join(ROOT, 'kit');
 export const OUT = join(ROOT, 'public', 'data');
+/** Official financial-sector law PDFs (src/config/law-finance-sources.json). */
+export const LAW_EXTRA = join(ROOT, 'data', 'law-extra');
 
 export const X = (...parts: string[]) => join(EXTRACTED, ...parts);
 export const IN = (file: string) => join(INPUTS, file);

@@ -363,12 +363,15 @@
    "Porsi konten bahasa non-Inggris"
   ],
   "mylaiwyer": [
+   "Saya kena tipu transfer ke rekening penipu, apa yang harus saya lakukan?",
+   "Kode OTP saya diminta orang yang mengaku dari bank, saldo terkuras",
+   "Bagaimana hukum pinjol ilegal yang menagih dengan ancaman?",
+   "Saya salah transfer ke rekening orang lain, bisakah dikembalikan?",
+   "Apa sanksi pidana investasi bodong menurut UU P2SK?",
+   "Apa hak konsumen jika bank lalai dan saya rugi?",
+   "Ke mana melapor penipuan keuangan?",
    "Apa bunyi Pasal 1 UUD 1945?",
-   "Definisi penyidik menurut KUHAP",
-   "Kapan KUHAP baru berlaku?",
-   "Hak tersangka menurut KUHAP lama dan baru",
-   "Apa itu praperadilan?",
-   "Sumber hukum apa saja yang tersedia?"
+   "Definisi penyidik menurut KUHAP"
   ]
  },
  "whitepaper": {
@@ -385,5 +388,19 @@
   "asOf": "Data per",
   "license": "Lisensi",
   "formula": "Rumus"
+ },
+ "law": {
+  "scamTitle": "Mengalami penipuan keuangan?",
+  "scamIntro": "Pilih yang paling mirip dengan kejadian Anda. Anda akan mendapat langkah segera, kanal pelaporan resmi, dan dasar hukum yang dikutip dari teks peraturan.",
+  "scamAsk": "Ceritakan kejadiannya ke My LAIwyer",
+  "scamPlaceholder": "Contoh: saya diminta OTP oleh orang yang mengaku dari bank, lalu saldo saya terkuras…",
+  "urgent": "Penting: segera hubungi bank Anda untuk blokir, lalu laporkan ke IASC (iasc.ojk.go.id) dan polisi. Jangan pernah membagikan OTP, PIN, atau password.",
+  "financeTitle": "Hukum sektor keuangan & perbankan",
+  "financeIntro": "19 teks resmi: UU P2SK & perubahannya, OJK, Perbankan, Bank Indonesia, LPS, Perlindungan Konsumen, Transfer Dana, TPPU, ITE, PDP, KUHP 2023, POJK 22/2023, POJK 12/2024, POJK 40/2024, PBI 3/2023.",
+  "topics": "Topik",
+  "documents": "Dokumen",
+  "official": "Sumber resmi",
+  "view": "Lihat halaman 1",
+  "ask": "Tanya"
  }
 }

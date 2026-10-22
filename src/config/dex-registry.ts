@@ -689,8 +689,8 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     group: 'law',
     order: 27,
     tagline: {
-      id: 'Konsultasi informasi hukum: UUD 1945, KUHAP lama & baru, UU 1/1946',
-      en: 'Legal information: 1945 Constitution, old & new Criminal Procedure Code, Law 1/1946',
+      id: 'Tanya jawab hukum keuangan & perbankan, bantuan korban penipuan (scam), UUD 1945, KUHAP',
+      en: 'Q&A on financial & banking law, help for scam victims, 1945 Constitution, Criminal Procedure Code',
     },
     icon: 'mylaiwyer',
     inputs: [30, 31, 32, 33, 34, 35],
@@ -702,6 +702,8 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
       en: 'Statutory documents (cite the source).',
     },
     tabs: withChatAndData(
+      tab('scam', 'Kena Penipuan?', 'Scammed?'),
+      tab('finance', 'Hukum Keuangan', 'Financial Law'),
       tab('sources', 'Sumber Hukum', 'Legal Sources'),
       tab('articles', 'Jelajah Pasal', 'Browse Articles'),
       tab('compare', 'Bandingkan KUHAP Lama–Baru', 'Compare Old–New KUHAP'),
@@ -709,7 +711,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'partial',
     indonesia: true,
-    keywords: ['hukum', 'law', 'pasal', 'uud', 'kuhap', 'kuhp', 'pidana', 'advokat'],
+    keywords: ['hukum', 'law', 'pasal', 'uud', 'kuhap', 'kuhp', 'pidana', 'advokat', 'penipuan', 'scam', 'perbankan', 'ojk', 'pinjol', 'transfer', 'konsumen', 'data pribadi'],
   },
 ];
 
