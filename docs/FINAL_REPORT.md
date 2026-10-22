@@ -7,12 +7,13 @@ Semua fase 0–9 master prompt telah dikerjakan di repositori lokal. Gate kualit
 ## 1. URL preview & produksi
 | Platform | Status |
 |---|---|
-| Vercel | **Belum di-deploy** — butuh repo GitHub + koneksi project Vercel. Konfigurasi siap (`vercel.json`, `api/index.ts`). |
-| Netlify | **Belum di-deploy** — konfigurasi siap (`netlify.toml`, `netlify/functions/api.mts`). |
-| Lovable | **Belum dibuat** — repo harus dibuat dari Lovable (§15.1, langkah di `docs/RELEASE.md`). |
-| Lokal | `npm run dev` → http://localhost:5173 (API `/api/*` aktif; tanpa kunci API memakai LLM tiruan). |
+| GitHub | **https://github.com/DSKPutra/finandex_beta** (publik; `main` + `release`), dataset di release **`data-inputs-v1`** (42 file) |
+| Vercel | **https://finandex-beta.vercel.app** — produksi, team *Putra Talks*, project `finandex-beta`; `/api/health` 200, chat SSE berjalan (mode demo `CHAT_MODE=mock` sampai `ANTHROPIC_API_KEY` diisi) |
+| Netlify | Site **finandex-beta** dibuat (https://finandex-beta.netlify.app), env diisi, tetapi deploy **diblokir Netlify: "Account credit usage exceeded – new deploys are blocked until credits are added"** |
+| Lovable | Tidak dipakai (repo GitHub biasa, sesuai pilihan pemilik) |
+| Lokal | `npm run dev` → http://localhost:5173, atau VS Code *Run Task* (`.vscode/tasks.json`) |
 
-Asumsi: domain produksi `https://finandex.vercel.app` (`PRODUCTION_ORIGIN`, CSP, build native). Ganti bila nama project Vercel berbeda.
+Deploy Vercel saat ini dibuat dari CLI (`vercel build --prod` + `vercel deploy --prebuilt --prod`) karena akun Vercel belum memiliki koneksi login GitHub; setelah Anda menghubungkan GitHub di Vercel (Settings → Git), setiap push ke `release` akan ter-deploy otomatis.
 
 ## 2. Artefak native
 | Artefak | Status |
