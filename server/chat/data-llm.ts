@@ -402,7 +402,7 @@ function describe(tool: string, data: Record<string, unknown>, L: Locale): strin
   const metricKey = typeof data.metric === 'string' ? data.metric : null;
   const listKey = Object.keys(data).find((k) => Array.isArray(data[k]) && (data[k] as unknown[]).length && (data[k] as unknown[]).every((x) => x && typeof x === 'object'));
   if (listKey) {
-    const rows = (data[listKey] as Record<string, unknown>[]).slice(0, 8);
+    const rows = (data[listKey] as Record<string, unknown>[]).slice(0, 10);
     for (const r of rows) {
       const strs = Object.entries(r).filter(([k, v]) => typeof v === 'string' && !/date|url|link|^id$|slug/.test(k)) as [string, string][];
       const label = (strs.find(([k]) => /sentence|title|name|label|finding|text|summary|country|company|skill|investor|fund/.test(k)) ?? strs[0])?.[1];
