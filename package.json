@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run typecheck:server",
+    "build": "npm run build:api && vite build && npm run typecheck:server",
     "build:ci": "npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:build && npm run test:golden && npm run build",
     "preview": "vite preview",
     "data:fetch": "tsx scripts/data/fetch-inputs.ts",
@@ -42,7 +42,8 @@
     "assets:pdfjs": "tsx scripts/build/copy-pdfjs-assets.ts",
     "predev": "npm run assets:pdfjs",
     "prebuild": "npm run assets:pdfjs && npm run check:licenses",
-    "build:native": "cross-env VITE_API_BASE_URL=https://finandex-beta.vercel.app VITE_DATA_BASE_URL=https://finandex-beta.vercel.app/data VITE_NATIVE=1 npm run build && tsx scripts/build/native-prune.ts"
+    "build:native": "cross-env VITE_API_BASE_URL=https://finandex-beta.vercel.app VITE_DATA_BASE_URL=https://finandex-beta.vercel.app/data VITE_NATIVE=1 npm run build && tsx scripts/build/native-prune.ts",
+    "build:api": "tsx scripts/build/bundle-api.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.0.0",

@@ -1,7 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Hosting adapters: the Vercel rewrite (/api/:path* → /api?route=:path*) restores the original path.
 import { describe, expect, it } from 'vitest';
-import { restorePath } from '../../api/index';
+import { restorePath } from '../../server/adapters/vercel';
 
 describe('vercel adapter', () => {
   it('restores the original /api path and keeps other query params', () => {
