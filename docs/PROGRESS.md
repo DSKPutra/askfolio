@@ -56,3 +56,9 @@
 - `npm run verify` (PW_LOCAL=1) lulus: lint/typecheck 0 error; 729 test (unit+golden+tools+ui) — coverage baris 96,4%, statement 93,8%, fungsi 94,5%, branch 74,6%; golden 62/62; tools 541/541; eval mock 128/128 (keamanan 100%); bundel awal 165,4 KB gzip (≤ 250 KB); lisensi & secret bersih; E2E 123/123 (Chrome desktop + Pixel 7, termasuk axe 16 halaman tanpa pelanggaran serious/critical).
 - Parity Python↔golden 59/59 (dengan toleransi seri di batas top-N); `npm audit --omit=dev` 0 kerentanan; Lighthouse mobile Beranda: Perf 90, A11y 100, BP 100, SEO 100 (median 3 run).
 - Eval live **belum dijalankan**: `ANTHROPIC_API_KEY` belum tersedia.
+
+## Pasca-rilis — My LAIwyer hukum keuangan, whitepaper v2, presentasi (2026-10-23)
+- My LAIwyer: korpus 19 teks resmi hukum sektor keuangan (SHA-256 dipatok, cermin di release `law-docs-v1`), tool `scam_guide` (8 skenario penipuan), `search_law` scope `finance`, tab "Kena Penipuan?" & "Hukum Keuangan", router mode data untuk pertanyaan hukum.
+- Whitepaper v2 (18 bab, termasuk tech stack) dengan unduhan PDF Bahasa Indonesia & English di Beranda dan /whitepaper.
+- Presentasi `docs/presentation/Finandex-Presentation-{ID,EN}.pptx` (17 slide, tangkapan layar asli) dari `scripts/build/make-presentation.py` + `scripts/build/capture-screens.ts`.
+- Verifikasi: lint/typecheck 0 error; 793 test lulus; bundel awal 180,9 KB gzip (≤ 250 KB); copyright check lulus.

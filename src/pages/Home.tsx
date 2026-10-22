@@ -62,9 +62,11 @@ export default function Home() {
           <p className="text-sm text-muted">{t('whitepaper.homeBody')}</p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
-          <a href={WHITEPAPER_PDF[locale]} download className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 text-sm font-medium text-[#0A0F0C] hover:brightness-110">
-            ⬇ {t('whitepaper.download')}
-          </a>
+          {(['id', 'en'] as const).map((L) => (
+            <a key={L} href={WHITEPAPER_PDF[L]} download lang={L} aria-label={`${t('whitepaper.downloadTitle')} — ${t(L === 'id' ? 'whitepaper.downloadId' : 'whitepaper.downloadEn')}`} className={`inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-medium ${L === locale ? 'bg-brand text-[#0A0F0C] hover:brightness-110' : 'border border-border hover:bg-surface-2'}`}>
+              ⬇ {t(L === 'id' ? 'whitepaper.downloadId' : 'whitepaper.downloadEn')}
+            </a>
+          ))}
           <Link to="/whitepaper" className="inline-flex min-h-11 items-center rounded-xl border border-border px-4 text-sm hover:bg-surface-2">
             {t('whitepaper.read')} →
           </Link>

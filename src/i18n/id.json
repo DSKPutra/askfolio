@@ -387,7 +387,10 @@
   "status": "Status",
   "asOf": "Data per",
   "license": "Lisensi",
-  "formula": "Rumus"
+  "formula": "Rumus",
+  "downloadId": "PDF Bahasa Indonesia",
+  "downloadEn": "PDF English",
+  "downloadTitle": "Unduh whitepaper"
  },
  "law": {
   "scamTitle": "Mengalami penipuan keuangan?",

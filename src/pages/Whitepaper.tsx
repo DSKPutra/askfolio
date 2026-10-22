@@ -9,6 +9,7 @@ import { visibleDex } from '../config/dex-registry';
 import { DISTRIBUTION } from '../config/runtime';
 import type { WpBlock } from '../content/whitepaper';
 import { WHITEPAPER, WHITEPAPER_PDF } from '../content/whitepaper';
+import { FINANCE_LAW_DOCS, SCAM_CHANNELS } from '../config/law-finance';
 import { WHITEPAPER_FORMULAS } from '../content/whitepaper-formulas';
 import { useManifest } from '../lib/data';
 import { useLocale } from '../lib/locale';
@@ -92,6 +93,49 @@ function Block({ b }: { b: WpBlock }) {
           </table>
         </div>
       );
+    case 'law-table':
+      return (
+        <div className="mb-3 overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-surface-2">
+              <tr>
+                {[locale === 'id' ? 'Dokumen' : 'Document', locale === 'id' ? 'Jenis' : 'Type', locale === 'id' ? 'Halaman' : 'Pages', locale === 'id' ? 'Sumber resmi' : 'Official source'].map((h) => (
+                  <th key={h} scope="col" className="px-3 py-2 text-left font-medium">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {FINANCE_LAW_DOCS.map((d) => (
+                <tr key={d.doc_id} className="border-t border-border">
+                  <td className="px-3 py-2">
+                    <span className="font-medium">{d.short[locale]}</span>
+                    <div className="text-xs text-muted">{d.title}</div>
+                  </td>
+                  <td className="px-3 py-2">{d.kind}</td>
+                  <td className="tabular px-3 py-2">{d.pages}</td>
+                  <td className="px-3 py-2">
+                    <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand-text underline">
+                      {new URL(d.url).hostname}
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    case 'channels':
+      return (
+        <ul className="mb-3 space-y-1 rounded-xl border border-warning/50 p-3 text-sm">
+          {SCAM_CHANNELS.map((c) => (
+            <li key={c.id}>
+              <strong>{c.name[locale]}</strong> — {c.how[locale]}
+            </li>
+          ))}
+        </ul>
+      );
     case 'formulas':
       return (
         <dl className="mb-3 divide-y divide-border rounded-xl border border-border">
@@ -110,7 +154,6 @@ export default function Whitepaper() {
   const { t } = useTranslation();
   const locale = useLocale();
   const wp = WHITEPAPER[locale];
-  const other = locale === 'id' ? 'en' : 'id';
   return (
     <div className="mx-auto max-w-5xl">
       <header className="mb-6 rounded-3xl border border-border bg-surface p-5 sm:p-8">
@@ -120,12 +163,11 @@ export default function Whitepaper() {
         <h1 className="mt-2 font-display text-2xl font-bold sm:text-3xl">{wp.title}</h1>
         <p className="mt-2 text-muted">{wp.subtitle}</p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <a href={WHITEPAPER_PDF[locale]} download className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 text-sm font-medium text-[#0A0F0C] hover:brightness-110">
-            ⬇ {t('whitepaper.download')}
-          </a>
-          <a href={WHITEPAPER_PDF[other]} download className="inline-flex min-h-11 items-center rounded-xl border border-border px-4 text-sm hover:bg-surface-2">
-            ⬇ {t('whitepaper.downloadOther')}
-          </a>
+          {(['id', 'en'] as const).map((L) => (
+            <a key={L} href={WHITEPAPER_PDF[L]} download lang={L} className={`inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-medium ${L === locale ? 'bg-brand text-[#0A0F0C] hover:brightness-110' : 'border border-border hover:bg-surface-2'}`}>
+              ⬇ {t(L === 'id' ? 'whitepaper.downloadId' : 'whitepaper.downloadEn')}
+            </a>
+          ))}
         </div>
       </header>
       <div className="grid gap-6 lg:grid-cols-[14rem_1fr]">

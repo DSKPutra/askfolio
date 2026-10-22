@@ -387,7 +387,10 @@
   "status": "Status",
   "asOf": "As of",
   "license": "Licence",
-  "formula": "Formula"
+  "formula": "Formula",
+  "downloadId": "PDF Bahasa Indonesia",
+  "downloadEn": "PDF English",
+  "downloadTitle": "Download the whitepaper"
  },
  "law": {
   "scamTitle": "Hit by a financial scam?",

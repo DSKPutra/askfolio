@@ -6,6 +6,7 @@ import { chromium } from '@playwright/test';
 import { COPYRIGHT_EN, COPYRIGHT_ID, CREDIT_EN, CREDIT_ID, PERSONAL_TAGLINE } from '../../src/config/brand';
 import { DEX_GROUPS } from '../../src/config/dex-groups';
 import { DEX_REGISTRY } from '../../src/config/dex-registry';
+import { FINANCE_LAW_DOCS, SCAM_CHANNELS } from '../../src/config/law-finance';
 import type { Locale } from '../../src/config/brand';
 import type { WpBlock, Whitepaper } from '../../src/content/whitepaper';
 import { WHITEPAPER } from '../../src/content/whitepaper';
@@ -41,6 +42,12 @@ function block(b: WpBlock, L: Locale): string {
       ]);
       return `<table class="dex"><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     }
+    case 'law-table': {
+      const head = L === 'id' ? ['Dokumen', 'Jenis', 'Hal.', 'Sumber resmi'] : ['Document', 'Type', 'Pages', 'Official source'];
+      return `<table class="dex"><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${FINANCE_LAW_DOCS.map((d) => `<tr><td><strong>${esc(d.short[L])}</strong><br><span class="muted">${esc(d.title)}</span></td><td>${d.kind}</td><td>${d.pages}</td><td class="muted">${esc(new URL(d.url).hostname)}</td></tr>`).join('')}</tbody></table>`;
+    }
+    case 'channels':
+      return `<ul class="channels">${SCAM_CHANNELS.map((c) => `<li><strong>${esc(c.name[L])}</strong> — ${esc(c.how[L])}</li>`).join('')}</ul>`;
     case 'formulas':
       return `<table class="formulas"><tbody>${WHITEPAPER_FORMULAS.map((k) => `<tr><td class="mono">${k}</td><td>${esc(FORMULAS[k][L])}</td></tr>`).join('')}</tbody></table>`;
   }
@@ -89,6 +96,7 @@ td{border-bottom:1px solid #E3E8E5;padding:2mm 2.5mm;vertical-align:top}
 .dex td:first-child{width:38%}
 .muted{color:#4A5B51;font-size:8.5pt}
 .mono{font-family:ui-monospace,Menlo,monospace;font-size:8pt;color:#4A5B51;width:30%}
+.channels{border:1px solid #E8C26A;border-radius:3mm;padding:3mm 4mm 3mm 9mm;background:#FFF9EC}
 .closing{margin-top:10mm;text-align:center}
 .closing img{width:70mm}
 </style></head><body>
