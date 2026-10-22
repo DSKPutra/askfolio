@@ -16,7 +16,7 @@ export async function loadLawPages(dir = INPUTS): Promise<Map<string, string[]>>
 export function computeLawGolden(pages: Map<string, string[]>, dir = INPUTS): Record<string, unknown> {
   const sha = (f: string) => createHash('sha256').update(readFileSync(join(dir, f))).digest('hex');
   const documents = LAW_DOCS.map((d) => {
-    const { short: _s, priority: _p, ...base } = d;
+    const { short: _s, priority: _p, effective: _e, ...base } = d;
     const r: Record<string, unknown> = { ...base, sha256: sha(d.file), bytes: statSync(join(dir, d.file)).size };
     if (d.max_pasal) {
       const { headingPages: _h, cutLine: _c, ...a } = analyseLaw(pages.get(d.file)!, d.max_pasal);

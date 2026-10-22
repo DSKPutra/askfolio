@@ -92,11 +92,26 @@ export async function buildReksa(_ctx: Ctx, w: Writer): Promise<BuildResult> {
     aumByDate.set(x.date, e);
   }
   const dates = [...aumByDate.keys()].sort();
+  const byKeyTs = (key: 'type' | 'ccy' | 'mi', keep?: Set<string>) => {
+    const m = new Map<string, Map<string, number>>();
+    for (const x of res.rows) {
+      const k = x[key];
+      if (keep && !keep.has(k)) continue;
+      if (!m.has(k)) m.set(k, new Map());
+      const e = m.get(k)!;
+      e.set(x.date, (e.get(x.date) ?? 0) + x.aum);
+    }
+    return Object.fromEntries([...m.entries()].sort(([a], [b]) => (a < b ? -1 : 1)).map(([k, e]) => [k, dates.map((d) => e.get(d) ?? null)]));
+  };
+  const topMi = new Set(agg('mi').slice(0, 15).map((x) => x.name));
   w.json(dex, 'core/reksa/industry.json', {
     ...res.industry,
     managers: agg('mi'),
     custodians: agg('bk'),
     aum_timeseries: { d: dates, aum: dates.map((d) => aumByDate.get(d)!.aum), funds: dates.map((d) => aumByDate.get(d)!.funds) },
+    aum_by_type_ts: byKeyTs('type'),
+    aum_by_ccy_ts: byKeyTs('ccy'),
+    aum_by_mi_ts_top15: byKeyTs('mi', topMi),
   });
   const slugs = new Map<string, string>();
   const items = Object.entries(res.funds).map(([fund, f]) => {

@@ -13,6 +13,8 @@ export type LawDoc = {
   short: { id: string; en: string };
   /** Search priority: lower is checked first (UUD 1945 is the primary constitutional reference). */
   priority: number;
+  /** Effective date as stated in the document's closing clause (null when the text gives no calendar date). */
+  effective: { date: string | null; clause: string } | null;
 };
 
 export const LAW_DOCS: LawDoc[] = [
@@ -25,6 +27,7 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: 37,
     short: { id: 'UUD 1945 (naskah asli)', en: '1945 Constitution (original text)' },
     priority: 0,
+    effective: null,
   },
   {
     file: 'KUHP_Lama.pdf',
@@ -34,6 +37,7 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: 286,
     short: { id: 'UU 8/1981 (KUHAP lama)', en: 'Law 8/1981 (old KUHAP)' },
     priority: 1,
+    effective: { date: null, clause: 'Undang-undang ini mulai berlaku pada tanggal diundangkan.' },
   },
   {
     file: 'UU_Nomor_20_Tahun_2025_KUHP.pdf',
@@ -43,6 +47,8 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: 369,
     short: { id: 'UU 20/2025 (KUHAP baru)', en: 'Law 20/2025 (new KUHAP)' },
     priority: 1,
+    // OCR text of the closing clause: "Undang-Undang ini muLai berlaku pada tanegal 2 Jarvari,2O26." (= 2 Januari 2026).
+    effective: { date: '2026-01-02', clause: 'Undang-Undang ini mulai berlaku pada tanggal 2 Januari 2026.' },
   },
   {
     file: 'Undang-undang_UU_No._1_Tahun_1946_Peraturan_tentang_Hukum_Pidana.pdf',
@@ -53,6 +59,7 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: 17,
     short: { id: 'UU 1/1946', en: 'Law 1/1946' },
     priority: 2,
+    effective: { date: '1946-02-26', clause: 'Undang-undang ini mulai berlaku buat pulau Jawa dan Madura pada hari diumumkannya (diumumkan 26 Februari 1946).' },
   },
   {
     file: 'KUHAP.pdf',
@@ -62,6 +69,7 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: 286,
     short: { id: 'KUHAP kompilasi (tidak resmi)', en: 'KUHAP compilation (unofficial)' },
     priority: 9,
+    effective: null,
   },
   {
     file: 'KUHP.pdf',
@@ -71,6 +79,7 @@ export const LAW_DOCS: LawDoc[] = [
     max_pasal: null,
     short: { id: 'Duplikat', en: 'Duplicate' },
     priority: 99,
+    effective: null,
   },
 ];
 
