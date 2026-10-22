@@ -1,0 +1,373 @@
+{
+ "nav": {
+  "home": "Beranda",
+  "markets": "Pasar",
+  "ai": "AI",
+  "dex": "Dex",
+  "more": "Lainnya",
+  "watchlist": "Watchlist",
+  "settings": "Pengaturan",
+  "about": "Tentang",
+  "legal": "Legal",
+  "search": "Cari",
+  "globalMarkets": "Pasar Global",
+  "skip": "Lewati ke konten",
+  "collapse": "Ciutkan menu",
+  "expand": "Buka menu"
+ },
+ "home": {
+  "askPlaceholder": "Tanya Finandex AI…",
+  "ask": "Tanya",
+  "marketSummary": "Ringkasan pasar",
+  "featureMap": "Peta Fitur",
+  "featureMapIntro": "Semua 27 chatbot, dikelompokkan menurut kemiripan fungsi.",
+  "filterPlaceholder": "Cari Dex (nama, topik, kata kunci)…",
+  "allCategories": "Semua kategori",
+  "indonesia": "Indonesia",
+  "hideNc": "Sembunyikan Dex NC",
+  "asOfStrip": "Data per",
+  "noMatch": "Tidak ada Dex yang cocok.",
+  "suggest": [
+   "Bandingkan emas dan Bitcoin 5 tahun terakhir",
+   "Apa bunyi Pasal 1 UUD 1945?",
+   "Kurs USD/IDR tertinggi sepanjang data",
+   "Median gaji software engineer AS vs India"
+  ]
+ },
+ "dex": {
+  "open": "Buka",
+  "status_live": "live",
+  "status_partial": "parsial",
+  "status_pending-data": "menunggu data",
+  "sample": "sampel",
+  "nc": "NC",
+  "asOf": "Data per",
+  "askAbout": "Tanya tentang ini",
+  "export": "Ekspor",
+  "exportPng": "Ekspor PNG",
+  "exportCsv": "Ekspor CSV",
+  "run": "Tampilkan",
+  "source": "Sumber",
+  "quality": "Kualitas data",
+  "license": "Lisensi",
+  "watch": "Tambah ke watchlist",
+  "unwatch": "Hapus dari watchlist",
+  "hub": "Semua Dex",
+  "notFound": "Dex tidak ditemukan.",
+  "notInBuild": "Dex ini tidak tersedia pada distribusi komersial (lisensi data non-komersial).",
+  "entity": "Entitas",
+  "period": "Periode",
+  "loading": "Memuat…",
+  "fullscreen": "Layar penuh",
+  "close": "Tutup",
+  "tableAlt": "Tabel data grafik",
+  "lowPrecision": "presisi rendah",
+  "synthetic": "data sintetis"
+ },
+ "data": {
+  "files": "File sumber",
+  "coverage": "Cakupan",
+  "rules": "Aturan pembersihan",
+  "report": "Laporan kualitas",
+  "attribution": "Lisensi & atribusi",
+  "outputs": "File data terbangun",
+  "realtime": "Data tidak real-time.",
+  "providerReport": "Laporan penyedia (tidak dibundel)"
+ },
+ "chat": {
+  "placeholder": "Tulis pertanyaan…",
+  "send": "Kirim",
+  "stop": "Berhenti",
+  "retry": "Ulangi",
+  "copy": "Salin",
+  "copied": "Tersalin",
+  "share": "Bagikan",
+  "new": "Percakapan baru",
+  "history": "Riwayat",
+  "deleteOne": "Hapus percakapan",
+  "empty": "Mulai dengan salah satu saran di bawah.",
+  "why": "Kenapa jawabannya begini?",
+  "dataUsed": "Data yang dipakai",
+  "steps": "Langkah perhitungan",
+  "flags": "Keterbatasan",
+  "rows": "baris dipakai",
+  "tool": "Tool",
+  "offline": "Butuh koneksi internet untuk chat.",
+  "sensitive": "Pesan memuat data sensitif (seed phrase, private key, nomor kartu, atau NIK). Hapus dulu sebelum mengirim.",
+  "consentTitle": "Sebelum memakai chat",
+  "consentBody": "Pesan Anda dikirim ke server Finandex dan diproses oleh penyedia AI (Anthropic) untuk menghasilkan jawaban. Jangan memasukkan data pribadi. Riwayat chat hanya disimpan di perangkat ini.",
+  "consentAccept": "Saya mengerti",
+  "privacyLink": "Kebijakan Privasi",
+  "thinking": "Berpikir…",
+  "source": "Sumber",
+  "errorGeneric": "Terjadi kesalahan. Coba lagi.",
+  "tooLong": "Maksimal 2.000 karakter."
+ },
+ "settings": {
+  "theme": "Tema",
+  "dark": "Gelap",
+  "light": "Terang",
+  "system": "Ikuti sistem",
+  "language": "Bahasa",
+  "colorblind": "Mode ramah buta warna",
+  "clearHistory": "Hapus semua riwayat chat",
+  "clearWatchlist": "Kosongkan watchlist",
+  "resetConsent": "Atur ulang persetujuan chat",
+  "privacy": "Privasi & data di perangkat",
+  "done": "Selesai",
+  "offlineCache": "Data yang pernah dibuka tersedia offline."
+ },
+ "about": {
+  "title": "Tentang Finandex",
+  "version": "Versi",
+  "build": "Build",
+  "sources": "Sumber data & lisensi",
+  "oss": "Lisensi open-source"
+ },
+ "legal": {
+  "privacy": "Kebijakan Privasi",
+  "terms": "Ketentuan Penggunaan",
+  "disclaimer": "Disclaimer",
+  "data-sources": "Sumber Data",
+  "licenses": "Lisensi"
+ },
+ "common": {
+  "retry": "Coba lagi",
+  "error": "Gagal memuat data.",
+  "offline": "Anda sedang offline. Menampilkan data yang tersimpan di perangkat.",
+  "empty": "Belum ada data.",
+  "insufficient": "Riwayat tidak cukup untuk dihitung.",
+  "updateAvailable": "Versi baru tersedia.",
+  "reload": "Muat ulang",
+  "yes": "Ya",
+  "no": "Tidak",
+  "all": "Semua",
+  "none": "—"
+ },
+ "disclaimer": {
+  "general": "Finandex menyajikan data historis untuk tujuan informasi dan edukasi. Bukan rekomendasi investasi, ajakan membeli/menjual efek atau aset kripto, maupun nasihat keuangan atau hukum. Kinerja masa lalu tidak menjamin kinerja masa depan. Data tidak real-time dan dapat mengandung kesalahan dari sumbernya.",
+  "law": "Informasi hukum berdasarkan dokumen yang tersedia, bukan nasihat hukum dan tidak menggantikan advokat. Untuk kasus nyata, hubungi advokat atau Lembaga Bantuan Hukum. Dalam keadaan darurat, hubungi 112.",
+  "cryptoBot": "Bot trading dan pool yield berisiko tinggi, termasuk kehilangan seluruh dana. Finandex tidak merekomendasikan atau berafiliasi dengan bot/protokol mana pun. Jangan pernah membagikan seed phrase atau private key.",
+  "sample": "Statistik dari sampel data; bukan penawaran kerja, penilaian properti, atau rencana keuangan pribadi.",
+  "trademark": "NASDAQ®, S&P 500®, IDX, IHSG, nama bursa, nama koin/protokol, nama merchant, dan merek lain adalah milik pemiliknya masing-masing. Finandex tidak berafiliasi dengan, disponsori, atau didukung oleh Nasdaq, Inc., S&P Dow Jones Indices LLC, PT Bursa Efek Indonesia, Otoritas Jasa Keuangan, Bank Indonesia, maupun pemilik merek lainnya.",
+  "short": "Data historis untuk edukasi — bukan nasihat investasi, keuangan, atau hukum."
+ },
+ "chips": {
+  "finandex-ai": [
+   "Bandingkan emas dan Bitcoin 5 tahun terakhir",
+   "Indeks saham mana yang paling kuat tahun ini?",
+   "Kapan drawdown terbesar Nikkei 225?",
+   "Korelasi DAX dan FTSE 100 3 tahun",
+   "Apa yang terjadi pada minyak WTI April 2020?",
+   "Mata uang mana yang paling melemah terhadap USD 1 tahun ini?"
+  ],
+  "nasdaqdex": [
+   "Top 10 saham NASDAQ YTD",
+   "Berapa beta NVDA terhadap NASDAQ Composite?",
+   "Saham mana yang paling dekat dengan ATH?",
+   "Golden cross 60 hari terakhir",
+   "Berapa persen saham di atas SMA200?",
+   "Bandingkan AAPL, MSFT, dan GOOGL 10 tahun"
+  ],
+  "snp500dex": [
+   "Saham dengan streak kenaikan dividen terpanjang",
+   "Simulasikan $10.000 di KO sejak 2000 dengan DRIP",
+   "Dividend yield TTM tertinggi",
+   "Total return vs price return JNJ",
+   "Riwayat split AAPL",
+   "Saham dengan nilai transaksi 20 hari terbesar"
+  ],
+  "commercedex": [
+   "Bandingkan Sea, Coupang, dan MercadoLibre",
+   "Segmen e-commerce dengan median return 1 tahun terbaik",
+   "Margin bersih perusahaan India",
+   "Kinerja indeks e-commerce sejak 2015",
+   "GoTo vs Sea: drawdown",
+   "Pengguna internet Indonesia menurut World Bank"
+  ],
+  "ipodex": [
+   "Jumlah IPO tercatat per tahun",
+   "Median ukuran IPO terverifikasi",
+   "SME vs Mainboard India",
+   "IPO yang ditarik/ditunda",
+   "Bursa dengan IPO terbanyak",
+   "IPO Indonesia di dataset"
+  ],
+  "idfinandex": [
+   "Bagaimana IHSG saat BI rate naik vs turun?",
+   "Selisih BI rate dan suku bunga AS",
+   "Riwayat keputusan BI rate 2024–2026",
+   "Korelasi IHSG dengan VIX",
+   "Tren ter-normalisasi IHSG, emas, S&P 500 sejak 2010",
+   "Inflasi tahunan menurut dataset"
+  ],
+  "rupiahdex": [
+   "Kurs USD/IDR tertinggi sepanjang data",
+   "Konversi 500 USD dengan kurs 2 Januari 2026",
+   "Rata-rata kurs per tahun 2020–2026",
+   "Berapa persen rupiah melemah sepanjang 2013?",
+   "Kurs saat WHO menyatakan pandemi",
+   "Bandingkan dua sumber USD/IDR"
+  ],
+  "idxdex": [
+   "Saham IDX dengan ROE > 20% dan PER < 15",
+   "Statistik IPO 2023 per papan",
+   "Sekuritas dengan IPO terbanyak",
+   "Beta GOTO terhadap IHSG",
+   "Kapitalisasi pasar BBCA",
+   "Saham paling tidak likuid"
+  ],
+  "reksadex": [
+   "MI dengan AUM terbesar",
+   "Reksa dana pasar uang dengan return 1 tahun tertinggi",
+   "Tren AUM reksa dana saham",
+   "Porsi AUM produk USD",
+   "Bank kustodian terbesar",
+   "Cari reksa dana indeks"
+  ],
+  "cryptdex": [
+   "Dominasi Bitcoin di snapshot",
+   "TVL DeFi vs puncaknya",
+   "Kenapa TVL protokol dihitung ganda?",
+   "Median APY pool stablecoin",
+   "Protokol dengan fee 24 jam terbesar",
+   "Checklist keamanan sebelum memakai bot trading"
+  ],
+  "centralbankdex": [
+   "Neraca The Fed sejak 2008",
+   "Kapan kurva imbal hasil AS inversi?",
+   "Aset gabungan G3 terkini",
+   "Pertumbuhan uang beredar Indonesia",
+   "Negara dengan pertumbuhan broad money tertinggi 2025",
+   "Policy rate vs inflasi AS"
+  ],
+  "inflationdex": [
+   "Negara dengan inflasi tertinggi",
+   "Inflasi Indonesia vs ASEAN",
+   "Median inflasi per kelompok pendapatan",
+   "Harga roti & transport di Jakarta",
+   "Negara dengan deflasi",
+   "Bandingkan inflasi Argentina dan Turki"
+  ],
+  "startupdex": [
+   "Total pendanaan per tahun",
+   "Median Seed vs Series A",
+   "Pendanaan startup Indonesia",
+   "Sektor dengan putaran terbanyak",
+   "Mega-round 2025",
+   "Investor yang paling sering memimpin"
+  ],
+  "vcdex": [
+   "Investor dengan deal terbanyak",
+   "Investor HQ Indonesia",
+   "Stage mix Sequoia Capital",
+   "Investor paling aktif 2025–2026",
+   "Median ukuran putaran per tipe investor",
+   "Investor fintech di Singapura"
+  ],
+  "vcnetworkdex": [
+   "Pasangan co-investor terkuat",
+   "Partner terbanyak Index Ventures",
+   "Ego-graph Tiger Global",
+   "Sektor co-investment paling umum",
+   "Berapa persen pasangan hanya sekali co-invest?",
+   "Jaringan investor di India"
+  ],
+  "opencompanydex": [
+   "Jumlah perusahaan Indonesia",
+   "Porsi perusahaan yang pernah didanai",
+   "Median tahun berdiri per sektor",
+   "Negara dengan perusahaan terbanyak",
+   "Model bisnis paling umum",
+   "Status perusahaan (tutup/diakuisisi)"
+  ],
+  "salarydex": [
+   "Median gaji software engineer AS vs India",
+   "Skill dengan premi gaji tertinggi",
+   "Gaji per senioritas di Kanada",
+   "Top skill di lowongan data",
+   "Distribusi gaji perawat di AS",
+   "Negara dengan median gaji tertinggi"
+  ],
+  "costlivingdex": [
+   "Kota dengan biaya hidup tertinggi",
+   "Kualitas hidup terbaik",
+   "Bandingkan Jakarta dan Singapura",
+   "Perubahan indeks 2023→2024",
+   "Kota dengan internet tercepat",
+   "Daya beli lokal tertinggi"
+  ],
+  "idhousingdex": [
+   "Median harga rumah subsidi vs komersil",
+   "Provinsi dengan listing terbanyak",
+   "Harga per m² rumah subsidi per provinsi",
+   "Asosiasi pengembang terbesar",
+   "Spesifikasi umum rumah subsidi",
+   "Peta proyek di Jawa Barat"
+  ],
+  "idfooddeliverydex": [
+   "Median markup online vs dine-in",
+   "Kota dengan markup tertinggi",
+   "Cloud kitchen vs restoran biasa",
+   "Biaya kemasan rata-rata",
+   "Kuliner dengan promo terbesar",
+   "Cari menu nasi goreng di Bandung"
+  ],
+  "povertydex": [
+   "MPI Indonesia",
+   "Negara dengan MPI tertinggi",
+   "Dimensi penyumbang terbesar kemiskinan Indonesia",
+   "Bandingkan Indonesia, India, Filipina",
+   "Headcount kemiskinan tertinggi",
+   "Tahun survei tiap negara"
+  ],
+  "populationdex": [
+   "Tren liputan berita populasi",
+   "Negara paling banyak diberitakan",
+   "Tema yang paling sering muncul",
+   "Nada berita per tahun",
+   "Riset akademik per tahun",
+   "Temuan penyedia grade A"
+  ],
+  "homelessnessdex": [
+   "Tren liputan tunawisma per bulan",
+   "Negara bagian AS paling banyak diberitakan",
+   "Organisasi yang paling sering disebut",
+   "Nada berita per negara",
+   "Paper paling banyak dikutip",
+   "Temuan penyedia"
+  ],
+  "housingdex": [
+   "Tren liputan perumahan",
+   "Negara paling banyak diberitakan",
+   "Tema perumahan teratas",
+   "Paten teknologi perumahan per tahun",
+   "Nada berita per tahun",
+   "Bandingkan dengan data perumahan Indonesia (IDHousingDex)"
+  ],
+  "fintechdex": [
+   "Sentimen per platform",
+   "Aspek yang paling banyak dikeluhkan",
+   "Tren jumlah ulasan per bulan",
+   "Produk fintech yang paling sering disebut",
+   "Cari ulasan tentang kartu kredit bisnis",
+   "Porsi sentimen negatif"
+  ],
+  "personalfinandex": [
+   "Topik FIRE yang paling ramai",
+   "Sentimen diskusi keuangan pribadi per platform",
+   "Tren diskusi per bulan",
+   "Cari diskusi tentang dana darurat",
+   "Platform dengan diskusi paling positif",
+   "Porsi konten bahasa non-Inggris"
+  ],
+  "mylaiwyer": [
+   "Apa bunyi Pasal 1 UUD 1945?",
+   "Definisi penyidik menurut KUHAP",
+   "Kapan KUHAP baru berlaku?",
+   "Hak tersangka menurut KUHAP lama dan baru",
+   "Apa itu praperadilan?",
+   "Sumber hukum apa saja yang tersedia?"
+  ]
+ }
+}

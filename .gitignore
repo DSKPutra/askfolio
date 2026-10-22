@@ -30,3 +30,7 @@ ios/App/build/
 *.p12
 *.mobileprovision
 reports/
+
+# local editor/agent config
+.claude/
+public/pdfjs/

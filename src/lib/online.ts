@@ -1,0 +1,16 @@
+// © 2026 Dea Saka Kurnia Putra. All rights reserved.
+// Network status (§14): offline banner and chat send disabling.
+import { useSyncExternalStore } from 'react';
+
+const subscribe = (cb: () => void) => {
+  window.addEventListener('online', cb);
+  window.addEventListener('offline', cb);
+  return () => {
+    window.removeEventListener('online', cb);
+    window.removeEventListener('offline', cb);
+  };
+};
+
+export function useOnline(): boolean {
+  return useSyncExternalStore(subscribe, () => navigator.onLine, () => true);
+}

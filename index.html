@@ -10,9 +10,20 @@
     <meta name="theme-color" content="#0A0F0C" />
     <link rel="icon" type="image/svg+xml" href="/icons/finandex.svg" />
     <title>Finandex</title>
+    <style>
+      .splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#0a0f0c;color:#eef3ef;font:14px system-ui,sans-serif}
+      .splash-by{display:flex;align-items:center;gap:8px;color:#9db0a4}
+      .splash small{position:absolute;bottom:24px;color:#9db0a4}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="splash" role="img" aria-label="Finandex — by Dea Saka Kurnia Putra">
+        <img src="/icons/finandex.svg" alt="" width="96" height="96" />
+        <div class="splash-by"><img src="/brand/dskp-mark-on-dark-192.png" alt="" width="28" height="28" /><span>by Dea Saka Kurnia Putra</span></div>
+        <small>© 2026 Dea Saka Kurnia Putra</small>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

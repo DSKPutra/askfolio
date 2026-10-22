@@ -36,10 +36,19 @@ export async function buildGlobal(ctx: Ctx, w: Writer): Promise<BuildResult> {
   w.json(dex, 'core/global/calendar_returns.json', res.calendar);
   w.json(dex, 'core/global/quality.json', res.quality);
   const events: Record<string, unknown> = {};
+  const spark: Record<string, { d: string[]; c: number[] }> = {};
   for (const [sym, s] of series) {
+    // Last ~1Y of closes, thinned to ≤ 64 points, for home/market sparklines (keeps the home payload small).
+    const n = Math.min(s.c.length, 260);
+    const step = Math.max(1, Math.ceil(n / 64));
+    const idx: number[] = [];
+    for (let i = s.c.length - n; i < s.c.length; i += step) idx.push(i);
+    if (idx.at(-1) !== s.c.length - 1) idx.push(s.c.length - 1);
+    spark[sym] = { d: idx.map((i) => fromDayNumber(s.d[i]!)), c: idx.map((i) => s.c[i]!) };
     w.json(dex, `core/global/series/${globalSlug(sym)}.json`, seriesFile(sym, s.d, { o: s.o, h: s.h, l: s.l, c: s.c, v: s.v }, res.quality[sym]!), SeriesFile);
     events[sym] = biggestMoves(s.d, s.c);
   }
+  w.json(dex, 'core/global/spark.json', { as_of: res.asOf, method: 'last 260 closes, every k-th point (≤ 64) plus the last close', assets: spark });
   w.json(dex, 'core/global/events.json', { method: 'largest absolute daily close-to-close moves per asset (data-derived)', assets: events });
   const lowPrecision = Object.entries(res.quality).filter(([, q]) => q.low_precision).map(([k]) => k);
   return { as_of: res.asOf, quality: { assets: items.length, low_precision: lowPrecision } };

@@ -1,0 +1,373 @@
+{
+ "nav": {
+  "home": "Home",
+  "markets": "Markets",
+  "ai": "AI",
+  "dex": "Dex",
+  "more": "More",
+  "watchlist": "Watchlist",
+  "settings": "Settings",
+  "about": "About",
+  "legal": "Legal",
+  "search": "Search",
+  "globalMarkets": "Global Markets",
+  "skip": "Skip to content",
+  "collapse": "Collapse menu",
+  "expand": "Expand menu"
+ },
+ "home": {
+  "askPlaceholder": "Ask Finandex AI…",
+  "ask": "Ask",
+  "marketSummary": "Market summary",
+  "featureMap": "Feature Map",
+  "featureMapIntro": "All 27 chatbots, grouped by similar function.",
+  "filterPlaceholder": "Search Dex (name, topic, keyword)…",
+  "allCategories": "All categories",
+  "indonesia": "Indonesia",
+  "hideNc": "Hide NC Dex",
+  "asOfStrip": "Data as of",
+  "noMatch": "No Dex matches.",
+  "suggest": [
+   "Compare gold and Bitcoin over the last 5 years",
+   "What does Article 1 of the 1945 Constitution say?",
+   "Highest USD/IDR rate in the data",
+   "Median software engineer salary US vs India"
+  ]
+ },
+ "dex": {
+  "open": "Open",
+  "status_live": "live",
+  "status_partial": "partial",
+  "status_pending-data": "pending data",
+  "sample": "sample",
+  "nc": "NC",
+  "asOf": "Data as of",
+  "askAbout": "Ask about this",
+  "export": "Export",
+  "exportPng": "Export PNG",
+  "exportCsv": "Export CSV",
+  "run": "Show",
+  "source": "Source",
+  "quality": "Data quality",
+  "license": "Licence",
+  "watch": "Add to watchlist",
+  "unwatch": "Remove from watchlist",
+  "hub": "All Dex",
+  "notFound": "Dex not found.",
+  "notInBuild": "This Dex is not available in the commercial distribution (non-commercial data licence).",
+  "entity": "Entity",
+  "period": "Period",
+  "loading": "Loading…",
+  "fullscreen": "Full screen",
+  "close": "Close",
+  "tableAlt": "Chart data table",
+  "lowPrecision": "low precision",
+  "synthetic": "synthetic data"
+ },
+ "data": {
+  "files": "Source files",
+  "coverage": "Coverage",
+  "rules": "Cleaning rules",
+  "report": "Quality report",
+  "attribution": "Licence & attribution",
+  "outputs": "Built data files",
+  "realtime": "Data is not real-time.",
+  "providerReport": "Provider report (not bundled)"
+ },
+ "chat": {
+  "placeholder": "Type a question…",
+  "send": "Send",
+  "stop": "Stop",
+  "retry": "Retry",
+  "copy": "Copy",
+  "copied": "Copied",
+  "share": "Share",
+  "new": "New conversation",
+  "history": "History",
+  "deleteOne": "Delete conversation",
+  "empty": "Start with one of the suggestions below.",
+  "why": "Why this answer?",
+  "dataUsed": "Data used",
+  "steps": "Calculation steps",
+  "flags": "Limitations",
+  "rows": "rows used",
+  "tool": "Tool",
+  "offline": "Chat needs an internet connection.",
+  "sensitive": "The message contains sensitive data (seed phrase, private key, card number, or national ID). Remove it before sending.",
+  "consentTitle": "Before using chat",
+  "consentBody": "Your messages are sent to the Finandex server and processed by the AI provider (Anthropic) to generate answers. Do not enter personal data. Chat history is stored only on this device.",
+  "consentAccept": "I understand",
+  "privacyLink": "Privacy Policy",
+  "thinking": "Thinking…",
+  "source": "Source",
+  "errorGeneric": "Something went wrong. Please retry.",
+  "tooLong": "Maximum 2,000 characters."
+ },
+ "settings": {
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System",
+  "language": "Language",
+  "colorblind": "Colour-blind friendly mode",
+  "clearHistory": "Delete all chat history",
+  "clearWatchlist": "Clear watchlist",
+  "resetConsent": "Reset chat consent",
+  "privacy": "Privacy & on-device data",
+  "done": "Done",
+  "offlineCache": "Data you have opened is available offline."
+ },
+ "about": {
+  "title": "About Finandex",
+  "version": "Version",
+  "build": "Build",
+  "sources": "Data sources & licences",
+  "oss": "Open-source licences"
+ },
+ "legal": {
+  "privacy": "Privacy Policy",
+  "terms": "Terms of Use",
+  "disclaimer": "Disclaimer",
+  "data-sources": "Data Sources",
+  "licenses": "Licences"
+ },
+ "common": {
+  "retry": "Retry",
+  "error": "Failed to load data.",
+  "offline": "You are offline. Showing data stored on this device.",
+  "empty": "No data yet.",
+  "insufficient": "Not enough history to compute.",
+  "updateAvailable": "A new version is available.",
+  "reload": "Reload",
+  "yes": "Yes",
+  "no": "No",
+  "all": "All",
+  "none": "—"
+ },
+ "disclaimer": {
+  "general": "Finandex presents historical data for information and education. It is not investment advice, a solicitation to buy or sell securities or crypto assets, or financial or legal advice. Past performance does not guarantee future results. Data is not real-time and may contain errors from its sources.",
+  "law": "Legal information based on the available documents; not legal advice and not a substitute for a lawyer. For real cases, contact a lawyer or a Legal Aid Institute (LBH). In an emergency, call 112.",
+  "cryptoBot": "Trading bots and yield pools are high-risk, including total loss of funds. Finandex does not recommend or affiliate with any bot/protocol. Never share a seed phrase or private key.",
+  "sample": "Statistics from a data sample; not a job offer, property valuation, or personal financial plan.",
+  "trademark": "NASDAQ®, S&P 500®, IDX, IHSG, exchange names, coin/protocol names, merchant names, and other marks belong to their respective owners. Finandex is not affiliated with, sponsored, or endorsed by Nasdaq, Inc., S&P Dow Jones Indices LLC, PT Bursa Efek Indonesia, Otoritas Jasa Keuangan, Bank Indonesia, or any other trademark owner.",
+  "short": "Historical data for education — not investment, financial, or legal advice."
+ },
+ "chips": {
+  "finandex-ai": [
+   "Compare gold and Bitcoin over the last 5 years",
+   "Which stock index is strongest this year?",
+   "When was the Nikkei 225's largest drawdown?",
+   "DAX and FTSE 100 correlation over 3 years",
+   "What happened to WTI oil in April 2020?",
+   "Which currency weakened most against the USD over the past year?"
+  ],
+  "nasdaqdex": [
+   "Top 10 NASDAQ stocks YTD",
+   "What is NVDA's beta against the NASDAQ Composite?",
+   "Which stocks are closest to their ATH?",
+   "Golden crosses in the last 60 days",
+   "What share of stocks trade above their SMA200?",
+   "Compare AAPL, MSFT, and GOOGL over 10 years"
+  ],
+  "snp500dex": [
+   "Stocks with the longest dividend-growth streak",
+   "Simulate $10,000 in KO since 2000 with DRIP",
+   "Highest TTM dividend yield",
+   "JNJ total return vs price return",
+   "AAPL split history",
+   "Stocks with the largest 20-day traded value"
+  ],
+  "commercedex": [
+   "Compare Sea, Coupang, and MercadoLibre",
+   "E-commerce segment with the best median 1-year return",
+   "Net margins of Indian companies",
+   "E-commerce index performance since 2015",
+   "GoTo vs Sea: drawdown",
+   "Indonesia's internet users according to the World Bank"
+  ],
+  "ipodex": [
+   "Number of listed IPOs per year",
+   "Median verified IPO size",
+   "India SME vs Mainboard",
+   "Withdrawn/postponed IPOs",
+   "Exchange with the most IPOs",
+   "Indonesian IPOs in the dataset"
+  ],
+  "idfinandex": [
+   "How does the JCI behave when the BI rate rises vs falls?",
+   "Spread between the BI rate and the US rate",
+   "BI rate decision history 2024–2026",
+   "JCI correlation with the VIX",
+   "Normalised trend of JCI, gold, S&P 500 since 2010",
+   "Annual inflation according to the dataset"
+  ],
+  "rupiahdex": [
+   "Highest USD/IDR rate in the data",
+   "Convert 500 USD at the 2 January 2026 rate",
+   "Average rate per year 2020–2026",
+   "How much did the rupiah weaken during 2013?",
+   "Rate when the WHO declared the pandemic",
+   "Compare the two USD/IDR sources"
+  ],
+  "idxdex": [
+   "IDX stocks with ROE > 20% and P/E < 15",
+   "2023 IPO statistics by board",
+   "Underwriters with the most IPOs",
+   "GOTO beta against the JCI",
+   "BBCA market capitalisation",
+   "Least liquid stocks"
+  ],
+  "reksadex": [
+   "Investment managers with the largest AUM",
+   "Money-market funds with the highest 1-year return",
+   "Equity fund AUM trend",
+   "Share of AUM in USD products",
+   "Largest custodian banks",
+   "Find index funds"
+  ],
+  "cryptdex": [
+   "Bitcoin dominance in the snapshot",
+   "DeFi TVL vs its peak",
+   "Why is protocol TVL double-counted?",
+   "Median APY of stablecoin pools",
+   "Protocols with the largest 24h fees",
+   "Security checklist before using a trading bot"
+  ],
+  "centralbankdex": [
+   "Fed balance sheet since 2008",
+   "When did the US yield curve invert?",
+   "Latest combined G3 assets",
+   "Indonesia's money supply growth",
+   "Countries with the highest broad money growth in 2025",
+   "US policy rate vs inflation"
+  ],
+  "inflationdex": [
+   "Countries with the highest inflation",
+   "Indonesia's inflation vs ASEAN",
+   "Median inflation by income group",
+   "Bread & transport prices in Jakarta",
+   "Countries with deflation",
+   "Compare inflation in Argentina and Türkiye"
+  ],
+  "startupdex": [
+   "Total funding per year",
+   "Median Seed vs Series A",
+   "Indonesian startup funding",
+   "Sectors with the most rounds",
+   "2025 mega-rounds",
+   "Most frequent lead investors"
+  ],
+  "vcdex": [
+   "Investors with the most deals",
+   "Investors headquartered in Indonesia",
+   "Sequoia Capital stage mix",
+   "Most active investors 2025–2026",
+   "Median round size by investor type",
+   "Fintech investors in Singapore"
+  ],
+  "vcnetworkdex": [
+   "Strongest co-investor pairs",
+   "Index Ventures' most frequent partners",
+   "Tiger Global ego graph",
+   "Most common co-investment sectors",
+   "What share of pairs co-invested only once?",
+   "Investor network in India"
+  ],
+  "opencompanydex": [
+   "Number of Indonesian companies",
+   "Share of companies that have been funded",
+   "Median founding year by sector",
+   "Countries with the most companies",
+   "Most common business models",
+   "Company status (closed/acquired)"
+  ],
+  "salarydex": [
+   "Median software engineer salary US vs India",
+   "Skills with the highest salary premium",
+   "Salary by seniority in Canada",
+   "Top skills in data job postings",
+   "Nurse salary distribution in the US",
+   "Countries with the highest median salary"
+  ],
+  "costlivingdex": [
+   "Cities with the highest cost of living",
+   "Best quality of life",
+   "Compare Jakarta and Singapore",
+   "Index change 2023→2024",
+   "Cities with the fastest internet",
+   "Highest local purchasing power"
+  ],
+  "idhousingdex": [
+   "Median price of subsidised vs commercial homes",
+   "Provinces with the most listings",
+   "Subsidised home price per m² by province",
+   "Largest developer associations",
+   "Typical subsidised home specifications",
+   "Project map in West Java"
+  ],
+  "idfooddeliverydex": [
+   "Median online vs dine-in markup",
+   "Cities with the highest markup",
+   "Cloud kitchens vs regular restaurants",
+   "Average packaging fee",
+   "Cuisines with the biggest promos",
+   "Find nasi goreng menus in Bandung"
+  ],
+  "povertydex": [
+   "Indonesia's MPI",
+   "Countries with the highest MPI",
+   "Largest contributing dimension to poverty in Indonesia",
+   "Compare Indonesia, India, the Philippines",
+   "Highest poverty headcount",
+   "Survey year for each country"
+  ],
+  "populationdex": [
+   "Population news coverage trend",
+   "Most-covered countries",
+   "Most frequent themes",
+   "News tone per year",
+   "Academic research per year",
+   "Grade A provider findings"
+  ],
+  "homelessnessdex": [
+   "Homelessness coverage trend per month",
+   "Most-covered US states",
+   "Most frequently mentioned organisations",
+   "News tone by country",
+   "Most-cited papers",
+   "Provider findings"
+  ],
+  "housingdex": [
+   "Housing coverage trend",
+   "Most-covered countries",
+   "Top housing themes",
+   "Housing technology patents per year",
+   "News tone per year",
+   "Compare with Indonesian housing data (IDHousingDex)"
+  ],
+  "fintechdex": [
+   "Sentiment by platform",
+   "Most-complained-about aspects",
+   "Monthly review count trend",
+   "Most frequently mentioned fintech products",
+   "Find reviews about business credit cards",
+   "Share of negative sentiment"
+  ],
+  "personalfinandex": [
+   "Most popular FIRE topics",
+   "Personal finance discussion sentiment by platform",
+   "Monthly discussion trend",
+   "Find discussions about emergency funds",
+   "Platform with the most positive discussions",
+   "Share of non-English content"
+  ],
+  "mylaiwyer": [
+   "What does Article 1 of the 1945 Constitution say?",
+   "Definition of investigator under the KUHAP",
+   "When does the new KUHAP take effect?",
+   "Suspect's rights under the old and new KUHAP",
+   "What is pretrial review (praperadilan)?",
+   "Which legal sources are available?"
+  ]
+ }
+}

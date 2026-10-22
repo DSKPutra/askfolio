@@ -26,3 +26,16 @@
 - Prompt global (§8.6 persis, id + en) + 27 prompt Dex (5 bagian) dimuat sebagai string saat build.
 - Keamanan: CORS allowlist (wildcard), rate limit 20/10 mnt & 200/hari + anggaran token (Upstash/in-memory), batas body 64 KB, header keamanan, detektor data sensitif di server.
 - Gate: `test:tools` 363/363; `eval:chat:mock` 128/128 (100%, keamanan 100%); total 479 test; coverage baris 96,1%.
+
+## Fase 5 — Shell UI · HIJAU (2026-10-22)
+- Router (deep link §10.1, lazy pages), sidebar berkategori (desktop) + bottom tab 5 item (mobile), pencarian global Ctrl/Cmd+K (Dex + entitas 9 Dex deret waktu + "cari di Dex"), banner offline, prompt versi baru.
+- Beranda: hero + 4 saran lintas kategori, ringkasan pasar 6 aset (sparkline dari `core/global/spark.json`), Peta Fitur 27 Dex dalam 8 kategori (cari, chip kategori, filter Indonesia, sembunyikan NC), strip "Data per", footer hak cipta.
+- Tentang (wordmark tema-aware, kredit, tagline, versi/build, sumber data), Legal (privasi UU PDP, ketentuan, disclaimer §12.2 persis, sumber data dari registry+manifest, lisensi OSS), Pengaturan (tema, bahasa, buta warna, hapus data perangkat), Watchlist, Lainnya.
+- i18n id/en (kunci identik, 6 chip §8.9 per Dex), token desain §10.3, fokus terlihat, skip link, aria-live.
+
+## Fase 6 — Halaman Dex, grafik, chat · HIJAU (2026-10-22)
+- Halaman Dex: header badge (as-of, kualitas, status, NC, sampel) + tab (Chat pertama, Data terakhir) sesuai §9 untuk 27 Dex; 178 panel tab menjalankan tool chatbot di browser dengan kontrol dari skema zod (test: semua panel valid & berjalan pada data nyata).
+- Renderer ChartSpec → ECharts (line/candle/bar/heatmap/graph/map-fallback; lazy), kartu kutipan hukum + pratinjau halaman PDF asli (pdf.js, termasuk pindaian CCITT), DataTable (sort/saring/virtual/CSV), ekspor PNG/CSV/bagikan bertanda air §11, "Tanya tentang ini", layar penuh, alternatif teks.
+- Detail entitas (snapshot, grafik harga, kalender return, drawdown, kualitas, watchlist) untuk 9 Dex deret waktu + `/markets/:slug`.
+- Chat: SSE streaming, status tool, kartu jawaban §8.8, panel "Kenapa jawabannya begini?" dari event `method`, sitasi, stop/ulangi/salin/bagikan, riwayat IndexedDB per Dex (≤ 50), persetujuan berversi, detektor data sensitif, disclaimer per Dex.
+- Uji: smoke browser seluruh tab 27 Dex + 21 rute tanpa error; unit/komponen UI 25 test baru. Total 682 test lulus; coverage baris 96,4%, statement 93,8%, fungsi 94,6%, branch 74,7%.

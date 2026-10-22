@@ -7,7 +7,7 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'dev-dist', 'coverage', 'kit', 'data', 'Dataset', 'public/data', 'android', 'ios', 'node_modules', 'playwright-report', 'test-results'],
+    ignores: ['dist', 'dev-dist', 'coverage', 'kit', 'data', 'Dataset', 'public/data', 'public/pdfjs', 'android', 'ios', 'node_modules', 'playwright-report', 'test-results'],
   },
   js.configs.recommended,
   ...tseslint.configs.strict,
