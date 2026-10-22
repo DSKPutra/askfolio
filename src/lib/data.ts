@@ -8,8 +8,27 @@ import { resolveBases } from '../config/runtime';
 
 let storeP: Promise<DataStore> | undefined;
 
+const isNativeShell = () => !!(globalThis as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor?.isNativePlatform?.();
+
+/** Native shells bundle data `core/` locally (§14): try the bundled copy first, then the remote base. */
+function fetcherFor(base: string): (u: string) => Promise<Response> {
+  if (!isNativeShell() || base.startsWith(window.location.origin)) return (u) => fetch(u);
+  return async (u) => {
+    const rel = u.startsWith(base) ? u.slice(base.length) : '';
+    if (rel.startsWith('/core/')) {
+      try {
+        const r = await fetch(`/data${rel}`);
+        if (r.ok) return r;
+      } catch {
+        /* not bundled → remote */
+      }
+    }
+    return fetch(u);
+  };
+}
+
 export function getStore(): Promise<DataStore> {
-  return (storeP ??= resolveBases().then((b) => new DataStore(b.data, (u) => fetch(u), 192 * 1024 * 1024)));
+  return (storeP ??= resolveBases().then((b) => new DataStore(b.data, fetcherFor(b.data), 192 * 1024 * 1024)));
 }
 
 export async function getJson<T>(path: string): Promise<T> {

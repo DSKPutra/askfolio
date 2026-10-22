@@ -39,3 +39,9 @@
 - Detail entitas (snapshot, grafik harga, kalender return, drawdown, kualitas, watchlist) untuk 9 Dex deret waktu + `/markets/:slug`.
 - Chat: SSE streaming, status tool, kartu jawaban §8.8, panel "Kenapa jawabannya begini?" dari event `method`, sitasi, stop/ulangi/salin/bagikan, riwayat IndexedDB per Dex (≤ 50), persetujuan berversi, detektor data sensitif, disclaimer per Dex.
 - Uji: smoke browser seluruh tab 27 Dex + 21 rute tanpa error; unit/komponen UI 25 test baru. Total 682 test lulus; coverage baris 96,4%, statement 93,8%, fungsi 94,6%, branch 74,7%.
+
+## Fase 7 — PWA & native · HIJAU dengan catatan (2026-10-22)
+- PWA: manifest (tema #0A0F0C, standalone, ikon kit), SW injectManifest: precache shell + 199 file `core/`, `heavy/` SWR + LRU ≤ 300 MB, fallback SPA (tanpa /api, /data), prompt "Versi baru tersedia". JS awal 159 KB gzip (≤ 250 KB).
+- Capacitor 8: `capacitor.config.ts` (appId default [KONFIRMASI]), platform `android/` & `ios/` ditambahkan, `cap sync` OK; ikon adaptive/round/launcher + splash (ikon + logo P + "by Dea Saka Kurnia Putra"); iOS `NSHumanReadableCopyright`.
+- Native: splash hide, status bar per tema, tombol back Android (tutup dialog → kembali → konfirmasi keluar), tautan eksternal via Browser, share sheet PNG/CSV via Filesystem+Share, haptic saat kirim, data core dibundel.
+- Catatan: build Android debug **tidak dapat dijalankan di mesin ini** (JDK 11 terpasang; Capacitor 8/AGP butuh JDK 21) dan iOS butuh Xcode (hanya Command Line Tools) → dibangun di GitHub Actions (`android.yml`, `ios.yml`).

@@ -70,6 +70,12 @@ export async function watermarkPng(dataUrl: string, title: string, footer: strin
 
 /** Web Share with a file when supported (native share sheet on mobile), else download. */
 export async function shareOrDownload(blob: Blob, filename: string, text: string): Promise<void> {
+  try {
+    const { nativeShare } = await import('../native');
+    if (await nativeShare(blob, filename, `${text}\n${EXPORT_WATERMARK}`)) return;
+  } catch {
+    /* fall through to the web share / download path */
+  }
   const file = new File([blob], filename, { type: blob.type });
   const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
   if (nav.canShare?.({ files: [file] })) {

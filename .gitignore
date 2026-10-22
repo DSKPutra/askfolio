@@ -34,3 +34,4 @@ reports/
 # local editor/agent config
 .claude/
 public/pdfjs/
+public/licenses.json

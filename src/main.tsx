@@ -8,6 +8,7 @@ import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
 import './i18n';
 import { App } from './app/App';
+import { registerPwa } from './pwa';
 import './styles/index.css';
 
 const root = document.getElementById('root');
@@ -17,3 +18,5 @@ createRoot(root).render(
     <App />
   </StrictMode>,
 );
+registerPwa();
+void import('./native').then(({ initNative }) => initNative(() => window.confirm(document.documentElement.lang === 'en' ? 'Exit Finandex?' : 'Keluar dari Finandex?')));
