@@ -116,9 +116,17 @@ export function sharedTools(dex: DexId, ad: TsAdapter | undefined): ToolDef[] {
         let entity: unknown = null;
         if (ad) entity = await ad.quality(id ? (await resolve(ad, id)).id : undefined);
         else entity = await extraQuality(dex, ctx);
+        const s = await src(ctx);
+        const flat = (o: unknown, prefix = ''): [string, string][] =>
+          o && typeof o === 'object' && !Array.isArray(o)
+            ? Object.entries(o as Record<string, unknown>).flatMap(([k, v]) => (v && typeof v === 'object' && !Array.isArray(v) && prefix.split('.').length < 3 ? flat(v, `${prefix}${k}.`) : [[`${prefix}${k}`, Array.isArray(v) ? (v.length > 6 ? `${v.slice(0, 6).map((x) => (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(', ')} … (${v.length})` : v.map((x) => (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(', ')) : String(v)] as [string, string]]))
+            : [];
+        const rows = [...flat(m.dex[dex]?.quality ?? {}, 'dex.'), ...flat(entity, '')].slice(0, 40).map(([k, v]) => ({ field: k, value: v.slice(0, 300) }));
         return {
           data: { dex_quality: m.dex[dex]?.quality ?? {}, report: entity },
-          citations: [await src(ctx)],
+          ui: [artifact('table', tr(ctx.locale, 'Laporan kualitas data', 'Data-quality report'), { type: 'table', columns: [{ key: 'field', label: tr(ctx.locale, 'Aspek', 'Field') }, { key: 'value', label: tr(ctx.locale, 'Nilai', 'Value') }], rows }, s)],
+          method: method('data_quality', ['count'], { inputs: { id }, rows_used: rows.length, dataset: s.dataset, as_of: s.as_of, flags: ['quality_report'] }),
+          citations: [s],
         };
       },
     }),

@@ -46,8 +46,11 @@ export function tools(): ToolDef[] {
       run: async ({ country }, ctx) => {
         const r = find(await rowsOf(ctx), country);
         if (!r) throw new ToolError('Country not found (English name, e.g. Indonesia).');
+        const all = (await rowsOf(ctx)).filter((x) => typeof x.inflation_annual_pct === 'number');
+        const med = median(all.map((x) => x.inflation_annual_pct as number));
         return {
           data: { ...r, inflation_fraction: frac(r.inflation_annual_pct) },
+          ui: [artifact('bar', tr(ctx.locale, `Inflasi ${r.country} vs median negara`, `${r.country} inflation vs country median`), { type: 'bar', categories: [`${r.country} (${r.inflation_year ?? 'n/a'})`, tr(ctx.locale, 'median semua negara', 'median of countries')], series: [{ name: 'inflation', data: [frac(r.inflation_annual_pct), med / 100] }], yUnit: 'pct' }, { dex: 'inflationdex', dataset: DATASET, as_of: String(r.inflation_year ?? 'n/a') })],
           method: method('country_inflation', ['count'], { inputs: { country }, rows_used: 1, dataset: DATASET, as_of: String(r.inflation_year ?? 'n/a'), flags: ['inflation_year_varies_by_country'] }),
           citations: [{ dex: 'inflationdex', dataset: DATASET, as_of: String(r.inflation_year ?? 'n/a') }],
         };

@@ -101,11 +101,12 @@ export function tools(ad: TsAdapter): ToolDef[] {
       description: 'Beta of one stock versus IHSG over 3 years (Adj Close returns aligned with the IDFinanDex IHSG series; min 120 returns).',
       input: z.object({ ticker: z.string().min(1) }).strict(),
       label: { id: 'Menghitung beta vs IHSG…', en: 'Computing beta vs IHSG…' },
-      run: async ({ ticker }) => {
+      run: async ({ ticker }, ctx) => {
         const e = await stock(ticker);
         const as_of = e.metrics.last_date as string;
         return {
           data: { ticker: e.id, beta_3Y_vs_IHSG: e.metrics.beta_3Y_vs_IHSG ?? null, last_date: as_of },
+          ui: [artifact('bar', tr(ctx.locale, `Beta 3Y ${e.id} vs IHSG`, `${e.id} 3Y beta vs IHSG`), { type: 'bar', categories: [e.id, 'IHSG'], series: [{ name: 'beta', data: [(e.metrics.beta_3Y_vs_IHSG as number | null) ?? null, 1] }] }, src(as_of))],
           method: method('beta_vs_ihsg', ['beta'], { inputs: { ticker: e.id }, rows_used: e.metrics.rows as number, dataset: `${DATASET} + IDFinanDex IHSG`, as_of }),
           citations: [src(as_of)],
         };

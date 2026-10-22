@@ -95,6 +95,7 @@ export function tools(_ad: TsAdapter): ToolDef[] {
         const ds = downsample(tvl.d, [tvl.tvl_usd], 400);
         return {
           data: {
+            as_of,
             tvl: tvl.summary,
             stablecoin_supply: st.summary,
             stablecoin_to_tvl_ratio: (st.summary.latest_usd as number) / (tvl.summary.latest_usd as number),
@@ -286,8 +287,11 @@ export function tools(_ad: TsAdapter): ToolDef[] {
         const summary = (await ctx.store.json<{ summary: Record<string, unknown> }>(files[0]!)).summary;
         const q = query ? normaliseKey(query) : '';
         const hits = all.filter((r) => (!record_type || r.record_type === record_type) && (!q || normaliseKey(`${r.question ?? ''} ${r.answer ?? ''} ${r.section ?? ''}`).includes(q))).slice(0, limit ?? 5);
+        const rt = summary.record_types as Record<string, number>;
         return {
-          data: { counts: { rows: summary.rows, record_types: summary.record_types, bot_profiles: summary.bot_profiles }, results: hits, note: 'Information only — not an endorsement; referral links removed.' },
+          data: { counts: { rows: summary.rows, record_types: rt, bot_profiles: summary.bot_profiles }, results: hits, note: 'Information only — not an endorsement; referral links removed.' },
+          ui: [artifact('bar', tr(ctx.locale, 'Isi knowledge base bot', 'Bot knowledge-base contents'), { type: 'bar', categories: Object.keys(rt), series: [{ name: 'records', data: Object.values(rt) }], horizontal: true }, s(BOTS, asof))],
+          method: method('bots_kb', ['count'], { inputs: { query, record_type, limit }, rows_used: summary.rows as number, dataset: BOTS, as_of: asof, flags: ['information_only', 'referral_links_removed'] }),
           citations: [s(BOTS, asof)],
         };
       },

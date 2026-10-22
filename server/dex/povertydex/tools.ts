@@ -49,6 +49,7 @@ export function tools(): ToolDef[] {
         if (!rows.length) throw new ToolError('Country not in the MPI table (108 countries).');
         const s = { dex: 'povertydex', dataset: DATASET, as_of: String(rows[0]!.yearStr) };
         return {
+          ui: [artifact('bar', tr(ctx.locale, `Indikator MPI ${rows[0]!.country}`, `${rows[0]!.country} MPI indicators`), { type: 'bar', categories: rows.filter((r) => r.indicatorCode !== 'mpi_value').map((r) => String(r.indicatorCode)), series: [{ name: '%', data: rows.filter((r) => r.indicatorCode !== 'mpi_value').map((r) => asFraction(String(r.indicatorCode), r.actualValue)) }], horizontal: true, yUnit: 'pct' }, s)],
           data: { country: rows[0]!.country, iso3: rows[0]!.countryIsoCode, survey: rows[0]!.yearStr, note: rows[0]!.note, indicators: rows.map((r) => ({ code: r.indicatorCode, indicator: r.indicator, value: r.actualValue, as_fraction: asFraction(String(r.indicatorCode), r.actualValue) })) },
           method: method('country_mpi', ['count'], { inputs: { country }, rows_used: rows.length, dataset: DATASET, as_of: s.as_of, flags: FLAGS }),
           citations: [s],

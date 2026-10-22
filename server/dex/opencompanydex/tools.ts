@@ -1,7 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // OpenCompanyDex tools (§8.5). 2% sample; many fields empty.
 import { z } from 'zod';
-import { applyFilters, groupStat, loadRows, searchRows } from '../../tools/table';
+import { applyFilters, groupStat, loadRows, searchRows, statOf } from '../../tools/table';
 import type { Rec } from '../../tools/table';
 import { artifact, defineTool, method, tr } from '../../tools/kit';
 import type { ToolCtx, ToolDef } from '../../tools/kit';
@@ -30,7 +30,15 @@ export function tools(): ToolDef[] {
       run: async ({ group_by, filters, limit }, ctx) => {
         let rows = applyFilters(await rowsOf(ctx), filters ?? {});
         if (group_by === 'founded_decade') rows = rows.map((r) => ({ ...r, founded_decade: typeof r.founded_year === 'number' ? `${Math.floor(r.founded_year / 10) * 10}s` : null }));
-        if (group_by === 'none') return { data: { filters, companies: rows.length }, method: method('company_counts', ['count'], { inputs: { group_by, filters }, rows_used: rows.length, dataset: DATASET, as_of: src.as_of, flags: FLAGS }), citations: [src] };
+        if (group_by === 'none') {
+          const fy = rows.map((r) => r.founded_year).filter((v): v is number => typeof v === 'number');
+          return {
+            data: { filters, companies: rows.length, sample_rows_total: (await rowsOf(ctx)).length, median_founded_year: statOf(fy, 'median'), with_founded_year: fy.length },
+            ui: [artifact('bar', tr(ctx.locale, 'Jumlah perusahaan (sampel 2%)', 'Company count (2% sample)'), { type: 'bar', categories: [tr(ctx.locale, 'sesuai filter', 'matching'), tr(ctx.locale, 'total sampel', 'sample total')], series: [{ name: 'companies', data: [rows.length, (await rowsOf(ctx)).length] }] }, src)],
+            method: method('company_counts', ['count', 'median'], { inputs: { group_by, filters }, rows_used: rows.length, dataset: DATASET, as_of: src.as_of, flags: FLAGS }),
+            citations: [src],
+          };
+        }
         const g = groupStat(rows, group_by, null, 'count');
         const top = (group_by === 'founded_decade' ? g.sort((a, b) => (a.group < b.group ? -1 : 1)) : g).slice(0, limit ?? 15);
         return {
@@ -50,7 +58,12 @@ export function tools(): ToolDef[] {
         const rows = await rowsOf(ctx);
         if (group_by === 'none') {
           const share = rows.filter((r) => r.is_funded === 1).length / rows.length;
-          return { data: { companies: rows.length, funded_share: share }, method: method('funded_share', ['share'], { inputs: { group_by }, rows_used: rows.length, dataset: DATASET, as_of: src.as_of, flags: FLAGS }), citations: [src] };
+          return {
+            data: { companies: rows.length, funded_share: share },
+            ui: [artifact('bar', tr(ctx.locale, 'Porsi perusahaan yang pernah didanai', 'Share of companies ever funded'), { type: 'bar', categories: [tr(ctx.locale, 'didanai', 'funded'), tr(ctx.locale, 'tidak', 'not funded')], series: [{ name: 'share', data: [share, 1 - share] }], yUnit: 'pct' }, src)],
+            method: method('funded_share', ['share'], { inputs: { group_by }, rows_used: rows.length, dataset: DATASET, as_of: src.as_of, flags: FLAGS }),
+            citations: [src],
+          };
         }
         const g = groupStat(rows, group_by, 'is_funded', 'mean', 30).slice(0, limit ?? 15);
         return {

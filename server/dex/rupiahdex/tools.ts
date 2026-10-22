@@ -49,7 +49,7 @@ export function tools(ad: TsAdapter): ToolDef[] {
         const result = direction === 'USD_TO_IDR' ? amount * close : amount / close;
         return {
           data: { amount, direction, rate_date: d, usd_idr: close, result, result_currency: direction === 'USD_TO_IDR' ? 'IDR' : 'USD' },
-          ui: [artifact('card', tr(ctx.locale, 'Konversi historis', 'Historical conversion'), { type: 'card', tone: 'info', body: `${amount} ${direction === 'USD_TO_IDR' ? 'USD' : 'IDR'} → ${result} ${direction === 'USD_TO_IDR' ? 'IDR' : 'USD'} (USD/IDR ${close}, ${d})` }, src(c.iso.at(-1)!))],
+          ui: [artifact('table', tr(ctx.locale, 'Konversi historis', 'Historical conversion'), { type: 'table', columns: [{ key: 'amount', label: direction === 'USD_TO_IDR' ? 'USD' : 'IDR' }, { key: 'rate', label: `USD/IDR (${d})` }, { key: 'result', label: direction === 'USD_TO_IDR' ? 'IDR' : 'USD' }], rows: [{ amount, rate: close, result }] }, src(c.iso.at(-1)!))],
           method: method('convert', ['fx_lookup', 'fx_convert'], { inputs: { amount, direction, date }, rows_used: 1, dataset: DATASET, as_of: d }),
           citations: [src(c.iso.at(-1)!)],
         };
