@@ -22,6 +22,7 @@ export default function More() {
       <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
         {row('/watchlist', t('nav.watchlist'))}
         {row('/settings', t('nav.settings'))}
+        {row('/whitepaper', t('nav.whitepaper'))}
         {row('/about', t('nav.about'))}
       </ul>
       <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">{LEGAL_PAGES.map((p) => row(`/legal/${p}`, t(`legal.${p}`)))}</ul>

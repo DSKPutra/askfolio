@@ -13,7 +13,8 @@
   "globalMarkets": "Pasar Global",
   "skip": "Lewati ke konten",
   "collapse": "Ciutkan menu",
-  "expand": "Buka menu"
+  "expand": "Buka menu",
+  "whitepaper": "Whitepaper"
  },
  "home": {
   "askPlaceholder": "Tanya Finandex AI…",
@@ -369,5 +370,20 @@
    "Apa itu praperadilan?",
    "Sumber hukum apa saja yang tersedia?"
   ]
+ },
+ "whitepaper": {
+  "read": "Baca whitepaper",
+  "download": "Unduh PDF",
+  "downloadOther": "PDF (English)",
+  "toc": "Daftar isi",
+  "homeTitle": "Whitepaper Finandex",
+  "homeBody": "Cara Finandex bekerja: data terverifikasi, metodologi, arsitektur chatbot, kualitas, keamanan, lisensi, dan keterbatasan.",
+  "version": "Versi",
+  "updated": "Diperbarui",
+  "category": "Kategori",
+  "status": "Status",
+  "asOf": "Data per",
+  "license": "Lisensi",
+  "formula": "Rumus"
  }
 }

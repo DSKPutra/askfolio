@@ -17,6 +17,7 @@ const Settings = lazy(() => import('../pages/Settings'));
 const About = lazy(() => import('../pages/About'));
 const Legal = lazy(() => import('../pages/Legal'));
 const More = lazy(() => import('../pages/More'));
+const Whitepaper = lazy(() => import('../pages/Whitepaper'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
 const page = (el: ReactNode) => <Suspense fallback={<LoadingBlock />}>{el}</Suspense>;
@@ -39,6 +40,7 @@ export const routes = [
       { path: 'legal', element: <Navigate to="/legal/privacy" replace /> },
       { path: 'legal/:page', element: page(<Legal />) },
       { path: 'more', element: page(<More />) },
+      { path: 'whitepaper', element: page(<Whitepaper />) },
       { path: '*', element: page(<NotFound />) },
     ],
   },

@@ -91,6 +91,9 @@ function Sidebar({ collapsed, setCollapsed, openSearch }: { collapsed: boolean; 
           <SideLink to="/settings" collapsed={collapsed} icon={glyph('⚙')}>
             {t('nav.settings')}
           </SideLink>
+          <SideLink to="/whitepaper" collapsed={collapsed} icon={glyph('▤')}>
+            {t('nav.whitepaper')}
+          </SideLink>
           <SideLink to="/about" collapsed={collapsed} icon={glyph('ⓘ')}>
             {t('nav.about')}
           </SideLink>

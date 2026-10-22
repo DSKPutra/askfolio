@@ -212,3 +212,16 @@ describe('runtime URL resolution (§15.6)', () => {
     resetBasesForTests();
   });
 });
+
+describe('whitepaper', () => {
+  it('has matching id/en chapters and generated PDFs', async () => {
+    const { WHITEPAPER, WHITEPAPER_PDF } = await import('../../src/content/whitepaper');
+    const { existsSync, statSync } = await import('node:fs');
+    expect(WHITEPAPER.id.chapters.length).toBe(WHITEPAPER.en.chapters.length);
+    for (const L of ['id', 'en'] as const) {
+      const f = `public${WHITEPAPER_PDF[L]}`;
+      expect(existsSync(f), f).toBe(true);
+      expect(statSync(f).size).toBeGreaterThan(50_000);
+    }
+  });
+});

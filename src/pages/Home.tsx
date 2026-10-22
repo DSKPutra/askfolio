@@ -3,9 +3,10 @@
 // feature map of all Dex, as-of strip. Footer comes from the layout.
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Button, Chip } from '../components/ui';
 import { appTaglineFor } from '../config/brand';
+import { WHITEPAPER_PDF } from '../content/whitepaper';
 import { AsOfStrip, FeatureMap } from '../features/home/FeatureMap';
 import { MarketSummary } from '../features/home/MarketSummary';
 import { useLocale } from '../lib/locale';
@@ -51,6 +52,22 @@ export default function Home() {
               {s}
             </Chip>
           ))}
+        </div>
+      </section>
+      <section aria-labelledby="wp-home" className="flex flex-col gap-4 rounded-3xl border border-border bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <h2 id="wp-home" className="text-lg font-semibold">
+            {t('whitepaper.homeTitle')}
+          </h2>
+          <p className="text-sm text-muted">{t('whitepaper.homeBody')}</p>
+        </div>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <a href={WHITEPAPER_PDF[locale]} download className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 text-sm font-medium text-[#0A0F0C] hover:brightness-110">
+            ⬇ {t('whitepaper.download')}
+          </a>
+          <Link to="/whitepaper" className="inline-flex min-h-11 items-center rounded-xl border border-border px-4 text-sm hover:bg-surface-2">
+            {t('whitepaper.read')} →
+          </Link>
         </div>
       </section>
       <MarketSummary />

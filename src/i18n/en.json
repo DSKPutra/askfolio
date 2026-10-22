@@ -13,7 +13,8 @@
   "globalMarkets": "Global Markets",
   "skip": "Skip to content",
   "collapse": "Collapse menu",
-  "expand": "Expand menu"
+  "expand": "Expand menu",
+  "whitepaper": "Whitepaper"
  },
  "home": {
   "askPlaceholder": "Ask Finandex AI…",
@@ -369,5 +370,20 @@
    "What is pretrial review (praperadilan)?",
    "Which legal sources are available?"
   ]
+ },
+ "whitepaper": {
+  "read": "Read the whitepaper",
+  "download": "Download PDF",
+  "downloadOther": "PDF (Bahasa Indonesia)",
+  "toc": "Contents",
+  "homeTitle": "Finandex Whitepaper",
+  "homeBody": "How Finandex works: verified data, methodology, chatbot architecture, quality, security, licensing, and limitations.",
+  "version": "Version",
+  "updated": "Updated",
+  "category": "Category",
+  "status": "Status",
+  "asOf": "As of",
+  "license": "Licence",
+  "formula": "Formula"
  }
 }

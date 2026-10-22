@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { prime } from '../e2e/helpers';
 
-const PAGES = ['/', '/dex', '/dex/finandex-ai/markets', '/dex/nasdaqdex/chat', '/dex/mylaiwyer/data', '/about', '/legal/privacy', '/settings'];
+const PAGES = ['/', '/dex', '/dex/finandex-ai/markets', '/dex/nasdaqdex/chat', '/dex/mylaiwyer/data', '/about', '/legal/privacy', '/settings', '/whitepaper'];
 for (const theme of ['dark', 'light'] as const) {
   for (const path of PAGES) {
     test(`axe ${theme} ${path}`, async ({ page }) => {
