@@ -187,7 +187,7 @@ def build(L):
     text(s, Inches(0.8), Inches(4.3), Inches(11), Inches(1.0), t('27 chatbot berbasis data untuk pasar, ekonomi, dan hukum — termasuk hukum keuangan dan bantuan korban penipuan', '27 data-grounded chatbots for markets, economics, and law — including financial law and help for scam victims'), 18, MUTED)
     s.shapes.add_picture(os.path.join(ROOT, 'kit/brand/dskp-mark-on-dark-192.png'), Inches(0.8), Inches(6.15), height=Inches(0.45))
     text(s, Inches(1.35), Inches(6.18), Inches(6), Inches(0.4), 'by Dea Saka Kurnia Putra', 14, TEXT)
-    text(s, Inches(8.3), Inches(6.18), Inches(4.4), Inches(0.4), t('Oktober 2026 · finandex-beta.vercel.app', 'October 2026 · finandex-beta.vercel.app'), 12, MUTED, align=PP_ALIGN.RIGHT)
+    text(s, Inches(8.3), Inches(6.18), Inches(4.4), Inches(0.4), t('Oktober 2026 · finandex.vercel.app', 'October 2026 · finandex.vercel.app'), 12, MUTED, align=PP_ALIGN.RIGHT)
 
     # 2 Problem
     s = new()
@@ -359,9 +359,9 @@ def build(L):
     title(s, t('Deploy', 'Deployment'), t('Dari repositori ke web dan aplikasi', 'From repository to web and apps'))
     table(s, Inches(0.6), Inches(2.0), Inches(12.1), [
         [t('Komponen', 'Component'), t('Status', 'Status')],
-        ['GitHub', 'github.com/DSKPutra/finandex_beta · releases data-inputs-v1, law-docs-v1'],
-        ['Vercel', t('finandex-beta.vercel.app — produksi (web + API)', 'finandex-beta.vercel.app — production (web + API)')],
-        ['Netlify', t('Konfigurasi siap; site finandex-beta menunggu kredit akun', 'Configuration ready; site finandex-beta awaiting account credits')],
+        ['GitHub', 'github.com/DSKPutra/finandex · releases data-inputs-v1, law-docs-v1'],
+        ['Vercel', t('finandex.vercel.app — produksi (web + API)', 'finandex.vercel.app — production (web + API)')],
+        ['Netlify', t('Konfigurasi siap; site finandex menunggu kredit akun', 'Configuration ready; site finandex awaiting account credits')],
         ['GitHub Actions', 'ci · parity · promote · android · ios · deploy-fallback · eval-live'],
         ['Android / iOS', t('Capacitor 8 — APK/AAB & IPA dibangun di CI', 'Capacitor 8 — APK/AAB & IPA built in CI')],
     ], [Inches(3.0), Inches(9.1)], 14, row_h=Inches(0.5))
@@ -384,7 +384,7 @@ def build(L):
     bg(s)
     s.shapes.add_picture(os.path.join(ROOT, 'kit/brand/icons/finandex-1024.png'), Inches(0.8), Inches(0.9), width=Inches(1.0))
     text(s, Inches(0.8), Inches(2.1), Inches(11), Inches(0.9), t('Terima kasih', 'Thank you'), 48, TEXT, HEAD, True)
-    text(s, Inches(0.8), Inches(3.1), Inches(11.5), Inches(1.6), ['finandex-beta.vercel.app', 'finandex-beta.vercel.app/whitepaper — PDF ID / EN', 'github.com/DSKPutra/finandex_beta'], 18, GREEN, spacing=1.3)
+    text(s, Inches(0.8), Inches(3.1), Inches(11.5), Inches(1.6), ['finandex.vercel.app', 'finandex.vercel.app/whitepaper — PDF ID / EN', 'github.com/DSKPutra/finandex'], 18, GREEN, spacing=1.3)
     text(s, Inches(0.8), Inches(4.7), Inches(11.5), Inches(0.5), t('Finandex dirancang dan dikembangkan oleh Dea Saka Kurnia Putra — A BRIGHTER TOMORROW THROUGH MEANINGFUL WORK.', 'Finandex is designed and developed by Dea Saka Kurnia Putra — A BRIGHTER TOMORROW THROUGH MEANINGFUL WORK.'), 15, TEXT)
     text(s, Inches(0.8), Inches(5.5), Inches(11.7), Inches(1.2), t('Data historis untuk informasi dan edukasi — bukan rekomendasi investasi, nasihat keuangan, maupun nasihat hukum. Data tidak real-time.', 'Historical data for information and education — not investment, financial, or legal advice. Data is not real-time.'), 12, MUTED)
     text(s, Inches(0.8), Inches(6.9), Inches(11), Inches(0.4), t('© 2026 Dea Saka Kurnia Putra. Hak cipta dilindungi undang-undang.', '© 2026 Dea Saka Kurnia Putra. All rights reserved.'), 11, MUTED)

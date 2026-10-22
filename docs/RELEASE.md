@@ -20,7 +20,7 @@
 | Klien (opsional) | `VITE_API_BASE_URL`, `VITE_DATA_BASE_URL`, `VITE_SUPPORT_EMAIL`, `VITE_DISTRIBUTION`, `VITE_APP_VERSION` |
 | GitHub secrets | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, `IOS_CERTIFICATE_P12_BASE64`, `IOS_CERTIFICATE_PASSWORD`, `IOS_PROVISIONING_PROFILE_BASE64`, `IOS_EXPORT_OPTIONS_PLIST_BASE64`, `ANTHROPIC_API_KEY` (eval-live) |
 
-`PRODUCTION_ORIGIN` di `src/config/runtime.ts`, `build:native`, CSP (`vercel.json`, `netlify.toml`) memakai `https://finandex-beta.vercel.app`; ganti bila domain produksi berbeda.
+`PRODUCTION_ORIGIN` di `src/config/runtime.ts`, `build:native`, CSP (`vercel.json`, `netlify.toml`) memakai `https://finandex.vercel.app`; ganti bila domain produksi berbeda.
 
 ### Ukuran deploy
 `public/data` ≈ 610 MB (core ≈ 39 MB). Pastikan paket hosting mengizinkan ukuran output statis ini; bila tidak, pindahkan `heavy/` ke penyimpanan objek ber-CORS dan set `VITE_DATA_BASE_URL` + `DATA_BASE_URL`.

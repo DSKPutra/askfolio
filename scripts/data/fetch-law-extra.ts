@@ -9,7 +9,7 @@ import { FINANCE_LAW_DOCS } from '../../src/config/law-finance';
 import { LAW_EXTRA } from './lib/paths';
 
 const sha = (b: Uint8Array) => createHash('sha256').update(b).digest('hex');
-const repo = process.env.GITHUB_REPOSITORY ?? process.env.DATA_INPUTS_REPO ?? 'DSKPutra/finandex_beta';
+const repo = process.env.GITHUB_REPOSITORY ?? process.env.DATA_INPUTS_REPO ?? 'DSKPutra/finandex';
 const tag = process.env.LAW_DOCS_RELEASE_TAG ?? 'law-docs-v1';
 const UA = { 'User-Agent': 'Mozilla/5.0 (Macintosh) finandex-etl', Accept: 'application/pdf,*/*' };
 

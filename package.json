@@ -42,7 +42,7 @@
     "assets:pdfjs": "tsx scripts/build/copy-pdfjs-assets.ts",
     "predev": "npm run assets:pdfjs",
     "prebuild": "npm run assets:pdfjs && npm run check:licenses",
-    "build:native": "cross-env VITE_API_BASE_URL=https://finandex-beta.vercel.app VITE_DATA_BASE_URL=https://finandex-beta.vercel.app/data VITE_NATIVE=1 npm run build && tsx scripts/build/native-prune.ts",
+    "build:native": "cross-env VITE_API_BASE_URL=https://finandex.vercel.app VITE_DATA_BASE_URL=https://finandex.vercel.app/data VITE_NATIVE=1 npm run build && tsx scripts/build/native-prune.ts",
     "build:api": "tsx scripts/build/bundle-api.ts",
     "whitepaper:pdf": "tsx scripts/build/whitepaper-pdf.ts",
     "data:fetch-law": "tsx scripts/data/fetch-law-extra.ts"

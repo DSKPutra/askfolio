@@ -493,8 +493,8 @@ const id: Whitepaper = {
     {
      "kind": "ul",
      "items": [
-      "Repositori: github.com/DSKPutra/finandex_beta; dataset input di release data-inputs-v1, dokumen hukum keuangan di release law-docs-v1 (keduanya diverifikasi SHA-256 saat build).",
-      "Hosting produksi: finandex-beta.vercel.app (fungsi API dibundel esbuild); konfigurasi Netlify setara tersedia.",
+      "Repositori: github.com/DSKPutra/finandex; dataset input di release data-inputs-v1, dokumen hukum keuangan di release law-docs-v1 (keduanya diverifikasi SHA-256 saat build).",
+      "Hosting produksi: finandex.vercel.app (fungsi API dibundel esbuild); konfigurasi Netlify setara tersedia.",
       "GitHub Actions: ci, parity, promote (main → release), android, ios, deploy-fallback, eval-live.",
       "Native: Capacitor 8 — Android (APK debug & AAB bertanda tangan di CI) dan iOS (build simulator & IPA di runner macOS)."
      ]
@@ -1039,8 +1039,8 @@ const en: Whitepaper = {
     {
      "kind": "ul",
      "items": [
-      "Repository: github.com/DSKPutra/finandex_beta; input datasets in release data-inputs-v1, financial-law documents in release law-docs-v1 (both verified by SHA-256 at build).",
-      "Production hosting: finandex-beta.vercel.app (API function bundled with esbuild); an equivalent Netlify configuration is provided.",
+      "Repository: github.com/DSKPutra/finandex; input datasets in release data-inputs-v1, financial-law documents in release law-docs-v1 (both verified by SHA-256 at build).",
+      "Production hosting: finandex.vercel.app (API function bundled with esbuild); an equivalent Netlify configuration is provided.",
       "GitHub Actions: ci, parity, promote (main → release), android, ios, deploy-fallback, eval-live.",
       "Native: Capacitor 8 — Android (debug APK & signed AAB in CI) and iOS (simulator build & IPA on a macOS runner)."
      ]

@@ -1,6 +1,6 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Runtime URL resolution (§15.6): explicit env → same-origin when /data/manifest.json exists → production.
-export const PRODUCTION_ORIGIN = 'https://finandex-beta.vercel.app';
+export const PRODUCTION_ORIGIN = 'https://finandex.vercel.app';
 
 type Bases = { api: string; data: string };
 let resolved: Promise<Bases> | undefined;
