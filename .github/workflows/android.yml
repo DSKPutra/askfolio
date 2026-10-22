@@ -1,0 +1,51 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Android (§15.7): debug APK artifact always; signed release AAB when keystore secrets exist.
+name: android
+on:
+  workflow_dispatch:
+  push:
+    branches: [release]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - uses: android-actions/setup-android@v3
+      - run: npm ci
+      - name: Data core for the bundle
+        env:
+          GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN || github.token }}
+        run: npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:build
+      - run: npm run build:native && npx cap sync android
+      - name: Debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with: { name: finandex-debug-apk, path: android/app/build/outputs/apk/debug/*.apk }
+      - name: Signed release AAB
+        if: env.HAS_KEYSTORE == 'true'
+        working-directory: android
+        env:
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=$PWD/release.keystore \
+            -Pandroid.injected.signing.store.password="$KS_PASS" \
+            -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$KEY_PASS"
+          rm release.keystore
+      - uses: actions/upload-artifact@v4
+        if: env.HAS_KEYSTORE == 'true'
+        with: { name: finandex-release-aab, path: android/app/build/outputs/bundle/release/*.aab }

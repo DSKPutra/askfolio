@@ -24,7 +24,7 @@ export function DataTab({ dex }: { dex: DexEntry }) {
         ? 'Tidak dicantumkan dalam file — lisensi menurut penyedia dataset (dikonfirmasi sebelum distribusi publik).'
         : 'Not stated in the file — licence per the dataset provider (to be confirmed before public distribution).'
       : dex.license;
-  const bytes = entry?.files.reduce((s, f) => s + f.bytes, 0) ?? 0;
+  const bytes = entry?.bytes ?? 0;
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       <Card>
@@ -77,7 +77,7 @@ export function DataTab({ dex }: { dex: DexEntry }) {
         <h2 className="mb-2 text-base font-semibold">{t('data.outputs')}</h2>
         {entry ? (
           <p className="text-sm text-muted">
-            {formatNumber(entry.files.length, locale)} {locale === 'id' ? 'file' : 'files'} · {formatNumber(bytes / 1e6, locale, 1)} MB · build {m.data?.build_id}
+            {formatNumber(entry.files, locale)} {locale === 'id' ? 'file' : 'files'} · {formatNumber(bytes / 1e6, locale, 1)} MB · build {m.data?.build_id}
           </p>
         ) : (
           <p className="text-sm text-muted">{t('common.empty')}</p>

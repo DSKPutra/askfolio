@@ -20,7 +20,8 @@ export function resolveBases(fetcher: typeof fetch = fetch): Promise<Bases> {
       const r = await fetcher(`${origin}/data/manifest.json`, { method: 'HEAD', cache: 'no-store' });
       sameOrigin = r.ok;
     } catch {
-      sameOrigin = false;
+      // Offline: HEAD is not served by the service worker, but a cached manifest proves same-origin data.
+      sameOrigin = typeof caches !== 'undefined' && !!(await caches.match(`${origin}/data/summary.json`).catch(() => undefined));
     }
     const base = sameOrigin ? origin : PRODUCTION_ORIGIN;
     return { api: trim(apiEnv ?? base), data: trim(dataEnv ?? `${base}/data`) };

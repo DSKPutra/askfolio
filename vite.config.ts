@@ -2,6 +2,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
+import type { Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -17,11 +18,48 @@ function coreDataEntries(): { url: string; revision: string }[] {
   return [...out].map(([url, revision]) => ({ url, revision }));
 }
 
+/** Preloads the two above-the-fold font files (Inter 400 latin, Montserrat 700 latin) to cut LCP. */
+function preloadFonts(): Plugin {
+  return {
+    name: 'finandex-preload-fonts',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, ctx) {
+        const files = Object.keys(ctx.bundle ?? {}).filter((f) => /(inter-latin-400-normal|montserrat-latin-700-normal)-[\w-]+\.woff2$/.test(f));
+        return files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', href: `/${f}`, as: 'font', type: 'font/woff2', crossorigin: '' }, injectTo: 'head' as const }));
+      },
+    },
+  };
+}
+
+/** Inlines the (small) app stylesheet into index.html: removes one round trip before first paint. */
+function inlineCss(): Plugin {
+  return {
+    name: 'finandex-inline-css',
+    apply: 'build',
+    enforce: 'post',
+    generateBundle(_o, bundle) {
+      const html = bundle['index.html'];
+      if (!html || html.type !== 'asset') return;
+      let src = String(html.source);
+      for (const [name, chunk] of Object.entries(bundle)) {
+        if (chunk.type !== 'asset' || !name.endsWith('.css')) continue;
+        const tag = new RegExp(`<link rel="stylesheet"[^>]*href="/${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>`);
+        if (tag.test(src)) src = src.replace(tag, () => `<style>${String(chunk.source)}</style>`);
+      }
+      html.source = src;
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
     devApi(),
+    preloadFonts(),
+    inlineCss(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',

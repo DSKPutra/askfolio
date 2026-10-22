@@ -26,7 +26,7 @@ self.addEventListener('message', (e) => {
 registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html'), { denylist: [/^\/api\//, /^\/data\//, /^\/pdfjs\//] }));
 
 // The data manifest changes with every data build → always try the network first.
-registerRoute(({ url }) => url.pathname.endsWith('/data/manifest.json'), new NetworkFirst({ cacheName: 'finandex-manifest', networkTimeoutSeconds: 4 }));
+registerRoute(({ url }) => /\/data\/(manifest|summary)\.json$/.test(url.pathname), new NetworkFirst({ cacheName: 'finandex-manifest', networkTimeoutSeconds: 4 }));
 
 // ----------------------------------------------------------------------------- heavy/ LRU byte quota
 

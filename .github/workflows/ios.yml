@@ -1,0 +1,48 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# iOS (§15.7, macOS runner): cap sync + simulator build always; signed archive/IPA when signing secrets exist.
+name: ios
+on:
+  workflow_dispatch:
+  push:
+    branches: [release]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 90
+    env:
+      HAS_SIGNING: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - name: Data core for the bundle
+        env:
+          GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN || github.token }}
+        run: npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:build
+      - run: npm run build:native && npx cap sync ios
+      - name: Simulator build
+        working-directory: ios/App
+        run: xcodebuild -project App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+      - name: Signed archive & IPA
+        if: env.HAS_SIGNING == 'true'
+        working-directory: ios/App
+        env:
+          P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN=build.keychain
+          security create-keychain -p ci "$KEYCHAIN" && security default-keychain -s "$KEYCHAIN" && security unlock-keychain -p ci "$KEYCHAIN"
+          echo "${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}" | base64 -d > cert.p12
+          security import cert.p12 -k "$KEYCHAIN" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci "$KEYCHAIN"
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}" | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/finandex.mobileprovision
+          echo "${{ secrets.IOS_EXPORT_OPTIONS_PLIST_BASE64 }}" | base64 -d > ExportOptions.plist
+          xcodebuild -project App.xcodeproj -scheme App -configuration Release -archivePath build/Finandex.xcarchive archive
+          xcodebuild -exportArchive -archivePath build/Finandex.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build/ipa
+          rm cert.p12
+      - uses: actions/upload-artifact@v4
+        if: env.HAS_SIGNING == 'true'
+        with: { name: finandex-ipa, path: ios/App/build/ipa/*.ipa }

@@ -3,7 +3,6 @@
 // client-side for tabs (offline-capable via the service worker cache), plus manifest helpers.
 import { useQuery } from '@tanstack/react-query';
 import { DataStore } from '../../server/data/store';
-import type { ManifestLike } from '../../server/tools/kit';
 import { resolveBases } from '../config/runtime';
 
 let storeP: Promise<DataStore> | undefined;
@@ -35,10 +34,11 @@ export async function getJson<T>(path: string): Promise<T> {
   return (await getStore()).json<T>(path);
 }
 
-export type Manifest = ManifestLike & { built_at: string; distribution: string; dex: Record<string, { as_of: string; quality: Record<string, unknown>; files: { path: string; bytes: number }[] }> };
+/** UI view of the data build (public/data/summary.json, written next to manifest.json by the ETL). */
+export type DataSummary = { build_id: string; built_at: string; distribution: string; dex: Record<string, { as_of: string; quality: Record<string, unknown>; files: number; bytes: number }> };
 
 export function useManifest() {
-  return useQuery({ queryKey: ['manifest'], queryFn: () => getJson<Manifest>('manifest.json'), staleTime: 10 * 60_000, retry: 1 });
+  return useQuery({ queryKey: ['summary'], queryFn: () => getJson<DataSummary>('summary.json'), staleTime: 10 * 60_000, retry: 1 });
 }
 
 export function useJson<T>(path: string | null) {

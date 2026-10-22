@@ -77,7 +77,7 @@ export function FeatureMap() {
         const items = shown.filter((d) => d.group === g.id).sort((a, b) => a.order - b.order);
         if (!items.length) return null;
         return (
-          <section key={g.id} className="mt-6" aria-labelledby={`grp-${g.id}`}>
+          <section key={g.id} className="mt-6 [contain-intrinsic-size:auto_640px] [content-visibility:auto]" aria-labelledby={`grp-${g.id}`}>
             <h3 id={`grp-${g.id}`} className="text-lg font-semibold">
               {g.name[locale]}
             </h3>
@@ -100,7 +100,8 @@ export function AsOfStrip() {
   const fmt = useAsOfLabel();
   const dex = visibleDex(DISTRIBUTION);
   return (
-    <section aria-label={t('home.asOfStrip')} className="no-scrollbar flex gap-2 overflow-x-auto py-1">
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- horizontally scrollable region must be keyboard-focusable (axe scrollable-region-focusable)
+    <section aria-label={t('home.asOfStrip')} tabIndex={0} className="no-scrollbar flex gap-2 overflow-x-auto py-1">
       <span className="shrink-0 text-xs font-semibold text-muted">{t('home.asOfStrip')}:</span>
       {dex.map((d) => (
         <span key={d.id} className="shrink-0 whitespace-nowrap rounded-full border border-border px-2 py-0.5 text-xs text-muted">

@@ -45,3 +45,14 @@
 - Capacitor 8: `capacitor.config.ts` (appId default [KONFIRMASI]), platform `android/` & `ios/` ditambahkan, `cap sync` OK; ikon adaptive/round/launcher + splash (ikon + logo P + "by Dea Saka Kurnia Putra"); iOS `NSHumanReadableCopyright`.
 - Native: splash hide, status bar per tema, tombol back Android (tutup dialog → kembali → konfirmasi keluar), tautan eksternal via Browser, share sheet PNG/CSV via Filesystem+Share, haptic saat kirim, data core dibundel.
 - Catatan: build Android debug **tidak dapat dijalankan di mesin ini** (JDK 11 terpasang; Capacitor 8/AGP butuh JDK 21) dan iOS butuh Xcode (hanya Command Line Tools) → dibangun di GitHub Actions (`android.yml`, `ios.yml`).
+
+## Fase 8 — CI/CD & deploy configs · HIJAU (lokal) — deploy menunggu akun (2026-10-22)
+- `vercel.json` (rewrite API + SPA, header keamanan & CSP, cache `/data` ber-CORS), `netlify.toml` (setara), adapter Vercel teruji.
+- Workflow: `ci.yml` (fetch→data→gitleaks→audit→verify→Lighthouse, unggah laporan), `parity.yml`, `promote.yml` (fast-forward `release`), `android.yml` (APK debug + AAB bertanda tangan bila secret ada), `ios.yml` (build simulator + IPA bila secret ada), `deploy-fallback.yml`, `eval-live.yml`, Dependabot.
+- Skrip: `test:parity`, `check:licenses` (+ `public/licenses.json`), `check:secrets`, size-limit, Lighthouse CI, Playwright (E2E + axe).
+- Belum dilakukan (butuh akun/keputusan pemilik): repo via Lovable, release `data-inputs-v1`, koneksi Vercel/Netlify, secret CI.
+
+## Fase 9 — QA menyeluruh · HIJAU kecuali eval live (2026-10-22)
+- `npm run verify` (PW_LOCAL=1) lulus: lint/typecheck 0 error; 729 test (unit+golden+tools+ui) — coverage baris 96,4%, statement 93,8%, fungsi 94,5%, branch 74,6%; golden 62/62; tools 541/541; eval mock 128/128 (keamanan 100%); bundel awal 165,4 KB gzip (≤ 250 KB); lisensi & secret bersih; E2E 123/123 (Chrome desktop + Pixel 7, termasuk axe 16 halaman tanpa pelanggaran serious/critical).
+- Parity Python↔golden 59/59 (dengan toleransi seri di batas top-N); `npm audit --omit=dev` 0 kerentanan; Lighthouse mobile Beranda: Perf 90, A11y 100, BP 100, SEO 100 (median 3 run).
+- Eval live **belum dijalankan**: `ANTHROPIC_API_KEY` belum tersedia.

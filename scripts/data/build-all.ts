@@ -38,5 +38,8 @@ if (!only.length) {
   const now = new Date().toISOString();
   const manifest = { build_id: process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.COMMIT_REF ?? now.replace(/\D/g, '').slice(0, 14), built_at: now, distribution, inputs, dex };
   w.json('_', 'manifest.json', manifest, Manifest);
+  // Small UI summary (as-of, quality, file counts) so the home screen does not download the full manifest.
+  const summary = { build_id: manifest.build_id, built_at: now, distribution, dex: Object.fromEntries(Object.entries(dex).map(([id, e]) => [id, { as_of: e.as_of, quality: e.quality, files: e.files.length, bytes: e.files.reduce((s, f) => s + f.bytes, 0) }])) };
+  w.json('_', 'summary.json', summary);
   console.log(`manifest: ${Object.keys(dex).length} Dex → ${OUT}/manifest.json`);
 }

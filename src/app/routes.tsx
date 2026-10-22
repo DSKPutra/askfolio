@@ -8,7 +8,7 @@ import { LoadingBlock } from '../components/ui';
 import { Layout } from './Layout';
 import { RouteError } from './RouteError';
 
-const Home = lazy(() => import('../pages/Home'));
+import Home from '../pages/Home';
 const DexHub = lazy(() => import('../pages/DexHub'));
 const DexPage = lazy(() => import('../pages/DexPage'));
 const MarketDetail = lazy(() => import('../pages/MarketDetail'));
