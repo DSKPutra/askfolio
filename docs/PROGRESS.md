@@ -18,3 +18,11 @@
 - Setiap file divalidasi zod (seri/matriks/katalog/tabel + JSON-safe), angka ≤10 digit signifikan; SHA-256 tiap file di manifest.
 - Golden 58/58 + gate data (§18.13: skema, finite, SHA input = kit, tanpa kolom author/handle) 4/4. Total test 97/97.
 - Ukuran: core 33 MB, heavy 562 MB (seri harian NASDAQ/S&P/IDX + matriks Float32). Risiko: ukuran deploy statis & precache PWA → ditangani di Fase 7–8 (precache hanya subset core).
+
+## Fase 4 — Server, tools, orkestrator, prompt, keamanan · HIJAU (2026-10-22)
+- `server/handler.ts` (Web Fetch API) + adapter Vercel/Netlify; rute health/version/chat(SSE)/feedback/dex.
+- 361 tool terdaftar (13 bersama + khusus per Dex); skema zod → JSON Schema `strict`; ui (artefak grafik) + method untuk setiap tool berangka.
+- Orkestrator §8.3 (≤ 8 giliran, ≤ 12 tool, timeout tool 8 dtk, tenggat, citation unik); Claude via @anthropic-ai/sdk (streaming, prompt caching, fallback server-side, tanpa temperature).
+- Prompt global (§8.6 persis, id + en) + 27 prompt Dex (5 bagian) dimuat sebagai string saat build.
+- Keamanan: CORS allowlist (wildcard), rate limit 20/10 mnt & 200/hari + anggaran token (Upstash/in-memory), batas body 64 KB, header keamanan, detektor data sensitif di server.
+- Gate: `test:tools` 363/363; `eval:chat:mock` 128/128 (100%, keamanan 100%); total 479 test; coverage baris 96,1%.

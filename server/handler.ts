@@ -19,29 +19,38 @@ import type { ManifestLike } from './tools/kit';
 export type HandlerOptions = { fetcher?: Fetcher; llm?: Llm; limiter?: RateLimiter };
 
 type State = { env: Env; store: DataStore; limiter: RateLimiter; manifest: () => Promise<ManifestLike> };
-const states = new Map<string, State>();
+type Shared = { store: DataStore; manifest: () => Promise<ManifestLike> };
+const stores = new Map<string, Shared>();
+const limiters = new Map<string, RateLimiter>();
 
 function state(raw: Record<string, string | undefined>, origin: string, opts: HandlerOptions): State {
   const env = parseEnv(raw);
   const base = env.DATA_BASE_URL || `${origin}/data`;
   const key = `${base}|${opts.fetcher ? 'custom' : 'fetch'}`;
-  let s = states.get(key);
-  if (!s) {
+  let shared = stores.get(key);
+  if (!shared) {
     const store = new DataStore(base, opts.fetcher);
-    const counter = env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN ? new UpstashCounter(env.UPSTASH_REDIS_REST_URL, env.UPSTASH_REDIS_REST_TOKEN) : new MemoryCounter();
     let manifestP: Promise<ManifestLike> | undefined;
-    s = {
-      env,
+    shared = {
       store,
-      limiter: opts.limiter ?? new RateLimiter(counter, env.DAILY_TOKEN_BUDGET),
       manifest: () => (manifestP ??= store.json<ManifestLike>('manifest.json').catch((e: unknown) => {
         manifestP = undefined;
         throw e;
       })),
     };
-    states.set(key, s);
+    stores.set(key, shared);
   }
-  return s;
+  let limiter = opts.limiter;
+  if (!limiter) {
+    const lk = `${env.UPSTASH_REDIS_REST_URL ?? 'memory'}|${env.DAILY_TOKEN_BUDGET}`;
+    limiter = limiters.get(lk);
+    if (!limiter) {
+      const counter = env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN ? new UpstashCounter(env.UPSTASH_REDIS_REST_URL, env.UPSTASH_REDIS_REST_TOKEN) : new MemoryCounter();
+      limiter = new RateLimiter(counter, env.DAILY_TOKEN_BUDGET);
+      limiters.set(lk, limiter);
+    }
+  }
+  return { env, store: shared.store, manifest: shared.manifest, limiter };
 }
 
 const json = (body: unknown, status: number, headers: Record<string, string>) =>

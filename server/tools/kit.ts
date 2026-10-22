@@ -6,8 +6,8 @@ import type { Locale } from '../../src/config/brand';
 import type { DexId } from '../../src/config/dex-registry';
 import { stepsFor } from '../../src/shared/analytics/formulas';
 import type { FormulaId } from '../../src/shared/analytics/formulas';
-import { Artifact, ChartSpec } from '../../src/shared/chat-protocol';
-import type { ArtifactKind, Citation, Method } from '../../src/shared/chat-protocol';
+import { Artifact } from '../../src/shared/chat-protocol';
+import type { ArtifactKind, Citation, Method , ChartSpec } from '../../src/shared/chat-protocol';
 import type { DataStore } from '../data/store';
 
 export type ToolCtx = {

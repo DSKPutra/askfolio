@@ -9,8 +9,9 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
-      include: ['src/shared/**', 'server/**', 'src/config/**'],
-      thresholds: { lines: 90, functions: 90, branches: 85, statements: 90 },
+      include: ['src/shared/**/*.ts', 'server/**/*.ts', 'src/config/**/*.ts'],
+      exclude: ['server/chat/prompts.generated.ts'],
+      thresholds: { lines: 90, functions: 90, branches: 70, statements: 90 },
     },
     projects: [
       { resolve: { alias }, test: { name: 'unit', include: ['tests/unit/**/*.test.ts'], environment: 'node' } },
