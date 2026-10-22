@@ -150,7 +150,8 @@ describe.runIf(existsSync('public/data/manifest.json'))('handler', () => {
     expect((await post('{}', { 'Content-Length': '999999' })).status).toBe(413);
     expect((await handle(new Request('https://finandex.test/api/chat', { method: 'POST', body: body({ dex: 'salarydex', messages: [{ role: 'user', content: 'hi' }], locale: 'id', clientId: CLIENT }) }), { ...ENV, VITE_DISTRIBUTION: 'commercial' }, undefined, { fetcher })).status).toBe(400);
     const noKey = await handle(new Request('https://finandex.test/api/chat', { method: 'POST', body: body({ dex: 'rupiahdex', messages: [{ role: 'user', content: 'hi' }], locale: 'id', clientId: CLIENT }) }), { DATA_BASE_URL: LOCAL_BASE, CHAT_MODE: 'live' }, undefined, { fetcher });
-    expect(noKey.status).toBe(503);
+    expect(noKey.status).toBe(200); // data mode: answered from the Dex tools without an AI model
+    expect(noKey.headers.get('Content-Type')).toMatch(/text\/event-stream/);
   });
   it('streams SSE in protocol order with artifacts, method and citations', async () => {
     const llm = new MockLlm(() => ({ calls: () => [{ name: 'get_snapshot', input: { id: 'USDIDR' } }], answer: (r) => `Kurs: ${JSON.stringify((r.get_snapshot?.[0] as { metrics: { last_close: number } }).metrics.last_close)}` }), 'id', 'rupiahdex');

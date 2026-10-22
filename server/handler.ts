@@ -78,7 +78,7 @@ export async function handle(request: Request, rawEnv: Record<string, string | u
       } catch {
         data = 'unavailable';
       }
-      return json({ ok: true, data_build: data, chat: s.env.CHAT_MODE === 'mock' || !!s.env.ANTHROPIC_API_KEY ? 'ready' : 'not-configured' }, 200, cors);
+      return json({ ok: true, data_build: data, chat: s.env.CHAT_MODE === 'live' && s.env.ANTHROPIC_API_KEY ? 'ai' : 'data' }, 200, cors);
     }
     if (path === '/api/version' && request.method === 'GET') return json({ app: 'Finandex', version: s.env.APP_VERSION, build: s.env.BUILD_ID, model: s.env.ANTHROPIC_MODEL }, 200, cors);
     if (path === '/api/dex' && request.method === 'GET') {
@@ -122,11 +122,13 @@ async function chat(request: Request, s: State, cors: Record<string, string>, op
   }
   let llm = opts.llm;
   if (!llm) {
-    if (s.env.CHAT_MODE === 'mock') {
-      const { MockLlm, genericScenario } = await import('./chat/mock-llm');
-      llm = new MockLlm(genericScenario);
-    } else if (s.env.ANTHROPIC_API_KEY) llm = new ClaudeLlm(s.env);
-    else return json(errorBody('UPSTREAM', 'Chat belum dikonfigurasi di server ini. / Chat is not configured on this server.'), 503, cors);
+    if (s.env.CHAT_MODE === 'live' && s.env.ANTHROPIC_API_KEY) llm = new ClaudeLlm(s.env);
+    else {
+      // Data mode: no AI model configured (or CHAT_MODE=mock) → answers composed directly from the Dex tools.
+      const { DataLlm } = await import('./chat/data-llm');
+      const { KNOWN_QUESTIONS } = await import('./chat/known-questions');
+      llm = new DataLlm(req.dex, s.store, req.locale, KNOWN_QUESTIONS);
+    }
   }
   const requestId = crypto.randomUUID();
   const abort = new AbortController();
