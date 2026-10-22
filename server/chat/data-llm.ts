@@ -45,6 +45,28 @@ const words = (s: string) =>
     .split(' ')
     .filter((w) => w.length >= 2 && !STOP.has(w));
 
+/** Words that change what is asked (superlatives, statistics, periods); they must match for a known plan. */
+const INTENT = new Set('tertinggi terendah terbesar terkecil terakhir terbaru rata median korelasi drawdown ytd tahun bulan sepanjang highest lowest largest smallest latest last average correlation year month all beta dividen volume'.split(' '));
+
+const escapeRe = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Tickers (upper-case tokens) and numbers must be identical before a known question's fixed plan is reused. */
+function sameSpecifics(a: string, b: string): boolean {
+  const spec = (x: string) =>
+    new Set(
+      x
+        .replace(/[?.,!;:()/]/g, ' ')
+        .split(/\s+/)
+        .filter((t) => /^[A-Z0-9^=.-]{2,}$/.test(t) && /[A-Z0-9]/.test(t))
+        .map((t) => t.toUpperCase()),
+    );
+  const A = spec(a);
+  const B = spec(b);
+  const ia = new Set(words(a).filter((w) => INTENT.has(w)));
+  const ib = new Set(words(b).filter((w) => INTENT.has(w)));
+  return A.size === B.size && [...A].every((t) => B.has(t)) && ia.size === ib.size && [...ia].every((w) => ib.has(w));
+}
+
 function jaccard(a: string[], b: string[]): number {
   const A = new Set(a);
   const B = new Set(b);
@@ -55,8 +77,8 @@ function jaccard(a: string[], b: string[]): number {
 
 /** Small id/en synonym table so Indonesian questions reach English tool names. */
 const SYN: Record<string, string[]> = {
-  korelasi: ['correlation'], tahun: ['year'], per: [], sektor: ['sector'], tipe: ['type'], tahap: ['stage'], terbanyak: ['rank', 'top', 'most'], most: ['rank', 'top'], bursa: ['exchange'], grade: ['grade'], dikutip: ['papers', 'cited'], kalender: ['calendar'], tahunan: ['yearly', 'calendar', 'annual'], bandingkan: ['compare'], perbandingan: ['compare'],
-  peringkat: ['rank'], tertinggi: ['rank', 'top'], terbesar: ['rank', 'top'], terendah: ['rank'], top: ['rank', 'top'], teratas: ['top', 'rank'],
+  korelasi: ['correlation'], kapitalisasi: ['market', 'cap', 'valuation'], profil: ['profile'], likuid: ['liquidity'], tertinggi: ['rank', 'top', 'high'], tahun: ['year'], per: [], sektor: ['sector'], tipe: ['type'], tahap: ['stage'], terbanyak: ['rank', 'top', 'most'], most: ['rank', 'top'], bursa: ['exchange'], grade: ['grade'], dikutip: ['papers', 'cited'], kalender: ['calendar'], tahunan: ['yearly', 'calendar', 'annual'], bandingkan: ['compare'], perbandingan: ['compare'],
+  peringkat: ['rank'], terbesar: ['rank', 'top'], terendah: ['rank'], top: ['rank', 'top'], teratas: ['top', 'rank'],
   dividen: ['dividends'], split: ['splits'], volume: ['volume'], likuiditas: ['liquidity', 'volume'], simulasi: ['simulate'], simulasikan: ['simulate'],
   kurs: ['fx', 'rate'], konversi: ['convert'], rata: ['average'], suku: ['rate', 'rates'], bunga: ['rate', 'rates'], inflasi: ['inflation'],
   gaji: ['salary', 'salaries'], skill: ['skill', 'skills'], keahlian: ['skill'], distribusi: ['distribution'], median: ['median', 'stats'],
@@ -86,6 +108,15 @@ function periodFrom(q: string): string | null {
   return null;
 }
 
+/** Time-series metric named by the question (rank tools take a free-text metric key). */
+function metricFrom(q: string): string {
+  if (/volatil/i.test(q)) return 'vol_1Y';
+  if (/drawdown|penurunan/i.test(q)) return 'mdd';
+  if (/\bath\b|all[- ]time high|tertinggi sepanjang/i.test(q)) return 'pct_from_ath';
+  const p = periodFrom(q);
+  return `ret_${p ?? '1Y'}`;
+}
+
 export class DataLlm implements Llm {
   readonly model = 'finandex-data-mode';
   private readonly tools: ToolDef[];
@@ -108,7 +139,7 @@ export class DataLlm implements Llm {
       const s = jaccard(qw, words(k.question));
       if (s > best.s) best = { s, k };
     }
-    if (best.k && best.s >= 0.45) return { calls: best.k.scenario.calls(question, this.dex), scenario: best.k.scenario };
+    if (best.k && best.s >= 0.6 && sameSpecifics(question, best.k.question)) return { calls: best.k.scenario.calls(question, this.dex), scenario: best.k.scenario };
 
     if (/siapa (pembuat|yang membuat)|who (made|built|created)|pencipta/i.test(question)) return { calls: [{ name: 'app_info', input: {} }] };
     if (/kualitas data|data quality|sumber data|data source|dataset apa|data apa|what data/i.test(question)) return { calls: [{ name: 'dataset_info', input: {} }, { name: 'data_quality', input: { id: null } }].filter((c) => this.has(c.name)) };
@@ -123,7 +154,7 @@ export class DataLlm implements Llm {
       for (const e of ents) {
         const keys = [e.id, ...e.aliases].map((k) => k.toLowerCase());
         const tokHit = toks.some((t) => keys.includes(t.toLowerCase()) && (t.length >= 3 || t === t.toUpperCase()));
-        const nameHit = e.name.length >= 4 && normaliseKey(question).includes(normaliseKey(e.name));
+        const nameHit = e.name.length >= 4 && new RegExp(`(^|[^a-z0-9])${escapeRe(normaliseKey(e.name))}([^a-z0-9]|$)`).test(normaliseKey(question));
         if ((tokHit || nameHit) && !hits.includes(e.id)) hits.push(e.id);
         if (hits.length >= 5) break;
       }
@@ -137,6 +168,29 @@ export class DataLlm implements Llm {
         if (/drawdown|penurunan terbesar|anjlok/i.test(question)) return { calls: [{ name: 'drawdowns', input: this.fill('drawdowns', { id, top_n: 5 }) }] };
         if (/kalender|per tahun|tahunan|calendar|yearly/i.test(question)) return { calls: [{ name: 'calendar_returns', input: this.fill('calendar_returns', { id }) }] };
         if (/ekstrem|terbesar harian|extreme|largest daily/i.test(question)) return { calls: [{ name: 'extreme_moves', input: this.fill('extreme_moves', { id, top_n: 10 }) }] };
+        // An intent word naming an entity tool (beta, technical, valuation, dividends, profile…) wins.
+        const qx1 = expand(qw);
+        const ENTITY_FIELDS = ['id', 'ticker', 'fund', 'symbol', 'asset'];
+        const intent = this.tools
+          .filter((t) => !META.has(t.name) && !['get_snapshot', 'get_history', 'compare', 'rank', 'correlation'].includes(t.name))
+          .map((t) => {
+            const key = fieldsOf(t.input).find((f) => ENTITY_FIELDS.includes(f.key))?.key;
+            if (!key) return null;
+            const nameW = t.name.split('_');
+            const labelW = words(`${t.label.id} ${t.label.en}`);
+            let sc = 0;
+            for (const w of qx1) {
+              if (nameW.includes(w)) sc += 3;
+              if (labelW.includes(w)) sc += 2;
+            }
+            return { t, key, sc };
+          })
+          .filter((x): x is { t: ToolDef; key: string; sc: number } => !!x && x.sc >= 3)
+          .sort((a, b) => b.sc - a.sc);
+        for (const c of intent) {
+          const input = this.fill(c.t.name, { [c.key]: id });
+          if (c.t.input.safeParse(input).success && (await this.useful(c.t, input))) return { calls: [{ name: c.t.name, input }] };
+        }
         const calls: Call[] = [{ name: 'get_snapshot', input: { id } }];
         if (this.has('get_history')) calls.push({ name: 'get_history', input: this.fill('get_history', { id, interval: 'auto' }) });
         return { calls };
@@ -145,6 +199,31 @@ export class DataLlm implements Llm {
 
     // 3) Keyword match against the Dex's own tools; candidates are tried and the first that returns data wins.
     const qx = expand(qw);
+
+    // 2b) Ranking questions ("top 10", "teratas", "tertinggi", "terendah") → the Dex's rank tools.
+    if (/\b(top|teratas|tertinggi|terendah|terbesar|terkecil|peringkat|highest|lowest|largest|smallest|ranking|most|terbanyak)\b/i.test(question)) {
+      const n = Number(/\b(\d{1,2})\b/.exec(question)?.[1] ?? '10');
+      const asc = /terendah|terkecil|lowest|smallest|paling rendah/i.test(question);
+      const rankTools = this.tools.filter((t) => /rank|leaderboard|top_/.test(t.name));
+      for (const t of rankTools) {
+        const over: Record<string, unknown> = {};
+        for (const f of fieldsOf(t.input)) {
+          if (f.kind === 'enum' && /metric|indicator|by/.test(f.key)) {
+            const opt = f.options.find((o) => {
+              const lo = o.toLowerCase();
+              const tail = lo.split('_').at(-1) ?? '';
+              return qx.includes(lo) || lo.split('_').every((p) => qx.includes(p)) || (tail.length >= 2 && lo.includes('_') && qx.includes(tail));
+            });
+            if (opt) over[f.key] = opt;
+          }
+          if (f.kind === 'string' && f.key === 'metric' && !f.nullable) over.metric = metricFrom(question);
+          if (f.kind === 'enum' && f.key === 'order' && f.options.includes(asc ? 'asc' : 'desc')) over.order = asc ? 'asc' : 'desc';
+          if (f.kind === 'number' && f.key === 'limit') over.limit = n;
+        }
+        const input = this.fill(t.name, over);
+        if (t.input.safeParse(input).success && (await this.useful(t, input))) return { calls: [{ name: t.name, input }] };
+      }
+    }
     const countryQ = countryIn(question);
     const scored = this.tools
       .filter((t) => !META.has(t.name))
@@ -162,7 +241,11 @@ export class DataLlm implements Llm {
         const enums: Record<string, unknown> = {};
         for (const f of fieldsOf(t.input)) {
           if (f.kind !== 'enum' || TEXT_KEYS.includes(f.key)) continue;
-          const opt = f.options.find((o) => qx.includes(o.toLowerCase()) || o.toLowerCase().split('_').every((p) => qx.includes(p)));
+          const opt = f.options.find((o) => {
+            const lo = o.toLowerCase();
+            const tail = lo.split('_').at(-1) ?? '';
+            return qx.includes(lo) || lo.split('_').every((p) => qx.includes(p)) || (tail.length >= 2 && lo.includes('_') && qx.includes(tail));
+          });
           if (opt) {
             enums[f.key] = opt;
             s += 5;
@@ -316,6 +399,7 @@ function describe(tool: string, data: Record<string, unknown>, L: Locale): strin
     if (out.length >= 5) break;
   }
   // Then the main list: first rows with their label + up to 3 numbers.
+  const metricKey = typeof data.metric === 'string' ? data.metric : null;
   const listKey = Object.keys(data).find((k) => Array.isArray(data[k]) && (data[k] as unknown[]).length && (data[k] as unknown[]).every((x) => x && typeof x === 'object'));
   if (listKey) {
     const rows = (data[listKey] as Record<string, unknown>[]).slice(0, 8);
@@ -325,7 +409,7 @@ function describe(tool: string, data: Record<string, unknown>, L: Locale): strin
       const nums = Object.entries(r)
         .filter(([k, v]) => typeof v === 'number' && k !== 'rank' && !k.endsWith('_fraction'))
         .slice(0, 3)
-        .map(([k, v]) => `${human(k)} ${fmt(k, v, L)}`);
+        .map(([k, v]) => `${human(k === 'value' && metricKey ? metricKey : k)} ${fmt(k === 'value' && metricKey ? metricKey : k, v, L)}`);
       if (label || nums.length) out.push(`${label ?? ''}${label && nums.length ? ' — ' : ''}${nums.join(', ')}`);
     }
   }
