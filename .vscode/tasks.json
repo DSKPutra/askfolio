@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Finandex: install", "type": "shell", "command": "npm install", "problemMatcher": [] },
+    { "label": "Finandex: dev (http://localhost:5173)", "type": "shell", "command": "npm run dev", "isBackground": true, "problemMatcher": [], "group": { "kind": "build", "isDefault": true } },
+    { "label": "Finandex: build + preview produksi (http://localhost:4173)", "type": "shell", "command": "npm run build && npx vite preview --port 4173", "isBackground": true, "problemMatcher": [] },
+    { "label": "Finandex: rebuild data", "type": "shell", "command": "npm run data:build", "problemMatcher": [] },
+    { "label": "Finandex: verify (semua gate)", "type": "shell", "command": "PW_LOCAL=1 npm run verify", "problemMatcher": [] }
+  ]
+}

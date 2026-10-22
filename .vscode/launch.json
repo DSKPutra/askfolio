@@ -1,0 +1,6 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    { "name": "Finandex: buka di Chrome (dev)", "type": "chrome", "request": "launch", "url": "http://localhost:5173", "webRoot": "${workspaceFolder}", "preLaunchTask": "Finandex: dev (http://localhost:5173)" }
+  ]
+}
