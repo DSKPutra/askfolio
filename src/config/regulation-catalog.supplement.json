@@ -1,0 +1,82 @@
+{
+ "_note": "Finandex supplement to kit/datasets/law/regulation_catalog.json (the kit file is read-only and golden-tested). Entries here use the same schema, are fetched and verified by scripts/data/fetch-regulations.ts (§4.30), and are labelled 'suplemen' in the UI. Added 2026-10-23: UU 4/2026 (amends UU P2SK, previously ingested) and PP 33/2026 (UU PDP implementing regulation, required by kit/templates/TECHNICAL_DOCS_PROMPT.md §0.4).",
+ "documents": [
+  {
+   "id": "uu-4-2026-perubahan-p2sk",
+   "type": "UU",
+   "number": 4,
+   "year": 2026,
+   "title": "Perubahan atas Undang-Undang Nomor 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan",
+   "short": "UU 4/2026 (Perubahan P2SK)",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/uu-no-4-tahun-2026.pdf"
+   ],
+   "resolve_query": "UU 4 2026 Perubahan atas Undang-Undang Nomor 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan",
+   "amends": [
+    "uu-4-2023-p2sk"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "sektor keuangan",
+    "perubahan UU P2SK"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": "Suplemen Finandex; metadata dikonfirmasi dari halaman 1–3 PDF resmi saat ingest.",
+   "supplement": true
+  },
+  {
+   "id": "pp-33-2026-pdp",
+   "type": "PP",
+   "number": 33,
+   "year": 2026,
+   "title": "Peraturan Pelaksanaan Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi",
+   "short": "PP 33/2026 (Pelaksanaan UU PDP)",
+   "corpus": "keuangan",
+   "also_relevant_to": [
+    "umum"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/pp-no-33-tahun-2026.pdf"
+   ],
+   "resolve_query": "PP 33 2026 Peraturan Pelaksanaan Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "pelindungan data pribadi",
+    "persetujuan",
+    "hak subjek data",
+    "kegagalan pelindungan data",
+    "transfer lintas batas"
+   ],
+   "scam_relevance": "Kewajiban pengendali data, termasuk pemberitahuan kegagalan pelindungan data pribadi.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": "Suplemen Finandex untuk verifikasi rujukan pasal dokumen privasi (docs/compliance/privacy). Tanggal berlaku dicatat dari teks resmi saat ingest.",
+   "supplement": true
+  }
+ ]
+}

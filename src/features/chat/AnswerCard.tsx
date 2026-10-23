@@ -1,18 +1,18 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Answer card (§8.8): core answer → visual(s) → analysis → "why" panel → limitations & citations → disclaimer.
+// Answer card — narration side (§8.8, §10.0.2): core answer and "Analisis" written by the AI (--ai edge), a summary of the
+// evidence (opens it in the Evidence Pane / "Bukti" sheet), limitations, actions (copy, share, retry) and the disclaimer.
+// Charts, quotes, the "why" panel and citations live in the Evidence Pane.
+import { clsx } from 'clsx';
 import ReactMarkdown from 'react-markdown';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CitationList } from '../../components/CitationCard';
-import { ChartCard } from '../../components/chart/ChartCard';
+import type { TFunction } from 'i18next';
 import { Button } from '../../components/ui';
 import type { DexId } from '../../config/dex-registry';
 import { EXPORT_WATERMARK } from '../../config/brand';
 import type { ChatMessage } from '../../lib/history';
-import { tabForTool } from '../dex/panels';
-import { MethodPanel } from './MethodPanel';
 
 /** Splits model markdown into the core answer (lead paragraphs) and the analysis (from the first list/heading). */
 export function splitAnswer(md: string): { core: string; analysis: string } {
@@ -22,9 +22,9 @@ export function splitAnswer(md: string): { core: string; analysis: string } {
   return { core: lines.slice(0, i).join('\n').trim(), analysis: lines.slice(i).join('\n').trim() };
 }
 
-function Md({ text }: { text: string }) {
+export function Md({ text }: { text: string }) {
   return (
-    <div className="prose-chat text-sm leading-relaxed">
+    <div className="prose-chat measure text-base leading-relaxed">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} components={{ a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer nofollow">{children}</a> }}>
         {text}
       </ReactMarkdown>
@@ -32,14 +32,21 @@ function Md({ text }: { text: string }) {
   );
 }
 
-export function AnswerCard({ dex, msg, last, streaming, onRetry, onAsk, disclaimer }: { dex: DexId; msg: ChatMessage; last: boolean; streaming: boolean; onRetry: () => void; onAsk: (title: string) => void; disclaimer: string }) {
+export function evidenceSummary(msg: ChatMessage, t: TFunction): string {
+  const a = msg.artifacts ?? [];
+  const charts = a.filter((x) => !['quote', 'card', 'steps', 'choices', 'timeline', 'compare_text'].includes(x.kind)).length;
+  const quotes = a.filter((x) => x.kind === 'quote' || x.kind === 'compare_text').length;
+  const steps = a.filter((x) => x.kind === 'steps' || x.kind === 'choices').length;
+  const parts = [charts && t('evidence.charts', { n: charts }), quotes && t('evidence.quotes', { n: quotes }), steps && t('evidence.steps', { n: steps }), (msg.methods ?? []).length && t('evidence.method')].filter(Boolean);
+  return parts.join(', ');
+}
+
+export function AnswerCard({ msg, last, streaming, onRetry, disclaimer, selected, onSelect }: { dex: DexId; msg: ChatMessage; last: boolean; streaming: boolean; onRetry: () => void; disclaimer: string; selected: boolean; onSelect: () => void }) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const { core, analysis } = splitAnswer(msg.content);
-  const artifacts = msg.artifacts ?? [];
-  const methods = msg.methods ?? [];
-  const citations = msg.citations ?? [];
   const live = last && streaming;
+  const summary = evidenceSummary(msg, t);
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(`${msg.content}\n\n${EXPORT_WATERMARK}`);
@@ -62,16 +69,23 @@ export function AnswerCard({ dex, msg, last, streaming, onRetry, onAsk, disclaim
     await copy();
   };
   return (
-    <article className="space-y-3 rounded-2xl border border-border bg-surface p-4">
+    <article className={clsx('pane prov-ai space-y-3 p-4', selected && 'border-ai')} aria-current={selected ? 'true' : undefined}>
       {core && <Md text={core} />}
-      {artifacts.map((a, i) => {
-        const tool = msg.artifactTools?.[i];
-        const tab = tool ? tabForTool(dex, tool) : undefined;
-        return <ChartCard key={a.id} artifact={a} onAsk={() => onAsk(a.title)} {...(tab ? { openTabHref: `/dex/${dex}/${tab}` } : {})} />;
-      })}
-      {analysis && <Md text={analysis} />}
-      {!live && <MethodPanel methods={methods} />}
-      <CitationList citations={citations} />
+      {analysis && (
+        <section aria-label={t('chat.analysis')}>
+          <Md text={analysis} />
+        </section>
+      )}
+      {summary && (
+        <button type="button" onClick={onSelect} aria-pressed={selected} className="prov-data flex min-h-11 w-full items-center justify-between gap-2 rounded-xl bg-pane-2 px-3 text-left text-sm">
+          <span>
+            {t('evidence.label')}: {summary}
+          </span>
+          <span aria-hidden className="text-ink-muted">
+            {selected ? '●' : '○'}
+          </span>
+        </button>
+      )}
       {msg.error && (
         <p role="alert" className="text-sm text-negative">
           {msg.error}
@@ -96,7 +110,7 @@ export function AnswerCard({ dex, msg, last, streaming, onRetry, onAsk, disclaim
           )}
         </div>
       )}
-      {!live && msg.content && <p className="text-[11px] text-muted">{disclaimer}</p>}
+      {!live && msg.content && <p className="text-xs text-ink-muted">{disclaimer}</p>}
     </article>
   );
 }

@@ -1,6 +1,6 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Routes (§10.1): /, /ai, /dex, /dex/:dexId/:tab?/:entity?, /markets/:slug, /watchlist, /settings,
-// /about, /legal/:page, /more. Pages are lazy-loaded (initial JS budget §14).
+// /about, /legal/:page, /more, /whitepaper, /darurat-scam, /install, /panduan. Pages are lazy-loaded (initial JS budget §14).
 import { lazy, Suspense } from 'react';
 import type { ReactNode } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
@@ -19,6 +19,9 @@ const Legal = lazy(() => import('../pages/Legal'));
 const More = lazy(() => import('../pages/More'));
 const Whitepaper = lazy(() => import('../pages/Whitepaper'));
 const NotFound = lazy(() => import('../pages/NotFound'));
+const DaruratScam = lazy(() => import('../pages/DaruratScam'));
+const Install = lazy(() => import('../pages/Install'));
+const Guide = lazy(() => import('../pages/Guide'));
 
 const page = (el: ReactNode) => <Suspense fallback={<LoadingBlock />}>{el}</Suspense>;
 
@@ -41,6 +44,9 @@ export const routes = [
       { path: 'legal/:page', element: page(<Legal />) },
       { path: 'more', element: page(<More />) },
       { path: 'whitepaper', element: page(<Whitepaper />) },
+      { path: 'darurat-scam', element: page(<DaruratScam />) },
+      { path: 'install', element: page(<Install />) },
+      { path: 'panduan', element: page(<Guide />) },
       { path: '*', element: page(<NotFound />) },
     ],
   },

@@ -20,7 +20,8 @@ import * as housing from './idhousingdex/tools';
 import * as idx from './idxdex/tools';
 import * as inflation from './inflationdex/tools';
 import * as ipo from './ipodex/tools';
-import * as law from './mylaiwyer/tools';
+import * as antiscam from './antiscamdex/tools';
+import { lawTools } from './law/tools';
 import * as nasdaq from './nasdaqdex/tools';
 import * as opencompany from './opencompanydex/tools';
 import * as personal from './personalfinandex/tools';
@@ -70,7 +71,9 @@ export function toolsFor(dex: DexId, store: DataStore): ToolDef[] {
     housingdex: () => housingnews.tools(),
     fintechdex: () => fintech.tools(),
     personalfinandex: () => personal.tools(),
-    mylaiwyer: () => law.tools(),
+    mylaiwyer: () => lawTools('mylaiwyer'),
+    finlaiwyer: () => lawTools('finlaiwyer'),
+    antiscamdex: () => antiscam.tools(),
   };
   const list = [...sharedTools(dex, a), ...specific[dex]()];
   const names = new Set<string>();

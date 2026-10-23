@@ -1,5 +1,6 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Settings (§10.3, §13.2): theme, language, colour-blind mode, and deletion of on-device data.
+// Settings (§10.3 Obligasi/Brankas, §13.2): theme (system default), language, colour-blind mode, reduce motion,
+// high contrast, haptics, and deletion of on-device data.
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Card } from '../components/ui';
@@ -22,9 +23,9 @@ export default function Settings() {
         <fieldset>
           <legend className="mb-2 text-sm font-semibold">{t('settings.theme')}</legend>
           <div className="flex flex-wrap gap-2">
-            {(['dark', 'light', 'system'] as const).map((th) => (
+            {(['system', 'light', 'dark'] as const).map((th) => (
               <label key={th} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm">
-                <input type="radio" name="theme" checked={s.theme === th} onChange={() => s.setTheme(th)} className="accent-[var(--brand)]" />
+                <input type="radio" name="theme" checked={s.theme === th} onChange={() => s.setTheme(th)} className="accent-[var(--primary)]" />
                 {t(`settings.${th}`)}
               </label>
             ))}
@@ -40,16 +41,31 @@ export default function Settings() {
               ] as [Locale, string][]
             ).map(([l, name]) => (
               <label key={l} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm" lang={l}>
-                <input type="radio" name="lang" checked={s.locale === l} onChange={() => s.setLocale(l)} className="accent-[var(--brand)]" />
+                <input type="radio" name="lang" checked={s.locale === l} onChange={() => s.setLocale(l)} className="accent-[var(--primary)]" />
                 {name}
               </label>
             ))}
           </div>
         </fieldset>
         <label className="flex min-h-11 items-center gap-3 text-sm">
-          <input type="checkbox" checked={s.colorblind} onChange={(e) => s.setColorblind(e.target.checked)} className="h-5 w-5 accent-[var(--brand)]" />
+          <input type="checkbox" checked={s.colorblind} onChange={(e) => s.setColorblind(e.target.checked)} className="h-5 w-5 accent-[var(--primary)]" />
           {t('settings.colorblind')} <span aria-hidden>▲▼</span>
         </label>
+      </Card>
+      <Card className="space-y-1">
+        <h2 className="mb-1 text-sm font-semibold">{t('settings.display')}</h2>
+        {(
+          [
+            ['reduceMotion', s.reduceMotion, s.setReduceMotion],
+            ['highContrast', s.highContrast, s.setHighContrast],
+            ['reduceHaptics', s.reduceHaptics, s.setReduceHaptics],
+          ] as const
+        ).map(([k, v, set]) => (
+          <label key={k} className="flex min-h-11 items-center gap-3 text-sm">
+            <input type="checkbox" checked={v} onChange={(e) => set(e.target.checked)} className="h-5 w-5 accent-[var(--primary)]" />
+            {t(`settings.${k}`)}
+          </label>
+        ))}
       </Card>
       <Card className="space-y-3">
         <h2 className="text-sm font-semibold">{t('settings.privacy')}</h2>

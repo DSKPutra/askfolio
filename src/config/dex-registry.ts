@@ -32,13 +32,15 @@ export const DEX_IDS = [
   'fintechdex',
   'personalfinandex',
   'mylaiwyer',
+  'finlaiwyer',
+  'antiscamdex',
 ] as const;
 
 export type DexId = (typeof DEX_IDS)[number];
 
 export type Bilingual = { id: string; en: string };
 export type DexTab = { id: string; label: Bilingual };
-export type DexLicense = 'unknown' | 'CC BY 4.0' | 'CC BY-NC 4.0' | 'mixed';
+export type DexLicense = 'unknown' | 'CC BY 4.0' | 'CC BY-NC 4.0' | 'mixed' | 'public-info' | 'official-text';
 export type DexStatus = 'live' | 'partial' | 'pending-data';
 
 export type DexEntry = {
@@ -49,6 +51,10 @@ export type DexEntry = {
   tagline: Bilingual;
   icon: string;
   inputs: number[];
+  /** Kit-authored datasets (kit/datasets/**) this Dex reads (§6.2). */
+  kitDatasets?: string[];
+  /** Law corpus for the law Dex (§4.20, §4.28). */
+  corpus?: 'umum' | 'keuangan';
   /** Declared as-of label from the master prompt §1 (a date, a period, or 'unknown'); the UI shows public/data/manifest.json. */
   asOf: string;
   license: DexLicense;
@@ -211,7 +217,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'idfinandex',
     name: 'IDFinanDex',
-    group: 'indonesia',
+    group: 'indonesia-markets',
     order: 6,
     tagline: {
       id: 'Indonesia multi-aset & makro: IHSG, USD/IDR, BI rate',
@@ -235,7 +241,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'rupiahdex',
     name: 'RupiahDex',
-    group: 'indonesia',
+    group: 'indonesia-markets',
     order: 7,
     tagline: { id: 'Kurs USD/IDR harian sejak 2001', en: 'Daily USD/IDR exchange rate since 2001' },
     icon: 'rupiahdex',
@@ -255,7 +261,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'idxdex',
     name: 'IDXDex',
-    group: 'indonesia',
+    group: 'indonesia-markets',
     order: 8,
     tagline: {
       id: 'Saham Bursa Efek Indonesia: harga, fundamental, IPO',
@@ -278,7 +284,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'reksadex',
     name: 'ReksaDex',
-    group: 'indonesia',
+    group: 'indonesia-markets',
     order: 9,
     tagline: {
       id: 'Reksa dana Indonesia: AUM, manajer investasi, kinerja',
@@ -343,7 +349,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
       tab('rates', 'Suku Bunga & Kurva Imbal Hasil', 'Rates & Yield Curve'),
       tab('money', 'Uang Beredar', 'Money Supply'),
       tab('countries', 'Peta Negara', 'Country Map'),
-      tab('regimes', 'Label Rezim (penyedia)', 'Regime Labels (provider)'),
+      tab('regimes', 'Label Rezim', 'Regime Labels (provider)'),
     ),
     status: 'live',
     indonesia: false,
@@ -375,7 +381,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'startupdex',
     name: 'StartupDex',
-    group: 'startup-vc',
+    group: 'startup-business',
     order: 13,
     tagline: {
       id: 'Putaran pendanaan startup global 2019–2026',
@@ -387,7 +393,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ...NC,
     tabs: withChatAndData(
       tab('overview', 'Ringkasan', 'Overview'),
-      tab('stages', 'Tahapan (Stage)', 'Stages'),
+      tab('stages', 'Tahapan', 'Stages'),
       tab('countries', 'Negara & Sektor', 'Countries & Sectors'),
       tab('mega', 'Mega-round', 'Mega-rounds'),
       tab('search', 'Cari Putaran', 'Search Rounds'),
@@ -400,7 +406,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'vcdex',
     name: 'VCDex',
-    group: 'startup-vc',
+    group: 'startup-business',
     order: 14,
     tagline: { id: 'Direktori investor startup 2026', en: 'Startup investor directory 2026' },
     icon: 'vcdex',
@@ -421,7 +427,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'vcnetworkdex',
     name: 'VCNetworkDex',
-    group: 'startup-vc',
+    group: 'startup-business',
     order: 15,
     tagline: {
       id: 'Jaringan co-investment antar investor VC',
@@ -444,7 +450,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'opencompanydex',
     name: 'OpenCompanyDex',
-    group: 'startup-vc',
+    group: 'startup-business',
     order: 16,
     tagline: {
       id: 'Direktori 100 ribu perusahaan (sampel Open Company Database)',
@@ -468,7 +474,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'salarydex',
     name: 'SalaryDex',
-    group: 'living-cost',
+    group: 'living-work',
     order: 17,
     tagline: {
       id: 'Gaji global per skill & peran (sampel 100 ribu lowongan)',
@@ -492,7 +498,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'costlivingdex',
     name: 'CostLivingDex',
-    group: 'living-cost',
+    group: 'living-work',
     order: 18,
     tagline: {
       id: 'Biaya & kualitas hidup 148 kota (data sintetis)',
@@ -515,7 +521,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'idhousingdex',
     name: 'IDHousingDex',
-    group: 'living-cost',
+    group: 'living-work',
     order: 19,
     tagline: {
       id: 'Perumahan subsidi & komersil Indonesia (listing proyek)',
@@ -539,7 +545,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'idfooddeliverydex',
     name: 'IDFoodDeliveryDex',
-    group: 'living-cost',
+    group: 'living-work',
     order: 20,
     tagline: {
       id: 'Benchmark harga 10 ribu menu food delivery Indonesia',
@@ -563,7 +569,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'povertydex',
     name: 'PovertyDex',
-    group: 'social',
+    group: 'social-development',
     order: 21,
     tagline: {
       id: 'Indeks Kemiskinan Multidimensi (MPI) 108 negara',
@@ -586,7 +592,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'populationdex',
     name: 'PopulationDex',
-    group: 'social',
+    group: 'social-development',
     order: 22,
     tagline: {
       id: 'Liputan berita kependudukan global 2019–2026',
@@ -604,7 +610,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'homelessnessdex',
     name: 'HomelessnessDex',
-    group: 'social',
+    group: 'social-development',
     order: 23,
     tagline: {
       id: 'Liputan berita isu tunawisma global 2019–2026',
@@ -622,7 +628,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'housingdex',
     name: 'HousingDex',
-    group: 'social',
+    group: 'social-development',
     order: 24,
     tagline: {
       id: 'Liputan berita perumahan global 2019–2026',
@@ -640,7 +646,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'fintechdex',
     name: 'FintechDex',
-    group: 'sentiment',
+    group: 'sentiment-personal',
     order: 25,
     tagline: {
       id: 'Adopsi & ulasan produk fintech dari 14 platform',
@@ -663,7 +669,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'personalfinandex',
     name: 'PersonalFinanDex',
-    group: 'sentiment',
+    group: 'sentiment-personal',
     order: 26,
     tagline: {
       id: 'Diskusi keuangan pribadi & kebebasan finansial',
@@ -689,29 +695,93 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     group: 'law',
     order: 27,
     tagline: {
-      id: 'Tanya jawab hukum keuangan & perbankan, bantuan korban penipuan (scam), UUD 1945, KUHAP',
-      en: 'Q&A on financial & banking law, help for scam victims, 1945 Constitution, Criminal Procedure Code',
+      id: 'Tanya-jawab hukum umum: konstitusi, pidana & acara pidana, perdata dasar, bantuan hukum',
+      en: 'General legal Q&A: constitution, criminal law & procedure, basic civil law, legal aid',
     },
     icon: 'mylaiwyer',
     inputs: [30, 31, 32, 33, 34, 35],
-    asOf: 'per-document',
-    license: 'unknown',
+    kitDatasets: ['kit/datasets/law/regulation_catalog.json', 'kit/datasets/law/legal_qa_flows.json'],
+    corpus: 'umum',
+    asOf: '2026-10-23',
+    license: 'official-text',
     commercialUseAllowed: true,
     licenseNote: {
-      id: 'Dokumen peraturan perundang-undangan (sebut sumber).',
-      en: 'Statutory documents (cite the source).',
+      id: 'Dokumen peraturan perundang-undangan (sebut sumber; UU 28/2014 Pasal 42).',
+      en: 'Statutory documents (cite the source; Law 28/2014 Art. 42).',
     },
     tabs: withChatAndData(
-      tab('scam', 'Kena Penipuan?', 'Scammed?'),
-      tab('finance', 'Hukum Keuangan', 'Financial Law'),
+      tab('guided', 'Konsultasi Terpandu', 'Guided Consultation'),
       tab('sources', 'Sumber Hukum', 'Legal Sources'),
       tab('articles', 'Jelajah Pasal', 'Browse Articles'),
-      tab('compare', 'Bandingkan KUHAP Lama–Baru', 'Compare Old–New KUHAP'),
+      tab('compare', 'Bandingkan Versi', 'Compare Versions'),
       tab('glossary', 'Glosarium', 'Glossary'),
     ),
     status: 'partial',
     indonesia: true,
-    keywords: ['hukum', 'law', 'pasal', 'uud', 'kuhap', 'kuhp', 'pidana', 'advokat', 'penipuan', 'scam', 'perbankan', 'ojk', 'pinjol', 'transfer', 'konsumen', 'data pribadi'],
+    keywords: ['hukum', 'law', 'pasal', 'uud', 'konstitusi', 'kuhap', 'kuhp', 'pidana', 'perdata', 'gugatan', 'advokat', 'lbh', 'bantuan hukum', 'polisi', 'praperadilan'],
+  },
+  {
+    id: 'finlaiwyer',
+    name: 'FinLAIwyer',
+    group: 'law',
+    order: 28,
+    tagline: {
+      id: 'Tanya-jawab hukum keuangan & perbankan Indonesia — fokus korban scam & sengketa lembaga keuangan',
+      en: 'Indonesian financial & banking law Q&A — focused on scam victims & disputes with financial institutions',
+    },
+    icon: 'finlaiwyer',
+    inputs: [],
+    kitDatasets: ['kit/datasets/law/regulation_catalog.json', 'kit/datasets/law/legal_qa_flows.json', 'kit/datasets/antiscam/antiscam_kb.json'],
+    corpus: 'keuangan',
+    asOf: '2026-10-23',
+    license: 'official-text',
+    commercialUseAllowed: true,
+    licenseNote: {
+      id: 'Teks peraturan dari situs resmi (UU 28/2014 Pasal 42); katalog & alur karya Finandex.',
+      en: 'Regulation texts from official sites (Law 28/2014 Art. 42); catalogue & flows by Finandex.',
+    },
+    tabs: withChatAndData(
+      tab('guided', 'Konsultasi Terpandu', 'Guided Consultation'),
+      tab('map', 'Peta Regulasi Keuangan', 'Financial Regulation Map'),
+      tab('articles', 'Jelajah Pasal', 'Browse Articles'),
+      tab('status', 'Status & Perubahan', 'Status & Changes'),
+      tab('channels', 'Kanal Pengaduan', 'Complaint Channels'),
+      tab('glossary', 'Glosarium', 'Glossary'),
+    ),
+    status: 'partial',
+    indonesia: true,
+    keywords: ['hukum keuangan', 'perbankan', 'bank', 'ojk', 'bi', 'scam', 'penipuan', 'pinjol', 'pindar', 'transfer', 'uang nyasar', 'investasi bodong', 'konsumen', 'data pribadi', 'ite', 'tppu', 'p2sk'],
+  },
+  {
+    id: 'antiscamdex',
+    name: 'AntiScamDex',
+    group: 'law',
+    order: 29,
+    tagline: {
+      id: 'Adopsi informasi publik IASC, Satgas PASTI, OJK & BI: langkah darurat, siapkan laporan, statistik, modus',
+      en: 'Public information from IASC, Satgas PASTI, OJK & BI: emergency steps, report prep, statistics, scam types',
+    },
+    icon: 'antiscamdex',
+    inputs: [],
+    kitDatasets: ['kit/datasets/antiscam/antiscam_kb.json', 'kit/datasets/law/legal_qa_flows.json'],
+    asOf: '2026-09-30',
+    license: 'public-info',
+    commercialUseAllowed: true,
+    licenseNote: {
+      id: 'Ringkasan karya Finandex atas informasi publik (setiap fakta beratribusi); tanpa logo lembaga.',
+      en: 'Finandex summary of public information (every fact attributed); no institutional logos.',
+    },
+    tabs: withChatAndData(
+      tab('emergency', 'Baru Kena Scam', 'Just Scammed'),
+      tab('report', 'Siapkan Laporan', 'Prepare a Report'),
+      tab('stats', 'Statistik Penanganan', 'Handling Statistics'),
+      tab('modus', 'Kenali Modus', 'Know the Scams'),
+      tab('channels', 'Kanal Resmi', 'Official Channels'),
+      tab('prevent', 'Cegah & Bukti', 'Prevention & Evidence'),
+    ),
+    status: 'live',
+    indonesia: true,
+    keywords: ['scam', 'penipuan', 'iasc', 'satgas pasti', 'lapor', 'blokir rekening', 'modus', 'phishing', 'otp', 'investasi ilegal', 'pinjol ilegal', 'statistik'],
   },
 ];
 

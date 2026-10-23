@@ -1,0 +1,125 @@
+{
+ "flows": [
+  {
+   "id": "fin-baru-tertipu",
+   "dex": "finlaiwyer",
+   "nodes": 6,
+   "questions": 2,
+   "results": 4,
+   "urgent_steps": 6
+  },
+  {
+   "id": "fin-dana-masuk",
+   "dex": "finlaiwyer",
+   "nodes": 3,
+   "questions": 1,
+   "results": 2,
+   "urgent_steps": 2
+  },
+  {
+   "id": "fin-pinjol-teror",
+   "dex": "finlaiwyer",
+   "nodes": 4,
+   "questions": 1,
+   "results": 3,
+   "urgent_steps": 1
+  },
+  {
+   "id": "fin-investasi",
+   "dex": "finlaiwyer",
+   "nodes": 1,
+   "questions": 0,
+   "results": 1,
+   "urgent_steps": 1
+  },
+  {
+   "id": "fin-transaksi-tidak-sah",
+   "dex": "finlaiwyer",
+   "nodes": 2,
+   "questions": 1,
+   "results": 1,
+   "urgent_steps": 1
+  },
+  {
+   "id": "fin-impersonation",
+   "dex": "finlaiwyer",
+   "nodes": 1,
+   "questions": 0,
+   "results": 1,
+   "urgent_steps": 1
+  },
+  {
+   "id": "fin-sengketa-bank",
+   "dex": "finlaiwyer",
+   "nodes": 1,
+   "questions": 0,
+   "results": 1,
+   "urgent_steps": 0
+  },
+  {
+   "id": "gen-diperiksa-polisi",
+   "dex": "mylaiwyer",
+   "nodes": 1,
+   "questions": 0,
+   "results": 1,
+   "urgent_steps": 0
+  },
+  {
+   "id": "gen-gugatan-perdata",
+   "dex": "mylaiwyer",
+   "nodes": 3,
+   "questions": 1,
+   "results": 2,
+   "urgent_steps": 0
+  },
+  {
+   "id": "gen-hierarki",
+   "dex": "mylaiwyer",
+   "nodes": 1,
+   "questions": 0,
+   "results": 1,
+   "urgent_steps": 0
+  }
+ ],
+ "by_dex": {
+  "finlaiwyer": 7,
+  "mylaiwyer": 3
+ },
+ "docs_cited": [
+  "kuhperdata",
+  "pbi-6-2026-pkbi",
+  "perma-2-2015-jo-4-2019",
+  "pojk-22-2023",
+  "pojk-23-2025",
+  "pojk-27-2024-akd",
+  "pojk-31-2020",
+  "pojk-40-2024-lpbbti",
+  "pojk-61-2020-laps",
+  "uu-1-2023-kuhp",
+  "uu-1-2024-ite",
+  "uu-12-2011-p3",
+  "uu-16-2011-bantuan-hukum",
+  "uu-20-2025-kuhap",
+  "uu-27-2022-pdp",
+  "uu-3-2011-transfer-dana",
+  "uu-4-2023-p2sk",
+  "uu-7-1992-perbankan",
+  "uu-8-1981-kuhap",
+  "uu-8-1995-pasar-modal",
+  "uu-8-2010-tppu",
+  "uud-nri-1945"
+ ],
+ "channels_used": [
+  "aduannomor",
+  "bank-resmi",
+  "bi-bicara",
+  "cekrekening",
+  "darurat-112",
+  "iasc-cek",
+  "iasc-lapor",
+  "laps-sjk",
+  "ojk-157",
+  "polri-lp",
+  "sipasti"
+ ]
+}

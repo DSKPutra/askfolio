@@ -1,112 +1,64 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// App shell (§10.1): collapsible sidebar (tablet/desktop) grouped by category, bottom tab bar (mobile),
-// global search (Ctrl/Cmd+K), offline banner, update prompt, footer.
+// App shell (§10.1): Orbit Rail (≥ 768 px) + top bar (Index Search ⌘K, global "Data per", theme, language); on mobile a
+// header + 5-item bottom bar (Beranda · Pasar · AI · Dex · Lainnya). Global keyboard shortcuts (§10.9): ? list,
+// g h home, g d Dex Hub, / or ⌘K search, Esc closes panels. Offline banner, update prompt, compare tray, footer.
+import * as Dialog from '@radix-ui/react-dialog';
 import { clsx } from 'clsx';
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router';
-import { DexIcon } from '../components/DexCard';
+import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router';
+import { useAsOfLabel } from '../components/badges';
+import { Button } from '../components/ui';
 import { APP_NAME } from '../config/brand';
-import { DEX_GROUPS } from '../config/dex-groups';
-import { visibleDex } from '../config/dex-registry';
-import { DISTRIBUTION } from '../config/runtime';
+import { CompareDnd, CompareTray } from '../features/compare/CompareTray';
+import { useManifest } from '../lib/data';
 import { useLocale } from '../lib/locale';
 import { useOnline } from '../lib/online';
+import { useApp } from '../lib/store';
 import { Footer } from './Footer';
+import { OrbitRail } from './OrbitRail';
 import { UpdatePrompt } from './UpdatePrompt';
 
-const CommandPalette = lazy(() => import('../components/CommandPalette'));
+const IndexSearch = lazy(() => import('../components/IndexSearch'));
 
-function SideLink({ to, children, collapsed, icon, end = false }: { to: string; children: string; collapsed: boolean; icon?: React.ReactNode; end?: boolean }) {
+function ThemeLangControls() {
+  const { t } = useTranslation();
+  const theme = useApp((s) => s.theme);
+  const setTheme = useApp((s) => s.setTheme);
+  const locale = useLocale();
+  const setLocale = useApp((s) => s.setLocale);
+  const dark = theme !== 'light';
   return (
-    <NavLink
-      to={to}
-      end={end}
-      title={collapsed ? children : undefined}
-      className={({ isActive }) => clsx('flex min-h-10 items-center gap-2 rounded-lg px-2 text-sm', isActive ? 'bg-surface-2 text-brand-text' : 'hover:bg-surface-2')}
-    >
-      {icon}
-      <span className={clsx(collapsed && 'sr-only')}>{children}</span>
-    </NavLink>
+    <div className="flex items-center gap-1">
+      <button type="button" onClick={() => setTheme(dark ? 'light' : 'dark')} aria-label={dark ? t('settings.toLedger') : t('settings.toNocturne')} title={dark ? 'Ledger' : 'Nocturne'} className="inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-pane-2">
+        <span aria-hidden>{dark ? '☾' : '☼'}</span>
+      </button>
+      <button type="button" onClick={() => setLocale(locale === 'id' ? 'en' : 'id')} aria-label={t('settings.switchLanguage')} className="inline-flex h-11 min-w-11 items-center justify-center rounded-xl px-2 text-sm font-medium hover:bg-pane-2">
+        {locale === 'id' ? 'ID' : 'EN'}
+      </button>
+    </div>
   );
 }
 
-function Sidebar({ collapsed, setCollapsed, openSearch }: { collapsed: boolean; setCollapsed: (v: boolean) => void; openSearch: () => void }) {
+/** Global "Data per" indicator: newest as-of among the Dex (each Dex shows its own). */
+function GlobalAsOf() {
   const { t } = useTranslation();
-  const locale = useLocale();
-  const dex = visibleDex(DISTRIBUTION);
-  const glyph = (s: string) => (
-    <span aria-hidden className="inline-flex w-6 justify-center">
-      {s}
-    </span>
-  );
+  const m = useManifest();
+  const fmt = useAsOfLabel();
+  const newest = useMemo(() => Object.values(m.data?.dex ?? {}).map((d) => d.as_of).filter((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)).sort().at(-1), [m.data]);
+  if (!newest) return null;
   return (
-    <aside className={clsx('sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-border bg-surface md:flex', collapsed ? 'w-16' : 'w-64')}>
-      <div className="flex items-center justify-between gap-2 p-3">
-        <Link to="/" className="flex items-center gap-2" aria-label={APP_NAME}>
-          <img src="/icons/finandex.svg" alt="" width={32} height={32} className="rounded-lg" />
-          {!collapsed && <span className="font-display text-lg font-bold tracking-wide">{APP_NAME}</span>}
-        </Link>
-        <button type="button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? t('nav.expand') : t('nav.collapse')} className="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-surface-2">
-          {collapsed ? '»' : '«'}
-        </button>
-      </div>
-      <button type="button" onClick={openSearch} className="mx-3 mb-2 flex min-h-10 items-center gap-2 rounded-lg border border-border px-2 text-sm text-muted hover:bg-surface-2">
-        {glyph('⌕')}
-        {!collapsed && (
-          <>
-            <span className="flex-1 text-left">{t('nav.search')}</span>
-            <kbd className="text-xs">⌘K</kbd>
-          </>
-        )}
-      </button>
-      <nav aria-label="Finandex" className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
-        <SideLink to="/" end collapsed={collapsed} icon={glyph('⌂')}>
-          {t('nav.home')}
-        </SideLink>
-        <SideLink to="/dex/finandex-ai/markets" collapsed={collapsed} icon={glyph('◎')}>
-          {t('nav.globalMarkets')}
-        </SideLink>
-        <SideLink to="/ai" collapsed={collapsed} icon={<DexIcon dex={{ icon: 'finandex-ai' }} size={24} />}>
-          Finandex AI
-        </SideLink>
-        {DEX_GROUPS.map((g) => {
-          const items = dex.filter((d) => d.group === g.id && d.id !== 'finandex-ai');
-          if (!items.length) return null;
-          return (
-            <div key={g.id} className="pt-3">
-              {!collapsed && <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-muted">{g.name[locale]}</p>}
-              {items.map((d) => (
-                <SideLink key={d.id} to={`/dex/${d.id}`} collapsed={collapsed} icon={<DexIcon dex={d} size={24} />}>
-                  {d.name}
-                </SideLink>
-              ))}
-            </div>
-          );
-        })}
-        <div className="space-y-1 border-t border-border pt-3">
-          <SideLink to="/watchlist" collapsed={collapsed} icon={glyph('☆')}>
-            {t('nav.watchlist')}
-          </SideLink>
-          <SideLink to="/settings" collapsed={collapsed} icon={glyph('⚙')}>
-            {t('nav.settings')}
-          </SideLink>
-          <SideLink to="/whitepaper" collapsed={collapsed} icon={glyph('▤')}>
-            {t('nav.whitepaper')}
-          </SideLink>
-          <SideLink to="/about" collapsed={collapsed} icon={glyph('ⓘ')}>
-            {t('nav.about')}
-          </SideLink>
-        </div>
-      </nav>
-    </aside>
+    <Link to="/legal/data-sources" className="hidden items-center gap-2 rounded-full border border-edge px-3 py-1 text-xs text-ink-muted hover:text-ink lg:inline-flex" title={t('nav.asOfHint')}>
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
+      {t('nav.dataAsOf', { date: fmt(newest) })}
+    </Link>
   );
 }
 
 function BottomNav() {
   const { t } = useTranslation();
   const item = (to: string, label: string, glyph: string, end = false) => (
-    <NavLink to={to} end={end} className={({ isActive }) => clsx('flex min-h-14 flex-1 flex-col items-center justify-center text-[11px]', isActive ? 'text-brand-text' : 'text-muted')}>
+    <NavLink to={to} end={end} className={({ isActive }) => clsx('flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-[11px]', isActive ? 'text-data' : 'text-ink-muted')}>
       <span aria-hidden className="text-lg leading-none">
         {glyph}
       </span>
@@ -114,17 +66,55 @@ function BottomNav() {
     </NavLink>
   );
   return (
-    <nav aria-label="Finandex" className="safe-bottom fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-surface md:hidden">
+    <nav aria-label={t('nav.bottom')} className="safe-bottom fixed inset-x-0 bottom-0 z-40 flex border-t border-edge bg-field-0 md:hidden">
       {item('/', t('nav.home'), '⌂', true)}
       {item('/dex/finandex-ai/markets', t('nav.markets'), '◎')}
       <NavLink to="/ai" className="flex flex-1 items-center justify-center" aria-label="Finandex AI">
-        <span className="-mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand bg-bg shadow-[0_0_16px_rgba(25,242,58,0.45)]">
-          <img src="/icons/finandex-ai.svg" alt="" width={40} height={40} className="rounded-full" />
+        <span className="relative -mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-primary bg-field-0">
+          <span aria-hidden className="absolute inset-[4px] rounded-full border border-dashed border-edge" />
+          <img src="/icons/finandex-ai.svg" alt="" width={38} height={38} className="rounded-full" />
         </span>
       </NavLink>
-      {item('/dex', t('nav.dex'), '▦', true)}
+      {item('/dex', t('nav.dex'), '✦', true)}
       {item('/more', t('nav.more'), '☰')}
     </nav>
+  );
+}
+
+const SHORTCUTS: [string, string][] = [
+  ['?', 'kb.help'],
+  ['⌘K / Ctrl+K / /', 'kb.search'],
+  ['g h', 'kb.home'],
+  ['g d', 'kb.hub'],
+  ['Esc', 'kb.close'],
+  ['1–9', 'kb.chips'],
+  ['← →', 'kb.slides'],
+];
+
+function ShortcutsDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+  const { t } = useTranslation();
+  return (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-field-0/80" />
+        <Dialog.Content className="pane fixed left-1/2 top-[15vh] z-50 w-[min(92vw,28rem)] -translate-x-1/2 p-5" aria-describedby={undefined}>
+          <Dialog.Title className="font-display text-lg">{t('kb.title')}</Dialog.Title>
+          <dl className="mt-3 space-y-2 text-sm">
+            {SHORTCUTS.map(([k, label]) => (
+              <div key={k} className="flex items-center justify-between gap-4">
+                <dt className="text-ink-muted">{t(label)}</dt>
+                <dd>
+                  <kbd className="rounded-xl border border-edge px-2 py-0.5 font-mono text-xs">{k}</kbd>
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <Dialog.Close asChild>
+            <Button className="mt-4">{t('dex.close')}</Button>
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 
@@ -132,61 +122,83 @@ export function Layout() {
   const { t } = useTranslation();
   const online = useOnline();
   const loc = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  const nav = useNavigate();
   const [search, setSearch] = useState(false);
+  const [help, setHelp] = useState(false);
   const openSearch = useCallback(() => setSearch(true), []);
+  const gPressed = useRef(0);
   useEffect(() => {
     const fn = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      const typing = !!el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || el.isContentEditable);
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setSearch(true);
+        return;
+      }
+      if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === '/') {
+        e.preventDefault();
+        setSearch(true);
+      } else if (e.key === '?') setHelp(true);
+      else if (e.key === 'g') gPressed.current = Date.now();
+      else if (Date.now() - gPressed.current < 1200 && (e.key === 'h' || e.key === 'd')) {
+        gPressed.current = 0;
+        void nav(e.key === 'h' ? '/' : '/dex');
       }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
-  }, []);
+  }, [nav]);
   useEffect(() => {
     document.getElementById('main')?.focus({ preventScroll: true });
   }, [loc.pathname]);
   return (
+    <CompareDnd>
     <div className="flex min-h-dvh">
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-surface focus:p-2">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-xl focus:bg-pane focus:p-2">
         {t('nav.skip')}
       </a>
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} openSearch={openSearch} />
+      <OrbitRail />
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-2 border-b border-border bg-bg/90 px-4 py-2 backdrop-blur md:hidden">
-          <Link to="/" className="flex items-center gap-2" aria-label={APP_NAME}>
-            <img src="/icons/finandex.svg" alt="" width={28} height={28} className="rounded-lg" />
-            <span className="font-display font-bold tracking-wide">{APP_NAME}</span>
+        <header className="sticky top-0 z-30 flex items-center gap-2 border-b border-edge bg-field-1/90 px-4 py-2 backdrop-blur">
+          <Link to="/" className="flex items-center gap-2 md:hidden" aria-label={APP_NAME}>
+            <img src="/icons/finandex.svg" alt="" width={28} height={28} className="rounded-xl" />
+            <span className="font-display text-base">{APP_NAME}</span>
           </Link>
-          <button type="button" onClick={openSearch} aria-label={t('nav.search')} className="inline-flex h-11 w-11 items-center justify-center rounded-lg hover:bg-surface-2">
-            ⌕
+          <button type="button" onClick={openSearch} aria-label={t('search.open')} aria-keyshortcuts="Control+K Meta+K /" className="ml-auto flex min-h-11 items-center gap-2 rounded-xl border border-edge bg-pane px-3 text-sm text-ink-muted hover:text-ink md:ml-0 md:w-[min(40rem,60%)]">
+            <span aria-hidden>⌕</span>
+            <span className="hidden flex-1 text-left md:inline">{t('search.placeholder')}</span>
+            <kbd className="hidden rounded-xl border border-edge px-1.5 text-xs md:inline">⌘K</kbd>
           </button>
+          <div className="ml-auto flex items-center gap-2">
+            <GlobalAsOf />
+            <ThemeLangControls />
+          </div>
         </header>
         {!online && (
-          <p role="status" className="bg-warning/15 px-4 py-2 text-center text-sm text-warning">
+          <p role="status" className="prov-flag bg-pane-2 px-4 py-2 text-center text-sm">
             {t('common.offline')}
           </p>
         )}
         <UpdatePrompt />
-        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-7xl flex-1 px-4 pb-24 pt-4 outline-none md:pb-8">
+        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-[90rem] flex-1 px-4 pb-28 pt-4 outline-none md:px-6 md:pb-10">
           <Outlet />
         </main>
-        <div className="hidden md:block">
-          <Footer />
-        </div>
-        <div className="pb-20 md:hidden">
+        <div className="pb-20 md:pb-0">
           <Footer />
         </div>
       </div>
       <BottomNav />
+      <CompareTray />
       {search && (
         <Suspense fallback={null}>
-          <CommandPalette open={search} onOpenChange={setSearch} />
+          <IndexSearch open={search} onOpenChange={setSearch} />
         </Suspense>
       )}
+      <ShortcutsDialog open={help} onOpenChange={setHelp} />
       <ScrollRestoration />
     </div>
+    </CompareDnd>
   );
 }

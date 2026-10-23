@@ -7,10 +7,10 @@ Semua fase 0–9 master prompt telah dikerjakan di repositori lokal. Gate kualit
 ## 1. URL preview & produksi
 | Platform | Status |
 |---|---|
-| GitHub | **https://github.com/DSKPutra/finandex_beta** (publik; `main` + `release`), dataset di release **`data-inputs-v1`** (42 file) |
-| Vercel | **https://finandex-beta.vercel.app** — produksi, team *Putra Talks*, project `finandex-beta`; `/api/health` 200, chat SSE berjalan (mode demo `CHAT_MODE=mock` sampai `ANTHROPIC_API_KEY` diisi) |
-| Netlify | Site **finandex-beta** dibuat (https://finandex-beta.netlify.app), env diisi, tetapi deploy **diblokir Netlify: "Account credit usage exceeded – new deploys are blocked until credits are added"** |
-| Lovable | Tidak dipakai (repo GitHub biasa, sesuai pilihan pemilik) |
+| GitHub | **https://github.com/DSKPutra/finandex** (publik; `main` + `release`; riwayat v2 di branch `archive/v2-*`), release **`data-inputs-v1`**, **`law-docs-v1`**, **`data-regulations-v1`** |
+| Vercel | **https://finandex.vercel.app** — produksi, team *Putra Talks*, project `finandex` (repo `DSKPutra/finandex`); `/api/health` 200 |
+| Netlify | Site **finandex** (https://finandex.netlify.app) dibuat, tetapi deploy **diblokir Netlify: "Account credit usage exceeded – new deploys are blocked until credits are added"** |
+| Lovable | Belum terhubung: MCP Lovable tidak dapat mengimpor repo yang sudah ada — hubungkan `DSKPutra/finandex` lewat UI Lovable (GitHub → Connect) |
 | Lokal | `npm run dev` → http://localhost:5173, atau VS Code *Run Task* (`.vscode/tasks.json`) |
 
 Deploy Vercel saat ini dibuat dari CLI (`vercel build --prod` + `vercel deploy --prebuilt --prod`) karena akun Vercel belum memiliki koneksi login GitHub; setelah Anda menghubungkan GitHub di Vercel (Settings → Git), setiap push ke `release` akan ter-deploy otomatis.

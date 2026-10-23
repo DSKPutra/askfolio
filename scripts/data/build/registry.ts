@@ -6,7 +6,7 @@ import { buildStartup, buildVcDirectory, buildVcNetwork, buildOpenCompany, build
 import type { BuildResult, Ctx } from './context';
 import { buildCentralBank, buildCrypto, buildInflation } from './crypto-macro';
 import { buildIdfin, buildIdx, buildReksa, buildRupiah } from './indonesia';
-import { buildLaw } from './law';
+import { buildAntiscam, buildFinLaw, buildLaw } from './law';
 import { buildCommerce, buildGlobal, buildNasdaq, buildSp500 } from './markets';
 
 export type Builder = (ctx: Ctx, w: Writer) => Promise<BuildResult>;
@@ -39,4 +39,6 @@ export const BUILDERS: Record<DexId, Builder> = {
   fintechdex: socialBuilder('fintech'),
   personalfinandex: socialBuilder('personalfinance'),
   mylaiwyer: buildLaw,
+  finlaiwyer: buildFinLaw,
+  antiscamdex: buildAntiscam,
 };

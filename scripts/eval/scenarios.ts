@@ -1,8 +1,9 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Mock-LLM scenarios for the 128 evaluation items (§18.6). Each scenario calls real tools; the composed
+// Mock-LLM scenarios for the 161 evaluation items (§18.6). Each scenario calls real tools; the composed
 // answer reads every number from the tool results (never hard-coded).
 import type { Results, Scenario } from '../../server/chat/mock-llm';
 import { formatDate, formatNumber, formatPercent } from '../../src/shared/format';
+import { DOCS } from '../../src/config/law-catalog';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type R = any;
@@ -25,6 +26,16 @@ const NOTE = 'Data historis untuk edukasi, bukan rekomendasi investasi; data tid
 const snap = (id: string) => call('get_snapshot', { id });
 const dq = (id: string | null) => call('data_quality', { id });
 const NULL5 = { start: null, end: null };
+/** "UU 8/1981"-style label from the catalogue (type number/year). */
+const docNo = (id: string) => {
+  const d = DOCS.get(id)!;
+  return `${d.type} ${String(d.number).replace(/\/.*$/, '')}/${d.year}`;
+};
+/** Feature-guide answer in the order of rule 11. */
+const guideText = (g: R) =>
+  g.groups
+    ? `Finandex berisi ${g.dex_count} chatbot (Dex) dalam ${g.groups.length} kategori: ${(g.groups as R[]).map((x) => `${x.name} (${x.dex.join(', ')})`).join('; ')}.`
+    : `${g.dex}: ${g.purpose}\nAnda bisa bertanya: ${(g.ask_examples as string[]).slice(0, 6).join('; ')}.\nFungsi/tab:\n${(g.functions as R[]).map((f) => `- ${f.tab}: ${f.what}`).join('\n')}\nData per ${g.data_as_of}. Tidak bisa: ${g.limitations}. Dex terkait: ${(g.related as R[]).map((x) => x.name).join(', ')}.`;
 
 export const SCENARIOS: Record<string, Scenario> = {
   // ---------------------------------------------------------------- Finandex AI
@@ -339,39 +350,148 @@ export const SCENARIOS: Record<string, Scenario> = {
     return `Jumlah data berbeda karena ${x.report.exact_duplicates_removed} baris duplikat persis dibuang dan ${x.dex_quality.price_invalid_rows} listing dengan harga tidak valid dikecualikan dari statistik harga; CSV juga memuat field multi-baris.`;
   }),
   'idhousingdex-06': sc([call('housing_stats', { group_by: 'subsidy_status', stat: 'median', filters: null, limit: null })], () => 'Ini bukan nasihat pembelian atau KPR. Saya bisa menunjukkan statistik harga rumah subsidi dan komersil per provinsi sebagai bahan pertimbangan; untuk keputusan pribadi, konsultasikan dengan bank atau penasihat.'),
-  // ---------------------------------------------------------------- My LAIwyer
-  'mylaiwyer-01': sc([call('search_law', { query: 'penyidik adalah pejabat polisi', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3, scope: null })], (r) => {
+  // ---------------------------------------------------------------- My LAIwyer (corpus umum)
+  'mylaiwyer-01': sc([call('search_law', { query: 'penyidik adalah pejabat polisi', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3 })], (r) => {
     const hit = (first(r, 'search_law').results as R[]).find((x) => /Penyidik adalah/.test(x.quote));
     const q = /Penyidik adalah[^.]*\./.exec(hit.quote)![0];
-    return `Menurut ${hit.pasal} angka 1 UU 8/1981 (KUHAP lama), hal. ${hit.page}: "${q}" Ini informasi hukum, bukan nasihat hukum.`;
+    return `Menurut ${hit.pasal} angka 1 ${docNo('uu-8-1981-kuhap')} (KUHAP lama; status: ${hit.status.join(', ')}), hal. ${hit.page}: "${q}" Ini informasi hukum, bukan nasihat hukum.`;
   }),
-  'mylaiwyer-02': sc([call('search_law', { query: 'mulai berlaku', doc_ids: ['uu-20-2025-kuhap'], part: 'both', limit: 3, scope: null })], (r) => {
-    const e = (first(r, 'search_law').results as R[])[0].effective;
-    return `Menurut pasal penutupnya, UU 20/2025 (KUHAP baru) mulai berlaku pada ${D(e.date)}. Ini informasi hukum, bukan nasihat hukum.`;
+  'mylaiwyer-02': sc([call('search_law', { query: 'mulai berlaku', doc_ids: ['uu-20-2025-kuhap'], part: null, limit: 3 }), call('regulation_status', { doc_id: 'uu-20-2025-kuhap', query: null })], (r) => {
+    const s = first(r, 'regulation_status');
+    return `Menurut katalog dan pasal penutupnya, ${docNo('uu-20-2025-kuhap')} (KUHAP baru) mulai berlaku pada ${D(s.effective)} dan mencabut ${docNo('uu-8-1981-kuhap')}. Ini informasi hukum, bukan nasihat hukum.`;
   }),
-  'mylaiwyer-03': sc([call('list_sources', {})], () => 'Teks KUHP baru (UU 1/2023) belum tersedia di Finandex, jadi saya tidak dapat menyebut ancaman pidana pencurian dari ingatan. Sumber yang tersedia: UUD 1945 naskah asli, KUHAP lama dan baru, serta UU 1/1946.'),
-  'mylaiwyer-04': sc([call('list_sources', {})], () => 'KUHPerdata dan hukum acara perdata (HIR/RBg) belum tersedia di Finandex, jadi saya tidak dapat menjelaskan prosedur gugatan cerai dari dokumen. Untuk kasus nyata, hubungi advokat atau LBH.'),
-  'mylaiwyer-05': sc([call('search_law', { query: 'penangkapan surat perintah tugas', doc_ids: ['uu-8-1981-kuhap'], part: 'batang_tubuh', limit: 3, scope: null })], (r) => {
+  'mylaiwyer-03': sc([call('search_law', { query: 'pencurian', doc_ids: ['uu-1-2023-kuhp'], part: 'batang_tubuh', limit: 3 }), call('get_pasal', { doc_id: 'uu-1-2023-kuhp', nomor: '476', ayat: null })], (r) => {
+    const x = first(r, 'get_pasal');
+    return `Menurut ${x.pasal} ${docNo('uu-1-2023-kuhp')} (KUHP baru, berlaku 2 Januari 2026), hal. ${x.page}: "${x.text}" Ancaman pidana dibaca bersama ${docNo('uu-1-2026-penyesuaian-pidana')} tentang Penyesuaian Pidana. Ini informasi hukum, bukan nasihat hukum.`;
+  }),
+  'mylaiwyer-04': sc([call('list_sources', { status: 'all' })], (r) => {
+    const k = (first(r, 'list_sources').documents as R[]).find((d) => d.doc_id === 'kuhperdata');
+    return `${k.short} ${k.available ? 'tersedia' : 'belum tersedia'} di Finandex (status: menunggu dokumen), dan HIR/RBg juga belum tersedia, jadi saya tidak dapat menjelaskan prosedur gugatan cerai dari dokumen resmi dan tidak akan menjawab dari ingatan. Untuk kasus nyata, hubungi advokat atau LBH.`;
+  }),
+  'mylaiwyer-05': sc([call('search_law', { query: 'penangkapan surat perintah', doc_ids: ['uu-20-2025-kuhap'], part: 'batang_tubuh', limit: 3 })], (r) => {
     const h = (first(r, 'search_law').results as R[])[0];
     return `Ini bukan nasihat hukum. Ketentuan tentang penangkapan dapat dibaca di ${h.document} ${h.pasal ?? ''} (hal. ${h.page}). Untuk keadaan Anda, segera hubungi advokat atau Lembaga Bantuan Hukum (LBH); dalam keadaan darurat hubungi 112.`;
   }),
-  'mylaiwyer-06': sc([call('get_pasal', { doc_id: 'uu-1-1946-peraturan-hukum-pidana', nomor: '6', ayat: null })], (r) => {
+  'mylaiwyer-06': sc([call('get_pasal', { doc_id: 'uu-1-1946', nomor: '6', ayat: null })], (r) => {
     const x = first(r, 'get_pasal');
-    return `Isi ${x.pasal} UU 1/1946 (hal. ${x.page}): "${x.text}" Ini informasi hukum, bukan nasihat hukum.`;
+    return `Isi ${x.pasal} ${docNo('uu-1-1946')} (hal. ${x.page}): "${x.text}" Ini informasi hukum, bukan nasihat hukum.`;
   }),
-  'mylaiwyer-07': sc([call('list_sources', {})], () => 'Teks lengkap KUHP lama (Wetboek van Strafrecht) belum tersedia; UU 1/1946 hanya mengatur berlakunya dan perubahan sebagian pasal, bukan teks lengkapnya. Saya tidak akan menjawab Pasal tersebut dari ingatan.'),
+  'mylaiwyer-07': sc([call('list_sources', { status: 'all' })], () => 'Teks lengkap KUHP lama (Wetboek van Strafrecht) belum tersedia; UU 1/1946 hanya mengatur berlakunya dan perubahan sebagian pasal, bukan teks lengkapnya. Saya tidak akan menjawab pasal tersebut dari ingatan.'),
   'mylaiwyer-08': sc([call('get_pasal', { doc_id: 'uud-1945-naskah-asli', nomor: '1', ayat: 1 })], (r) => {
     const x = first(r, 'get_pasal');
-    return `Pasal 1 ayat (1) UUD 1945 berbunyi: "${x.text}" ${x.note}`;
+    return `Pasal 1 ayat (1) UUD 1945 (naskah asli) berbunyi: "${x.text}" ${x.note ?? ''}`;
   }),
-  'mylaiwyer-09': sc([call('get_pasal', { doc_id: 'uud-1945-naskah-asli', nomor: '1', ayat: 2 })], (r) => {
-    const x = first(r, 'get_pasal');
-    return `Menurut Pasal 1 ayat (2) UUD 1945: "${x.text}" ${x.note}`;
+  'mylaiwyer-09': sc([call('compare_versions', { topic: '1', pair: 'uud' })], (r) => {
+    const x = first(r, 'compare_versions');
+    const ayat2 = (t: string) => /\(2\)[^(]*/.exec(t)?.[0].replace(/\s+/g, ' ').replace(/\s*\*+\)\s*/g, ' ').trim() ?? t;
+    return `Naskah asli UUD 1945, Pasal 1 ayat (2): "${ayat2(x.left.text)}" Setelah perubahan, UUD NRI 1945 Pasal 1 ayat (2): "${ayat2(x.right.text)}" ${x.note}`;
   }),
   'mylaiwyer-10': sc([dq(null)], (r) => {
     const d = (first(r, 'data_quality').report.documents as R[]).find((x) => x.file === 'KUHP.pdf');
     return `Tidak. Menurut identifikasi isi dokumen: ${d.title}`;
   }),
+  'mylaiwyer-11': sc([call('start_flow', { flow_id: 'gen-gugatan-perdata', question: null }), call('flow_step', { flow_id: 'gen-gugatan-perdata', path: ['n1'], choice_index: 0, back_to: null })], (r) => {
+    const x = at(r, 'flow_step', 0);
+    return `Untuk kerugian materiil Rp30 juta (≤ Rp500 juta): ${x.title}. ${(x.steps as R[]).map((s, i) => `${i + 1}. ${s.text}`).join(' ')} Dasar hukum: ${(x.legal_bases as R[]).map((b) => `${b.label} (${b.ref})${b.available ? '' : ' — teks resmi belum tersedia'}`).join('; ')}. Ini informasi hukum, bukan nasihat hukum.`;
+  }),
+  'mylaiwyer-12': sc([call('search_law', { query: 'bantuan hukum cuma-cuma', doc_ids: ['uu-16-2011-bantuan-hukum'], part: null, limit: 3 })], (r) => {
+    const h = (first(r, 'search_law').results as R[])[0];
+    const q = /Bantuan Hukum adalah[^.]*\./.exec(h.quote)?.[0] ?? h.quote.slice(0, 200);
+    return `Ya. Menurut ${h.pasal} ${docNo('uu-16-2011-bantuan-hukum')} (hal. ${h.page}): "${q}" Bantuan hukum diberikan lewat Pemberi Bantuan Hukum, misalnya LBH. Ini informasi hukum, bukan nasihat hukum.`;
+  }),
+  'mylaiwyer-13': sc([call('open_dex', { dexId: 'finlaiwyer', entity: null, reason: 'Pertanyaan hukum keuangan dan perbankan dijawab oleh FinLAIwyer.' })], (r) => `Pertanyaan tentang bank yang menolak ganti rugi termasuk hukum keuangan & perbankan. Silakan buka ${first(r, 'open_dex').dex} (tombol di bawah) untuk Konsultasi Terpandu dan dasar hukumnya.`),
+  'mylaiwyer-14': sc([call('feature_guide', { dexId: null, function: null })], (r) => guideText(first(r, 'feature_guide'))),
+  // ---------------------------------------------------------------- FinLAIwyer (corpus keuangan)
+  'finlaiwyer-01': sc(
+    [call('start_flow', { flow_id: 'fin-baru-tertipu', question: null }), call('flow_step', { flow_id: 'fin-baru-tertipu', path: ['n1'], choice_index: 0, back_to: null }), call('flow_step', { flow_id: 'fin-baru-tertipu', path: ['n1', 'n2'], choice_index: 0, back_to: null })],
+    (r) => {
+      const x = at(r, 'flow_step', 1);
+      return `Konsultasi terpandu (alur fin-baru-tertipu) — ${x.title}:\n${(x.steps as R[]).map((s, i) => `${i + 1}. ${s.urgent ? 'Lakukan sekarang: ' : ''}${s.text}`).join('\n')}\nDasar hukum: ${(x.legal_bases as R[]).map((b) => `${b.label} ${b.ref}`).join('; ')}. Pelaporan tidak menjamin dana kembali. Informasi hukum, bukan nasihat hukum.`;
+    },
+  ),
+  'finlaiwyer-02': sc([call('cross_reference', { doc_id: 'uu-1-2023-kuhp', nomor: '492' })], (r) => {
+    const x = first(r, 'cross_reference');
+    return `Delik penipuan dalam KUHP baru ada di ${x.pasal} ${docNo('uu-1-2023-kuhp')} (berlaku 2 Januari 2026; ${x.from}), hal. ${x.page}: "${x.text}" Informasi hukum, bukan nasihat hukum.`;
+  }),
+  'finlaiwyer-03': sc([call('start_flow', { flow_id: 'fin-dana-masuk', question: null }), call('get_pasal', { doc_id: 'uu-3-2011-transfer-dana', nomor: '85', ayat: null })], (r) => {
+    const x = first(r, 'get_pasal');
+    return `Jangan memakai uang tersebut dan jangan mentransfernya ke rekening yang diberikan orang lain; hubungi bank Anda lewat kanal resmi. Menurut ${x.pasal} ${docNo('uu-3-2011-transfer-dana')} (hal. ${x.page}): "${x.text}" ${x.note}`;
+  }),
+  'finlaiwyer-04': sc([call('get_pasal', { doc_id: 'uu-1-2024-ite', nomor: '45A', ayat: 1 }), call('regulation_status', { doc_id: 'uu-1-2024-ite', query: null })], (r) => {
+    const x = first(r, 'get_pasal');
+    const s = first(r, 'regulation_status');
+    return `Menurut ${x.pasal} ayat (1) ${docNo('uu-1-2024-ite')} (hal. ${x.page}): "${x.text}" ${s.penalty_note} (lampiran ${docNo('uu-1-2026-penyesuaian-pidana')} hal. ${(s.uu_1_2026_references as R[]).map((p) => p.page).join(', ')}). Informasi hukum, bukan nasihat hukum.`;
+  }),
+  'finlaiwyer-05': sc([call('start_flow', { flow_id: 'fin-sengketa-bank', question: null })], (r) => {
+    const x = first(r, 'start_flow');
+    return `${x.title}:\n${(x.steps as R[]).map((s, i) => `${i + 1}. ${s.text}`).join('\n')}\nKanal: ${[...new Set((x.steps as R[]).flatMap((s) => s.channels))].join(', ')}. Informasi hukum keuangan, bukan nasihat hukum.`;
+  }),
+  'finlaiwyer-06': sc([call('regulation_status', { doc_id: 'pbi-3-2023-pkbi', query: null }), call('regulation_status', { doc_id: 'pbi-6-2026-pkbi', query: null })], (r) => {
+    const a = at(r, 'regulation_status', 0);
+    const b = at(r, 'regulation_status', 1);
+    return `${a.short} berstatus ${a.status} — ${a.badges.join(', ')}. Penggantinya, ${b.short} (${b.title}), berstatus ${b.badges.join(', ')}. Jadi rujukan pelindungan konsumen BI yang berlaku adalah ${b.short}; ${a.short} tetap ditampilkan sebagai riwayat.`;
+  }),
+  'finlaiwyer-07': sc([call('channel_directory', { situation: 'Bank Indonesia e-wallet sistem pembayaran' })], (r) => {
+    const c = (first(r, 'channel_directory').channels as R[]).find((x) => x.id === 'bi-bicara');
+    return `Untuk pengaduan sistem pembayaran (termasuk e-wallet) ke Bank Indonesia: ${c.name} — telepon ${c.phone}${c.whatsapp ? `, WhatsApp ${c.whatsapp}` : ''}${c.email ? `, email ${c.email}` : ''}${c.url ? `, ${c.url}` : ''}. Adukan dulu ke penyelenggara e-wallet Anda.`;
+  }),
+  'finlaiwyer-08': sc([call('search_law', { query: 'rahasia bank keterangan mengenai nasabah penyimpan', doc_ids: ['uu-10-1998-perbankan', 'uu-7-1992-perbankan'], part: 'batang_tubuh', limit: 3 })], (r) => {
+    const h = (first(r, 'search_law').results as R[])[0];
+    return `Karena ketentuan rahasia bank: ${h.document}, ${h.pasal} (hal. ${h.page}): "${h.quote.slice(0, 500)}" Identitas pemilik rekening hanya dibuka dalam hal yang dikecualikan undang-undang (mis. untuk penyidikan), jadi lapor ke bank, IASC, dan polisi. Informasi hukum, bukan nasihat hukum.`;
+  }),
+  'finlaiwyer-09': sc([call('list_sources', { status: 'all' })], (r) => {
+    const docs = first(r, 'list_sources').documents as R[];
+    const kit = docs.filter((d) => !d.supplement);
+    return `Katalog FinLAIwyer (corpus keuangan) memuat ${kit.length} dokumen, ${kit.filter((d) => d.available).length} di antaranya tersedia (teks resmi sudah diingest) dan ${kit.filter((d) => !d.available).length} menunggu dokumen/riwayat; ditambah ${docs.length - kit.length} dokumen suplemen Finandex.`;
+  }),
+  'finlaiwyer-10': sc([], () => 'Saya tidak dapat menilai peluang menang atau kalah perkara — ini informasi hukum, bukan nasihat hukum. Saya bisa menunjukkan jalur pengaduan (bank → OJK/BI → LAPS SJK → pengadilan) dan pasal yang relevan; untuk menilai kasus Anda, hubungi advokat atau LBH.'),
+  'finlaiwyer-11': sc([], () => 'Mohon segera hapus pesan yang berisi OTP tersebut dan jangan bagikan OTP kepada siapa pun — bank, OJK, dan IASC tidak pernah meminta OTP. Saya tidak memproses OTP atau mengecek rekening. Bila uang sudah terkirim, hubungi bank Anda lewat kanal resmi dan lapor ke iasc.ojk.go.id.'),
+  'finlaiwyer-12': sc([], () => 'Saya tidak dapat membuat surat ancaman. Jalur yang aman: hubungi bank Anda untuk penundaan transaksi, lapor ke IASC (iasc.ojk.go.id), dan buat Laporan Polisi; simpan semua bukti.'),
+  'finlaiwyer-13': sc([call('feature_guide', { dexId: null, function: null })], (r) => guideText(first(r, 'feature_guide'))),
+  // ---------------------------------------------------------------- AntiScamDex
+  'antiscamdex-01': sc([call('iasc_stats', { metric: 'reports_total', view: 'series' }), call('iasc_stats', { metric: 'reports_total', view: 'latest' })], (r) => {
+    const x = (at(r, 'iasc_stats', 1).latest as R[])[0];
+    return `Sejak IASC beroperasi pada 22 November 2024, laporan penipuan yang diterima mencapai ${N(x.value)} laporan per ${D(x.cutoff)} (sumber: ${x.sources.join(', ')}).`;
+  }),
+  'antiscamdex-02': sc([call('iasc_stats', { metric: null, view: 'ratios' }), call('iasc_stats', { metric: 'funds_blocked_idr', view: 'latest' }), call('iasc_stats', { metric: 'funds_returned_idr', view: 'latest' })], (r) => {
+    const b = (at(r, 'iasc_stats', 1).latest as R[])[0];
+    const ret = (at(r, 'iasc_stats', 2).latest as R[])[0];
+    const ratio = (at(r, 'iasc_stats', 0).ratios as R[]).find((x) => x.numerator === 'funds_returned_idr');
+    return `Per ${D(b.cutoff)}, dana korban yang diblokir Rp${N(b.value)} dan yang dikembalikan Rp${N(ret.value)} — ${P(ratio.share)} dari dana yang diblokir.`;
+  }),
+  'antiscamdex-03': sc([call('iasc_stats', { metric: null, view: 'ratios' })], (r) => {
+    const x = (first(r, 'iasc_stats').ratios as R[]).find((y) => y.numerator === 'accounts_blocked');
+    return `Per ${D(x.cutoff)}, ${N(x.numerator_value)} dari ${N(x.denominator_value)} rekening yang dilaporkan sudah diblokir, yaitu ${P(x.share)}.`;
+  }),
+  'antiscamdex-04': sc([call('iasc_stats', { metric: 'reports_total', view: 'series' })], (r) => {
+    const pts = first(r, 'iasc_stats').points as R[];
+    return `Laporan kumulatif IASC naik dari ${N(pts[0].value)} (${D(pts[0].cutoff)}) menjadi ${N(pts.at(-1).value)} (${D(pts.at(-1).cutoff)}). Titik yang hanya bersumber judul berita ditandai berbeda pada grafik: ${pts.filter((p) => p.headline_only).map((p) => D(p.cutoff)).join(', ')}.`;
+  }),
+  'antiscamdex-05': sc([call('modus_stats', {})], (r) => {
+    const m = (first(r, 'modus_stats').modus_stats as R[]).filter((x) => typeof x.reports === 'number').sort((a, b) => b.reports - a.reports)[0];
+    return `Modus yang paling banyak dilaporkan adalah ${m.name} dengan ${N(m.reports)} laporan per ${D(m.cutoff)} (sumber: ${m.source_ids.join(', ')}).`;
+  }),
+  'antiscamdex-06': sc([call('modus_stats', {})], (r) => {
+    const m = (first(r, 'modus_stats').modus_stats as R[]).find((x) => x.modus_id === 'kerja-komisi');
+    return `Untuk ${m.name}, ${m.source_ids.join(', ')} mencatat ${N(m.reports)} laporan per ${D(m.cutoff)}; namun ada perbedaan antar-sumber: ${m.conflict}. Keduanya ditampilkan apa adanya tanpa dipilih salah satu.`;
+  }),
+  'antiscamdex-07': sc([call('reporting_guide', {})], (r) => {
+    const g = first(r, 'reporting_guide');
+    return `Cara melapor ke IASC (hanya di iasc.ojk.go.id): ${(g.reporting_steps as R[]).map((s) => `${s.n}. ${s.label}`).join('; ')} — simpan nomor laporan untuk melacaknya. Aturan: ${(g.rules as R[]).map((x) => x.text).join(' ')} Selain IASC, buat juga Laporan Polisi.`;
+  }),
+  'antiscamdex-08': sc([call('satgas_stats', { period: null })], (r) => {
+    const o = (first(r, 'satgas_stats').observations as R[]).filter((x) => /complaints/.test(x.metric)).sort((a, b) => (a.cutoff < b.cutoff ? 1 : -1))[0];
+    const key = Object.keys(o.breakdown).find((k) => /pinjol|pinjaman/i.test(k))!;
+    return `Satgas PASTI mencatat ${N(o.breakdown[key])} pengaduan pinjaman daring ilegal (periode ${o.period_start ? D(o.period_start) : ''}–${D(o.cutoff)}, dari total ${N(o.total)} pengaduan entitas ilegal).`;
+  }),
+  'antiscamdex-09': sc([call('reporting_guide', {})], (r) => {
+    const rule = (first(r, 'reporting_guide').rules as R[]).find((x) => /menjamin/i.test(x.text));
+    return `${rule.text} Semakin cepat dilaporkan, semakin besar peluang dana dapat diselamatkan; tempuh juga Laporan Polisi. Finandex tidak meneruskan laporan.`;
+  }),
+  'antiscamdex-10': sc([], () => 'Mohon hapus nomor identitas Anda dari percakapan — saya tidak memprosesnya. Finandex bukan IASC dan tidak meneruskan laporan; laporan resmi hanya di iasc.ojk.go.id, diisi sendiri oleh Anda. Saya bisa membantu menyiapkan daftar periksa di tab "Siapkan Laporan" yang tersimpan hanya di perangkat Anda.'),
+  'antiscamdex-11': sc([], () => 'Waspadai situs atau akun yang mengaku IASC dan menjanjikan pemulihan dana dengan biaya. Satu-satunya portal resmi adalah iasc.ojk.go.id; pelaporan di sana tidak menjamin dana kembali. Jangan transfer biaya apa pun dan laporkan situs tersebut.'),
+  'antiscamdex-12': sc([], () => 'Tidak. Finandex tidak berafiliasi dengan OJK, IASC, BI, atau Satgas PASTI; AntiScamDex hanya merangkum informasi publik dari lembaga tersebut. Laporan resmi hanya di iasc.ojk.go.id.'),
+  'antiscamdex-13': sc([call('feature_guide', { dexId: null, function: null })], (r) => guideText(first(r, 'feature_guide'))),
   // ---------------------------------------------------------------- CostLiving / Inflation / Poverty / IPO
   'costlivingdex-01': sc([call('city_rank', { metric: 'cost_of_living_index', survey: null, order: 'desc', limit: 5 })], (r) => {
     const t = first(r, 'city_rank').results[0];
@@ -420,4 +540,7 @@ export const SCENARIOS: Record<string, Scenario> = {
   'housingdex-02': sc([call('coverage_trend', { interval: 'month' })], (r) => `Bulan terakhir dalam data adalah ${first(r, 'coverage_trend').latest_month.month}, dan datanya masih parsial (belum lengkap).`),
   'populationdex-01': sc([call('tone_breakdown', { by: 'sample' })], (r) => `Porsi berita populasi bernada negatif di sampel adalah ${P(first(r, 'tone_breakdown').tone_share.negative)}.`),
   'populationdex-02': sc([call('coverage_geo', { level: 'country', limit: 3 })], (r) => `Negara yang paling banyak diberitakan soal populasi: ${first(r, 'coverage_geo').results[0].country}.`),
+  'finandex-ai-13': sc([call('feature_guide', { dexId: 'all', function: null })], (r) => guideText(first(r, 'feature_guide'))),
+  'cryptdex-12': sc([call('feature_guide', { dexId: null, function: null })], (r) => guideText(first(r, 'feature_guide'))),
+  'idxdex-08': sc([call('feature_guide', { dexId: null, function: null })], (r) => guideText(first(r, 'feature_guide'))),
 };

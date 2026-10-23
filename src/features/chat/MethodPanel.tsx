@@ -16,30 +16,30 @@ function humanInputs(inputs: Record<string, unknown>): string {
     .join(' · ');
 }
 
-export function MethodPanel({ methods }: { methods: Method[] }) {
+export function MethodPanel({ methods, defaultOpen = false }: { methods: Method[]; defaultOpen?: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const fmt = useAsOfLabel();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   if (!methods.length) return null;
   const flags = [...new Set(methods.flatMap((m) => m.flags))];
   return (
-    <Collapsible.Root open={open} onOpenChange={setOpen} className="rounded-xl border border-border">
+    <Collapsible.Root open={open} onOpenChange={setOpen} className="prov-data rounded-xl border border-edge bg-pane">
       <Collapsible.Trigger className="flex min-h-11 w-full items-center justify-between px-3 text-left text-sm font-medium">
         {t('chat.why')}
         <span aria-hidden>{open ? '▾' : '▸'}</span>
       </Collapsible.Trigger>
-      <Collapsible.Content className="space-y-3 border-t border-border px-3 py-3 text-sm">
+      <Collapsible.Content className="space-y-3 border-t border-edge px-3 py-3 text-sm">
         {methods.map((m, i) => (
           <section key={i} className="space-y-1">
             <h4 className="font-medium">
               {t('chat.tool')}: <code className="text-xs">{m.tool}</code>
             </h4>
-            <p className="text-muted">
+            <p className="text-ink-muted">
               {t('chat.dataUsed')}: {m.dataset} · {t('dex.asOf')} {fmt(m.as_of)}
               {m.period ? ` · ${m.period.start}–${m.period.end}` : ''} · {formatNumber(m.rows_used, locale)} {t('chat.rows')}
             </p>
-            {humanInputs(m.inputs) && <p className="text-xs text-muted">{humanInputs(m.inputs)}</p>}
+            {humanInputs(m.inputs) && <p className="text-xs text-ink-muted">{humanInputs(m.inputs)}</p>}
             {m.steps.length > 0 && (
               <ol className="list-decimal space-y-0.5 pl-5">
                 {m.steps.map((s, j) => (
@@ -52,7 +52,7 @@ export function MethodPanel({ methods }: { methods: Method[] }) {
         {flags.length > 0 && (
           <section>
             <h4 className="font-medium">{t('chat.flags')}</h4>
-            <ul className="list-disc pl-5 text-warning">
+            <ul className="list-disc pl-5 text-flag">
               {flags.map((f) => (
                 <li key={f}>{f}</li>
               ))}

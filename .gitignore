@@ -10,6 +10,9 @@ public/data/
 data/inputs/
 data/extracted/
 data/tmp/
+data/law-extra/
+data/regulations/
+Documentation/
 Dataset/
 *.zip
 FinanDex Master Prompt.md
@@ -36,3 +39,5 @@ reports/
 public/pdfjs/
 public/licenses.json
 .vercel
+public/whitepaper/
+*.tsbuildinfo

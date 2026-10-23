@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAsOfLabel } from '../../components/badges';
 import { DexCard } from '../../components/DexCard';
 import { Chip, EmptyState } from '../../components/ui';
+import { GROUP_HUES } from '../../config/brand';
 import { DEX_GROUPS } from '../../config/dex-groups';
 import type { DexGroupId } from '../../config/dex-groups';
 import { visibleDex } from '../../config/dex-registry';
@@ -27,27 +28,40 @@ export function filterDex(list: DexEntry[], o: { q: string; group: DexGroupId | 
   );
 }
 
-export function FeatureMap() {
+export type FeatureFilter = { q: string; group: DexGroupId | null; indonesia: boolean };
+
+/** Filter state shared by the Feature Map and the Constellation (filters dim non-matching nodes, §10.2.5). */
+export function useFeatureFilter() {
+  const [f, setF] = useState<FeatureFilter>({ q: '', group: null, indonesia: false });
+  const hideNcPref = useApp((s) => s.hideNc);
+  const hideNc = DISTRIBUTION === 'commercial' || hideNcPref;
+  const shown = useMemo(() => filterDex(visibleDex(DISTRIBUTION), { ...f, hideNc }), [f, hideNc]);
+  const active = !!(f.q || f.group || f.indonesia || hideNcPref);
+  const match = useMemo(() => (active ? new Set(shown.map((d) => d.id)) : null), [active, shown]);
+  return { f, setF, shown, match, hideNc };
+}
+
+export function FeatureMap({ state }: { state?: ReturnType<typeof useFeatureFilter> }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const m = useManifest();
-  const hideNcPref = useApp((s) => s.hideNc);
+  const own = useFeatureFilter();
+  const { f, setF, shown, hideNc } = state ?? own;
+  const { q, group, indonesia } = f;
+  const setQ = (v: string) => setF({ ...f, q: v });
+  const setGroup = (v: DexGroupId | null) => setF({ ...f, group: v });
+  const setIndonesia = (v: boolean) => setF({ ...f, indonesia: v });
   const setHideNc = useApp((s) => s.setHideNc);
-  const [q, setQ] = useState('');
-  const [group, setGroup] = useState<DexGroupId | null>(null);
-  const [indonesia, setIndonesia] = useState(false);
   const commercial = DISTRIBUTION === 'commercial';
-  const hideNc = commercial || hideNcPref;
-  const shown = useMemo(() => filterDex(visibleDex(DISTRIBUTION), { q, group, indonesia, hideNc }), [q, group, indonesia, hideNc]);
 
   return (
     <section aria-labelledby="feature-map">
-      <h2 id="feature-map" className="text-xl font-bold">
+      <h2 id="feature-map" tabIndex={-1} className="font-display text-2xl outline-none">
         {t('home.featureMap')}
       </h2>
-      <p className="text-sm text-muted">{t('home.featureMapIntro')}</p>
+      <p className="text-sm text-ink-muted">{t('home.featureMapIntro')}</p>
       <div className="mt-3 space-y-2">
-        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('home.filterPlaceholder')} aria-label={t('home.filterPlaceholder')} className="min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-base sm:text-sm" />
+        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('home.filterPlaceholder')} aria-label={t('home.filterPlaceholder')} className="min-h-11 w-full rounded-xl border border-edge bg-pane px-3 text-base sm:text-sm" />
         <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
           <Chip active={!group} onClick={() => setGroup(null)}>
             {t('home.allCategories')}
@@ -63,7 +77,7 @@ export function FeatureMap() {
             {t('home.indonesia')}
           </Chip>
           <label className="inline-flex min-h-9 items-center gap-2 text-sm">
-            <input type="checkbox" className="h-5 w-5 accent-[var(--brand)]" checked={hideNc} disabled={commercial} onChange={(e) => setHideNc(e.target.checked)} />
+            <input type="checkbox" className="h-5 w-5 accent-[var(--primary)]" checked={hideNc} disabled={commercial} onChange={(e) => setHideNc(e.target.checked)} />
             {t('home.hideNc')}
           </label>
         </div>
@@ -73,15 +87,15 @@ export function FeatureMap() {
           <EmptyState message={t('home.noMatch')} />
         </div>
       )}
-      {DEX_GROUPS.map((g) => {
+      {DEX_GROUPS.map((g, gi) => {
         const items = shown.filter((d) => d.group === g.id).sort((a, b) => a.order - b.order);
         if (!items.length) return null;
         return (
-          <section key={g.id} className="mt-6 [contain-intrinsic-size:auto_640px] [content-visibility:auto]" aria-labelledby={`grp-${g.id}`}>
-            <h3 id={`grp-${g.id}`} className="text-lg font-semibold">
+          <section key={g.id} className="mt-8 border-l-2 pl-4 [contain-intrinsic-size:auto_640px] [content-visibility:auto]" style={{ borderColor: GROUP_HUES[gi] }} aria-labelledby={`grp-${g.id}`}>
+            <h3 id={`grp-${g.id}`} className="font-display text-lg">
               {g.name[locale]}
             </h3>
-            <p className="mb-3 text-sm text-muted">{g.description[locale]}</p>
+            <p className="mb-3 text-sm text-ink-muted">{g.description[locale]}</p>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
               {items.map((d) => (
                 <DexCard key={d.id} dex={d} asOf={m.data?.dex[d.id]?.as_of} />
@@ -102,10 +116,10 @@ export function AsOfStrip() {
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- horizontally scrollable region must be keyboard-focusable (axe scrollable-region-focusable)
     <section aria-label={t('home.asOfStrip')} tabIndex={0} className="no-scrollbar flex gap-2 overflow-x-auto py-1">
-      <span className="shrink-0 text-xs font-semibold text-muted">{t('home.asOfStrip')}:</span>
+      <span className="shrink-0 text-xs font-semibold text-ink-muted">{t('home.asOfStrip')}:</span>
       {dex.map((d) => (
-        <span key={d.id} className="shrink-0 whitespace-nowrap rounded-full border border-border px-2 py-0.5 text-xs text-muted">
-          {d.name} · {fmt(m.data?.dex[d.id]?.as_of ?? d.asOf)}
+        <span key={d.id} className="shrink-0 whitespace-nowrap rounded-full border border-edge px-2 py-0.5 text-xs text-ink-muted">
+          {d.name} <span className="text-data">{fmt(m.data?.dex[d.id]?.as_of ?? d.asOf)}</span>
         </span>
       ))}
     </section>

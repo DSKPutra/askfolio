@@ -1,0 +1,6 @@
+{
+ "generated_by": "scripts/build/downloads-manifest.ts",
+ "generated_at": null,
+ "note": "Filled by CI (desktop.yml / android.yml) from GitHub Releases desktop-vX.Y.Z / android-vX.Y.Z. Empty = not released yet (the install centre shows 'Segera hadir' + PWA fallback).",
+ "releases": []
+}

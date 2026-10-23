@@ -8,9 +8,15 @@ export const PENJELASAN = /^\s*PENJELASAN(\s+(ATAS|TENTANG)\b.*)?\s*$/;
 const EFFECTIVE =
   /[^\n]*m\s*u\s*[lL]\s*a\s*i\s+b\s*e\s*r\s*l\s*a\s*k\s*u\s+p\s*a\s*d\s*a\s+t\s*a\s*n\s*[eg]\s*g\s*a\s*l[^\n]*/g;
 
-/** Join hyphenated line breaks, then collapse all whitespace (reference `normalise`). */
+/** Join hyphenated line breaks, then collapse all whitespace (reference `normalise`). Also restores the hyphen of a
+ * capitalised reduplicated word whose hyphen the PDF text layer dropped at a line break ("UndangUndang" →
+ * "Undang-Undang", seen in the official UUD NRI 1945 PDF); see docs/DECISIONS.md. */
 export function normaliseLaw(text: string): string {
-  return text.replace(/-\s*\n\s*/g, '-').replace(/\s+/g, ' ').trim();
+  return text
+    .replace(/-\s*\n\s*/g, '-')
+    .replace(/\b(\p{Lu}\p{Ll}{3,})\1\b/gu, '$1-$1')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 export function ocrNumber(s: string): number {

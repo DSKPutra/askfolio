@@ -2,7 +2,7 @@
 
 © 2026 Dea Saka Kurnia Putra. All rights reserved.
 
-Kit ini menyertai `FINANDEX_MASTER_PROMPT.md`. Unggah ke Claude Code **bersamaan** dengan 42 file dataset yang disebut di §3.1 prompt (total 43 file).
+Kit ini menyertai `FINANDEX_MASTER_PROMPT.md` **v3**. Unggah ke Claude Code **bersamaan** dengan 42 file dataset yang disebut di §3.1 prompt (total 43 file). Untuk repo yang sudah dibangun dari v2, pakai `templates/UPDATE_V3_PROMPT.md`.
 
 | Folder / file | Isi |
 |---|---|
@@ -14,15 +14,24 @@ Kit ini menyertai `FINANDEX_MASTER_PROMPT.md`. Unggah ke Claude Code **bersamaan
 | `reference/finandex_reference_x.py` | CryptDex (harga & snapshot), CentralBankDex, FintechDex, PersonalFinanDex, SalaryDex, StartupDex, IDFoodDeliveryDex, OpenCompanyDex, VCNetworkDex, VCDex, IDHousingDex |
 | `reference/finandex_reference_defi.py` | CryptDex sub-modul: DeFi, Fees & Revenue, Yield, Trading Bots |
 | `reference/finandex_reference_y.py` | IPODex, InflationDex, CostLivingDex, PovertyDex, PopulationDex, HomelessnessDex, HousingDex |
-| `reference/finandex_reference_law.py` | My LAIwyer (UUD 1945, KUHAP 1981, KUHAP 2025, UU 1/1946) — butuh `pdftotext` (poppler) |
+| `reference/finandex_reference_law.py` | My LAIwyer — PDF unggahan (UUD 1945, KUHAP 1981, KUHAP 2025, UU 1/1946) — butuh `pdftotext` (poppler) |
+| `reference/finandex_reference_kb.py` | Validator + golden: AntiScamDex, katalog regulasi (My LAIwyer & FinLAIwyer), alur Konsultasi Terpandu |
+| `datasets/antiscam/antiscam_kb.json` | AntiScamDex: informasi publik IASC/Satgas PASTI/OJK/BI, kanal resmi, statistik bertanggal & bersumber |
+| `datasets/law/regulation_catalog.json` | 41 dokumen hukum (corpus `umum` & `keuangan`), status, relasi, URL resmi, ringkasan navigasi |
+| `datasets/law/legal_qa_flows.json` | 10 alur Konsultasi Terpandu (FinLAIwyer & My LAIwyer) |
+| `datasets/app/feature_guide.json` | Panduan Fitur semua Dex (tool `feature_guide`, "Tentang fitur ini", `/panduan`) |
 | `reference/make_eval.py` | Membangkitkan `golden/chatbot_eval.json` dari golden fixtures |
 | `reference/asset_metadata_authored.json` | Metadata 34 aset global (nama ID/EN, negara, wilayah, satuan, kalender) |
 | `golden/<modul>/` | Nilai benar hasil reference implementation atas dataset asli — dipakai golden test aplikasi |
-| `golden/chatbot_eval.json` | 128 pertanyaan evaluasi chatbot (27 Dex) + nilai yang diharapkan |
+| `golden/chatbot_eval.json` | 161 pertanyaan evaluasi chatbot (29 Dex) + nilai yang diharapkan (termasuk item bersyarat & keamanan) |
 | `brand/` | Logo personal Dea Saka Kurnia Putra: asli + versi transparan terang/gelap; `_logo_preview.png` |
-| `brand/icons/` | 28 ikon (aplikasi Finandex + 27 Dex): SVG sumber + PNG 1024/512/192; `_family_preview.png` |
+| `brand/icons/` | 30 ikon (aplikasi Finandex + 29 Dex): SVG sumber + PNG 1024/512/192; `_family_preview.png` |
 | `brand/make_icons.py` | Generator keluarga ikon (untuk membuat ikon Dex baru dengan gaya yang sama; butuh Playwright) |
 | `templates/ADD_NEW_DEX_PROMPT.md` | Template prompt untuk menambah Dex chatbot baru |
+| `templates/UPDATE_V3_PROMPT.md` | Prompt pembaruan repo v2 → v3 |
+| `templates/UIUX_TEST_PROMPT.md` | Prompt uji & audit UI/UX (unik, futuristik, interaktif) |
+| `templates/TECHNICAL_DOCS_PROMPT.md` | Prompt dokumentasi teknis ISO/IEC/IEEE (A01–A13), Secure SBOM + VEX (B01–B05), dan dokumen privasi UU PDP + PP 33/2026 (C01–C14) |
+| `whitepaper/` | Whitepaper ID & EN (`.md` + `.pdf`), presentasi `Finandex_Platform_Overview.pptx`, `whitepaper_manifest.json` (SHA-256), diagram `assets/`, font OFL `fonts/`, pembangun `build_whitepaper.py` & `build_deck.js` |
 
 ## Menjalankan ulang reference (Python 3.12 + pandas + numpy + pyarrow, poppler-utils)
 
@@ -67,8 +76,19 @@ python3 -I kit/reference/finandex_reference_y.py \
   --homelessness "$X/Homelessness_News_Dataset_2019-2026/data" --housingnews "$X/Housing_News_Dataset_2019-2026/data" \
   --population "$X/Population_News_Dataset_2019-2026/data" --out /tmp/golden
 python3 -I kit/reference/finandex_reference_law.py --pdf-dir data/inputs --out /tmp/golden
+python3 -I kit/reference/finandex_reference_kb.py --antiscam kit/datasets/antiscam/antiscam_kb.json \
+  --catalog kit/datasets/law/regulation_catalog.json --flows kit/datasets/law/legal_qa_flows.json --out /tmp/golden
+cp -r kit/golden/feature_guide /tmp/golden/   # feature_guide golden dibangkitkan bersama datasets/app/feature_guide.json
 python3 -I kit/reference/make_eval.py /tmp/golden "$X/Global_Financial_Markets_Dataset_2000-Present/global_financial_markets_2000_Now.csv"
 diff -r /tmp/golden kit/golden && echo "golden identical"
 ```
 
 Catatan: sesuaikan path folder hasil ekstrak bila struktur zip menyimpan subfolder (lihat `zip_members_sample` di manifest).
+
+## Membangun ulang whitepaper & presentasi
+
+```bash
+python3 -I kit/whitepaper/build_whitepaper.py kit/whitepaper     # PDF ID & EN + cover PNG + manifest (butuh markdown + playwright/chromium)
+node kit/whitepaper/build_deck.js kit                            # presentasi .pptx (butuh pptxgenjs, react, react-dom, react-icons, sharp)
+python3 -I kit/whitepaper/build_whitepaper.py kit/whitepaper     # jalankan lagi agar manifest memuat SHA-256 .pptx terbaru
+```

@@ -45,7 +45,7 @@ export type ChatRequest = z.infer<typeof ChatRequest>;
 
 // ----------------------------------------------------------------------------- artifacts (chart specs)
 
-export const ArtifactKind = z.enum(['line', 'candle', 'bar', 'heatmap', 'table', 'graph', 'map', 'quote', 'card']);
+export const ArtifactKind = z.enum(['line', 'candle', 'bar', 'heatmap', 'table', 'graph', 'map', 'quote', 'card', 'steps', 'choices', 'timeline', 'gauge', 'compare_text']);
 export type ArtifactKind = z.infer<typeof ArtifactKind>;
 
 const cell = z.union([z.string(), z.number(), z.boolean(), z.null()]);
@@ -55,7 +55,16 @@ export const ChartSpec = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('line'),
     x: z.array(z.string()),
-    series: z.array(z.object({ name: z.string(), data: z.array(z.number().nullable()), step: z.boolean().optional(), area: z.boolean().optional() })),
+    series: z.array(
+      z.object({
+        name: z.string(),
+        data: z.array(z.number().nullable()),
+        step: z.boolean().optional(),
+        area: z.boolean().optional(),
+        /** Per-point marker: 'headline' = value sourced from a news headline only (§4.29). */
+        marker: z.array(z.enum(['headline']).nullable()).optional(),
+      }),
+    ),
     yUnit: z.enum(['pct', 'number', 'index', 'currency']).optional(),
     currency: z.string().optional(),
     logAllowed: z.boolean().optional(),
@@ -109,6 +118,13 @@ export const ChartSpec = z.discriminatedUnion('type', [
     page: z.number(),
     text: z.string(),
     note: z.string().optional(),
+    /** "Berlaku" / "Dicabut oleh …" / "Disesuaikan UU 1/2026". */
+    badges: z.array(z.string()).optional(),
+    /** Catalogue summary (not a quotation): rendered in sans, labelled (§4.28). */
+    summary: z.boolean().optional(),
+    /** Cross-corpus label, e.g. "dari My LAIwyer". */
+    from: z.string().optional(),
+    url: z.string().optional(),
   }),
   z.object({
     type: z.literal('card'),
@@ -116,6 +132,55 @@ export const ChartSpec = z.discriminatedUnion('type', [
     body: z.string(),
     link: z.object({ dexId: z.string(), entity: z.string().optional(), label: z.string() }).optional(),
     items: z.array(z.string()).optional(),
+    /** Feature guide: one line per function/tab with an "open" target. */
+    functions: z.array(z.object({ tab: z.string(), tabId: z.string().nullable(), what: z.string() })).optional(),
+    /** Clickable example questions. */
+    chips: z.array(z.string()).optional(),
+  }),
+  z.object({
+    type: z.literal('steps'),
+    steps: z.array(
+      z.object({
+        text: z.string(),
+        urgent: z.boolean(),
+        channels: z.array(z.object({ id: z.string(), name: z.string(), url: z.string().optional(), phone: z.string().optional(), whatsapp: z.string().optional(), email: z.string().optional() })),
+      }),
+    ),
+    legal_bases: z.array(z.object({ doc_id: z.string(), label: z.string(), ref: z.string(), why: z.string(), available: z.boolean() })).optional(),
+    notes: z.array(z.string()).optional(),
+    open_dex: z.array(z.string()).optional(),
+    flow: z.object({ flow_id: z.string(), path: z.array(z.string()) }).optional(),
+    trail: z.array(z.object({ node_id: z.string(), prompt: z.string(), choice: z.string() })).optional(),
+    disclaimer: z.string().optional(),
+  }),
+  z.object({
+    type: z.literal('choices'),
+    flow_id: z.string(),
+    node_id: z.string(),
+    path: z.array(z.string()),
+    prompt: z.string(),
+    options: z.array(z.object({ index: z.number(), label: z.string() })),
+    trail: z.array(z.object({ node_id: z.string(), prompt: z.string(), choice: z.string() })),
+    flows: z.array(z.object({ id: z.string(), title: z.string() })).optional(),
+  }),
+  z.object({
+    type: z.literal('timeline'),
+    items: z.array(z.object({ date: z.string().nullable(), label: z.string(), doc_id: z.string(), relation: z.enum(['self', 'amends', 'amended_by', 'revokes', 'revoked_by', 'adjusted_by', 'effective']), status: z.string().optional() })),
+  }),
+  z.object({
+    type: z.literal('gauge'),
+    value: z.number(),
+    label: z.string(),
+    cutoff: z.string(),
+    numerator: z.object({ label: z.string(), value: z.number() }),
+    denominator: z.object({ label: z.string(), value: z.number() }),
+    unit: z.enum(['share', 'idr', 'count']).optional(),
+  }),
+  z.object({
+    type: z.literal('compare_text'),
+    left: z.object({ label: z.string(), doc_id: z.string(), pasal: z.string().nullable(), page: z.number().nullable(), text: z.string() }),
+    right: z.object({ label: z.string(), doc_id: z.string(), pasal: z.string().nullable(), page: z.number().nullable(), text: z.string() }),
+    note: z.string().optional(),
   }),
 ]);
 export type ChartSpec = z.infer<typeof ChartSpec>;

@@ -10,7 +10,7 @@ echarts.use([LineChart, BarChart, CandlestickChart, HeatmapChart, GraphChart, Sc
 
 export type EChartHandle = { dataUrl: (bg: string) => string | undefined };
 
-const EChart = forwardRef<EChartHandle, { option: Record<string, unknown>; height: number; ariaLabel: string }>(function EChart({ option, height, ariaLabel }, ref) {
+const EChart = forwardRef<EChartHandle, { option: Record<string, unknown>; height: number; ariaLabel: string; onClick?: (p: { name?: string; data?: unknown; dataType?: string }) => void }>(function EChart({ option, height, ariaLabel, onClick }, ref) {
   const el = useRef<HTMLDivElement>(null);
   const chart = useRef<echarts.ECharts | null>(null);
 
@@ -30,6 +30,15 @@ const EChart = forwardRef<EChartHandle, { option: Record<string, unknown>; heigh
   useEffect(() => {
     chart.current?.setOption(option, { notMerge: true });
   }, [option]);
+
+  useEffect(() => {
+    const c = chart.current;
+    if (!c || !onClick) return;
+    c.on('click', onClick as never);
+    return () => {
+      c.off('click');
+    };
+  }, [onClick]);
 
   useImperativeHandle(ref, () => ({ dataUrl: (bg: string) => chart.current?.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: bg }) }), []);
 

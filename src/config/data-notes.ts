@@ -109,8 +109,40 @@ export const DATA_NOTES: Record<DexId, DataNote> = {
   fintechdex: { rules: SOCIAL_RULES, limits: [b('Konten pihak ketiga; bukan rekomendasi produk.', 'Third-party content; not a product recommendation.')] },
   personalfinandex: { rules: [...SOCIAL_RULES, b('Listing token (dexscreener, pump.fun) dikecualikan dari agregat default.', 'Token listings (dexscreener, pump.fun) are excluded from default aggregates.')], limits: [b('Diskusi publik, bukan nasihat keuangan.', 'Public discussion, not financial advice.')] },
   mylaiwyer: {
-    rules: [b('Identitas dokumen ditentukan dari isi, bukan nama file.', 'Document identity is determined from content, not file names.'), b('Teks per halaman dinormalisasi (pemenggalan berhifen digabung); heading pasal dideteksi dengan regex toleran OCR.', 'Per-page text normalised (hyphenated breaks joined); article headings detected with an OCR-tolerant regex.'), b('Pencarian BM25 + sinonim kecil; KUHP.pdf (duplikat) dikecualikan.', 'BM25 search + small synonym list; KUHP.pdf (duplicate) excluded.')],
-    attribution: [b('19 teks resmi sektor keuangan (UU, POJK, PBI) dari peraturan.go.id, ojk.go.id, dan JDIH BPK; daftar & SHA-256 di bawah.', '19 official financial-sector texts (laws, OJK & BI regulations) from peraturan.go.id, ojk.go.id, and JDIH BPK; list & SHA-256 below.'), b('Langkah penanganan penipuan & kanal pelaporan ditulis editorial oleh Finandex dari situs resmi OJK/IASC/BI (bukan dari dataset).', 'Scam-handling steps & reporting channels are editorial content by Finandex from official OJK/IASC/BI sites (not from the dataset).')],
-    limits: [b('Pasal yang dikutip ditemukan lewat pencarian teks (BM25); relevansinya perlu dinilai advokat. Bukan nasihat hukum.', 'Quoted articles are found by text search (BM25); their relevance must be assessed by a lawyer. Not legal advice.'), b('UUD 1945 yang tersedia adalah naskah asli sebelum perubahan.', 'The available 1945 Constitution is the original text before amendments.'), b('UU 20/2025 adalah pindaian OCR; beberapa heading pasal tidak terdeteksi.', 'Law 20/2025 is an OCR scan; some article headings were not detected.')],
+    rules: [
+      b('Identitas dokumen unggahan (#30–#35) ditentukan dari isi, bukan nama file; KUHP.pdf (duplikat KUHAP.pdf) dikecualikan.', 'Uploaded documents (#30–#35) are identified from content, not file names; KUHP.pdf (duplicate of KUHAP.pdf) is excluded.'),
+      b('Dokumen resmi lain diunduh dari domain pemerintah yang diizinkan katalog, diverifikasi (nomor, tahun, judul di hal. 1–3; anchor pasal; SHA-256) dan dikunci di regulations.lock.json.', 'Other official documents are downloaded from government domains allowed by the catalogue, verified (number, year, title on pp. 1–3; article anchors; SHA-256) and pinned in regulations.lock.json.'),
+      b('Teks per halaman dinormalisasi; heading pasal dideteksi dengan regex toleran OCR; pencarian BM25 per corpus.', 'Per-page text normalised; article headings detected with an OCR-tolerant regex; BM25 search per corpus.'),
+    ],
+    attribution: [b('Katalog regulasi & alur Konsultasi Terpandu: karya Finandex (kit). Teks peraturan dari situs resmi; peraturan tidak dilindungi hak cipta (UU 28/2014 Pasal 42).', 'Regulation catalogue & guided-consultation flows: Finandex (kit). Regulation texts from official sites; statutes are not copyrighted (Law 28/2014 Art. 42).')],
+    limits: [
+      b('Informasi hukum, bukan nasihat hukum. Untuk kasus nyata, hubungi advokat atau LBH.', 'Legal information, not legal advice. For real cases, contact a lawyer or legal aid institute.'),
+      b('Dokumen berstatus "menunggu dokumen" tidak dikutip; ringkasan katalog selalu berlabel.', 'Documents marked "pending" are never quoted; catalogue summaries are always labelled.'),
+      b('UU 20/2025 adalah pindaian OCR; beberapa heading pasal tidak terdeteksi.', 'Law 20/2025 is an OCR scan; some article headings were not detected.'),
+    ],
+  },
+  finlaiwyer: {
+    rules: [
+      b('Corpus "keuangan": dokumen resmi diunduh dari domain pemerintah yang diizinkan, diverifikasi, dan dikunci SHA-256 (regulations.lock.json).', 'Corpus "keuangan": official documents downloaded from allowed government domains, verified, and pinned by SHA-256 (regulations.lock.json).'),
+      b('Status (berlaku/dicabut) dan relasi ubah/cabut dari katalog; dokumen dicabut tetap tampil sebagai riwayat.', 'Status (in force/revoked) and amend/revoke relations from the catalogue; revoked documents remain as history.'),
+      b('Ancaman pidana UU sektoral dibaca bersama lampiran UU 1/2026 (halaman lampiran ditautkan; teks lampiran hasil OCR).', 'Penalties in sectoral laws are read together with the UU 1/2026 annex (annex pages linked; annex text is OCR).'),
+    ],
+    attribution: [b('Katalog, alur, dan kanal: karya Finandex atas informasi publik (kit). Tidak berafiliasi dengan OJK, BI, IASC, atau Polri.', 'Catalogue, flows, and channels: Finandex work on public information (kit). Not affiliated with OJK, BI, IASC, or Polri.')],
+    limits: [
+      b('Informasi hukum keuangan, bukan nasihat hukum; Finandex tidak meneruskan laporan dan tidak dapat memulihkan dana.', 'Financial-law information, not legal advice; Finandex does not forward reports and cannot recover funds.'),
+      b('Ringkasan katalog bukan kutipan; dokumen "menunggu dokumen" tidak dikutip.', 'Catalogue summaries are not quotations; pending documents are never quoted.'),
+    ],
+  },
+  antiscamdex: {
+    rules: [
+      b('Seri kumulatif hanya memakai titik bertanggal pasti; titik dari judul berita ditandai; observasi berpresisi bulan tampil di tabel.', 'Cumulative series use exact-date points only; headline-only points are marked; month-precision observations appear in tables.'),
+      b('Validator menolak seri kumulatif yang menurun; laporan via PUJK + langsung = total pada tanggal potong terbaru.', 'The validator rejects decreasing cumulative series; reports via PUJK + direct = total at the latest cut-off.'),
+      b('Perbedaan angka antar-media tidak direkonsiliasi; keduanya ditampilkan dengan sumbernya.', 'Differences between media figures are not reconciled; both are shown with their sources.'),
+    ],
+    attribution: [b('Ringkasan karya Finandex atas informasi publik OJK, BI, portal IASC, Satgas PASTI, dan media; setiap fakta beratribusi + tautan. Tanpa logo lembaga.', 'Finandex summary of public information from OJK, BI, the IASC portal, Satgas PASTI, and media; every fact attributed + linked. No institutional logos.')],
+    limits: [
+      b('Finandex bukan IASC dan tidak berafiliasi dengan lembaga tersebut. Laporan resmi hanya di iasc.ojk.go.id.', 'Finandex is not IASC and is not affiliated with those institutions. Official reports only at iasc.ojk.go.id.'),
+      b('Statistik per tanggal potong; diperbarui dengan menambah observasi bersumber.', 'Statistics are per cut-off date; updated by adding sourced observations.'),
+    ],
   },
 };

@@ -59,10 +59,10 @@ export async function watermarkPng(dataUrl: string, title: string, footer: strin
   g.fillStyle = bg;
   g.fillRect(0, 0, canvas.width, canvas.height);
   g.fillStyle = fg;
-  g.font = '600 22px Montserrat, Inter, sans-serif';
+  g.font = '600 22px Unbounded, IBM Plex Sans, sans-serif';
   g.fillText(title, pad, pad + 18);
   g.drawImage(img, pad, pad + 32);
-  g.font = '14px Inter, sans-serif';
+  g.font = '14px IBM Plex Sans, sans-serif';
   g.globalAlpha = 0.75;
   g.fillText(`${footer} · ${EXPORT_WATERMARK}`, pad, canvas.height - pad + 4);
   return new Promise((res, rej) => canvas.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));

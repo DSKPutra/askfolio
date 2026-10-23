@@ -15,8 +15,14 @@ import type { ToolCtx, ToolDef } from '../tools/kit';
 const nullableIso = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().describe('Calendar date YYYY-MM-DD, or null');
 
 export function datasetLabel(dex: DexId): string {
-  return getDex(dex)!.inputs.map((n) => INPUT_FILES[n]).join(', ');
+  const d = getDex(dex)!;
+  return [...d.inputs.map((n) => INPUT_FILES[n]), ...(d.kitDatasets ?? [])].join(', ');
 }
+
+type FeatureGuide = {
+  app: { name: string; creator: string; dex_count: number; groups: { id: string; name: string; name_en: string; what: string; dex: string[] }[]; app_functions: { name: string; what: string }[] };
+  dex: { id: string; name: string; group_name: string; purpose: string; ask_examples: string[]; functions: { tab: string; what: string }[]; limitations: string; data_as_of: string; related: string[] }[];
+};
 
 export async function asOfFor(ctx: ToolCtx): Promise<string> {
   const m = await ctx.manifest();
@@ -93,6 +99,7 @@ export function sharedTools(dex: DexId, ad: TsAdapter | undefined): ToolDef[] {
           data: {
             dex: d.name,
             source_files: d.inputs.map((n) => ({ no: n, file: INPUT_FILES[n] })),
+            kit_datasets: d.kitDatasets ?? [],
             as_of: m.dex[dex]?.as_of ?? d.asOf,
             quality: m.dex[dex]?.quality ?? {},
             entities,
@@ -138,6 +145,41 @@ export function sharedTools(dex: DexId, ad: TsAdapter | undefined): ToolDef[] {
       run: async (_i, ctx) => ({
         data: { app: 'Finandex', creator: OWNER_NAME, copyright: COPYRIGHT_EN, credit: ctx.locale === 'id' ? CREDIT_ID : CREDIT_EN, version: ctx.appVersion },
       }),
+    }),
+    defineTool({
+      name: 'feature_guide',
+      description:
+        'Feature guide (rule 11): what this Dex is for, example questions, every function/tab with a one-line explanation, data & as-of, limitations, related Dex. Use for "fitur ini untuk apa?", "bisa tanya apa?", "ada fitur apa saja?", "cara pakainya?". dexId "all" = the whole app (all categories + general app functions). Never invent features beyond the result.',
+      input: z.object({ dexId: z.enum([...DEX_IDS, 'all']).nullable(), function: z.string().max(60).nullable() }).strict(),
+      label: { id: 'Membuka panduan fitur…', en: 'Opening feature guide…' },
+      run: async ({ dexId, function: fn }, ctx) => {
+        const L = ctx.locale;
+        const g = await ctx.store.json<FeatureGuide>('core/app/feature_guide.json');
+        const source = { dex, dataset: 'feature_guide.json (Finandex)', as_of: String((g as unknown as { meta?: { version?: string } }).meta?.version ?? '') };
+        const id = dexId ?? dex;
+        if (id === 'all') {
+          return {
+            data: { app: g.app.name, creator: g.app.creator, dex_count: g.app.dex_count, groups: g.app.groups.map((x) => ({ name: L === 'en' ? x.name_en : x.name, what: x.what, dex: x.dex.map((d) => getDex(d)?.name ?? d) })), app_functions: g.app.app_functions },
+            ui: [
+              artifact('card', tr(L, `Finandex — ${g.app.dex_count} Dex dalam ${g.app.groups.length} kategori`, `Finandex — ${g.app.dex_count} Dex in ${g.app.groups.length} categories`), { type: 'card', tone: 'info', body: tr(L, 'Fungsi aplikasi', 'App functions'), functions: g.app.app_functions.map((f) => ({ tab: f.name, tabId: null, what: f.what })), items: g.app.groups.map((x) => `${L === 'en' ? x.name_en : x.name}: ${x.dex.map((d) => getDex(d)?.name ?? d).join(', ')}`) }, source),
+              artifact('bar', tr(L, 'Jumlah Dex per kategori', 'Dex per category'), { type: 'bar', categories: g.app.groups.map((x) => (L === 'en' ? x.name_en : x.name)), series: [{ name: 'Dex', data: g.app.groups.map((x) => x.dex.length) }], horizontal: true, yUnit: 'number' }, source),
+            ],
+            method: method('feature_guide', ['count'], { inputs: { dexId: 'all' }, rows_used: g.app.dex_count, dataset: 'feature_guide.json', as_of: source.as_of }),
+            citations: [source],
+          };
+        }
+        const e = g.dex.find((x) => x.id === id);
+        const reg = getDex(id);
+        if (!e || !reg) throw new ToolError(`No feature guide for ${id}.`);
+        const funcs = e.functions.filter((f) => !fn || f.tab.toLowerCase().includes(fn.toLowerCase()));
+        const tabId = (label: string) => reg.tabs.find((t) => t.label.id === label)?.id ?? null;
+        const m = await ctx.manifest();
+        return {
+          data: { dex: e.name, purpose: e.purpose, ask_examples: e.ask_examples, functions: funcs.map((f) => ({ tab: f.tab, what: f.what })), data_as_of: m.dex[id]?.as_of ?? e.data_as_of, limitations: e.limitations, related: e.related.map((r) => ({ dexId: r, name: getDex(r)?.name ?? r })) },
+          ui: [artifact('card', tr(L, `${e.name} — panduan fitur`, `${e.name} — feature guide`), { type: 'card', tone: 'info', body: e.purpose, functions: funcs.map((f) => ({ tab: L === 'en' ? (reg.tabs.find((t) => t.label.id === f.tab)?.label.en ?? f.tab) : f.tab, tabId: tabId(f.tab), what: f.what })), chips: e.ask_examples, items: [`${tr(L, 'Data per', 'Data as of')} ${m.dex[id]?.as_of ?? e.data_as_of}`, `${tr(L, 'Keterbatasan', 'Limitations')}: ${e.limitations}`] }, source)],
+          citations: [source],
+        };
+      },
     }),
     defineTool({
       name: 'open_dex',
@@ -519,6 +561,8 @@ async function extraQuality(dex: DexId, ctx: ToolCtx): Promise<unknown> {
     idfooddeliverydex: 'core/food/quality.json',
     idhousingdex: 'core/housing/quality.json',
     mylaiwyer: 'core/law/documents.json',
+    finlaiwyer: 'core/law/keuangan/documents.json',
+    antiscamdex: 'core/antiscam/stats.json',
     costlivingdex: 'core/costliving/summary.json',
     inflationdex: 'core/inflation/summary.json',
     povertydex: 'core/poverty/summary.json',

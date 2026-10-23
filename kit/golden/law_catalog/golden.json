@@ -1,0 +1,178 @@
+{
+ "documents": 41,
+ "by_corpus": {
+  "keuangan": 30,
+  "umum": 11
+ },
+ "by_type": {
+  "KUHPerdata": 1,
+  "PBI": 3,
+  "PERMA": 1,
+  "POJK": 8,
+  "UU": 26,
+  "UUD": 2
+ },
+ "by_source": {
+  "catalog-only": 2,
+  "fetch": 35,
+  "input": 4
+ },
+ "ids_by_corpus": {
+  "umum": [
+   "kuhperdata",
+   "perma-2-2015-jo-4-2019",
+   "uu-1-1946",
+   "uu-1-2023-kuhp",
+   "uu-1-2026-penyesuaian-pidana",
+   "uu-12-2011-p3",
+   "uu-16-2011-bantuan-hukum",
+   "uu-20-2025-kuhap",
+   "uu-8-1981-kuhap",
+   "uud-1945-naskah-asli",
+   "uud-nri-1945"
+  ],
+  "keuangan": [
+   "pbi-22-23-2020-sp",
+   "pbi-3-2023-pkbi",
+   "pbi-6-2026-pkbi",
+   "pojk-12-2024-anti-fraud",
+   "pojk-22-2023",
+   "pojk-23-2025",
+   "pojk-27-2024-akd",
+   "pojk-31-2020",
+   "pojk-40-2024-lpbbti",
+   "pojk-6-2022",
+   "pojk-61-2020-laps",
+   "uu-1-2024-ite",
+   "uu-10-1998-perbankan",
+   "uu-11-2008-ite",
+   "uu-19-2016-ite",
+   "uu-21-2008-perbankan-syariah",
+   "uu-21-2011-ojk",
+   "uu-23-1999-bi",
+   "uu-24-2004-lps",
+   "uu-27-2022-pdp",
+   "uu-3-2004-bi",
+   "uu-3-2011-transfer-dana",
+   "uu-4-2023-p2sk",
+   "uu-40-2014-perasuransian",
+   "uu-42-1999-fidusia",
+   "uu-6-2009-bi",
+   "uu-7-1992-perbankan",
+   "uu-8-1995-pasar-modal",
+   "uu-8-1999-perlindungan-konsumen",
+   "uu-8-2010-tppu"
+  ]
+ },
+ "inputs": {
+  "uud-1945-naskah-asli": 35,
+  "uu-8-1981-kuhap": 30,
+  "uu-20-2025-kuhap": 31,
+  "uu-1-1946": 34
+ },
+ "fetch": [
+  "kuhperdata",
+  "pbi-22-23-2020-sp",
+  "pbi-6-2026-pkbi",
+  "perma-2-2015-jo-4-2019",
+  "pojk-12-2024-anti-fraud",
+  "pojk-22-2023",
+  "pojk-23-2025",
+  "pojk-27-2024-akd",
+  "pojk-31-2020",
+  "pojk-40-2024-lpbbti",
+  "pojk-61-2020-laps",
+  "uu-1-2023-kuhp",
+  "uu-1-2024-ite",
+  "uu-1-2026-penyesuaian-pidana",
+  "uu-10-1998-perbankan",
+  "uu-11-2008-ite",
+  "uu-12-2011-p3",
+  "uu-16-2011-bantuan-hukum",
+  "uu-19-2016-ite",
+  "uu-21-2008-perbankan-syariah",
+  "uu-21-2011-ojk",
+  "uu-23-1999-bi",
+  "uu-24-2004-lps",
+  "uu-27-2022-pdp",
+  "uu-3-2004-bi",
+  "uu-3-2011-transfer-dana",
+  "uu-4-2023-p2sk",
+  "uu-40-2014-perasuransian",
+  "uu-42-1999-fidusia",
+  "uu-6-2009-bi",
+  "uu-7-1992-perbankan",
+  "uu-8-1995-pasar-modal",
+  "uu-8-1999-perlindungan-konsumen",
+  "uu-8-2010-tppu",
+  "uud-nri-1945"
+ ],
+ "catalog_only": [
+  "pbi-3-2023-pkbi",
+  "pojk-6-2022"
+ ],
+ "revoked": [
+  "pbi-3-2023-pkbi",
+  "pojk-6-2022",
+  "uu-8-1981-kuhap"
+ ],
+ "metadata_verified": 28,
+ "anchors": [
+  {
+   "doc_id": "uud-nri-1945",
+   "pasal": "23D",
+   "must_contain": "bank sentral"
+  },
+  {
+   "doc_id": "uu-1-2023-kuhp",
+   "pasal": "492",
+   "must_contain": "penipuan"
+  },
+  {
+   "doc_id": "kuhperdata",
+   "pasal": "1365",
+   "must_contain": "melanggar hukum"
+  },
+  {
+   "doc_id": "uu-3-2011-transfer-dana",
+   "pasal": "85",
+   "must_contain": "bukan haknya"
+  },
+  {
+   "doc_id": "uu-8-2010-tppu",
+   "pasal": "2",
+   "must_contain": "penipuan"
+  },
+  {
+   "doc_id": "uu-1-2024-ite",
+   "pasal": "28",
+   "must_contain": "kerugian materiel"
+  }
+ ],
+ "cross_corpus": [
+  "kuhperdata",
+  "perma-2-2015-jo-4-2019",
+  "uu-1-2023-kuhp",
+  "uu-1-2024-ite",
+  "uu-1-2026-penyesuaian-pidana",
+  "uu-11-2008-ite",
+  "uu-16-2011-bantuan-hukum",
+  "uu-27-2022-pdp",
+  "uu-8-1999-perlindungan-konsumen",
+  "uud-nri-1945"
+ ],
+ "penalty_adjusted": [
+  "uu-1-2024-ite",
+  "uu-11-2008-ite",
+  "uu-19-2016-ite",
+  "uu-27-2022-pdp",
+  "uu-3-2011-transfer-dana",
+  "uu-8-2010-tppu"
+ ],
+ "effective": {
+  "uu-20-2025-kuhap": "2026-01-02",
+  "uu-1-2023-kuhp": "2026-01-02",
+  "uu-1-2026-penyesuaian-pidana": "2026-01-02",
+  "pojk-22-2023": "2023-12-22"
+ }
+}

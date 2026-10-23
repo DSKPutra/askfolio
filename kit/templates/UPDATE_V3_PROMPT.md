@@ -1,0 +1,28 @@
+# Prompt pembaruan Finandex v2 → v3 (untuk repo yang sudah dibangun)
+
+> © 2026 Dea Saka Kurnia Putra. All rights reserved.
+> Pakai prompt ini bila repo Finandex **sudah dibangun dari Master Prompt v2** (27 Dex). Bila Anda membangun dari nol, cukup pakai `kit/FINANDEX_MASTER_PROMPT.md` v3 (one-shot) — prompt ini tidak diperlukan.
+
+Unggah bersama prompt ini: **`Finandex_Build_Kit.zip` versi v3** (42 file dataset tidak berubah — tidak perlu diunggah ulang bila `data-inputs-v1` sudah ada).
+
+---
+
+Perbarui repo Finandex ini ke **Master Prompt v3** (`kit/FINANDEX_MASTER_PROMPT.md`). Kerjakan berurutan, setiap langkah diakhiri test hijau, commit kecil, dan catatan di `docs/PROGRESS.md`. Aturan one-shot §0 tetap berlaku (hanya bertanya untuk file hilang/checksum beda, secret, dan butir **[KONFIRMASI]**).
+
+1. **Kit & verifikasi.** Ganti folder `kit/` dengan kit v3; jalankan `cd kit && sha256sum -c manifest/kit_files.sha256`. Baca §1, §2 (prinsip 10–12), §4.20, §4.28–4.30, §8.5, §8.7–8.10, §9, §10 (seluruhnya), §12.6, §13.2, §14, §18.14–16.
+2. **Registry & kategori.** Tambah Dex `finlaiwyer` (**FinLAIwyer**, hukum keuangan & perbankan, fokus korban scam) dan `antiscamdex` (**AntiScamDex**, adopsi informasi publik IASC/Satgas PASTI/OJK/BI). Ubah cakupan `mylaiwyer` (**My LAIwyer**) menjadi hukum umum. Kategori ke-8 menjadi **"Hukum & Pelindungan Konsumen"** berisi My LAIwyer, FinLAIwyer, AntiScamDex. Pakai ikon baru `kit/brand/icons/finlaiwyer*` dan `antiscamdex*`. Total Dex = 29.
+3. **Data.**
+   - `scripts/data/build-law-catalog.ts` dari `kit/datasets/law/regulation_catalog.json` + `legal_qa_flows.json`; `scripts/data/build-antiscam.ts` dari `kit/datasets/antiscam/antiscam_kb.json`. Validasi sama dengan `kit/reference/finandex_reference_kb.py`; golden `kit/golden/{antiscam,law_catalog,legal_flows}/golden.json` harus cocok 100%.
+   - `scripts/data/fetch-regulations.ts` (§4.30): unduh PDF resmi dari domain yang diizinkan, verifikasi judul & anchor, tulis `regulations.lock.json`, unggah ke release `data-regulations-v1`. **Laporkan kepada saya** tabel dokumen yang gagal/pending (judul + URL resmi) supaya saya bisa mengunggahnya.
+   - Pindahkan index hukum menjadi per corpus (`law/umum`, `law/keuangan`); dokumen unggahan #30–#35 tetap di corpus `umum`.
+4. **Server & chatbot.** Tool baru §8.5 (`regulation_status`, `cross_reference`, `start_flow`, `flow_step`, `channel_directory`, `glossary`, seluruh tool AntiScamDex), aturan system prompt global 9–10 (§8.6), persona §8.7, saran §8.9, Mode Konsultasi Terpandu §8.10, artefak baru (`steps`, `choices`, `timeline`, `gauge`, `compare_text`). Tool bersama baru `feature_guide` + aturan 11 (jawaban "fitur ini untuk apa?") dari `kit/datasets/app/feature_guide.json`. Set eval menjadi 161 item (termasuk item bersyarat `conditional` yang memilih cabang dari lock file dan item panduan fitur) — `eval:chat:mock` 100%.
+5. **Desain seluruh aplikasi — "Index Constellation" (§10).** Migrasi berurutan: token §10.3 (Nocturne/Ledger + warna asal-usul) → tipografi §10.4 (Unbounded, IBM Plex Sans, IBM Plex Serif; **hapus Inter & Montserrat**) → shell (Orbit Rail, bottom bar, Index Search) → Beranda (Konstelasi Indeks + Aksi cepat + Peta Fitur) → layout chat "Narasi | Bukti" dengan Evidence Pane → semua halaman & tab Dex → state kosong/galat/offline. Tidak ada komponen dengan tema shadcn bawaan yang tersisa.
+6. **Fitur baru.** Layar darurat `/darurat-scam`, wizard Siapkan Laporan (offline, terenkripsi, tanpa jaringan), Statistik Penanganan, Kenali Modus + kuis, Kanal Resmi, Peta Regulasi Keuangan, Bandingkan Versi (UUD asli ↔ UUD NRI 1945), halaman **`/whitepaper`** dengan unduhan PDF Bahasa Indonesia & English + presentasi `.pptx` (salin dari `kit/whitepaper/`, verifikasi SHA-256), entry PWA terpisah `/apps/mylaiwyer/` & `/apps/finlaiwyer/` + `shortcuts`, **Panduan Fitur** (tombol "Tentang fitur ini" di setiap Dex, halaman `/panduan`, coach mark), dan **Pusat Pemasangan** `/install` + pita "Pasang Finandex" di Beranda (iPhone/iPad, Android, macOS, Windows — §14.1).
+6a. **Aplikasi desktop macOS & Windows (§14.2, Tauri 2).** Tambah `src-tauri/`, plugin updater/dialog/fs/deep-link/single-instance/window-state, origin desktop di CORS, workflow `desktop.yml` (codesign + notarisasi macOS, tanda tangan Windows), `public/downloads/manifest.json`, smoke test. Minta secret penandatanganan saat dibutuhkan.
+7. **Legal & privasi.** §12.2 disclaimer baru, tabel lisensi dataset kit (§12.3), §12.5 pemberitahuan merek, **§12.6 tidak meniru lembaga resmi**, detektor OTP/nomor rekening (§13.2), penyimpanan lokal terenkripsi wizard.
+8. **Uji UI/UX.** Jalankan seluruh `kit/templates/UIUX_TEST_PROMPT.md` (audit token & keunikan, regresi visual, a11y, gerak & performa, interaksi, tugas pengguna, tinjauan berskor ≥ 4). Simpan hasil di `docs/ui-review/`.
+9. **Gate & deploy.** `npm run verify` hijau (termasuk §18.14–18), push `main` → CI → preview Vercel/Netlify/Lovable → promote `release`. Perbarui `docs/RELEASE.md` (opsi `STANDALONE_LAW_APPS` **[KONFIRMASI]**).
+9a. **Dokumentasi & kepatuhan (§16.4).** Jalankan seluruh `kit/templates/TECHNICAL_DOCS_PROMPT.md`: dokumentasi teknis ISO/IEC (A01–A13), Secure SBOM + VEX (B01–B05, `compliance.yml`), dan dokumen privasi UU PDP + PP 33/2026 (C01–C14); halaman `/legal/sbom` & `/legal/security`; gate `docs:verify` hijau.
+10. **Laporan.** Tulis ringkasan §20 (termasuk `docs/REGULATIONS_FETCHED.md`, galeri `docs/ui-review/`, konfirmasi unduhan whitepaper & presentasi).
+
+**Kompatibilitas:** rute `/dex/mylaiwyer/*` dan riwayat chat My LAIwyer tetap; pertanyaan keuangan di riwayat lama tidak dipindahkan otomatis. Jangan mengubah golden v2 yang sudah ada selain `chatbot_eval.json` (dua item My LAIwyer kini bersyarat).

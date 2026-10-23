@@ -3,6 +3,7 @@
 // Android back button (close sheet → go back → confirm exit at root), external links in the in-app
 // browser. Web builds never execute this module's plugin calls.
 import { Capacitor } from '@capacitor/core';
+import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from './config/brand';
 
 export const isNative = (): boolean => Capacitor.isNativePlatform();
 
@@ -13,7 +14,7 @@ export async function initNative(confirmExit: () => boolean): Promise<void> {
   const applyBar = () => {
     const light = document.documentElement.dataset.theme === 'light';
     void StatusBar.setStyle({ style: light ? Style.Light : Style.Dark }).catch(() => undefined);
-    if (Capacitor.getPlatform() === 'android') void StatusBar.setBackgroundColor({ color: light ? '#F6F8F7' : '#0A0F0C' }).catch(() => undefined);
+    if (Capacitor.getPlatform() === 'android') void StatusBar.setBackgroundColor({ color: light ? THEME_COLOR_LIGHT : THEME_COLOR_DARK }).catch(() => undefined);
   };
   applyBar();
   new MutationObserver(applyBar).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });

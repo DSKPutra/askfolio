@@ -1,203 +1,224 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// /whitepaper — the Finandex whitepaper (id/en) with a table of contents and PDF downloads.
+// /whitepaper (§10.10): in-app reader of kit/whitepaper/FINANDEX_WHITEPAPER_{ID,EN}.md (sticky table of contents,
+// chapter markers, reading time, ID/EN toggle that keeps the chapter position, focus/presentation mode with ←/→),
+// plus downloads of the PDFs (ID & EN) and the .pptx presentation with version, date, size and SHA-256 from
+// public/whitepaper/manifest.json (copied & verified from the kit at build time).
+import { clsx } from 'clsx';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
-import { useAsOfLabel } from '../components/badges';
-import { copyrightFor } from '../config/brand';
-import { DEX_GROUPS } from '../config/dex-groups';
-import { visibleDex } from '../config/dex-registry';
-import { DISTRIBUTION } from '../config/runtime';
-import type { WpBlock } from '../content/whitepaper';
-import { WHITEPAPER, WHITEPAPER_PDF } from '../content/whitepaper';
-import { FINANCE_LAW_DOCS, SCAM_CHANNELS } from '../config/law-finance';
-import { WHITEPAPER_FORMULAS } from '../content/whitepaper-formulas';
-import { useManifest } from '../lib/data';
+import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
+import { buttonClass, Button, ErrorState, LoadingBlock } from '../components/ui';
+import { creditFor } from '../config/brand';
 import { useLocale } from '../lib/locale';
-import { FORMULAS } from '../shared/analytics/formulas';
-import { formatDate } from '../shared/format';
+import { useApp } from '../lib/store';
+import { formatNumber } from '../shared/format';
+import { useQuery } from '@tanstack/react-query';
 
-function Block({ b }: { b: WpBlock }) {
+type WpManifest = { version: string; date: string; author: string; copyright: string; files: { file: string; bytes: number; sha256: string; lang: string; kind: string }[] };
+export const WHITEPAPER_FILES = { id: 'Finandex_Whitepaper_ID.pdf', en: 'Finandex_Whitepaper_EN.pdf', pptx: 'Finandex_Platform_Overview.pptx' } as const;
+
+const fetchText = (u: string) => fetch(u).then((r) => (r.ok ? r.text() : Promise.reject(new Error(`${r.status}`))));
+
+/** Strip front matter and turn the kit's figure HTML into Markdown images (raw HTML is never rendered). */
+export function prepareMarkdown(md: string): string {
+  return md
+    .replace(/^---\n[\s\S]*?\n---\n/, '')
+    .replace(/<div class="figure"><img src="([^"]+)" alt="([^"]*)"\s*\/?><p class="caption">([^<]*)<\/p><\/div>/g, (_m, src: string, alt: string, cap: string) => `![${alt}](/whitepaper/${src})\n\n*${cap}*`);
+}
+
+export function chaptersOf(md: string): { id: string; title: string }[] {
+  return [...md.matchAll(/^## (.+)$/gm)].map((m, i) => ({ id: `ch-${i}`, title: m[1]!.trim() }));
+}
+
+const sizeLabel = (b: number, locale: 'id' | 'en') => `${formatNumber(b / 1024, locale, 0)} KB`;
+
+const textOf = (n: React.ReactNode): string => (typeof n === 'string' || typeof n === 'number' ? String(n) : Array.isArray(n) ? n.map(textOf).join('') : n && typeof n === 'object' && 'props' in n ? textOf((n.props as { children?: React.ReactNode }).children) : '');
+/** Stable heading id: the index of the chapter with the same title (no render-time counters). */
+function chapterId(chapters: { id: string; title: string }[], children: React.ReactNode): string | undefined {
+  const title = textOf(children).trim();
+  return chapters.find((c) => c.title.replace(/[*_`]/g, '') === title)?.id;
+}
+
+function DownloadCard({ name, label, manifest }: { name: string; label: string; manifest: WpManifest | undefined }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const m = useManifest();
-  const fmt = useAsOfLabel();
-  switch (b.kind) {
-    case 'p':
-      return <p className="mb-3 leading-relaxed">{b.text}</p>;
-    case 'note':
-      return <p className="mb-3 rounded-xl border border-border bg-surface-2 p-3 text-sm text-muted">{b.text}</p>;
-    case 'ul':
-      return (
-        <ul className="mb-3 list-disc space-y-1 pl-5">
-          {b.items.map((i) => (
-            <li key={i}>{i}</li>
-          ))}
-        </ul>
-      );
-    case 'table':
-      return (
-        <div className="mb-3 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-2">
-              <tr>
-                {b.head.map((h) => (
-                  <th key={h} scope="col" className="px-3 py-2 text-left font-medium">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {b.rows.map((r) => (
-                <tr key={r.join('|')} className="border-t border-border">
-                  {r.map((c, i) => (
-                    <td key={i} className="px-3 py-2 align-top">
-                      {c}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-    case 'dex-table':
-      return (
-        <div className="mb-3 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-2">
-              <tr>
-                {['Dex', t('whitepaper.category'), t('whitepaper.status'), t('whitepaper.asOf'), t('whitepaper.license')].map((h) => (
-                  <th key={h} scope="col" className="px-3 py-2 text-left font-medium">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {visibleDex(DISTRIBUTION).map((d) => (
-                <tr key={d.id} className="border-t border-border">
-                  <td className="px-3 py-2">
-                    <Link to={`/dex/${d.id}`} className="font-medium text-brand-text underline-offset-2 hover:underline">
-                      {d.name}
-                    </Link>
-                    <div className="text-xs text-muted">{d.tagline[locale]}</div>
-                  </td>
-                  <td className="px-3 py-2">{DEX_GROUPS.find((g) => g.id === d.group)?.name[locale]}</td>
-                  <td className="px-3 py-2">{d.status}</td>
-                  <td className="whitespace-nowrap px-3 py-2">{fmt(m.data?.dex[d.id]?.as_of ?? d.asOf)}</td>
-                  <td className="px-3 py-2">{d.license === 'unknown' ? (locale === 'id' ? 'menurut penyedia' : 'per provider') : d.license}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-    case 'law-table':
-      return (
-        <div className="mb-3 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-2">
-              <tr>
-                {[locale === 'id' ? 'Dokumen' : 'Document', locale === 'id' ? 'Jenis' : 'Type', locale === 'id' ? 'Halaman' : 'Pages', locale === 'id' ? 'Sumber resmi' : 'Official source'].map((h) => (
-                  <th key={h} scope="col" className="px-3 py-2 text-left font-medium">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {FINANCE_LAW_DOCS.map((d) => (
-                <tr key={d.doc_id} className="border-t border-border">
-                  <td className="px-3 py-2">
-                    <span className="font-medium">{d.short[locale]}</span>
-                    <div className="text-xs text-muted">{d.title}</div>
-                  </td>
-                  <td className="px-3 py-2">{d.kind}</td>
-                  <td className="tabular px-3 py-2">{d.pages}</td>
-                  <td className="px-3 py-2">
-                    <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand-text underline">
-                      {new URL(d.url).hostname}
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-    case 'channels':
-      return (
-        <ul className="mb-3 space-y-1 rounded-xl border border-warning/50 p-3 text-sm">
-          {SCAM_CHANNELS.map((c) => (
-            <li key={c.id}>
-              <strong>{c.name[locale]}</strong> — {c.how[locale]}
-            </li>
-          ))}
-        </ul>
-      );
-    case 'formulas':
-      return (
-        <dl className="mb-3 divide-y divide-border rounded-xl border border-border">
-          {WHITEPAPER_FORMULAS.map((k) => (
-            <div key={k} className="grid gap-1 px-3 py-2 sm:grid-cols-[12rem_1fr]">
-              <dt className="font-mono text-xs text-muted">{k}</dt>
-              <dd className="text-sm">{FORMULAS[k][locale]}</dd>
-            </div>
-          ))}
+  const f = manifest?.files.find((x) => x.file === name);
+  return (
+    <div className="pane-2 flex flex-col gap-2 p-4">
+      <a href={`/whitepaper/${name}`} download className={buttonClass('primary', 'md')}>
+        {label}
+      </a>
+      {f && manifest && (
+        <dl className="space-y-0.5 text-xs text-ink-muted">
+          <div>
+            <dt className="inline">{t('wp.version')}: </dt>
+            <dd className="inline">
+              {manifest.version} · {manifest.date} · {sizeLabel(f.bytes, locale)}
+            </dd>
+          </div>
+          <div className="break-all">
+            <dt className="inline">SHA-256: </dt>
+            <dd className="inline font-mono">{f.sha256}</dd>
+          </div>
         </dl>
-      );
-  }
+      )}
+    </div>
+  );
 }
 
 export default function Whitepaper() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const wp = WHITEPAPER[locale];
+  const setLocale = useApp((s) => s.setLocale);
+  const [lang, setLang] = useState<'id' | 'en'>(locale);
+  const [chapter, setChapter] = useState(0);
+  const [focus, setFocus] = useState(false);
+  const mf = useQuery({ queryKey: ['wp-manifest'], queryFn: () => fetchText('/whitepaper/manifest.json').then((s) => JSON.parse(s) as WpManifest), staleTime: Infinity });
+  const md = useQuery({ queryKey: ['wp', lang], queryFn: () => fetchText(`/whitepaper/FINANDEX_WHITEPAPER_${lang.toUpperCase()}.md`), staleTime: Infinity });
+  const text = useMemo(() => (md.data ? prepareMarkdown(md.data) : ''), [md.data]);
+  const chapters = useMemo(() => chaptersOf(text), [text]);
+  const sections = useMemo(() => {
+    const parts = text.split(/^(?=## )/m);
+    return { intro: parts[0] ?? '', list: parts.slice(1) };
+  }, [text]);
+  const minutes = Math.max(1, Math.round(text.split(/\s+/).length / 200));
+  const root = useRef<HTMLDivElement>(null);
+
+  // Keep the chapter position when switching ID/EN (both editions have the same chapter order).
+  const switchLang = (l: 'id' | 'en') => {
+    setLang(l);
+    if (l !== locale) setLocale(l);
+  };
+  useEffect(() => {
+    if (!md.data || focus) return;
+    document.getElementById(`ch-${chapter}`)?.scrollIntoView({ block: 'start' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only after a language switch
+  }, [md.data]);
+  useEffect(() => {
+    if (!focus) return;
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') setChapter((c) => Math.min(sections.list.length - 1, c + 1));
+      else if (e.key === 'ArrowLeft') setChapter((c) => Math.max(0, c - 1));
+      else if (e.key === 'Escape') setFocus(false);
+    };
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, [focus, sections.list.length]);
+  useEffect(() => {
+    if (focus) return;
+    const io = new IntersectionObserver((es) => {
+      const v = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (v) setChapter(Number(v.target.id.replace('ch-', '')));
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    root.current?.querySelectorAll('h2[id^="ch-"]').forEach((h) => io.observe(h));
+    return () => io.disconnect();
+  }, [text, focus]);
+
+  const components = {
+    h1: () => null,
+    h2: ({ children }: { children?: React.ReactNode }) => (
+      <h2 id={chapterId(chapters, children)} className="mt-10 scroll-mt-24 font-display text-2xl">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: { children?: React.ReactNode }) => <h3 className="mt-6 text-lg font-semibold">{children}</h3>,
+    p: ({ children }: { children?: React.ReactNode }) => <p className="mt-3 leading-relaxed">{children}</p>,
+    ul: ({ children }: { children?: React.ReactNode }) => <ul className="mt-3 list-disc space-y-1 pl-5">{children}</ul>,
+    ol: ({ children }: { children?: React.ReactNode }) => <ol className="mt-3 list-decimal space-y-1 pl-5">{children}</ol>,
+    blockquote: ({ children }: { children?: React.ReactNode }) => <blockquote className="prov-flag mt-3 rounded-xl bg-pane-2 p-3 text-sm">{children}</blockquote>,
+    table: ({ children }: { children?: React.ReactNode }) => (
+      <div className="mt-3 overflow-x-auto rounded-xl border border-edge">
+        <table className="w-full text-sm">{children}</table>
+      </div>
+    ),
+    th: ({ children }: { children?: React.ReactNode }) => <th className="border-b border-edge bg-pane-2 px-3 py-2 text-left font-medium">{children}</th>,
+    td: ({ children }: { children?: React.ReactNode }) => <td className="border-b border-edge px-3 py-2 align-top">{children}</td>,
+    img: ({ src, alt }: { src?: string; alt?: string }) => <img src={src} alt={alt ?? ''} className="mt-4 w-full rounded-xl border border-edge bg-pane p-2" loading="lazy" />,
+    a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
+      <a href={href} className="text-primary underline" target={href?.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
+    hr: () => <hr className="my-6 border-edge" />,
+  };
+
   return (
-    <div className="mx-auto max-w-5xl">
-      <header className="mb-6 rounded-3xl border border-border bg-surface p-5 sm:p-8">
-        <p className="text-xs uppercase tracking-widest text-muted">
-          {t('whitepaper.version')} {wp.version} · {t('whitepaper.updated')} {formatDate(wp.date, locale)}
-        </p>
-        <h1 className="mt-2 font-display text-2xl font-bold sm:text-3xl">{wp.title}</h1>
-        <p className="mt-2 text-muted">{wp.subtitle}</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {(['id', 'en'] as const).map((L) => (
-            <a key={L} href={WHITEPAPER_PDF[L]} download lang={L} className={`inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-medium ${L === locale ? 'bg-brand text-[#0A0F0C] hover:brightness-110' : 'border border-border hover:bg-surface-2'}`}>
-              ⬇ {t(L === 'id' ? 'whitepaper.downloadId' : 'whitepaper.downloadEn')}
-            </a>
-          ))}
+    <div className="space-y-6">
+      <header className="space-y-3">
+        <h1 className="font-display text-3xl">{t('wp.title')}</h1>
+        <p className="measure text-ink-muted">{t('wp.intro')}</p>
+        <p className="text-sm">{creditFor(locale)}</p>
+        <div className="grid gap-3 md:grid-cols-3">
+          <DownloadCard name={WHITEPAPER_FILES.id} label={t('wp.downloadId')} manifest={mf.data} />
+          <DownloadCard name={WHITEPAPER_FILES.en} label={t('wp.downloadEn')} manifest={mf.data} />
+          <DownloadCard name={WHITEPAPER_FILES.pptx} label={t('wp.downloadPptx')} manifest={mf.data} />
         </div>
       </header>
-      <div className="grid gap-6 lg:grid-cols-[14rem_1fr]">
-        <nav aria-label={t('whitepaper.toc')} className="lg:sticky lg:top-4 lg:self-start">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">{t('whitepaper.toc')}</p>
-          <ol className="space-y-1 text-sm">
-            {wp.chapters.map((c, i) => (
-              <li key={c.slug}>
-                <a href={`#${c.slug}`} className="flex min-h-9 items-center gap-2 rounded-lg px-2 hover:bg-surface-2">
-                  <span className="tabular w-5 text-muted">{i + 1}</span>
-                  {c.title}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-        <article className="min-w-0">
-          {wp.chapters.map((c, i) => (
-            <section key={c.slug} id={c.slug} className="mb-8 scroll-mt-20">
-              <h2 className="mb-3 text-xl font-bold">
-                {i + 1}. {c.title}
-              </h2>
-              {c.blocks.map((b, j) => (
-                <Block key={j} b={b} />
-              ))}
-            </section>
+      <div className="flex flex-wrap items-center gap-2">
+        <div role="group" aria-label={t('wp.language')} className="flex gap-1">
+          {(['id', 'en'] as const).map((l) => (
+            <Button key={l} size="sm" variant={lang === l ? 'primary' : 'outline'} aria-pressed={lang === l} onClick={() => switchLang(l)}>
+              {l === 'id' ? 'Bahasa Indonesia' : 'English'}
+            </Button>
           ))}
-          <p className="border-t border-border pt-4 text-xs text-muted">{copyrightFor(locale, new Date().getFullYear())}</p>
-        </article>
+        </div>
+        <span className="text-sm text-ink-muted">{t('wp.readingTime', { n: minutes })}</span>
+        <Button size="sm" variant="ghost" onClick={() => setFocus(true)} disabled={!sections.list.length}>
+          {t('wp.focus')}
+        </Button>
       </div>
+      {md.isLoading && <LoadingBlock rows={6} />}
+      {md.isError && <ErrorState onRetry={() => void md.refetch()} />}
+      {md.data && !focus && (
+        <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
+          <nav aria-label={t('wp.toc')} className="lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:self-start lg:overflow-y-auto">
+            <p className="mb-2 text-sm font-semibold">{t('wp.toc')}</p>
+            <ol className="space-y-1 text-sm">
+              {chapters.map((c, i) => (
+                <li key={c.id}>
+                  <a href={`#${c.id}`} aria-current={i === chapter ? 'location' : undefined} className={clsx('block rounded-xl px-2 py-1.5 hover:bg-pane-2', i === chapter ? 'text-data' : 'text-ink-muted')}>
+                    {c.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          <article ref={root} lang={lang} className="measure min-w-0">
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} components={components as never}>
+              {text}
+            </ReactMarkdown>
+          </article>
+        </div>
+      )}
+      {md.data && focus && (
+        <div role="dialog" aria-modal="true" aria-label={t('wp.focus')} className="fixed inset-0 z-50 overflow-y-auto bg-field-1 p-6 md:p-12">
+          <div className="mx-auto max-w-3xl">
+            <div className="mb-6 flex items-center justify-between gap-2 text-sm text-ink-muted">
+              <span className="tabular">
+                {chapter + 1} / {sections.list.length}
+              </span>
+              <div className="flex gap-2">
+                <Button size="sm" onClick={() => setChapter(Math.max(0, chapter - 1))} disabled={chapter === 0} aria-label={t('wp.prev')}>
+                  ←
+                </Button>
+                <Button size="sm" onClick={() => setChapter(Math.min(sections.list.length - 1, chapter + 1))} disabled={chapter >= sections.list.length - 1} aria-label={t('wp.next')}>
+                  →
+                </Button>
+                <Button size="sm" variant="primary" onClick={() => setFocus(false)}>
+                  {t('dex.close')}
+                </Button>
+              </div>
+            </div>
+            <article lang={lang}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} components={components as never}>
+                {sections.list[chapter] ?? ''}
+              </ReactMarkdown>
+            </article>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

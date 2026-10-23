@@ -19,13 +19,13 @@ export default function More() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">{t('nav.more')}</h1>
-      <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+      <ul className="divide-y divide-border overflow-hidden rounded-pane border border-border bg-surface">
         {row('/watchlist', t('nav.watchlist'))}
         {row('/settings', t('nav.settings'))}
         {row('/whitepaper', t('nav.whitepaper'))}
         {row('/about', t('nav.about'))}
       </ul>
-      <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">{LEGAL_PAGES.map((p) => row(`/legal/${p}`, t(`legal.${p}`)))}</ul>
+      <ul className="divide-y divide-border overflow-hidden rounded-pane border border-border bg-surface">{LEGAL_PAGES.map((p) => row(`/legal/${p}`, t(`legal.${p}`)))}</ul>
       <p className="text-xs text-muted">{copyrightFor(locale, new Date().getFullYear())}</p>
     </div>
   );

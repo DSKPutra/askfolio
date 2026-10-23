@@ -1,0 +1,1106 @@
+{
+ "meta": {
+  "id": "legal_qa_flows",
+  "version": "2026-10-23",
+  "note": "Struktur konsultasi terpandu; teks adalah panduan, bukan kutipan. Kutipan selalu dari teks resmi via search_law/get_pasal."
+ },
+ "flows": [
+  {
+   "id": "fin-baru-tertipu",
+   "dex": "finlaiwyer",
+   "title": "Saya baru saja tertipu dan sudah mentransfer uang",
+   "title_en": "I was just scammed and already sent money",
+   "entry": "n1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "n1",
+     "type": "question",
+     "prompt": "Kapan transfer terakhir ke pelaku terjadi?",
+     "prompt_en": "When did the last transfer to the scammer happen?",
+     "options": [
+      {
+       "label": "Kurang dari 24 jam",
+       "label_en": "Less than 24 hours ago",
+       "next": "n2"
+      },
+      {
+       "label": "Lebih dari 24 jam",
+       "label_en": "More than 24 hours ago",
+       "next": "n2"
+      },
+      {
+       "label": "Tidak ingat",
+       "label_en": "Not sure",
+       "next": "n2"
+      }
+     ]
+    },
+    {
+     "id": "n2",
+     "type": "question",
+     "prompt": "Uang dikirim lewat apa?",
+     "prompt_en": "How was the money sent?",
+     "options": [
+      {
+       "label": "Rekening bank",
+       "label_en": "Bank account",
+       "next": "r-bank"
+      },
+      {
+       "label": "E-wallet / penyedia pembayaran (PJP)",
+       "label_en": "E-wallet / payment provider",
+       "next": "r-pjp"
+      },
+      {
+       "label": "Aset kripto",
+       "label_en": "Crypto asset",
+       "next": "r-kripto"
+      },
+      {
+       "label": "Tunai / lainnya",
+       "label_en": "Cash / other",
+       "next": "r-lain"
+      }
+     ]
+    },
+    {
+     "id": "r-bank",
+     "type": "result",
+     "title": "Langkah segera — transfer bank",
+     "steps": [
+      {
+       "text": "Hubungi bank Anda lewat kanal resmi (nomor di kartu/aplikasi resmi) dan minta penundaan transaksi; buat pengaduan dan catat nomornya.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Lapor ke IASC di iasc.ojk.go.id secepat mungkin; satu formulir untuk satu rekening korban → satu rekening terlapor; simpan nomor laporan.",
+       "channels": [
+        "iasc-lapor"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Buat Laporan Polisi (jalur hukum); laporan IASC tidak menggantikannya dan Laporan Polisi diperlukan dalam proses pengembalian dana.",
+       "channels": [
+        "polri-lp"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Amankan bukti: nomor telepon, chat bertanggal, bukti transfer, nomor rekening tujuan, URL/akun; jangan hapus apa pun.",
+       "channels": [],
+       "urgent": false
+      },
+      {
+       "text": "Laporkan rekening & nomor pelaku ke cekrekening.id dan aduannomor.id.",
+       "channels": [
+        "cekrekening",
+        "aduannomor"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Pantau laporan lewat menu Cek Laporan; bila butuh bantuan pengisian, hubungi Kontak OJK 157.",
+       "channels": [
+        "iasc-cek",
+        "ojk-157"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Delik penipuan (berlaku sejak 2 Januari 2026)."
+      },
+      {
+       "doc_id": "uu-1-2024-ite",
+       "ref": "Pasal 28 ayat (1) jo. Pasal 45A ayat (1)",
+       "why": "Bila penipuan lewat sarana elektronik dan menimbulkan kerugian materiel konsumen transaksi elektronik."
+      },
+      {
+       "doc_id": "uu-8-2010-tppu",
+       "ref": "Pasal 2 ayat (1) huruf r; Pasal 3–5",
+       "why": "Penipuan adalah tindak pidana asal; pengalihan/penampungan dana hasil penipuan dapat menjadi TPPU."
+      },
+      {
+       "doc_id": "pojk-22-2023",
+       "ref": "Layanan pengaduan & keamanan sistem",
+       "why": "Hak mengadu ke bank (PUJK) dan kewajiban PUJK menangani pengaduan."
+      },
+      {
+       "doc_id": "uu-7-1992-perbankan",
+       "ref": "Rahasia bank (Pasal 40 dst., sebagaimana diubah)",
+       "why": "Mengapa bank tidak membuka data pemilik rekening pelaku kepada korban di luar jalur hukum."
+      },
+      {
+       "doc_id": "uu-20-2025-kuhap",
+       "ref": "Laporan & penyidikan",
+       "why": "Proses setelah Laporan Polisi dibuat."
+      }
+     ],
+     "notes": [
+      "Pelaporan ke IASC tidak menjamin dana kembali; kecepatan melapor memperbesar peluang.",
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    },
+    {
+     "id": "r-pjp",
+     "type": "result",
+     "title": "Langkah segera — e-wallet / penyedia jasa pembayaran",
+     "steps": [
+      {
+       "text": "Hubungi penyedia e-wallet/pembayaran lewat kanal resmi di aplikasinya; minta penundaan dan buat pengaduan.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Lapor ke IASC (penyedia jasa pembayaran termasuk pihak yang dikoordinasikan IASC).",
+       "channels": [
+        "iasc-lapor"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Buat Laporan Polisi.",
+       "channels": [
+        "polri-lp"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Bila pengaduan ke penyedia tidak selesai, adukan ke Bank Indonesia (BICARA 131) dengan bukti pengaduan sebelumnya.",
+       "channels": [
+        "bi-bicara"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Laporkan akun/nomor pelaku ke cekrekening.id dan aduannomor.id.",
+       "channels": [
+        "cekrekening",
+        "aduannomor"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pbi-6-2026-pkbi",
+       "ref": "Pengaduan & perjanjian baku",
+       "why": "Pengaduan ke penyelenggara lalu ke BI; perjanjian baku mengatur keamanan & pembagian kerugian transaksi tidak sah."
+      },
+      {
+       "doc_id": "uu-3-2011-transfer-dana",
+       "ref": "Ketentuan transfer dana",
+       "why": "Hak & kewajiban dalam perintah transfer dana."
+      },
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Delik penipuan."
+      },
+      {
+       "doc_id": "uu-1-2024-ite",
+       "ref": "Pasal 28 ayat (1) jo. Pasal 45A ayat (1)",
+       "why": "Penipuan elektronik."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    },
+    {
+     "id": "r-kripto",
+     "type": "result",
+     "title": "Langkah — penipuan terkait aset kripto",
+     "steps": [
+      {
+       "text": "Bila dana fiat dikirim dari rekening bank/e-wallet ke pelaku, laporkan transfer itu ke bank dan IASC.",
+       "channels": [
+        "bank-resmi",
+        "iasc-lapor"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Bila melalui pedagang aset kripto, hubungi pedagang tersebut lewat kanal resmi dan cek apakah ia berizin OJK.",
+       "channels": [
+        "ojk-157"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Buat Laporan Polisi; simpan alamat wallet, hash transaksi, dan tangkapan layar.",
+       "channels": [
+        "polri-lp"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Jangan pernah membagikan seed phrase/private key kepada siapa pun yang mengaku bisa memulihkan dana.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pojk-27-2024-akd",
+       "ref": "Penyelenggaraan perdagangan aset keuangan digital",
+       "why": "Status & kewajiban pedagang aset kripto berizin."
+      },
+      {
+       "doc_id": "pojk-23-2025",
+       "ref": "Perubahan POJK 27/2024",
+       "why": "Ketentuan terbaru."
+      },
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Delik penipuan."
+      },
+      {
+       "doc_id": "uu-8-2010-tppu",
+       "ref": "Pasal 3–5",
+       "why": "Aliran dana hasil penipuan."
+      }
+     ],
+     "notes": [
+      "Transaksi on-chain umumnya tidak dapat dibatalkan; fokus pada jalur pelaporan dan pembuktian.",
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex",
+      "cryptdex"
+     ]
+    },
+    {
+     "id": "r-lain",
+     "type": "result",
+     "title": "Langkah — tunai/metode lain",
+     "steps": [
+      {
+       "text": "Buat Laporan Polisi dengan kronologi dan bukti.",
+       "channels": [
+        "polri-lp"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Laporkan nomor/akun pelaku ke aduannomor.id.",
+       "channels": [
+        "aduannomor"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Pertimbangkan jalur perdata (ganti rugi) bila pelaku diketahui; hubungi LBH untuk pendampingan.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Delik penipuan."
+      },
+      {
+       "doc_id": "kuhperdata",
+       "ref": "Pasal 1365",
+       "why": "Gugatan ganti rugi perbuatan melawan hukum."
+      },
+      {
+       "doc_id": "uu-16-2011-bantuan-hukum",
+       "ref": "Bantuan hukum cuma-cuma",
+       "why": "Pendampingan bagi yang memenuhi syarat."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "mylaiwyer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fin-dana-masuk",
+   "dex": "finlaiwyer",
+   "title": "Ada uang masuk tak dikenal lalu saya diminta mengembalikan",
+   "title_en": "Unknown money arrived and I'm asked to send it back",
+   "entry": "n1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "n1",
+     "type": "question",
+     "prompt": "Siapa yang meminta pengembalian?",
+     "prompt_en": "Who is asking for the money back?",
+     "options": [
+      {
+       "label": "Orang tak dikenal via telepon/SMS/WhatsApp",
+       "label_en": "A stranger by phone/SMS/WhatsApp",
+       "next": "r1"
+      },
+      {
+       "label": "Bank saya melalui kanal resmi",
+       "label_en": "My bank via official channel",
+       "next": "r2"
+      }
+     ]
+    },
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Jangan pakai & jangan kirim ke rekening yang diberikan pelaku",
+     "steps": [
+      {
+       "text": "Jangan gunakan dana tersebut dan jangan mentransfernya ke rekening yang disebut penelepon.",
+       "channels": [],
+       "urgent": true
+      },
+      {
+       "text": "Hubungi bank Anda lewat kanal resmi; mintalah bank yang menangani pengembalian sesuai prosedurnya.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Bila ada ancaman atau penagihan pinjaman yang tidak pernah Anda ajukan, laporkan ke SiPASTI dan Kontak OJK 157.",
+       "channels": [
+        "sipasti",
+        "ojk-157"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Laporkan nomor penelepon ke aduannomor.id.",
+       "channels": [
+        "aduannomor"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-3-2011-transfer-dana",
+       "ref": "Pasal 85",
+       "why": "Menguasai dan mengakui sebagai milik dana transfer yang diketahui/patut diketahui bukan haknya diancam pidana — karena itu jangan menggunakannya."
+      },
+      {
+       "doc_id": "uu-8-2010-tppu",
+       "ref": "Pasal 5 ayat (1)",
+       "why": "Menerima/menguasai dana yang patut diduga hasil tindak pidana."
+      }
+     ],
+     "notes": [
+      "Modus ini tercatat dalam siaran pers Satgas PASTI Agustus 2026.",
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    },
+    {
+     "id": "r2",
+     "type": "result",
+     "title": "Ikuti prosedur bank melalui kanal resmi",
+     "steps": [
+      {
+       "text": "Verifikasi bahwa permintaan benar dari bank (hubungi nomor resmi sendiri, bukan nomor dari pesan).",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Simpan bukti komunikasi dan bukti mutasi rekening.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-3-2011-transfer-dana",
+       "ref": "Ketentuan pengembalian & Pasal 85",
+       "why": "Kewajiban terkait dana yang bukan hak penerima."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": []
+    }
+   ]
+  },
+  {
+   "id": "fin-pinjol-teror",
+   "dex": "finlaiwyer",
+   "title": "Saya diteror penagih pinjaman / data pribadi saya disebar",
+   "title_en": "I'm harassed by a lender / my data was spread",
+   "entry": "n1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "n1",
+     "type": "question",
+     "prompt": "Apakah pemberi pinjaman terdaftar/berizin OJK?",
+     "prompt_en": "Is the lender licensed by OJK?",
+     "options": [
+      {
+       "label": "Berizin",
+       "label_en": "Licensed",
+       "next": "r-berizin"
+      },
+      {
+       "label": "Tidak berizin / ilegal",
+       "label_en": "Unlicensed / illegal",
+       "next": "r-ilegal"
+      },
+      {
+       "label": "Tidak tahu",
+       "label_en": "Not sure",
+       "next": "r-cek"
+      }
+     ]
+    },
+    {
+     "id": "r-berizin",
+     "type": "result",
+     "title": "Pinjaman daring berizin — hak Anda & jalur pengaduan",
+     "steps": [
+      {
+       "text": "Adukan perilaku penagihan ke penyelenggara secara tertulis; simpan nomor pengaduan.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Bila tidak selesai, adukan ke OJK melalui Kontak 157/APPK.",
+       "channels": [
+        "ojk-157"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Sengketa perdata yang tidak selesai dapat dibawa ke LAPS SJK.",
+       "channels": [
+        "laps-sjk"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Ancaman terhadap keselamatan → polisi/112.",
+       "channels": [
+        "polri-lp",
+        "darurat-112"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pojk-22-2023",
+       "ref": "Mekanisme penagihan & layanan pengaduan",
+       "why": "Etika penagihan dan kewajiban PUJK menangani pengaduan."
+      },
+      {
+       "doc_id": "pojk-40-2024-lpbbti",
+       "ref": "Penyelenggaraan LPBBTI",
+       "why": "Kewajiban penyelenggara pinjaman daring berizin."
+      },
+      {
+       "doc_id": "uu-27-2022-pdp",
+       "ref": "Larangan penyalahgunaan data pribadi",
+       "why": "Penyebaran data tanpa dasar hukum."
+      },
+      {
+       "doc_id": "pojk-61-2020-laps",
+       "ref": "Pasal 32 ayat (1)",
+       "why": "Syarat ke LAPS SJK."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": []
+    },
+    {
+     "id": "r-ilegal",
+     "type": "result",
+     "title": "Pinjol ilegal — laporkan & lindungi data",
+     "steps": [
+      {
+       "text": "Laporkan entitas ke Satgas PASTI melalui SiPASTI; simpan bukti ancaman, nomor, dan aplikasi.",
+       "channels": [
+        "sipasti"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Laporkan nomor penagih ke aduannomor.id; cabut izin akses aplikasi ke kontak/galeri.",
+       "channels": [
+        "aduannomor"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Ancaman, pemerasan, atau penyebaran data → Laporan Polisi; bahaya keselamatan → 112.",
+       "channels": [
+        "polri-lp",
+        "darurat-112"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-27-2022-pdp",
+       "ref": "Larangan & ketentuan pidana",
+       "why": "Perolehan/pengungkapan/penggunaan data pribadi secara melawan hukum."
+      },
+      {
+       "doc_id": "uu-1-2024-ite",
+       "ref": "Perbuatan yang dilarang",
+       "why": "Ancaman/pemerasan melalui sarana elektronik dapat relevan."
+      },
+      {
+       "doc_id": "pojk-22-2023",
+       "ref": "Larangan bekerja sama dengan pelaku usaha tak berizin",
+       "why": "PUJK tidak boleh bermitra dengan entitas ilegal."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    },
+    {
+     "id": "r-cek",
+     "type": "result",
+     "title": "Cek legalitas dulu",
+     "steps": [
+      {
+       "text": "Cek status izin melalui kanal resmi OJK (Kontak 157) sebelum membayar apa pun.",
+       "channels": [
+        "ojk-157"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pojk-40-2024-lpbbti",
+       "ref": "Penyelenggaraan LPBBTI",
+       "why": "Hanya penyelenggara berizin yang boleh beroperasi."
+      }
+     ],
+     "notes": [],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fin-investasi",
+   "dex": "finlaiwyer",
+   "title": "Saya tertipu investasi bodong",
+   "title_en": "I fell for a fake investment",
+   "entry": "r1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Investasi ilegal — laporan & dasar hukum",
+     "steps": [
+      {
+       "text": "Laporkan ke Satgas PASTI (SiPASTI) dan, bila dana ditransfer via bank/PJP, ke IASC.",
+       "channels": [
+        "sipasti",
+        "iasc-lapor"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Buat Laporan Polisi; kumpulkan bukti penawaran (brosur, grup, kontrak, janji imbal hasil).",
+       "channels": [
+        "polri-lp"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Jangan setor dana tambahan untuk 'membuka' penarikan.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Delik penipuan."
+      },
+      {
+       "doc_id": "uu-8-1995-pasar-modal",
+       "ref": "Penawaran efek & penipuan di pasar modal",
+       "why": "Bila menawarkan efek tanpa izin."
+      },
+      {
+       "doc_id": "uu-4-2023-p2sk",
+       "ref": "Pelindungan konsumen sektor keuangan",
+       "why": "Kerangka pelindungan konsumen & kewenangan OJK."
+      },
+      {
+       "doc_id": "uu-8-2010-tppu",
+       "ref": "Pasal 3–5",
+       "why": "Aliran dana hasil penipuan."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fin-transaksi-tidak-sah",
+   "dex": "finlaiwyer",
+   "title": "Rekening/kartu/akun saya dibobol (transaksi tidak sah)",
+   "title_en": "Unauthorised transaction on my account",
+   "entry": "n1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "n1",
+     "type": "question",
+     "prompt": "Apakah Anda pernah memberikan OTP/PIN/kode atau memasang aplikasi dari pesan?",
+     "prompt_en": "Did you share an OTP/PIN or install an app from a message?",
+     "options": [
+      {
+       "label": "Ya",
+       "label_en": "Yes",
+       "next": "r1"
+      },
+      {
+       "label": "Tidak",
+       "label_en": "No",
+       "next": "r1"
+      },
+      {
+       "label": "Tidak yakin",
+       "label_en": "Not sure",
+       "next": "r1"
+      }
+     ]
+    },
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Laporkan & ajukan pengaduan ganti rugi",
+     "steps": [
+      {
+       "text": "Blokir kartu/akun lewat kanal resmi segera; ganti kata sandi dari perangkat yang aman.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": true
+      },
+      {
+       "text": "Ajukan pengaduan tertulis ke bank/penyelenggara; minta penjelasan & penyelesaian; simpan nomor pengaduan.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Bila ada transfer ke pelaku, lapor IASC; buat Laporan Polisi.",
+       "channels": [
+        "iasc-lapor",
+        "polri-lp"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Tidak puas: bank/IKNB → OJK (Kontak 157/APPK); penyelenggara pembayaran → BI (BICARA 131).",
+       "channels": [
+        "ojk-157",
+        "bi-bicara"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Sengketa perdata → LAPS SJK; nilai kerugian materiil ≤ Rp500 juta dapat memakai gugatan sederhana.",
+       "channels": [
+        "laps-sjk"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pojk-22-2023",
+       "ref": "Hak konsumen, pengaduan, keamanan sistem",
+       "why": "Kewajiban PUJK menjaga keamanan & menangani pengaduan."
+      },
+      {
+       "doc_id": "pbi-6-2026-pkbi",
+       "ref": "Perjanjian baku & pengaduan",
+       "why": "Pembagian kerugian akibat transaksi tidak sah & larangan mengalihkan tanggung jawab penyelenggara."
+      },
+      {
+       "doc_id": "uu-27-2022-pdp",
+       "ref": "Kewajiban pengendali data & notifikasi kebocoran",
+       "why": "Bila terjadi kebocoran data."
+      },
+      {
+       "doc_id": "pojk-61-2020-laps",
+       "ref": "Pasal 32 ayat (1)",
+       "why": "Syarat LAPS SJK."
+      },
+      {
+       "doc_id": "perma-2-2015-jo-4-2019",
+       "ref": "Kriteria gugatan sederhana",
+       "why": "Jalur pengadilan cepat."
+      }
+     ],
+     "notes": [
+      "Apakah kerugian ditanggung bank bergantung pada fakta (mis. kelalaian para pihak) dan perjanjian; aplikasi tidak menilai peluang.",
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": []
+    }
+   ]
+  },
+  {
+   "id": "fin-impersonation",
+   "dex": "finlaiwyer",
+   "title": "Ada yang mengaku dari bank/OJK/IASC/polisi menghubungi saya",
+   "title_en": "Someone claiming to be the bank/OJK/IASC/police contacted me",
+   "entry": "r1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Hentikan komunikasi & verifikasi sendiri",
+     "steps": [
+      {
+       "text": "Jangan berikan OTP, PIN, kata sandi, kode verifikasi, atau akses perangkat; tutup telepon.",
+       "channels": [],
+       "urgent": true
+      },
+      {
+       "text": "Hubungi lembaga tersebut melalui nomor/situs resminya sendiri (laporan IASC hanya di iasc.ojk.go.id).",
+       "channels": [
+        "bank-resmi",
+        "ojk-157"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Laporkan nomor ke aduannomor.id; bila sudah transfer → alur 'baru tertipu'.",
+       "channels": [
+        "aduannomor",
+        "iasc-lapor"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-1-2023-kuhp",
+       "ref": "Pasal 492",
+       "why": "Memakai nama/kedudukan palsu adalah unsur penipuan."
+      },
+      {
+       "doc_id": "uu-1-2024-ite",
+       "ref": "Pasal 28 ayat (1)",
+       "why": "Informasi menyesatkan dalam transaksi elektronik."
+      }
+     ],
+     "notes": [
+      "Ancaman pidana di luar KUHP dibaca dari teks resmi bersama lampiran UU 1/2026 (Penyesuaian Pidana)."
+     ],
+     "open_dex": [
+      "antiscamdex"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fin-sengketa-bank",
+   "dex": "finlaiwyer",
+   "title": "Bank/lembaga keuangan menolak pengaduan saya",
+   "title_en": "My bank rejected my complaint",
+   "entry": "r1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Finandex tidak berafiliasi dengan OJK, BI, IASC, atau Polri dan tidak meneruskan laporan Anda.",
+   "nodes": [
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Jalur eskalasi bertahap",
+     "steps": [
+      {
+       "text": "Pastikan pengaduan tertulis ke PUJK sudah dibuat dan Anda menerima jawaban/penolakan.",
+       "channels": [
+        "bank-resmi"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Ajukan ke OJK (Kontak 157/APPK) untuk sektor jasa keuangan, atau ke BI (BICARA 131) untuk penyelenggara sistem pembayaran.",
+       "channels": [
+        "ojk-157",
+        "bi-bicara"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Ajukan penyelesaian sengketa ke LAPS SJK (mediasi/arbitrase).",
+       "channels": [
+        "laps-sjk"
+       ],
+       "urgent": false
+      },
+      {
+       "text": "Atau gugat ke pengadilan (gugatan sederhana bila kerugian materiil ≤ Rp500 juta); pertimbangkan LBH.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "pojk-22-2023",
+       "ref": "Layanan pengaduan",
+       "why": "Kewajiban PUJK."
+      },
+      {
+       "doc_id": "pojk-31-2020",
+       "ref": "Layanan konsumen oleh OJK",
+       "why": "Pengaduan ke OJK."
+      },
+      {
+       "doc_id": "pbi-6-2026-pkbi",
+       "ref": "Pengaduan ke BI",
+       "why": "Setelah pengaduan ke penyelenggara."
+      },
+      {
+       "doc_id": "pojk-61-2020-laps",
+       "ref": "Pasal 32 ayat (1)",
+       "why": "Syarat LAPS SJK."
+      },
+      {
+       "doc_id": "perma-2-2015-jo-4-2019",
+       "ref": "Kriteria gugatan sederhana",
+       "why": "Jalur pengadilan cepat."
+      },
+      {
+       "doc_id": "uu-16-2011-bantuan-hukum",
+       "ref": "Bantuan hukum",
+       "why": "Pendampingan cuma-cuma."
+      }
+     ],
+     "notes": [
+      "Batas waktu pengaduan (hari kerja) dibaca dari teks POJK/PBI yang diingest; jangan menyebut angka dari ingatan."
+     ],
+     "open_dex": []
+    }
+   ]
+  },
+  {
+   "id": "gen-diperiksa-polisi",
+   "dex": "mylaiwyer",
+   "title": "Saya/keluarga dipanggil, ditangkap, atau diperiksa polisi",
+   "title_en": "I/my family was summoned, arrested or questioned by police",
+   "entry": "r1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Untuk kasus nyata, hubungi advokat atau Lembaga Bantuan Hukum.",
+   "nodes": [
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Hak dalam proses pidana & bantuan hukum",
+     "steps": [
+      {
+       "text": "Hubungi advokat atau LBH sesegera mungkin; Anda dapat meminta pendampingan.",
+       "channels": [],
+       "urgent": false
+      },
+      {
+       "text": "Minta dan baca surat perintah/panggilan; catat nama petugas, waktu, dan tempat.",
+       "channels": [],
+       "urgent": false
+      },
+      {
+       "text": "Keadaan darurat keselamatan → 112.",
+       "channels": [
+        "darurat-112"
+       ],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-20-2025-kuhap",
+       "ref": "Hak tersangka/terdakwa; penangkapan & penahanan",
+       "why": "Hukum acara pidana yang berlaku sejak 2 Januari 2026."
+      },
+      {
+       "doc_id": "uu-8-1981-kuhap",
+       "ref": "Ketentuan setara (historis)",
+       "why": "Untuk peristiwa sebelum 2 Januari 2026 / perbandingan."
+      },
+      {
+       "doc_id": "uu-16-2011-bantuan-hukum",
+       "ref": "Bantuan hukum cuma-cuma",
+       "why": "Bagi penerima bantuan hukum yang memenuhi syarat."
+      }
+     ],
+     "notes": [
+      "Aplikasi tidak menilai peluang perkara dan tidak menyusun strategi menghindari proses hukum."
+     ],
+     "open_dex": []
+    }
+   ]
+  },
+  {
+   "id": "gen-gugatan-perdata",
+   "dex": "mylaiwyer",
+   "title": "Saya ingin menuntut ganti rugi (wanprestasi / perbuatan melawan hukum)",
+   "title_en": "I want to claim damages",
+   "entry": "n1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Untuk kasus nyata, hubungi advokat atau Lembaga Bantuan Hukum.",
+   "nodes": [
+    {
+     "id": "n1",
+     "type": "question",
+     "prompt": "Berapa perkiraan nilai kerugian materiil?",
+     "prompt_en": "Estimated material loss?",
+     "options": [
+      {
+       "label": "≤ Rp500 juta",
+       "label_en": "≤ IDR 500 million",
+       "next": "r-kecil"
+      },
+      {
+       "label": "> Rp500 juta",
+       "label_en": "> IDR 500 million",
+       "next": "r-besar"
+      }
+     ]
+    },
+    {
+     "id": "r-kecil",
+     "type": "result",
+     "title": "Gugatan sederhana dapat dipertimbangkan",
+     "steps": [
+      {
+       "text": "Periksa kriteria gugatan sederhana (jenis perkara, domisili para pihak).",
+       "channels": [],
+       "urgent": false
+      },
+      {
+       "text": "Konsultasikan dengan LBH/advokat.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "perma-2-2015-jo-4-2019",
+       "ref": "Kriteria",
+       "why": "Nilai ≤ Rp500 juta; wanprestasi/PMH; domisili sama."
+      },
+      {
+       "doc_id": "kuhperdata",
+       "ref": "Pasal 1243 / 1365",
+       "why": "Dasar ganti rugi."
+      }
+     ],
+     "notes": [],
+     "open_dex": []
+    },
+    {
+     "id": "r-besar",
+     "type": "result",
+     "title": "Gugatan perdata biasa",
+     "steps": [
+      {
+       "text": "Konsultasikan dengan advokat/LBH mengenai gugatan perdata biasa.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "kuhperdata",
+       "ref": "Pasal 1243 / 1365",
+       "why": "Dasar ganti rugi."
+      }
+     ],
+     "notes": [],
+     "open_dex": []
+    }
+   ]
+  },
+  {
+   "id": "gen-hierarki",
+   "dex": "mylaiwyer",
+   "title": "Peraturan mana yang lebih tinggi?",
+   "title_en": "Which regulation prevails?",
+   "entry": "r1",
+   "disclaimer": "Informasi hukum umum berbasis dokumen resmi, bukan nasihat hukum. Untuk kasus nyata, hubungi advokat atau Lembaga Bantuan Hukum.",
+   "nodes": [
+    {
+     "id": "r1",
+     "type": "result",
+     "title": "Hierarki peraturan perundang-undangan",
+     "steps": [
+      {
+       "text": "Bandingkan jenis peraturan menurut hierarki; asas lex superior, lex specialis, lex posterior.",
+       "channels": [],
+       "urgent": false
+      }
+     ],
+     "legal_bases": [
+      {
+       "doc_id": "uu-12-2011-p3",
+       "ref": "Pasal 7",
+       "why": "Jenis & hierarki peraturan perundang-undangan."
+      },
+      {
+       "doc_id": "uud-nri-1945",
+       "ref": "Pasal 22A",
+       "why": "Dasar konstitusional pembentukan UU."
+      }
+     ],
+     "notes": [],
+     "open_dex": []
+    }
+   ]
+  }
+ ]
+}

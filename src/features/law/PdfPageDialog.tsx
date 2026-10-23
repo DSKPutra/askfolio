@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ErrorState, Spinner } from '../../components/ui';
 import { resolveBases } from '../../config/runtime';
+import { sourcePdfPath } from '../../lib/law-client';
 
 GlobalWorkerOptions.workerSrc = workerUrl;
 
@@ -23,10 +24,10 @@ export default function PdfPageDialog({ docId, page: initial, title, onClose }: 
   useEffect(() => {
     let task: PDFDocumentLoadingTask | null = null;
     let cancelled = false;
-    void resolveBases()
-      .then((b) => {
+    void Promise.all([resolveBases(), sourcePdfPath(docId)])
+      .then(([b, path]) => {
         if (cancelled) return;
-        task = getDocument({ url: `${b.data}/heavy/law/${docId}/source.pdf`, wasmUrl: '/pdfjs/wasm/', standardFontDataUrl: '/pdfjs/standard_fonts/', cMapUrl: '/pdfjs/cmaps/' });
+        task = getDocument({ url: `${b.data}/${path}`, wasmUrl: '/pdfjs/wasm/', standardFontDataUrl: '/pdfjs/standard_fonts/', cMapUrl: '/pdfjs/cmaps/' });
         return task.promise;
       })
       .then((d) => {
@@ -72,7 +73,7 @@ export default function PdfPageDialog({ docId, page: initial, title, onClose }: 
     <Dialog.Root open onOpenChange={(o) => !o && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70" />
-        <Dialog.Content className="fixed inset-2 z-50 flex flex-col rounded-2xl border border-border bg-surface p-4 sm:inset-8" aria-describedby={undefined}>
+        <Dialog.Content className="fixed inset-2 z-50 flex flex-col rounded-pane border border-border bg-surface p-4 sm:inset-8" aria-describedby={undefined}>
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
             <Dialog.Title className="text-sm font-semibold">
               {title} · {id ? 'hal.' : 'p.'} {page}

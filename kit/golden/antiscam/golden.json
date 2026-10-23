@@ -1,0 +1,328 @@
+{
+ "as_of": "2026-09-30",
+ "sources": 23,
+ "sources_by_kind": {
+  "official": 7,
+  "media": 9,
+  "media-headline": 7
+ },
+ "institutions": [
+  "bi",
+  "iasc",
+  "komdigi",
+  "laps-sjk",
+  "ojk",
+  "polri",
+  "satgas-pasti"
+ ],
+ "channels": [
+  "aduannomor",
+  "bank-resmi",
+  "bi-bicara",
+  "cekrekening",
+  "darurat-112",
+  "iasc-cek",
+  "iasc-lapor",
+  "laps-sjk",
+  "ojk-157",
+  "polri-lp",
+  "sipasti"
+ ],
+ "modus": 11,
+ "modus_conflicts": [
+  "kerja-komisi"
+ ],
+ "latest": {
+  "accounts_blocked": {
+   "value": 702833,
+   "cutoff": "2026-09-30"
+  },
+  "accounts_reported": {
+   "value": 1372483,
+   "cutoff": "2026-09-30"
+  },
+  "banks_joined_soft_launch": {
+   "value": 79,
+   "cutoff": "2024-11-22"
+  },
+  "funds_blocked_idr": {
+   "value": 811100000000,
+   "cutoff": "2026-09-30"
+  },
+  "funds_returned_idr": {
+   "value": 207160000000,
+   "cutoff": "2026-09-30"
+  },
+  "losses_reported_idr": {
+   "value": 9100000000000,
+   "cutoff": "2026-01-14"
+  },
+  "phone_numbers_reported": {
+   "value": 173718,
+   "cutoff": "2026-09-30"
+  },
+  "reports_direct": {
+   "value": 367586,
+   "cutoff": "2026-09-30"
+  },
+  "reports_total": {
+   "value": 702342,
+   "cutoff": "2026-09-30"
+  },
+  "reports_via_pujk": {
+   "value": 334756,
+   "cutoff": "2026-09-30"
+  },
+  "return_banks": {
+   "value": 24,
+   "cutoff": "2026-09-30"
+  },
+  "return_victims": {
+   "value": 1070,
+   "cutoff": "2026-01-12"
+  }
+ },
+ "series_reports_total": [
+  {
+   "cutoff": "2025-03-23",
+   "value": 74243,
+   "headline_only": true,
+   "source_ids": [
+    "investortrust-2025-03"
+   ]
+  },
+  {
+   "cutoff": "2025-06-30",
+   "value": 166258,
+   "headline_only": true,
+   "source_ids": [
+    "kontan-2025-06"
+   ]
+  },
+  {
+   "cutoff": "2026-01-14",
+   "value": 432637,
+   "headline_only": false,
+   "source_ids": [
+    "ojk-sp15-2026"
+   ]
+  },
+  {
+   "cutoff": "2026-02-26",
+   "value": 477600,
+   "headline_only": true,
+   "source_ids": [
+    "kontan-2026-02"
+   ]
+  },
+  {
+   "cutoff": "2026-03-31",
+   "value": 515345,
+   "headline_only": true,
+   "source_ids": [
+    "kontan-2026-03"
+   ]
+  },
+  {
+   "cutoff": "2026-05-31",
+   "value": 579459,
+   "headline_only": false,
+   "source_ids": [
+    "kontan-2026-06-30"
+   ]
+  },
+  {
+   "cutoff": "2026-07-31",
+   "value": 637055,
+   "headline_only": false,
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "cutoff": "2026-09-30",
+   "value": 702342,
+   "headline_only": false,
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ]
+  }
+ ],
+ "reports_growth": [
+  {
+   "start": "2025-03-23",
+   "end": "2025-06-30",
+   "added": 92015
+  },
+  {
+   "start": "2025-06-30",
+   "end": "2026-01-14",
+   "added": 266379
+  },
+  {
+   "start": "2026-01-14",
+   "end": "2026-02-26",
+   "added": 44963
+  },
+  {
+   "start": "2026-02-26",
+   "end": "2026-03-31",
+   "added": 37745
+  },
+  {
+   "start": "2026-03-31",
+   "end": "2026-05-31",
+   "added": 64114
+  },
+  {
+   "start": "2026-05-31",
+   "end": "2026-07-31",
+   "added": 57596
+  },
+  {
+   "start": "2026-07-31",
+   "end": "2026-09-30",
+   "added": 65287
+  }
+ ],
+ "blocked_share_of_reported": [
+  {
+   "cutoff": "2026-05-31",
+   "share": 0.516297501
+  },
+  {
+   "cutoff": "2026-07-31",
+   "share": 0.5146366456
+  },
+  {
+   "cutoff": "2026-09-30",
+   "share": 0.5120886743
+  }
+ ],
+ "returned_share_of_blocked": [
+  {
+   "cutoff": "2026-05-31",
+   "share": 0.2649866959
+  },
+  {
+   "cutoff": "2026-07-31",
+   "share": 0.2821433504
+  },
+  {
+   "cutoff": "2026-09-30",
+   "share": 0.2554062384
+  }
+ ],
+ "satgas_latest": {
+  "period_start": "2026-01-01",
+  "cutoff": "2026-09-30",
+  "metric": "illegal_entities_stopped",
+  "total": 1222,
+  "breakdown": {
+   "pinjaman daring ilegal": 951,
+   "investasi ilegal": 242,
+   "gadai ilegal": 27,
+   "aktivitas keuangan ilegal lainnya": 2
+  },
+  "source_ids": [
+   "bisnis-2026-10-06"
+  ]
+ },
+ "satgas": [
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-07-31",
+   "metric": "complaints_illegal_entities",
+   "total": 25875,
+   "breakdown": {
+    "pinjaman daring ilegal": 22529,
+    "investasi ilegal": 3170,
+    "gadai ilegal": 176
+   },
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-30",
+   "metric": "complaints_illegal_entities",
+   "total": 35438,
+   "breakdown": {
+    "pinjaman daring ilegal": 31571,
+    "investasi ilegal": 3645,
+    "gadai ilegal": 222
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  },
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-30",
+   "metric": "illegal_entities_stopped",
+   "total": 1222,
+   "breakdown": {
+    "pinjaman daring ilegal": 951,
+    "investasi ilegal": 242,
+    "gadai ilegal": 27,
+    "aktivitas keuangan ilegal lainnya": 2
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  }
+ ],
+ "ojk_consumer": {
+  "service_requests": {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-14",
+   "total": 527389,
+   "complaints": 82092,
+   "complaints_by_sector": {
+    "fintech": 36435,
+    "perbankan": 26091,
+    "perusahaan pembiayaan": 16758,
+    "asuransi": 1446,
+    "pasar modal & IKNB lainnya": 1362
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  },
+  "enforcement": {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-13",
+   "written_warnings": 141,
+   "warned_providers": 101,
+   "written_orders": 6,
+   "fines": 52,
+   "fined_providers": 44,
+   "providers_compensating": 157,
+   "compensation_idr": 82960000000,
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  }
+ },
+ "region_top": "Jawa",
+ "modus_stats_belanja_reports": 77740,
+ "iasc_required_doc_groups": [
+  "dokumen",
+  "pelapor",
+  "terlapor",
+  "transaksi"
+ ],
+ "faq_count": 7,
+ "faq_unanswered": 3,
+ "literacy": {
+  "survey": "SNLIK 2025",
+  "financial_literacy_pct": 66.46,
+  "financial_inclusion_pct": 80.51,
+  "source_ids": [
+   "katadata-2026-06-30"
+  ],
+  "note": "dikutip media dari survei OJK–BPS"
+ }
+}

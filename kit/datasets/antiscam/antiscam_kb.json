@@ -1,0 +1,1645 @@
+{
+ "meta": {
+  "id": "antiscam_kb",
+  "version": "2026-10-23",
+  "compiled_on": "2026-10-23",
+  "language": "id",
+  "compiled_for": "Finandex — karya Dea Saka Kurnia Putra",
+  "scope": "Informasi publik tentang IASC, Satgas PASTI, kanal pengaduan OJK/BI/Komdigi/Polri/LAPS SJK, statistik penanganan scam, modus, pencegahan, dan bukti yang perlu disiapkan.",
+  "licence_note": "Fakta & angka dari publikasi resmi OJK/BI/portal IASC dan media yang mengutipnya; teks ditulis ulang sebagai ringkasan (bukan salinan). Tampilkan atribusi + tautan sumber; tanpa logo OJK/BI/IASC/Satgas PASTI; Finandex tidak berafiliasi dengan lembaga tersebut.",
+  "refresh_policy": "Statistik IASC diperbarui OJK tiap bulan (RDK bulanan). Perbarui dataset ini lewat PR yang menambah observasi + sumber; jangan menimpa observasi lama.",
+  "unknowns": [
+   "Durasi SLA penanganan IASC tidak dipublikasikan di portal",
+   "Biaya pelaporan tidak disebutkan di portal (jangan mengklaim gratis/berbayar)",
+   "Kerugian per modus selain belanja online tidak dipublikasikan dalam sumber yang dihimpun"
+  ]
+ },
+ "sources": [
+  {
+   "id": "ojk-sp16-2026",
+   "kind": "official",
+   "publisher": "Satgas PASTI / OJK",
+   "published": "2026-08-31",
+   "title": "Satgas PASTI Terima 25 Ribu Pengaduan Aktivitas Keuangan Ilegal dan IASC Berhasil Blokir Dana Terkait Scam Rp724 Miliar (SP 16/STPASTI/VIII/2026)",
+   "url": "https://ojk.go.id/id/berita-dan-kegiatan/info-terkini/Pages/Satgas-PASTI-Terima-25-Ribu-Pengaduan-Aktivitas-Keuangan-Ilegal-dan-IASC-Berhasil-Blokir-Dana-Terkait-Scam-Rp-724-Miliar.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "ojk-sp15-2026",
+   "kind": "official",
+   "publisher": "OJK",
+   "published": "2026-01-21",
+   "title": "Indonesia Anti-Scam Centre Berhasil Kembalikan Rp161 Miliar Dana Masyarakat Korban Scam (SP 15/GKPB/OJK/I/2026)",
+   "url": "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/IASC-Berhasil-Kembalikan-Rp161-Miliar-Dana-Masyarakat-Korban-Scam.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "ojk-softlaunch-2024",
+   "kind": "official",
+   "publisher": "OJK",
+   "published": "2024-11-25",
+   "title": "Tingkatkan Pelindungan Konsumen, Satgas PASTI Lakukan Soft Launching IASC",
+   "url": "https://ojk.go.id/id/berita-dan-kegiatan/info-terkini/Pages/Tingkatkan-Pelindungan-Konsumen-Satgas-Pasti-Lakukan-Soft-Launching-IASC.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "iasc-portal",
+   "kind": "official",
+   "publisher": "OJK (portal IASC)",
+   "published": null,
+   "title": "Indonesia Anti-Scam Centre — Pusat Penanganan Penipuan Transaksi Keuangan Indonesia (halaman utama, FAQ, kebijakan privasi)",
+   "url": "https://iasc.ojk.go.id",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "ojk-sp120-2024",
+   "kind": "official",
+   "publisher": "OJK",
+   "published": "2024-08-13",
+   "title": "OJK Terbitkan Peraturan Penerapan Strategi Anti Fraud Bagi Lembaga Jasa Keuangan (SP-120/GKPB/OJK/VIII/2024)",
+   "url": "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Terbitkan-Peraturan-Penerapan-Strategi-Anti-Fraud-Bagi-Lembaga-Jasa-Keuangan.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "bi-pengaduan",
+   "kind": "official",
+   "publisher": "Bank Indonesia",
+   "published": null,
+   "title": "Perlindungan dan Pengaduan Konsumen",
+   "url": "https://www.bi.go.id/id/layanan/pengaduan-konsumen/default.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "bi-pbi-6-2026",
+   "kind": "official",
+   "publisher": "Bank Indonesia",
+   "published": "2026-06-24",
+   "title": "PBI Nomor 6 Tahun 2026 tentang Pelindungan Konsumen Bank Indonesia (halaman peraturan & FAQ)",
+   "url": "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI_062026.aspx",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-10-06",
+   "kind": "media",
+   "publisher": "Kontan",
+   "published": "2026-10-06",
+   "title": "IASC Terima 702.342 Laporan Kasus Penipuan hingga September 2026",
+   "url": "https://keuangan.kontan.co.id/news/iasc-terima-702342-laporan-kasus-penipuan-hingga-september-2026",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "bisnis-2026-10-06",
+   "kind": "media",
+   "publisher": "Bisnis.com",
+   "published": "2026-10-06",
+   "title": "OJK Terima 35.438 Pengaduan Entitas Keuangan Ilegal hingga September",
+   "url": "https://finansial.bisnis.com/read/20261006/55/2010326/ojk-terima-35438-pengaduan-entitas-keuangan-ilegal-hingga-september",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-06-30",
+   "kind": "media",
+   "publisher": "Kontan",
+   "published": "2026-06-30",
+   "title": "IASC Terima 579.459 Laporan Kasus Penipuan per Mei 2026, Terbanyak di Pulau Jawa",
+   "url": "https://keuangan.kontan.co.id/news/iasc-terima-579459-laporan-kasus-penipuan-per-mei-2026-terbanyak-di-pulau-jawa",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "katadata-2026-06-30",
+   "kind": "media",
+   "publisher": "Katadata",
+   "published": "2026-06-30",
+   "title": "Korban Scam Tak Tahu Harus Lapor ke Mana? Kenali Layanan IASC",
+   "url": "https://katadata.co.id/finansial/keuangan/6a4324b291318/korban-scam-tak-tahu-harus-lapor-ke-mana-kenali-layanan-iasc",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "bisnis-2026-09-25",
+   "kind": "media",
+   "publisher": "Bisnis.com",
+   "published": "2026-09-25",
+   "title": "BI Ingatkan Masyarakat Modus Penipuan Transaksi Digital",
+   "url": "https://finansial.bisnis.com/read/20260925/90/2007147/bi-ingatkan-masyarakat-modus-penipuan-transaksi-digital",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "hukumonline-2023-12-01",
+   "kind": "media",
+   "publisher": "Hukumonline",
+   "published": "2023-12-01",
+   "title": "Satgas PASTI Komitmen Berantas Investasi hingga Pinjol Ilegal",
+   "url": "https://www.hukumonline.com/berita/a/satgas-pasti-komitmen-berantas-investasi-hingga-pinjol-ilegal-lt6569aa714dab9/",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "hukumonline-2025-05-14",
+   "kind": "media",
+   "publisher": "Hukumonline (Klinik)",
+   "published": "2025-05-14",
+   "title": "Panduan untuk Melaporkan Penipuan Online",
+   "url": "https://www.hukumonline.com/klinik/a/panduan-untuk-melaporkan-penipuan-online-lt656758061ec52/",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "hukumonline-2022-05-25",
+   "kind": "media",
+   "publisher": "Hukumonline (Klinik)",
+   "published": "2022-05-25",
+   "title": "Penyelesaian Sengketa di Luar Pengadilan via LAPS SJK",
+   "url": "https://www.hukumonline.com/klinik/a/penyelesaian-sengketa-di-luar-pengadilan-via-laps-sjk-lt628e118797df9",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "antara-iasc-palsu",
+   "kind": "media",
+   "publisher": "ANTARA",
+   "published": null,
+   "title": "Satgas PASTI: waspadai penipuan website mengatasnamakan IASC",
+   "url": "https://www.antaranews.com/berita/4743805/satgas-pasti-waspadai-penipuan-website-mengatasnamakan-iasc/",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "investortrust-2025-03",
+   "kind": "media-headline",
+   "publisher": "Investortrust",
+   "published": null,
+   "title": "OJK: IASC Terima 74.243 Laporan Kasus Penipuan hingga 23 Maret 2025, Kerugian Capai Rp1,4 Triliun",
+   "url": "https://investortrust.id/financial/61278/ojk-iasc-tenerima-74243-laporan-kasus-penipuan-hingga-23-maret-2025-kerugian-capai-rp-1-4-triliun",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2025-06",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "IASC Terima 166.258 Laporan Kasus Penipuan hingga 30 Juni 2025",
+   "url": "https://keuangan.kontan.co.id/news/iasc-terima-166258-laporan-kasus-penipuan-hingga-30-juni-2025",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-02",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "OJK: IASC Terima 477.600 Laporan Kasus Penipuan hingga 26 Februari 2026",
+   "url": "https://keuangan.kontan.co.id/news/ojk-iasc-terima-477600-laporan-kasus-penipuan-hingga-26-februari-2026",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-03",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "Satgas PASTI: IASC Terima 515.345 Laporan Kasus Penipuan Masyarakat per 31 Maret 2026",
+   "url": "https://keuangan.kontan.co.id/news/satgas-pasti-iasc-terima-515345-laporan-kasus-penipuan-masyarakat-per-31-maret-2026",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-04",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "OJK: IASC Terima 548.093 Laporan Kasus Penipuan hingga April 2026",
+   "url": "https://keuangan.kontan.co.id/news/ojk-iasc-terima-548093-laporan-kasus-penipuan-hingga-april-2026",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-07",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "IASC Terima 636.014 Laporan Kasus Penipuan hingga Juli 2026",
+   "url": "https://keuangan.kontan.co.id/news/iasc-terima-636014-laporan-kasus-penipuan-hingga-juli-2026",
+   "accessed": "2026-10-23"
+  },
+  {
+   "id": "kontan-2026-08",
+   "kind": "media-headline",
+   "publisher": "Kontan",
+   "published": null,
+   "title": "IASC Terima 668.441 Laporan Kasus Penipuan hingga Agustus 2026",
+   "url": "https://keuangan.kontan.co.id/news/iasc-terima-668441-laporan-kasus-penipuan-hingga-agustus-2026",
+   "accessed": "2026-10-23"
+  }
+ ],
+ "institutions": [
+  {
+   "id": "iasc",
+   "name": "Indonesia Anti-Scam Centre (IASC)",
+   "name_en": "Indonesia Anti-Scam Centre",
+   "role": "Forum koordinasi terpusat yang dipimpin OJK (Satgas PASTI) untuk mempercepat penanganan penipuan transaksi keuangan: menghubungkan laporan korban dengan bank/penyedia jasa pembayaran agar transaksi ditunda (blokir), ditelusuri, dan sisa dana diupayakan diselamatkan.",
+   "facts": [
+    {
+     "text": "Soft launching oleh OJK bersama anggota Satgas PASTI pada Jumat, 22 November 2024; pada tahap itu 79 bank telah bergabung.",
+     "source_ids": [
+      "ojk-softlaunch-2024"
+     ]
+    },
+    {
+     "text": "Didukung asosiasi perbankan, penyedia jasa sistem pembayaran, dan e-commerce.",
+     "source_ids": [
+      "ojk-softlaunch-2024",
+      "iasc-portal"
+     ]
+    },
+    {
+     "text": "Siaran pers peluncuran mengaitkan IASC dengan UU P2SK (UU 4/2023) dan UU TPPU (UU 8/2010) serta ketentuan terkait; portal IASC sendiri tidak mencantumkan dasar hukum pembentukan.",
+     "source_ids": [
+      "ojk-softlaunch-2024",
+      "iasc-portal"
+     ]
+    },
+    {
+     "text": "Beroperasi 24 jam, termasuk malam dan hari libur (menurut pemberitaan).",
+     "source_ids": [
+      "katadata-2026-06-30"
+     ]
+    },
+    {
+     "text": "OJK dan Polri menandatangani perjanjian kerja sama penanganan pada 14 Januari 2026 (menurut pemberitaan).",
+     "source_ids": [
+      "katadata-2026-06-30"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "satgas-pasti",
+   "name": "Satgas Pemberantasan Aktivitas Keuangan Ilegal (Satgas PASTI)",
+   "name_en": "Task Force for Eradication of Illegal Financial Activities",
+   "role": "Satuan tugas lintas kementerian/lembaga yang dikoordinasikan OJK untuk menangani pinjaman daring ilegal, investasi ilegal, gadai ilegal, dan aktivitas keuangan ilegal lain; memimpin IASC.",
+   "facts": [
+    {
+     "text": "Per Desember 2023 diberitakan beranggotakan 16 kementerian/lembaga: OJK, Bank Indonesia, Kemendagri, Kemlu, Kemenag, Kemenkumham, Kemendikbudristek, Kemensos, Kemendag, Kemenkominfo, Kemenkop UKM, Kementerian Investasi/BKPM, Polri, Kejaksaan, BIN, dan PPATK (nama kementerian sesuai saat itu; nomenklatur dapat berubah).",
+     "source_ids": [
+      "hukumonline-2023-12-01"
+     ]
+    },
+    {
+     "text": "Kanal pelaporan aktivitas keuangan ilegal: sipasti.ojk.go.id; sekretariat: satgaspasti@ojk.go.id.",
+     "source_ids": [
+      "ojk-sp16-2026",
+      "ojk-softlaunch-2024"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ojk",
+   "name": "Otoritas Jasa Keuangan (OJK)",
+   "name_en": "Financial Services Authority",
+   "role": "Pengatur & pengawas sektor jasa keuangan (perbankan, pasar modal, IKNB, aset keuangan digital) termasuk pelindungan konsumen; koordinator Satgas PASTI dan IASC.",
+   "facts": [
+    {
+     "text": "Kontak OJK 157 (telepon), WhatsApp 081 157 157, konsumen@ojk.go.id; pengaduan sektor jasa keuangan melalui Aplikasi Portal Pelindungan Konsumen (APPK) kontak157.ojk.go.id.",
+     "source_ids": [
+      "ojk-sp16-2026",
+      "katadata-2026-06-30",
+      "hukumonline-2022-05-25"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bi",
+   "name": "Bank Indonesia (BI)",
+   "name_en": "Bank Indonesia",
+   "role": "Bank sentral; mengatur sistem pembayaran dan pelindungan konsumen Bank Indonesia (penyelenggara jasa sistem pembayaran, dll.). Pengaduan disampaikan dulu ke penyelenggara; bila belum puas, ke BI.",
+   "facts": [
+    {
+     "text": "Kanal: telepon 131 (dari luar negeri 1500131), portal bicara131.bi.go.id, email bicara@bi.go.id, chatbot LISA (WhatsApp 081-131-131-131), Visitor Center BI BICARA dan kantor perwakilan BI.",
+     "source_ids": [
+      "bi-pengaduan"
+     ]
+    },
+    {
+     "text": "PBI Nomor 6 Tahun 2026 tentang Pelindungan Konsumen Bank Indonesia mencabut PBI Nomor 3 Tahun 2023; berlaku sejak diundangkan; penyelenggara diberi waktu penyesuaian paling lama enam bulan.",
+     "source_ids": [
+      "bi-pbi-6-2026"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "komdigi",
+   "name": "Kementerian Komunikasi dan Digital (Komdigi)",
+   "name_en": "Ministry of Communication and Digital Affairs",
+   "role": "Mengelola layanan pelaporan rekening (cekrekening.id) dan nomor telepon (aduannomor.id) yang diduga dipakai untuk kejahatan.",
+   "facts": [
+    {
+     "text": "cekrekening.id/lapor-rekening untuk melaporkan rekening bank/e-wallet; aduannomor.id untuk melaporkan nomor telepon yang disalahgunakan.",
+     "source_ids": [
+      "hukumonline-2025-05-14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "polri",
+   "name": "Kepolisian Negara Republik Indonesia (Polri)",
+   "name_en": "Indonesian National Police",
+   "role": "Penegakan hukum pidana; Laporan Polisi (LP) memulai proses pidana dan, menurut pemberitaan, diperlukan untuk proses pengembalian dana.",
+   "facts": [
+    {
+     "text": "Portal IASC menyatakan pelaporan ke IASC (jalur keuangan) dan Laporan Polisi (jalur hukum) sama-sama perlu; laporan IASC tidak menggantikan Laporan Polisi.",
+     "source_ids": [
+      "iasc-portal"
+     ]
+    },
+    {
+     "text": "Laporan dapat dibuat di SPKT Polsek/Polres/Polda/Mabes Polri tempat kejadian; bawa tangkapan layar percakapan, rekaman, dan bukti transfer.",
+     "source_ids": [
+      "hukumonline-2025-05-14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "laps-sjk",
+   "name": "Lembaga Alternatif Penyelesaian Sengketa Sektor Jasa Keuangan (LAPS SJK)",
+   "name_en": "Financial Services Alternative Dispute Resolution Institution",
+   "role": "Penyelesaian sengketa konsumen–pelaku usaha jasa keuangan di luar pengadilan (mediasi, arbitrase, pendapat mengikat) setelah pengaduan ke pelaku usaha tidak selesai.",
+   "facts": [
+    {
+     "text": "Dasar: POJK 61/POJK.07/2020; beroperasi sejak 1 Januari 2021; syarat: sudah mengadu ke PUJK dan ditolak/tidak dijawab, sengketa perdata, belum diperiksa pengadilan/arbitrase/LAPS lain (Pasal 32 ayat (1)). Situs lapssjk.id.",
+     "source_ids": [
+      "hukumonline-2022-05-25"
+     ]
+    }
+   ]
+  }
+ ],
+ "channels": [
+  {
+   "id": "iasc-lapor",
+   "name": "Lapor penipuan ke IASC",
+   "url": "https://iasc.ojk.go.id",
+   "operator": "iasc",
+   "use_when": "Anda sudah mentransfer dana ke pelaku penipuan melalui bank/penyedia jasa pembayaran. Lapor secepat mungkin.",
+   "notes": "Hanya melalui situs resmi iasc.ojk.go.id; waspadai situs/akun palsu yang mengatasnamakan IASC.",
+   "source_ids": [
+    "iasc-portal",
+    "ojk-sp15-2026",
+    "antara-iasc-palsu"
+   ]
+  },
+  {
+   "id": "iasc-cek",
+   "name": "Cek status laporan IASC",
+   "url": "https://iasc.ojk.go.id",
+   "operator": "iasc",
+   "use_when": "Melacak laporan yang sudah dibuat dengan nomor laporan (tiket).",
+   "notes": "Simpan nomor laporan setelah mengirim.",
+   "source_ids": [
+    "iasc-portal"
+   ]
+  },
+  {
+   "id": "ojk-157",
+   "name": "Kontak OJK 157",
+   "phone": "157",
+   "whatsapp": "081157157",
+   "email": "konsumen@ojk.go.id",
+   "url": "https://kontak157.ojk.go.id",
+   "operator": "ojk",
+   "use_when": "Bantuan pengisian laporan IASC, informasi legalitas, atau pengaduan terhadap pelaku usaha jasa keuangan setelah mengadu ke pelaku usaha.",
+   "source_ids": [
+    "ojk-sp16-2026",
+    "katadata-2026-06-30",
+    "hukumonline-2022-05-25"
+   ]
+  },
+  {
+   "id": "sipasti",
+   "name": "Lapor aktivitas keuangan ilegal (SiPASTI)",
+   "url": "https://sipasti.ojk.go.id",
+   "operator": "satgas-pasti",
+   "use_when": "Pinjol ilegal, investasi ilegal, gadai ilegal, atau penawaran keuangan yang diduga tanpa izin.",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "id": "bi-bicara",
+   "name": "Bank Indonesia BICARA 131",
+   "phone": "131",
+   "phone_abroad": "1500131",
+   "email": "bicara@bi.go.id",
+   "url": "https://bicara131.bi.go.id",
+   "whatsapp": "081131131131",
+   "operator": "bi",
+   "use_when": "Masalah transaksi pembayaran (transfer, e-wallet, QRIS, kartu) yang sudah diadukan ke penyelenggara namun belum selesai.",
+   "source_ids": [
+    "bi-pengaduan"
+   ]
+  },
+  {
+   "id": "cekrekening",
+   "name": "Lapor rekening (cekrekening.id)",
+   "url": "https://cekrekening.id/lapor-rekening",
+   "operator": "komdigi",
+   "use_when": "Melaporkan nomor rekening bank/e-wallet yang dipakai pelaku.",
+   "source_ids": [
+    "hukumonline-2025-05-14"
+   ]
+  },
+  {
+   "id": "aduannomor",
+   "name": "Lapor nomor telepon (aduannomor.id)",
+   "url": "https://aduannomor.id",
+   "operator": "komdigi",
+   "use_when": "Melaporkan nomor telepon/SMS/WhatsApp yang dipakai untuk penipuan.",
+   "source_ids": [
+    "hukumonline-2025-05-14"
+   ]
+  },
+  {
+   "id": "polri-lp",
+   "name": "Laporan Polisi (SPKT)",
+   "operator": "polri",
+   "use_when": "Selalu, untuk memulai proses pidana; juga diperlukan dalam proses pengembalian dana menurut pemberitaan.",
+   "source_ids": [
+    "iasc-portal",
+    "hukumonline-2025-05-14",
+    "katadata-2026-06-30"
+   ]
+  },
+  {
+   "id": "laps-sjk",
+   "name": "LAPS SJK",
+   "url": "https://lapssjk.id",
+   "operator": "laps-sjk",
+   "use_when": "Sengketa perdata dengan bank/pelaku usaha jasa keuangan yang tidak selesai lewat pengaduan internal.",
+   "source_ids": [
+    "hukumonline-2022-05-25"
+   ]
+  },
+  {
+   "id": "bank-resmi",
+   "name": "Kanal resmi bank / penyedia pembayaran Anda",
+   "operator": null,
+   "use_when": "Langkah pertama untuk meminta penundaan/blokir transaksi dan membuat pengaduan. Gunakan nomor di kartu, aplikasi resmi, atau situs resmi — bukan nomor dari pesan/iklan.",
+   "source_ids": [
+    "ojk-sp16-2026",
+    "ojk-softlaunch-2024",
+    "bi-pengaduan"
+   ]
+  },
+  {
+   "id": "darurat-112",
+   "name": "Layanan darurat 112",
+   "phone": "112",
+   "operator": null,
+   "use_when": "Ancaman terhadap keselamatan jiwa (mis. intimidasi fisik).",
+   "source_ids": []
+  }
+ ],
+ "iasc": {
+  "definition": {
+   "text": "IASC adalah forum koordinasi terpusat yang dipimpin oleh OJK (Satgas PASTI) untuk mempercepat penanganan penipuan transaksi keuangan.",
+   "source_ids": [
+    "iasc-portal"
+   ]
+  },
+  "portal_features": [
+   {
+    "id": "lapor",
+    "label": "Lapor Sekarang",
+    "description": "Formulir laporan penipuan.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "id": "cek-laporan",
+    "label": "Cek Laporan",
+    "description": "Melacak status laporan dengan nomor laporan.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "id": "laporan-kendala",
+    "label": "Laporan Kendala",
+    "description": "Melaporkan kendala teknis pengisian formulir (sertakan tangkapan layar & alamat halaman).",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "id": "faq",
+    "label": "FAQ",
+    "description": "Tanya-jawab resmi seputar pelaporan.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   }
+  ],
+  "reporting_steps": [
+   {
+    "n": 1,
+    "label": "Periksa Kelengkapan",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 2,
+    "label": "Buat & Kirim Laporan",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 3,
+    "label": "Simpan Nomor Laporan",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 4,
+    "label": "Lacak Laporan Anda",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   }
+  ],
+  "required_data": {
+   "pelapor": [
+    "Nama lengkap",
+    "Nomor identitas (KTP/KITAS/Paspor/NPWP)",
+    "Provinsi & kota domisili, alamat lengkap",
+    "Nomor telepon & email",
+    "Pindaian/foto KTP atau KITAS",
+    "Bila melapor untuk orang lain: surat kuasa dan tanda pengenal korban"
+   ],
+   "terlapor": [
+    "Nama pelaku (bila diketahui)",
+    "Nomor telepon pelaku",
+    "Sumber penipuan (mis. media sosial, WhatsApp, situs) dan detail akunnya"
+   ],
+   "transaksi": [
+    "Kronologi beserta tanggal & waktu kejadian",
+    "Rekening korban: nama bank/PJP, nomor rekening, nama pemilik",
+    "Rekening terlapor: nama bank/PJP, nomor rekening, nama pemilik",
+    "Tanggal, waktu, dan nominal transfer"
+   ],
+   "dokumen": [
+    "Bukti transaksi (wajib): bukti transfer, tangkapan layar m-banking, atau struk",
+    "Bukti komunikasi dengan pelaku",
+    "Bukti sumber penipuan (iklan/situs palsu)",
+    "Bukti pendukung lain (format JPG/PNG/dokumen)"
+   ],
+   "source_ids": [
+    "iasc-portal"
+   ]
+  },
+  "rules": [
+   {
+    "text": "Satu formulir hanya untuk transaksi dari satu rekening korban ke satu rekening terlapor; beberapa rekening tujuan = beberapa laporan.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "text": "Dua jalur perlu ditempuh: lapor ke IASC (jalur keuangan: penundaan/blokir) dan Laporan Polisi (jalur hukum). Laporan IASC tidak menggantikan Laporan Polisi.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "text": "Semakin cepat laporan disampaikan, semakin besar dana yang dapat dikembalikan.",
+    "source_ids": [
+     "ojk-sp15-2026"
+    ]
+   },
+   {
+    "text": "Pelaporan ke IASC tidak menjamin dana kembali.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "text": "Korban juga dapat melapor melalui bank/penyedia jasa keuangannya, yang lalu berkoordinasi dengan IASC.",
+    "source_ids": [
+     "ojk-softlaunch-2024"
+    ]
+   }
+  ],
+  "handling_flow": [
+   {
+    "n": 1,
+    "text": "Korban mengirim laporan di portal dan menerima nomor tiket.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 2,
+    "text": "Lembaga tempat korban bertransaksi memverifikasi laporan.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 3,
+    "text": "IASC meneruskan laporan ke lembaga pemilik rekening terlapor.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 4,
+    "text": "Lembaga terlapor diharapkan menunda transaksi (blokir), menginvestigasi, dan menelusuri aliran dana; bila dana berpindah ke lembaga lain, laporan baru dibuat otomatis.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 5,
+    "text": "Admin IASC memantau setiap langkah terhadap batas waktu (SLA); durasi SLA tidak disebutkan di portal.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "n": 6,
+    "text": "Bila ada unsur pidana, penanganan dilanjutkan penegak hukum (kerja sama OJK–Polri).",
+    "source_ids": [
+     "katadata-2026-06-30"
+    ]
+   }
+  ],
+  "fund_return": [
+   {
+    "text": "Dana tidak selalu dapat kembali utuh; pelaporan cepat membantu menyelamatkan sisa dana sebelum dipindahkan pelaku.",
+    "source_ids": [
+     "katadata-2026-06-30",
+     "iasc-portal"
+    ]
+   },
+   {
+    "text": "Menurut pemberitaan, pengembalian dana memerlukan surat pernyataan ganti rugi (indemnity) yang mensyaratkan Laporan Polisi.",
+    "source_ids": [
+     "katadata-2026-06-30"
+    ]
+   },
+   {
+    "text": "Pengembalian simbolis Rp161 miliar kepada 1.070 korban dari 14 bank (data 22 Nov 2024–12 Jan 2026).",
+    "source_ids": [
+     "ojk-sp15-2026"
+    ]
+   }
+  ],
+  "faq_official": [
+   {
+    "q": "Apakah laporan ke IASC menggantikan Laporan Polisi?",
+    "a": "Tidak. Laporan Polisi memulai proses pidana; keduanya perlu.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "q": "Apakah uang saya PASTI kembali jika lapor ke IASC?",
+    "a": "Tidak dijamin; peluang bergantung pada kecepatan melapor dan sisa dana yang masih ada.",
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "q": "Mengapa pelaporan cepat sangat penting?",
+    "a": "Semakin cepat dilaporkan, semakin besar peluang dana ditunda sebelum dipindahkan pelaku dan semakin besar pengembalian yang dapat dilakukan.",
+    "source_ids": [
+     "iasc-portal",
+     "ojk-sp15-2026"
+    ]
+   },
+   {
+    "q": "Mengapa proses penanganannya membutuhkan waktu yang lama?",
+    "a": null,
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "q": "Kapan dan dari siapa saya akan mendapat kabar jika dana saya bisa diselamatkan?",
+    "a": null,
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "q": "Jadi, apa yang harus saya lakukan setelah melapor?",
+    "a": null,
+    "source_ids": [
+     "iasc-portal"
+    ]
+   },
+   {
+    "q": "Bagaimana jika saya mengalami kendala pengisian formulir Laporan IASC?",
+    "a": "Gunakan menu Laporan Kendala di portal atau hubungi Kontak OJK 157 / konsumen@ojk.go.id.",
+    "source_ids": [
+     "iasc-portal",
+     "katadata-2026-06-30"
+    ]
+   }
+  ],
+  "privacy_note": {
+   "text": "Portal IASC mengumpulkan data identitas dan dokumen; kebijakan privasinya merujuk UU PDP. Finandex TIDAK mengumpulkan atau meneruskan data laporan — pengguna mengisi formulir langsung di portal resmi.",
+   "source_ids": [
+    "iasc-portal"
+   ]
+  }
+ },
+ "metric_labels": {
+  "reports_total": {
+   "id": "Laporan penipuan diterima (kumulatif)",
+   "en": "Scam reports received (cumulative)"
+  },
+  "reports_via_pujk": {
+   "id": "Laporan melalui pelaku usaha jasa keuangan",
+   "en": "Reports filed via financial institutions"
+  },
+  "reports_direct": {
+   "id": "Laporan langsung oleh korban",
+   "en": "Reports filed directly by victims"
+  },
+  "accounts_reported": {
+   "id": "Rekening dilaporkan",
+   "en": "Accounts reported"
+  },
+  "accounts_blocked": {
+   "id": "Rekening diblokir",
+   "en": "Accounts blocked"
+  },
+  "funds_blocked_idr": {
+   "id": "Dana korban diblokir",
+   "en": "Victim funds blocked"
+  },
+  "funds_returned_idr": {
+   "id": "Dana dikembalikan ke korban",
+   "en": "Funds returned to victims"
+  },
+  "losses_reported_idr": {
+   "id": "Kerugian yang dilaporkan",
+   "en": "Losses reported"
+  },
+  "phone_numbers_reported": {
+   "id": "Nomor telepon dilaporkan",
+   "en": "Phone numbers reported"
+  },
+  "return_victims": {
+   "id": "Korban penerima pengembalian",
+   "en": "Victims refunded"
+  },
+  "return_banks": {
+   "id": "Bank asal pengembalian dana",
+   "en": "Banks returning funds"
+  },
+  "banks_joined_soft_launch": {
+   "id": "Bank bergabung saat soft launching",
+   "en": "Banks joined at soft launch"
+  }
+ },
+ "stats": [
+  {
+   "metric": "reports_total",
+   "value": 74243,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2025-03-23",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "investortrust-2025-03"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "reports_total",
+   "value": 166258,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2025-06-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2025-06"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "reports_total",
+   "value": 432637,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-14",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "reports_total",
+   "value": 477600,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-02-26",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-02"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "reports_total",
+   "value": 515345,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-03-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-03"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "reports_total",
+   "value": 548093,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-04",
+   "cutoff_precision": "month",
+   "source_ids": [
+    "kontan-2026-04"
+   ],
+   "note": "judul berita; tanggal pasti tidak disebut"
+  },
+  {
+   "metric": "reports_total",
+   "value": 579459,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-05-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "note": null
+  },
+  {
+   "metric": "reports_total",
+   "value": 636014,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07",
+   "cutoff_precision": "month",
+   "source_ids": [
+    "kontan-2026-07"
+   ],
+   "note": "judul berita; berbeda dengan siaran pers resmi per 31 Jul 2026 (637.055) — kemungkinan tanggal potong lebih awal"
+  },
+  {
+   "metric": "reports_total",
+   "value": 637055,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "reports_total",
+   "value": 668441,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-08",
+   "cutoff_precision": "month",
+   "source_ids": [
+    "kontan-2026-08"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "reports_total",
+   "value": 702342,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": "disampaikan dalam konferensi pers RDK OJK 5 Okt 2026"
+  },
+  {
+   "metric": "reports_via_pujk",
+   "value": 334756,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": "disampaikan melalui pelaku usaha jasa keuangan"
+  },
+  {
+   "metric": "reports_direct",
+   "value": 367586,
+   "unit": "laporan",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": "disampaikan langsung oleh korban"
+  },
+  {
+   "metric": "accounts_reported",
+   "value": 998558,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-05-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "note": null
+  },
+  {
+   "metric": "accounts_reported",
+   "value": 1179881,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ],
+   "note": "rekening dilaporkan & terverifikasi"
+  },
+  {
+   "metric": "accounts_reported",
+   "value": 1372483,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": null
+  },
+  {
+   "metric": "accounts_blocked",
+   "value": 515553,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-05-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "note": null
+  },
+  {
+   "metric": "accounts_blocked",
+   "value": 607210,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "accounts_blocked",
+   "value": 702833,
+   "unit": "rekening",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_blocked_idr",
+   "value": 436880000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-14",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_blocked_idr",
+   "value": 638900000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-05-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_blocked_idr",
+   "value": 724100000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_blocked_idr",
+   "value": 811100000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_returned_idr",
+   "value": 161000000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-12",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": "1.070 korban, dari 14 bank"
+  },
+  {
+   "metric": "funds_returned_idr",
+   "value": 169300000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-05-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_returned_idr",
+   "value": 204300000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-07-31",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "funds_returned_idr",
+   "value": 207160000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": "dari rekening di 24 bank"
+  },
+  {
+   "metric": "losses_reported_idr",
+   "value": 1400000000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2025-03-23",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "investortrust-2025-03"
+   ],
+   "note": "judul berita"
+  },
+  {
+   "metric": "losses_reported_idr",
+   "value": 9100000000000,
+   "unit": "IDR",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-14",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "phone_numbers_reported",
+   "value": 173718,
+   "unit": "nomor",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": null
+  },
+  {
+   "metric": "return_victims",
+   "value": 1070,
+   "unit": "orang",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-12",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "return_banks",
+   "value": 14,
+   "unit": "bank",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-01-12",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-sp15-2026"
+   ],
+   "note": null
+  },
+  {
+   "metric": "return_banks",
+   "value": 24,
+   "unit": "bank",
+   "period_start": "2024-11-22",
+   "cutoff": "2026-09-30",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "kontan-2026-10-06",
+    "bisnis-2026-10-06"
+   ],
+   "note": null
+  },
+  {
+   "metric": "banks_joined_soft_launch",
+   "value": 79,
+   "unit": "bank",
+   "period_start": null,
+   "cutoff": "2024-11-22",
+   "cutoff_precision": "day",
+   "source_ids": [
+    "ojk-softlaunch-2024"
+   ],
+   "note": null
+  }
+ ],
+ "modus": [
+  {
+   "id": "belanja-online",
+   "name": "Penipuan transaksi belanja (online)",
+   "name_en": "Online shopping fraud",
+   "description": "Barang/jasa dibayar tetapi tidak dikirim atau tidak sesuai; sering lewat media sosial atau tautan pembayaran palsu.",
+   "red_flags": [
+    "Harga jauh di bawah pasar",
+    "Diminta transfer ke rekening pribadi di luar platform",
+    "Penjual menolak COD/escrow platform"
+   ],
+   "source_ids": [
+    "ojk-sp15-2026",
+    "kontan-2026-06-30"
+   ]
+  },
+  {
+   "id": "impersonation",
+   "name": "Impersonation / fake call (mengaku petugas resmi)",
+   "name_en": "Impersonation / fake call",
+   "description": "Pelaku mengaku dari bank, lembaga resmi, atau aparat untuk meminta OTP, PIN, kata sandi, atau uang.",
+   "red_flags": [
+    "Meminta OTP/PIN/kode verifikasi",
+    "Menekan agar bertindak segera",
+    "Nomor/akun tidak resmi",
+    "Tahu detail transaksi terbaru Anda lalu menelepon"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026",
+    "ojk-sp15-2026",
+    "bisnis-2026-09-25"
+   ]
+  },
+  {
+   "id": "investasi",
+   "name": "Penipuan investasi / investasi ilegal",
+   "name_en": "Investment fraud",
+   "description": "Janji imbal hasil tinggi dan pasti dalam waktu singkat; sering diikuti permintaan setoran berulang.",
+   "red_flags": [
+    "Imbal hasil tinggi & dijamin",
+    "Tidak ada izin OJK",
+    "Skema rekrut anggota",
+    "Dana tidak bisa ditarik kecuali setor lagi"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026",
+    "ojk-sp15-2026"
+   ]
+  },
+  {
+   "id": "kerja-komisi",
+   "name": "Penipuan lowongan kerja / kerja berbasis komisi (task scam)",
+   "name_en": "Job / commission task scam",
+   "description": "Tawaran kerja paruh waktu (like, rating, tugas) dengan komisi kecil di awal, lalu korban diminta deposit makin besar.",
+   "red_flags": [
+    "Diminta deposit untuk 'membuka tugas'",
+    "Komisi awal kecil dibayar untuk membangun kepercayaan",
+    "Grup Telegram/WhatsApp tertutup"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026",
+    "ojk-sp15-2026"
+   ]
+  },
+  {
+   "id": "media-sosial",
+   "name": "Penipuan melalui media sosial",
+   "name_en": "Social media fraud",
+   "description": "Akun palsu/peretasan akun kenalan untuk meminta transfer atau menawarkan produk palsu.",
+   "red_flags": [
+    "Akun baru/meniru nama kenalan",
+    "Meminta pinjaman mendesak"
+   ],
+   "source_ids": [
+    "ojk-sp15-2026"
+   ]
+  },
+  {
+   "id": "love-scam",
+   "name": "Love scam / romance scam",
+   "name_en": "Romance scam",
+   "description": "Membangun hubungan romantis daring lalu meminta uang dengan berbagai alasan.",
+   "red_flags": [
+    "Belum pernah bertemu langsung",
+    "Alasan darurat berulang",
+    "Menolak video call"
+   ],
+   "source_ids": [
+    "ojk-sp15-2026"
+   ]
+  },
+  {
+   "id": "salah-transfer",
+   "name": "Dana masuk tak dikenal lalu diminta 'dikembalikan'",
+   "name_en": "Unauthorised incoming transfer + refund demand",
+   "description": "Dana masuk ke rekening korban tanpa diminta, lalu pelaku menuntut agar dikembalikan ke rekening lain (sering terkait pinjol ilegal atau pencucian dana).",
+   "red_flags": [
+    "Dana masuk tanpa transaksi apa pun",
+    "Diminta mengembalikan ke rekening berbeda via telepon/SMS/WhatsApp"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "id": "teror-data-pribadi",
+   "name": "Ancaman & intimidasi memakai data pribadi",
+   "name_en": "Threats using personal data",
+   "description": "Ancaman, penyebaran data, atau menghubungi keluarga/tempat kerja korban (sering oleh pinjol ilegal).",
+   "red_flags": [
+    "Aplikasi meminta akses kontak/galeri",
+    "Penagih menghubungi kontak di ponsel"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "id": "jasa-hapus-utang",
+   "name": "Jasa pelunasan/penghapusan utang & perbaikan riwayat kredit berbayar di muka",
+   "name_en": "Paid debt-erasure / credit-repair services",
+   "description": "Menawarkan pelunasan, 'pemutihan' utang, atau perbaikan riwayat kredit dengan biaya di muka.",
+   "red_flags": [
+    "Biaya di muka",
+    "Janji menghapus catatan kredit"
+   ],
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "id": "hadiah",
+   "name": "Penipuan hadiah / undian",
+   "name_en": "Prize fraud",
+   "description": "Korban diberi tahu memenangkan hadiah lalu diminta membayar 'pajak' atau biaya.",
+   "red_flags": [
+    "Menang undian yang tidak pernah diikuti",
+    "Diminta transfer biaya klaim"
+   ],
+   "source_ids": [
+    "katadata-2026-06-30"
+   ]
+  },
+  {
+   "id": "phishing-apk",
+   "name": "Tautan phishing, URL tiruan, dan aplikasi (APK) berbahaya",
+   "name_en": "Phishing links, look-alike URLs, malicious apps",
+   "description": "Pesan berisi tautan atau file aplikasi (undangan, surat, resi) yang memberi pelaku akses ke perangkat/data, lalu korban diarahkan bertransaksi.",
+   "red_flags": [
+    "Alamat situs berbeda satu huruf/angka",
+    "File .apk dikirim lewat chat",
+    "Diminta instal aplikasi di luar toko resmi"
+   ],
+   "source_ids": [
+    "bisnis-2026-09-25"
+   ]
+  }
+ ],
+ "modus_stats": [
+  {
+   "modus_id": "belanja-online",
+   "reports": 77740,
+   "losses_idr": 1360000000000,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "katadata-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "impersonation",
+   "reports": 47269,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "katadata-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "kerja-komisi",
+   "reports": 26910,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "katadata-2026-06-30"
+   ],
+   "conflict": "Kontan menulis 23.910 untuk 'penipuan kerja'"
+  },
+  {
+   "modus_id": "hadiah",
+   "reports": 19311,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "katadata-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "belanja-online",
+   "reports": 77740,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "impersonation",
+   "reports": 47269,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "investasi",
+   "reports": 26649,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ]
+  },
+  {
+   "modus_id": "kerja-komisi",
+   "reports": 23910,
+   "losses_idr": null,
+   "cutoff": "2026-05-31",
+   "source_ids": [
+    "kontan-2026-06-30"
+   ],
+   "conflict": "Katadata menulis 26.910 untuk 'lowongan kerja'; artikel Kontan juga mencantumkan angka 23.910 dua kali"
+  }
+ ],
+ "region_stats": {
+  "cutoff": "2026-05-31",
+  "source_ids": [
+   "kontan-2026-06-30"
+  ],
+  "unit": "laporan",
+  "note": "Lokasi pelapor; banyaknya laporan di Jawa belum tentu mencerminkan sebaran korban (menurut pemberitaan).",
+  "regions": [
+   {
+    "region": "Jawa",
+    "reports": 404502,
+    "children": [
+     {
+      "region": "Jawa Barat",
+      "reports": 119750
+     },
+     {
+      "region": "DKI Jakarta",
+      "reports": 84845
+     },
+     {
+      "region": "Jawa Timur",
+      "reports": 81548
+     },
+     {
+      "region": "Jawa Tengah",
+      "reports": 66402
+     },
+     {
+      "region": "Banten",
+      "reports": 40458
+     }
+    ]
+   },
+   {
+    "region": "Sumatra",
+    "reports": 92456,
+    "children": []
+   },
+   {
+    "region": "Kalimantan",
+    "reports": 32779,
+    "children": []
+   }
+  ]
+ },
+ "satgas_pasti_stats": [
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-07-31",
+   "metric": "complaints_illegal_entities",
+   "total": 25875,
+   "breakdown": {
+    "pinjaman daring ilegal": 22529,
+    "investasi ilegal": 3170,
+    "gadai ilegal": 176
+   },
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-30",
+   "metric": "complaints_illegal_entities",
+   "total": 35438,
+   "breakdown": {
+    "pinjaman daring ilegal": 31571,
+    "investasi ilegal": 3645,
+    "gadai ilegal": 222
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  },
+  {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-30",
+   "metric": "illegal_entities_stopped",
+   "total": 1222,
+   "breakdown": {
+    "pinjaman daring ilegal": 951,
+    "investasi ilegal": 242,
+    "gadai ilegal": 27,
+    "aktivitas keuangan ilegal lainnya": 2
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  }
+ ],
+ "ojk_consumer_stats": {
+  "service_requests": {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-14",
+   "total": 527389,
+   "complaints": 82092,
+   "complaints_by_sector": {
+    "fintech": 36435,
+    "perbankan": 26091,
+    "perusahaan pembiayaan": 16758,
+    "asuransi": 1446,
+    "pasar modal & IKNB lainnya": 1362
+   },
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  },
+  "enforcement": {
+   "period_start": "2026-01-01",
+   "cutoff": "2026-09-13",
+   "written_warnings": 141,
+   "warned_providers": 101,
+   "written_orders": 6,
+   "fines": 52,
+   "fined_providers": 44,
+   "providers_compensating": 157,
+   "compensation_idr": 82960000000,
+   "source_ids": [
+    "bisnis-2026-10-06"
+   ]
+  }
+ },
+ "prevention": [
+  {
+   "text": "Jangan membayar karena tekanan, mengklik tautan tak dikenal, memasang aplikasi tak dikenal, atau memberi akses kontak/galeri/data pribadi.",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "text": "Jangan memakai dana yang masuk tanpa sebab dan jangan mengembalikannya ke rekening yang diberikan lewat telepon/SMS/WhatsApp; konfirmasi ke bank melalui kanal resmi.",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "text": "Jangan pernah membagikan OTP, PIN, kata sandi, kode verifikasi, atau akses perangkat kepada siapa pun yang menghubungi Anda.",
+   "source_ids": [
+    "ojk-sp16-2026",
+    "bisnis-2026-09-25"
+   ]
+  },
+  {
+   "text": "Waspadai imbal hasil tinggi dan pasti dalam waktu singkat; cek legalitas usaha & produk melalui kanal resmi OJK.",
+   "source_ids": [
+    "ojk-sp16-2026"
+   ]
+  },
+  {
+   "text": "Periksa alamat situs dengan teliti (perubahan satu huruf/angka) dan jangan mengunduh aplikasi yang dikirim lewat pesan.",
+   "source_ids": [
+    "bisnis-2026-09-25"
+   ]
+  },
+  {
+   "text": "Laporan ke IASC hanya melalui iasc.ojk.go.id; waspadai situs/akun yang mengatasnamakan IASC atau menjanjikan pemulihan dana.",
+   "source_ids": [
+    "antara-iasc-palsu",
+    "ojk-sp15-2026"
+   ]
+  }
+ ],
+ "evidence_checklist": {
+  "items": [
+   "Nomor telepon lengkap pelaku",
+   "Isi percakapan beserta tanggal & jam",
+   "Bukti transfer (struk/tangkapan layar m-banking)",
+   "Nama entitas/akun & nomor rekening tujuan",
+   "URL situs/iklan atau username media sosial",
+   "Jangan hapus chat atau aplikasi sebelum semuanya didokumentasikan"
+  ],
+  "source_ids": [
+   "ojk-sp16-2026",
+   "iasc-portal"
+  ]
+ },
+ "literacy": {
+  "survey": "SNLIK 2025",
+  "financial_literacy_pct": 66.46,
+  "financial_inclusion_pct": 80.51,
+  "source_ids": [
+   "katadata-2026-06-30"
+  ],
+  "note": "dikutip media dari survei OJK–BPS"
+ }
+}

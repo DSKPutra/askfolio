@@ -9,6 +9,8 @@ export const KIT = join(ROOT, 'kit');
 export const OUT = join(ROOT, 'public', 'data');
 /** Official financial-sector law PDFs (src/config/law-finance-sources.json). */
 export const LAW_EXTRA = join(ROOT, 'data', 'law-extra');
+/** Official regulation PDFs fetched by scripts/data/fetch-regulations.ts (§4.30; gitignored, mirrored to release data-regulations-v1). */
+export const REGULATIONS = join(ROOT, 'data', 'regulations');
 
 export const X = (...parts: string[]) => join(EXTRACTED, ...parts);
 export const IN = (file: string) => join(INPUTS, file);

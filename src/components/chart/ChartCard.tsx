@@ -13,6 +13,7 @@ import { useAsOfLabel } from '../badges';
 import { DataTable } from '../DataTable';
 import { InfoCard } from '../InfoCard';
 import { QuoteCard } from '../QuoteCard';
+import { CompareText, FlowChips, Gauge, StatusTimeline, StepList } from '../artifacts/LawArtifacts';
 import { Button, Skeleton } from '../ui';
 import type { EChartHandle } from './EChart';
 import { formatValue } from './format';
@@ -48,7 +49,7 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
   const [full, setFull] = useState(false);
   const [log, setLog] = useState(false);
   const spec = artifact.spec;
-  const isCanvas = !['table', 'quote', 'card'].includes(spec.type);
+  const isCanvas = !['table', 'quote', 'card', 'steps', 'choices', 'timeline', 'gauge', 'compare_text'].includes(spec.type);
   const height = compact ? 220 : spec.type === 'bar' && spec.horizontal ? Math.min(560, Math.max(200, spec.categories.length * 26 + 40)) : spec.type === 'graph' ? 420 : spec.type === 'heatmap' ? Math.min(640, Math.max(280, spec.y.length * 26 + 100)) : 300;
   const flat = specRows(spec);
   const sourceLine = `${artifact.source.dataset} · ${t('dex.asOf')} ${asOfLabel(artifact.source.as_of)}`;
@@ -56,10 +57,10 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
 
   const exportPng = async (share: boolean) => {
     const cs = getComputedStyle(document.documentElement);
-    const bg = cs.getPropertyValue('--surface').trim();
+    const bg = cs.getPropertyValue('--pane').trim();
     const url = chartRef.current?.dataUrl(bg);
     if (!url) return;
-    const blob = await watermarkPng(url, artifact.title, sourceLine, bg, cs.getPropertyValue('--text').trim());
+    const blob = await watermarkPng(url, artifact.title, sourceLine, bg, cs.getPropertyValue('--ink').trim());
     if (share) await shareOrDownload(blob, slugFile(artifact.title, 'png'), artifact.title);
     else downloadBlob(blob, slugFile(artifact.title, 'png'));
   };
@@ -67,12 +68,17 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
   const body = (h: number) => {
     if (spec.type === 'table') return <DataTable columns={spec.columns} rows={spec.rows} title={artifact.title} source={artifact.source.dataset} asOf={artifact.source.as_of} />;
     if (spec.type === 'quote') return <QuoteCard spec={spec} />;
-    if (spec.type === 'card') return <InfoCard spec={spec} />;
+    if (spec.type === 'card') return <InfoCard spec={spec} dex={artifact.source.dex} />;
+    if (spec.type === 'steps') return <StepList title={artifact.title} spec={spec} dex={artifact.source.dex} />;
+    if (spec.type === 'choices') return <FlowChips artifact={artifact} />;
+    if (spec.type === 'timeline') return <StatusTimeline spec={spec} />;
+    if (spec.type === 'compare_text') return <CompareText spec={spec} />;
+    if (spec.type === 'gauge') return <Gauge spec={spec} />;
     return <ChartBody artifact={artifact} height={h} log={log} ref={chartRef} />;
   };
 
   return (
-    <figure className="min-w-0 rounded-2xl border border-border bg-surface p-3">
+    <figure className="pane min-w-0 p-3">
       <figcaption className="mb-2 flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-sm font-semibold">{artifact.title}</h3>
@@ -94,7 +100,7 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
               PNG
             </Button>
           )}
-          {spec.type !== 'table' && (
+          {spec.type !== 'table' && spec.type !== 'choices' && (
             <Button size="sm" variant="ghost" onClick={() => downloadCsv(artifact.title, flat.columns, flat.rows, { source: artifact.source.dataset, asOf: artifact.source.as_of })}>
               CSV
             </Button>
@@ -111,7 +117,7 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
           )}
           {openTabHref && (
             <Link to={openTabHref} className="inline-flex min-h-9 items-center rounded-xl px-3 text-sm hover:bg-surface-2">
-              {locale === 'id' ? 'Buka di tab' : 'Open in tab'} →
+              {locale === 'id' ? 'Buka di tab' : 'Open in tab'}
             </Link>
           )}
         </div>
@@ -144,7 +150,7 @@ export function ChartCard({ artifact, onAsk, openTabHref, compact }: ChartCardPr
         <Dialog.Root open onOpenChange={(o) => !o && setFull(false)}>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70" />
-            <Dialog.Content className="fixed inset-2 z-50 flex flex-col rounded-2xl border border-border bg-surface p-4 sm:inset-8" aria-describedby={undefined}>
+            <Dialog.Content className="fixed inset-2 z-50 flex flex-col rounded-pane border border-border bg-surface p-4 sm:inset-8" aria-describedby={undefined}>
               <div className="mb-2 flex items-center justify-between gap-2">
                 <Dialog.Title className="text-base font-semibold">{artifact.title}</Dialog.Title>
                 <Dialog.Close asChild>

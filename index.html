@@ -1,26 +1,29 @@
 <!doctype html>
 <!-- © 2026 Dea Saka Kurnia Putra. All rights reserved. -->
-<html lang="id" data-theme="dark">
+<html lang="id" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="author" content="Dea Saka Kurnia Putra" />
     <meta name="copyright" content="© 2026 Dea Saka Kurnia Putra" />
     <meta name="description" content="Finandex — Wawasan Indeks Pasar Keuangan Global. © 2026 Dea Saka Kurnia Putra." />
-    <meta name="theme-color" content="#0A0F0C" />
+    <meta name="theme-color" content="#EEF2EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0F1F19" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/icons/finandex.svg" />
     <title>Finandex</title>
     <style>
-      .splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#0a0f0c;color:#eef3ef;font:14px system-ui,sans-serif}
-      .splash-by{display:flex;align-items:center;gap:8px;color:#9db0a4}
-      .splash small{position:absolute;bottom:24px;color:#9db0a4}
+      .splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#eef2ec;color:#13261c;font:14px system-ui,sans-serif}
+      .splash-by{display:flex;align-items:center;gap:8px;color:#4c6355}
+      .splash small{position:absolute;bottom:24px;color:#4c6355}
+      .splash .on-dark{display:none}
+      @media (prefers-color-scheme: dark){.splash{background:#0f1f19;color:#e6eee7}.splash-by,.splash small{color:#9fb5a6}.splash .on-dark{display:inline}.splash .on-light{display:none}}
     </style>
   </head>
   <body>
     <div id="root">
       <div class="splash" role="img" aria-label="Finandex — by Dea Saka Kurnia Putra">
         <img src="/icons/finandex.svg" alt="" width="96" height="96" />
-        <div class="splash-by"><img src="/brand/dskp-mark-on-dark-64.png" alt="" width="28" height="28" /><span>by Dea Saka Kurnia Putra</span></div>
+        <div class="splash-by"><img class="on-light" src="/brand/dskp-mark-on-light-64.png" alt="" width="28" height="28" /><img class="on-dark" src="/brand/dskp-mark-on-dark-64.png" alt="" width="28" height="28" /><span>by Dea Saka Kurnia Putra</span></div>
         <small>© 2026 Dea Saka Kurnia Putra</small>
       </div>
     </div>

@@ -41,11 +41,11 @@ describe('branding', () => {
 });
 
 describe('feature map', () => {
-  it('lists all 27 Dex in 8 categories and filters by text', () => {
+  it('lists all 29 Dex in 8 categories and filters by text', () => {
     useApp.setState({ locale: 'id', hideNc: false });
     wrap(<FeatureMap />);
-    expect(screen.getAllByRole('article')).toHaveLength(27);
-    expect(screen.getAllByRole('heading', { level: 3 }).length).toBeGreaterThanOrEqual(8 + 27);
+    expect(screen.getAllByRole('article')).toHaveLength(29);
+    expect(screen.getAllByRole('heading', { level: 3 }).length).toBeGreaterThanOrEqual(8 + 29);
     fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'pasal' } });
     expect(screen.getAllByRole('article')).toHaveLength(1);
   });
@@ -53,7 +53,7 @@ describe('feature map', () => {
     useApp.setState({ locale: 'en', hideNc: false });
     wrap(<FeatureMap />);
     fireEvent.click(screen.getByRole('checkbox'));
-    expect(screen.getAllByRole('article')).toHaveLength(21);
+    expect(screen.getAllByRole('article')).toHaveLength(23);
   });
 });
 

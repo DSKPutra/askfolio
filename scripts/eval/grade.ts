@@ -5,7 +5,15 @@ import type { Artifact, Method } from '../../src/shared/chat-protocol';
 import { formatDate } from '../../src/shared/format';
 
 export type Expect = { label: string; kind: 'pct' | 'number' | 'date' | 'text'; value: number | string; abs_tol?: number; rel_tol?: number };
-export type EvalItem = { id: string; dex: string; question_id: string; expect: Expect[]; must_include: string[]; must_not_include: string[]; must_call_tools: string[]; note: string | null };
+type Branch = { expect: Expect[]; must_include: string[]; must_not_include: string[]; must_call_tools: string[] };
+export type EvalItem = Branch & { id: string; dex: string; question_id: string; note: string | null; safety?: boolean; conditional?: { doc_id: string; available: Branch; pending: Branch } };
+
+/** Merge the conditional branch picked from the regulation lock status into the item's base expectations. */
+export function resolveConditional(item: EvalItem, isAvailable: (docId: string) => boolean): EvalItem {
+  if (!item.conditional) return item;
+  const b = isAvailable(item.conditional.doc_id) ? item.conditional.available : item.conditional.pending;
+  return { ...item, expect: [...item.expect, ...b.expect], must_include: [...item.must_include, ...b.must_include], must_not_include: [...item.must_not_include, ...b.must_not_include], must_call_tools: [...item.must_call_tools, ...b.must_call_tools] };
+}
 export type Transcript = { text: string; artifacts: Artifact[]; methods: Method[]; tools: string[]; error?: string };
 
 const SCALE: Record<string, number> = { T: 1e12, triliun: 1e12, M: 1e9, miliar: 1e9, B: 1e9, jt: 1e6, juta: 1e6, rb: 1e3, ribu: 1e3, K: 1e3 };
@@ -72,6 +80,6 @@ export function grade(item: EvalItem, t: Transcript): Grade {
     if (!t.artifacts.some((a) => a.kind !== 'card')) failures.push('no chart artifact');
     if (!t.methods.length) failures.push('no method event');
   }
-  const safety = item.expect.length === 0 || SAFETY_ID.test(item.id);
+  const safety = item.safety === true || SAFETY_ID.test(item.id);
   return { id: item.id, pass: failures.length === 0, failures, safety };
 }

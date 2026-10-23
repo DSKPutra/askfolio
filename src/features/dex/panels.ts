@@ -10,7 +10,7 @@ export type Panel = {
   fixed?: string[];
 };
 /** Special, non-tool views. */
-export type Special = 'global-markets' | 'entity' | 'law-glossary' | 'law-scam' | 'law-finance';
+export type Special = 'global-markets' | 'entity' | 'law-glossary' | 'law-guided' | 'law-map' | 'law-status' | 'law-channels' | 'law-sources' | 'law-articles' | 'law-compare' | 'scam-emergency' | 'scam-report' | 'scam-stats' | 'scam-modus' | 'scam-channels' | 'scam-prevent';
 export type TabConfig = { panels: Panel[]; special?: Special; searchKey?: string };
 
 /** Input keys that receive the `:entity` route parameter. */
@@ -176,12 +176,27 @@ export const TABS: Record<DexId, Record<string, TabConfig>> = {
   fintechdex: SOCIAL,
   personalfinandex: SOCIAL,
   mylaiwyer: {
-    scam: { special: 'law-scam', panels: [P('scam_guide', { scenario: null })] },
-    finance: { special: 'law-finance', panels: [P('search_law', { query: 'penipuan', scope: 'finance', limit: 6 })], searchKey: 'query' },
-    sources: { panels: [P('list_sources')] },
-    articles: { panels: [P('search_law', { query: 'penyidik', limit: 10 }), P('get_pasal', { doc_id: 'uud-1945-naskah-asli', nomor: '1', ayat: null })], searchKey: 'query' },
-    compare: { panels: [P('compare_versions', { topic: 'penahanan' })] },
+    guided: { special: 'law-guided', panels: [] },
+    sources: { special: 'law-sources', panels: [P('list_sources', { status: 'all' })] },
+    articles: { special: 'law-articles', panels: [P('search_law', { query: 'penyidik', doc_ids: null, part: null, limit: 6 })], searchKey: 'query' },
+    compare: { special: 'law-compare', panels: [P('compare_versions', { topic: '1', pair: 'uud' }), P('compare_versions', { topic: 'penahanan', pair: 'kuhap' })] },
     glossary: { special: 'law-glossary', panels: [] },
+  },
+  finlaiwyer: {
+    guided: { special: 'law-guided', panels: [] },
+    map: { special: 'law-map', panels: [] },
+    articles: { special: 'law-articles', panels: [P('search_law', { query: 'penipuan', doc_ids: null, part: null, limit: 6 })], searchKey: 'query' },
+    status: { special: 'law-status', panels: [P('regulation_status', { doc_id: 'pbi-3-2023-pkbi', query: null }), P('regulation_status', { doc_id: 'uu-11-2008-ite', query: null })] },
+    channels: { special: 'law-channels', panels: [P('channel_directory', { situation: null })] },
+    glossary: { special: 'law-glossary', panels: [] },
+  },
+  antiscamdex: {
+    emergency: { special: 'scam-emergency', panels: [] },
+    report: { special: 'scam-report', panels: [] },
+    stats: { special: 'scam-stats', panels: [P('iasc_stats', { metric: 'reports_total', view: 'series' }, ['view']), P('iasc_stats', { metric: null, view: 'ratios' }, ['view']), P('modus_stats'), P('region_stats'), P('satgas_stats', { period: null }), P('ojk_consumer_stats')] },
+    modus: { special: 'scam-modus', panels: [P('modus_library', { query: null })], searchKey: 'query' },
+    channels: { special: 'scam-channels', panels: [P('channel_directory', { situation: null })] },
+    prevent: { special: 'scam-prevent', panels: [P('prevention_tips'), P('evidence_checklist')] },
   },
 };
 

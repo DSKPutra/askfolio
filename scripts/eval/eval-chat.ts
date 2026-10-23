@@ -10,7 +10,8 @@ import { DataStore } from '../../server/data/store';
 import { parseEnv } from '../../server/env';
 import type { ManifestLike } from '../../server/tools/kit';
 import type { Artifact, Method, SseEvent } from '../../src/shared/chat-protocol';
-import { grade } from './grade';
+import { grade, resolveConditional } from './grade';
+import { isAvailable } from '../../src/config/law-catalog';
 import type { EvalItem, Grade, Transcript } from './grade';
 import { LOCAL_BASE, localFetcher } from './local-store';
 import { SCENARIOS } from './scenarios';
@@ -39,7 +40,7 @@ export async function runItem(item: EvalItem, llm: Llm, store: DataStore): Promi
 }
 
 export async function runEval(mode: 'mock' | 'live', only?: string): Promise<{ grades: Grade[]; overall: number; safety: number }> {
-  const items = (JSON.parse(readFileSync('kit/golden/chatbot_eval.json', 'utf8')) as { items: EvalItem[] }).items.filter((i) => !only || i.id.startsWith(only));
+  const items = (JSON.parse(readFileSync('kit/golden/chatbot_eval.json', 'utf8')) as { items: EvalItem[] }).items.filter((i) => !only || i.id.startsWith(only)).map((i) => resolveConditional(i, isAvailable));
   const store = new DataStore(LOCAL_BASE, localFetcher());
   const env = parseEnv(process.env);
   const grades: Grade[] = [];

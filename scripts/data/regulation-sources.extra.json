@@ -1,0 +1,56 @@
+{
+ "_note": "Official URLs (allowed domains only) found and SHA-verified earlier for src/config/law-finance-sources.json; tried after the catalogue sources (\u00a74.30).",
+ "urls": {
+  "uu-4-2023-p2sk": [
+   "https://peraturan.go.id/files/uu-no-4-tahun-2023.pdf"
+  ],
+  "uu-21-2011-ojk": [
+   "https://peraturan.go.id/files/uu21-2011bt.pdf"
+  ],
+  "uu-7-1992-perbankan": [
+   "https://peraturan.go.id/files/UU+NO+7+TH+1992.pdf"
+  ],
+  "uu-10-1998-perbankan": [
+   "https://peraturan.go.id/files/uu10-1998.pdf"
+  ],
+  "uu-23-1999-bi": [
+   "https://peraturan.go.id/files/uu23-1999.pdf"
+  ],
+  "uu-24-2004-lps": [
+   "https://peraturan.go.id/files/uu24-2004.pdf"
+  ],
+  "uu-8-1999-perlindungan-konsumen": [
+   "https://peraturan.go.id/files/uu8-1999.pdf"
+  ],
+  "uu-3-2011-transfer-dana": [
+   "https://peraturan.go.id/files/uu3-2011bt.pdf"
+  ],
+  "uu-8-2010-tppu": [
+   "https://peraturan.go.id/files/uu8-2010bt.pdf"
+  ],
+  "uu-11-2008-ite": [
+   "https://peraturan.go.id/files/UU+11+Tahun+2008.pdf"
+  ],
+  "uu-19-2016-ite": [
+   "https://peraturan.go.id/files/UU+19+Tahun+2016.pdf"
+  ],
+  "uu-1-2024-ite": [
+   "https://peraturan.go.id/files/uu-no-1-tahun-2024.pdf"
+  ],
+  "uu-27-2022-pdp": [
+   "https://peraturan.go.id/files/Salinan+UU+Nomor+27+Tahun+2022.pdf"
+  ],
+  "uu-1-2023-kuhp": [
+   "https://peraturan.go.id/files/uu1-2023.pdf"
+  ],
+  "pojk-22-2023": [
+   "https://peraturan.bpk.go.id/Download/362621/POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf"
+  ],
+  "pojk-12-2024-anti-fraud": [
+   "https://peraturan.bpk.go.id/Download/361581/POJK%2012%20Tahun%202024%20Penerapan%20Strategi%20Anti%20Fraud%20bagi%20Lembaga%20Jasa%20Keuangan.pdf"
+  ],
+  "pojk-40-2024-lpbbti": [
+   "https://ojk.go.id/id/regulasi/Documents/Pages/POJK-40-Tahun-2024-Layanan-Pendanaan-Bersama-Berbasis-Teknologi-Informasi/POJK%2040%20Tahun%202024%20Layanan%20Pendanaan%20Bersama%20Berbasis%20Teknologi%20Informasi.pdf"
+  ]
+ }
+}

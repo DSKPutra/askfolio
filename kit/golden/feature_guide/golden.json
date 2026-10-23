@@ -1,0 +1,304 @@
+{
+ "dex_count": 29,
+ "functions_total": 193,
+ "tabs": {
+  "finandex-ai": [
+   "Chat",
+   "Pasar Global",
+   "Bandingkan",
+   "Korelasi",
+   "Kalender Return",
+   "Peristiwa",
+   "Data"
+  ],
+  "nasdaqdex": [
+   "Chat",
+   "Pulse",
+   "Screener",
+   "Growth Lab",
+   "Teknikal",
+   "Bandingkan",
+   "Data"
+  ],
+  "snp500dex": [
+   "Chat",
+   "Pulse",
+   "Dividen",
+   "Simulator",
+   "Screener",
+   "Volume & Likuiditas",
+   "Data"
+  ],
+  "commercedex": [
+   "Chat",
+   "Peta Global",
+   "Perusahaan",
+   "Fundamental",
+   "Indeks E-Commerce",
+   "Makro",
+   "Data"
+  ],
+  "ipodex": [
+   "Chat",
+   "Ringkasan",
+   "Negara & Bursa",
+   "India SME vs Mainboard",
+   "Cari IPO",
+   "Data"
+  ],
+  "idfinandex": [
+   "Chat",
+   "Dashboard Makro",
+   "Aset",
+   "Tren Ter-normalisasi",
+   "Korelasi",
+   "Rezim Suku Bunga",
+   "Data"
+  ],
+  "rupiahdex": [
+   "Chat",
+   "Kurs",
+   "Konverter Historis",
+   "Statistik Tahunan",
+   "Peristiwa",
+   "Data"
+  ],
+  "idxdex": [
+   "Chat",
+   "Saham",
+   "Fundamental",
+   "IPO Center",
+   "Direktori Emiten",
+   "Data"
+  ],
+  "reksadex": [
+   "Chat",
+   "Industri",
+   "Manajer Investasi",
+   "Cari Reksa Dana",
+   "Peringkat",
+   "Bank Kustodian",
+   "Data"
+  ],
+  "cryptdex": [
+   "Chat",
+   "Pasar Kripto",
+   "Harga Historis",
+   "DeFi",
+   "Yield",
+   "Fees & Revenue",
+   "Bot & AI Agent",
+   "Data"
+  ],
+  "centralbankdex": [
+   "Chat",
+   "Neraca G3",
+   "Suku Bunga & Kurva Imbal Hasil",
+   "Uang Beredar",
+   "Peta Negara",
+   "Label Rezim",
+   "Data"
+  ],
+  "inflationdex": [
+   "Chat",
+   "Peta Inflasi",
+   "Peringkat",
+   "Biaya Barang",
+   "Wilayah & Pendapatan",
+   "Data"
+  ],
+  "startupdex": [
+   "Chat",
+   "Ringkasan",
+   "Tahapan",
+   "Negara & Sektor",
+   "Mega-round",
+   "Cari Putaran",
+   "Data"
+  ],
+  "vcdex": [
+   "Chat",
+   "Direktori",
+   "Peringkat",
+   "Stage Mix",
+   "Negara",
+   "Data"
+  ],
+  "vcnetworkdex": [
+   "Chat",
+   "Graf Jaringan",
+   "Pasangan Teratas",
+   "Investor",
+   "Data"
+  ],
+  "opencompanydex": [
+   "Chat",
+   "Peta Negara",
+   "Sektor & Industri",
+   "Status & Pendanaan",
+   "Cari Perusahaan",
+   "Data"
+  ],
+  "salarydex": [
+   "Chat",
+   "Kalkulator Benchmark",
+   "Negara",
+   "Peran & Senioritas",
+   "Skill",
+   "Data"
+  ],
+  "costlivingdex": [
+   "Chat",
+   "Peringkat Kota",
+   "Profil Kota",
+   "Bandingkan",
+   "Perubahan 2023→2024",
+   "Data"
+  ],
+  "idhousingdex": [
+   "Chat",
+   "Ringkasan",
+   "Provinsi & Kota",
+   "Peta Proyek",
+   "Spesifikasi",
+   "Pengembang",
+   "Data"
+  ],
+  "idfooddeliverydex": [
+   "Chat",
+   "Ringkasan Markup",
+   "Kota",
+   "Kuliner",
+   "Cloud Kitchen",
+   "Cari Menu",
+   "Data"
+  ],
+  "povertydex": [
+   "Chat",
+   "Peta MPI",
+   "Peringkat",
+   "Dimensi",
+   "Bandingkan",
+   "Data"
+  ],
+  "populationdex": [
+   "Chat",
+   "Tren Liputan",
+   "Geografi",
+   "Tema & Organisasi",
+   "Riset & Paten",
+   "Temuan Penyedia",
+   "Data"
+  ],
+  "homelessnessdex": [
+   "Chat",
+   "Tren Liputan",
+   "Geografi",
+   "Tema & Organisasi",
+   "Riset & Paten",
+   "Temuan Penyedia",
+   "Data"
+  ],
+  "housingdex": [
+   "Chat",
+   "Tren Liputan",
+   "Geografi",
+   "Tema & Organisasi",
+   "Riset & Paten",
+   "Temuan Penyedia",
+   "Data"
+  ],
+  "fintechdex": [
+   "Chat",
+   "Sentimen",
+   "Topik & Aspek",
+   "Jelajah Ulasan",
+   "Tren",
+   "Data"
+  ],
+  "personalfinandex": [
+   "Chat",
+   "Sentimen",
+   "Topik",
+   "Jelajah Diskusi",
+   "Tren",
+   "Data"
+  ],
+  "mylaiwyer": [
+   "Chat",
+   "Konsultasi Terpandu",
+   "Sumber Hukum",
+   "Jelajah Pasal",
+   "Bandingkan Versi",
+   "Glosarium",
+   "Data"
+  ],
+  "finlaiwyer": [
+   "Chat",
+   "Konsultasi Terpandu",
+   "Peta Regulasi Keuangan",
+   "Jelajah Pasal",
+   "Status & Perubahan",
+   "Kanal Pengaduan",
+   "Glosarium",
+   "Data"
+  ],
+  "antiscamdex": [
+   "Chat",
+   "Baru Kena Scam",
+   "Siapkan Laporan",
+   "Statistik Penanganan",
+   "Kenali Modus",
+   "Kanal Resmi",
+   "Cegah & Bukti",
+   "Data"
+  ]
+ },
+ "groups": {
+  "global-markets": [
+   "finandex-ai",
+   "nasdaqdex",
+   "snp500dex",
+   "commercedex",
+   "ipodex"
+  ],
+  "indonesia-markets": [
+   "idfinandex",
+   "rupiahdex",
+   "idxdex",
+   "reksadex"
+  ],
+  "crypto-macro": [
+   "cryptdex",
+   "centralbankdex",
+   "inflationdex"
+  ],
+  "startup-business": [
+   "startupdex",
+   "vcdex",
+   "vcnetworkdex",
+   "opencompanydex"
+  ],
+  "living-work": [
+   "salarydex",
+   "costlivingdex",
+   "idhousingdex",
+   "idfooddeliverydex"
+  ],
+  "social-development": [
+   "povertydex",
+   "populationdex",
+   "homelessnessdex",
+   "housingdex"
+  ],
+  "sentiment-personal": [
+   "fintechdex",
+   "personalfinandex"
+  ],
+  "law": [
+   "mylaiwyer",
+   "finlaiwyer",
+   "antiscamdex"
+  ]
+ }
+}

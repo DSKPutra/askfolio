@@ -24,7 +24,7 @@ const humanKey = (k: string) => k.replace(/_/g, ' ');
 function Control({ f, value, onChange }: { f: Field; value: unknown; onChange: (v: unknown) => void }) {
   const locale = useLocale();
   const id = useId();
-  const cls = 'min-h-10 w-full rounded-lg border border-border bg-surface-2 px-2 text-sm';
+  const cls = 'min-h-10 w-full rounded-xl border border-border bg-surface-2 px-2 text-sm';
   const label = (
     <label htmlFor={id} className="mb-1 block text-xs text-muted" title={'description' in f ? f.description : undefined}>
       {humanKey(f.key)}
@@ -48,7 +48,7 @@ function Control({ f, value, onChange }: { f: Field; value: unknown; onChange: (
     case 'boolean':
       return (
         <div className="flex items-end gap-2">
-          <input id={id} type="checkbox" className="h-5 w-5 accent-[var(--brand)]" checked={value === true} onChange={(e) => onChange(e.target.checked)} />
+          <input id={id} type="checkbox" className="h-5 w-5 accent-[var(--primary)]" checked={value === true} onChange={(e) => onChange(e.target.checked)} />
           <label htmlFor={id} className="text-sm">
             {humanKey(f.key)}
           </label>
@@ -178,13 +178,13 @@ function RawResult({ data }: { data: unknown }) {
     if (!rows.length) return <EmptyState />;
     const keys = [...new Set(rows.flatMap((r) => Object.keys(r)))].filter((k) => rows.some((r) => r[k] === null || ['string', 'number', 'boolean'].includes(typeof r[k])));
     return (
-      <div className="rounded-2xl border border-border bg-surface p-3">
+      <div className="rounded-pane border border-border bg-surface p-3">
         <LazyTable rows={rows} keys={keys} title={arrKey} />
       </div>
     );
   }
   return (
-    <dl className="grid grid-cols-1 gap-x-4 gap-y-1 rounded-2xl border border-border bg-surface p-3 text-sm sm:grid-cols-2">
+    <dl className="grid grid-cols-1 gap-x-4 gap-y-1 rounded-pane border border-border bg-surface p-3 text-sm sm:grid-cols-2">
       {Object.entries(rec)
         .filter(([, v]) => v === null || ['string', 'number', 'boolean'].includes(typeof v))
         .map(([k, v]) => (

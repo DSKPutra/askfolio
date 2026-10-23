@@ -18,7 +18,7 @@ function coreDataEntries(): { url: string; revision: string }[] {
   return [...out].map(([url, revision]) => ({ url, revision }));
 }
 
-/** Preloads the two above-the-fold font files (Inter 400 latin, Montserrat 700 latin) to cut LCP. */
+/** Preloads the two above-the-fold font files (IBM Plex Sans 400 latin, Unbounded 600 latin) to cut LCP. */
 function preloadFonts(): Plugin {
   return {
     name: 'finandex-preload-fonts',
@@ -26,7 +26,7 @@ function preloadFonts(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(_html, ctx) {
-        const files = Object.keys(ctx.bundle ?? {}).filter((f) => /(inter-latin-400-normal|montserrat-latin-700-normal)-[\w-]+\.woff2$/.test(f));
+        const files = Object.keys(ctx.bundle ?? {}).filter((f) => /(ibm-plex-sans-latin-400-normal|unbounded-latin-600-normal)-[\w-]+\.woff2$/.test(f));
         return files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', href: `/${f}`, as: 'font', type: 'font/woff2', crossorigin: '' }, injectTo: 'head' as const }));
       },
     },
@@ -71,8 +71,8 @@ export default defineConfig({
         short_name: 'Finandex',
         description: 'Finandex — Wawasan Indeks Pasar Keuangan Global. © 2026 Dea Saka Kurnia Putra.',
         lang: 'id',
-        theme_color: '#0A0F0C',
-        background_color: '#0A0F0C',
+        theme_color: '#EEF2EC',
+        background_color: '#EEF2EC',
         display: 'standalone',
         start_url: '/',
         scope: '/',
@@ -80,6 +80,12 @@ export default defineConfig({
           { src: '/icons/finandex-192.png', sizes: '192x192', type: 'image/png' },
           { src: '/icons/finandex-512.png', sizes: '512x512', type: 'image/png' },
           { src: '/icons/finandex-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+        shortcuts: [
+          { name: 'Baru kena scam?', short_name: 'Darurat scam', url: '/darurat-scam', icons: [{ src: '/icons/antiscamdex-192.png', sizes: '192x192', type: 'image/png' }] },
+          { name: 'My LAIwyer — tanya hukum', short_name: 'My LAIwyer', url: '/dex/mylaiwyer', icons: [{ src: '/icons/mylaiwyer-192.png', sizes: '192x192', type: 'image/png' }] },
+          { name: 'FinLAIwyer — hukum keuangan', short_name: 'FinLAIwyer', url: '/dex/finlaiwyer', icons: [{ src: '/icons/finlaiwyer-192.png', sizes: '192x192', type: 'image/png' }] },
+          { name: 'Finandex AI', short_name: 'Finandex AI', url: '/ai', icons: [{ src: '/icons/finandex-ai-192.png', sizes: '192x192', type: 'image/png' }] },
         ],
       },
       injectManifest: {

@@ -1,0 +1,1660 @@
+{
+ "meta": {
+  "id": "feature_guide",
+  "version": "2026-10-23",
+  "language": "id",
+  "note": "Panduan fitur untuk tool feature_guide(). Dibangkitkan dari registry, tabel tab §9, persona §8.7, dan saran §8.9 master prompt; terjemahan EN dibuat di src/i18n/en.json dan ditinjau."
+ },
+ "app": {
+  "name": "Finandex",
+  "creator": "Dea Saka Kurnia Putra",
+  "dex_count": 29,
+  "groups": [
+   {
+    "id": "global-markets",
+    "name": "Pasar Global & Saham",
+    "name_en": "Global Markets & Equities",
+    "what": "Analisis harga, return, risiko, dan peringkat aset/saham global serta IPO",
+    "dex": [
+     "finandex-ai",
+     "nasdaqdex",
+     "snp500dex",
+     "commercedex",
+     "ipodex"
+    ]
+   },
+   {
+    "id": "indonesia-markets",
+    "name": "Pasar & Ekonomi Indonesia",
+    "name_en": "Indonesian Markets & Economy",
+    "what": "IHSG, saham BEI, rupiah, makro BI, dan reksa dana",
+    "dex": [
+     "idfinandex",
+     "rupiahdex",
+     "idxdex",
+     "reksadex"
+    ]
+   },
+   {
+    "id": "crypto-macro",
+    "name": "Kripto & Makro Global",
+    "name_en": "Crypto & Global Macro",
+    "what": "Aset kripto/DeFi, neraca bank sentral, dan inflasi dunia",
+    "dex": [
+     "cryptdex",
+     "centralbankdex",
+     "inflationdex"
+    ]
+   },
+   {
+    "id": "startup-business",
+    "name": "Startup, VC & Perusahaan",
+    "name_en": "Startups, VC & Companies",
+    "what": "Pendanaan, investor, jaringan co-investment, dan direktori perusahaan",
+    "dex": [
+     "startupdex",
+     "vcdex",
+     "vcnetworkdex",
+     "opencompanydex"
+    ]
+   },
+   {
+    "id": "living-work",
+    "name": "Biaya Hidup, Kerja & Rumah Tangga",
+    "name_en": "Cost of Living, Work & Household",
+    "what": "Gaji, biaya hidup kota, harga rumah, dan harga makanan online",
+    "dex": [
+     "salarydex",
+     "costlivingdex",
+     "idhousingdex",
+     "idfooddeliverydex"
+    ]
+   },
+   {
+    "id": "social-development",
+    "name": "Sosial & Pembangunan",
+    "name_en": "Social & Development",
+    "what": "Kemiskinan multidimensi dan liputan berita isu sosial",
+    "dex": [
+     "povertydex",
+     "populationdex",
+     "homelessnessdex",
+     "housingdex"
+    ]
+   },
+   {
+    "id": "sentiment-personal",
+    "name": "Sentimen & Keuangan Pribadi",
+    "name_en": "Sentiment & Personal Finance",
+    "what": "Sentimen & diskusi publik tentang fintech dan keuangan pribadi",
+    "dex": [
+     "fintechdex",
+     "personalfinandex"
+    ]
+   },
+   {
+    "id": "law",
+    "name": "Hukum & Pelindungan Konsumen",
+    "name_en": "Law & Consumer Protection",
+    "what": "Tanya-jawab hukum umum & hukum keuangan/perbankan, serta respons cepat korban scam",
+    "dex": [
+     "mylaiwyer",
+     "finlaiwyer",
+     "antiscamdex"
+    ]
+   }
+  ],
+  "app_functions": [
+   {
+    "name": "Beranda & Konstelasi Indeks",
+    "what": "Peta semua Dex per kategori; klik node atau kartu untuk membuka Dex."
+   },
+   {
+    "name": "Index Search (⌘/Ctrl+K)",
+    "what": "Cari aset, saham, perusahaan, reksa dana, koin, investor, pasal, modus scam, atau ketik pertanyaan bebas untuk diarahkan ke Dex terbaik."
+   },
+   {
+    "name": "Finandex AI",
+    "what": "Chatbot utama untuk pasar global dan router ke Dex lain."
+   },
+   {
+    "name": "Watchlist",
+    "what": "Simpan entitas favorit lintas Dex (tersimpan di perangkat)."
+   },
+   {
+    "name": "Baru kena scam?",
+    "what": "Langkah darurat AntiScamDex dari Beranda."
+   },
+   {
+    "name": "Whitepaper",
+    "what": "Baca & unduh whitepaper (Bahasa Indonesia / English) dan presentasi .pptx."
+   },
+   {
+    "name": "Pengaturan",
+    "what": "Tema Nocturne/Ledger, bahasa, mode ramah buta warna, kontras tinggi, kurangi gerak, hapus riwayat."
+   },
+   {
+    "name": "Tentang & Legal",
+    "what": "Hak cipta Dea Saka Kurnia Putra, sumber data & lisensi, kebijakan privasi, disclaimer."
+   }
+  ]
+ },
+ "dex": [
+  {
+   "id": "finandex-ai",
+   "name": "Finandex AI",
+   "group": "global-markets",
+   "group_name": "Pasar Global & Saham",
+   "purpose": "Asisten pasar global: indeks, komoditas, kripto, mata uang (chatbot utama & router)",
+   "persona": "Asisten pasar global lintas kelas aset; juga router ke Dex lain",
+   "ask_examples": [
+    "Bandingkan emas dan Bitcoin 5 tahun terakhir",
+    "Indeks saham mana yang paling kuat tahun ini?",
+    "Kapan drawdown terbesar Nikkei 225?",
+    "Korelasi DAX dan FTSE 100 3 tahun",
+    "Apa yang terjadi pada minyak WTI April 2020?",
+    "Mata uang mana yang paling melemah terhadap USD 1 tahun ini?"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Pasar Global",
+     "what": "34 aset global (indeks, komoditas, kripto, mata uang) dengan sparkline dan filter. (34 aset, sparkline, filter kategori/wilayah)"
+    },
+    {
+     "tab": "Bandingkan",
+     "what": "Bandingkan 2–5 entitas dalam satu grafik (rebase 100) plus tabel metrik."
+    },
+    {
+     "tab": "Korelasi",
+     "what": "Matriks korelasi return antar-aset (1/3/5 tahun). (heatmap)"
+    },
+    {
+     "tab": "Kalender Return",
+     "what": "Heatmap return tahunan per aset (tahun parsial ditandai). (heatmap tahun×aset)"
+    },
+    {
+     "tab": "Peristiwa",
+     "what": "Pergerakan harga di sekitar peristiwa bertanggal pasti (krisis, keputusan bank sentral, halving)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "34 aset saja; tidak ada IHSG/IDR (→ IDFinanDex/RupiahDex); JPY/INR presisi rendah; bar FX bisa bergeser 1 hari",
+   "data_as_of": "2026-10-19",
+   "prompt_section": "§4.1",
+   "related": [
+    "nasdaqdex",
+    "snp500dex",
+    "commercedex"
+   ]
+  },
+  {
+   "id": "nasdaqdex",
+   "name": "NASDAQDex",
+   "group": "global-markets",
+   "group_name": "Pasar Global & Saham",
+   "purpose": "500 saham NASDAQ, 1962–2026",
+   "persona": "Analis saham NASDAQ (harga, risiko, teknikal deskriptif)",
+   "ask_examples": [
+    "Top 10 saham NASDAQ YTD",
+    "Berapa beta NVDA terhadap NASDAQ Composite?",
+    "Saham mana yang paling dekat dengan ATH?",
+    "Golden cross 60 hari terakhir",
+    "Berapa persen saham di atas SMA200?",
+    "Bandingkan AAPL, MSFT, dan GOOGL 10 tahun"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Pulse",
+     "what": "Denyut pasar: breadth, % saham di atas SMA, indeks equal-weight vs indeks acuan. (breadth + indeks EW vs ^IXIC)"
+    },
+    {
+     "tab": "Screener",
+     "what": "Saring saham dengan kriteria (return, volatilitas, valuasi, likuiditas)."
+    },
+    {
+     "tab": "Growth Lab",
+     "what": "Saham dengan pertumbuhan terbesar: kelipatan harga, CAGR 5/10 tahun, jarak dari ATH."
+    },
+    {
+     "tab": "Teknikal",
+     "what": "Indikator teknikal deskriptif (SMA50/200, RSI14, golden/death cross) — bukan sinyal beli/jual."
+    },
+    {
+     "tab": "Bandingkan",
+     "what": "Bandingkan 2–5 entitas dalam satu grafik (rebase 100) plus tabel metrik."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "tanpa volume & dividen; harga ter-adjust sumber; `reliable_from`; flag ekstrem; indeks EW bias survivorship",
+   "data_as_of": "2026-09-18",
+   "prompt_section": "§4.2",
+   "related": [
+    "finandex-ai",
+    "snp500dex",
+    "commercedex"
+   ]
+  },
+  {
+   "id": "snp500dex",
+   "name": "SnP500Dex",
+   "group": "global-markets",
+   "group_name": "Pasar Global & Saham",
+   "purpose": "233 saham S&P 500: total return, dividen, volume",
+   "persona": "Analis total return, dividen, volume S&P 500",
+   "ask_examples": [
+    "Saham dengan streak kenaikan dividen terpanjang",
+    "Simulasikan $10.000 di KO sejak 2000 dengan DRIP",
+    "Dividend yield TTM tertinggi",
+    "Total return vs price return JNJ",
+    "Riwayat split AAPL",
+    "Saham dengan nilai transaksi 20 hari terbesar"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Pulse",
+     "what": "Denyut pasar: breadth, % saham di atas SMA, indeks equal-weight vs indeks acuan."
+    },
+    {
+     "tab": "Dividen",
+     "what": "Riwayat dividen, dividend yield TTM, dan streak kenaikan dividen."
+    },
+    {
+     "tab": "Simulator",
+     "what": "Simulasi nilai investasi historis dengan/tanpa reinvestasi dividen (bukan rekomendasi)."
+    },
+    {
+     "tab": "Screener",
+     "what": "Saring saham dengan kriteria (return, volatilitas, valuasi, likuiditas)."
+    },
+    {
+     "tab": "Volume & Likuiditas",
+     "what": "Volume, nilai transaksi, dan likuiditas saham."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "233 dari ±500 konstituen; benchmark `^GSPC` indeks harga; EA riwayat pendek",
+   "data_as_of": "2026-08-31",
+   "prompt_section": "§4.3",
+   "related": [
+    "finandex-ai",
+    "nasdaqdex",
+    "commercedex"
+   ]
+  },
+  {
+   "id": "commercedex",
+   "name": "CommerceDex",
+   "group": "global-markets",
+   "group_name": "Pasar Global & Saham",
+   "purpose": "43 raksasa e-commerce dunia: harga, fundamental, makro",
+   "persona": "Analis e-commerce global (harga + fundamental + makro)",
+   "ask_examples": [
+    "Bandingkan Sea, Coupang, dan MercadoLibre",
+    "Segmen e-commerce dengan median return 1 tahun terbaik",
+    "Margin bersih perusahaan India",
+    "Kinerja indeks e-commerce sejak 2015",
+    "GoTo vs Sea: drawdown",
+    "Pengguna internet Indonesia menurut World Bank"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Peta Global",
+     "what": "Peta dunia perusahaan e-commerce per negara."
+    },
+    {
+     "tab": "Perusahaan",
+     "what": "Profil perusahaan e-commerce dan kinerjanya."
+    },
+    {
+     "tab": "Fundamental",
+     "what": "Data fundamental (pendapatan, laba, margin, ROE, DER, dll.) per tahun fiskal dengan mata uang laporan."
+    },
+    {
+     "tab": "Indeks E-Commerce",
+     "what": "Indeks equal-weight saham e-commerce dunia dan kinerjanya."
+    },
+    {
+     "tab": "Makro",
+     "what": "Indikator makro negara terkait perusahaan e-commerce (World Bank)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "multi-mata uang; 5 perusahaan laporan keuangan beda mata uang; laporan keuangan ±4 tahun; survivorship",
+   "data_as_of": "2026-05-13",
+   "prompt_section": "§4.4",
+   "related": [
+    "finandex-ai",
+    "nasdaqdex",
+    "snp500dex"
+   ]
+  },
+  {
+   "id": "ipodex",
+   "name": "IPODex",
+   "group": "global-markets",
+   "group_name": "Pasar Global & Saham",
+   "purpose": "IPO global 2019–2026: India, AS, Inggris & 100+ negara",
+   "persona": "Analis IPO global (India, AS, Inggris, 100+ negara)",
+   "ask_examples": [
+    "Jumlah IPO tercatat per tahun",
+    "Median ukuran IPO terverifikasi",
+    "SME vs Mainboard India",
+    "IPO yang ditarik/ditunda",
+    "Bursa dengan IPO terbanyak",
+    "IPO Indonesia di dataset"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Ringkasan",
+     "what": "Ringkasan utama dataset Dex ini dalam kartu & grafik."
+    },
+    {
+     "tab": "Negara & Bursa",
+     "what": "IPO per negara dan bursa."
+    },
+    {
+     "tab": "India SME vs Mainboard",
+     "what": "Perbandingan IPO India papan SME dan Mainboard."
+    },
+    {
+     "tab": "Cari IPO",
+     "what": "Cari IPO berdasarkan nama, negara, bursa, sektor, atau status."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 38%; default `verified`; \"Announced/filed\" bukan listing",
+   "data_as_of": "laporan s/d 2026-06-18",
+   "prompt_section": "§4.21",
+   "related": [
+    "finandex-ai",
+    "nasdaqdex",
+    "snp500dex"
+   ]
+  },
+  {
+   "id": "idfinandex",
+   "name": "IDFinanDex",
+   "group": "indonesia-markets",
+   "group_name": "Pasar & Ekonomi Indonesia",
+   "purpose": "Indonesia multi-aset & makro: IHSG, USD/IDR, BI rate",
+   "persona": "Analis makro & multi-aset Indonesia",
+   "ask_examples": [
+    "Bagaimana IHSG saat BI rate naik vs turun?",
+    "Selisih BI rate dan suku bunga AS",
+    "Riwayat keputusan BI rate 2024–2026",
+    "Korelasi IHSG dengan VIX",
+    "Tren ter-normalisasi IHSG, emas, S&P 500 sejak 2010",
+    "Inflasi tahunan menurut dataset"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Dashboard Makro",
+     "what": "Ringkasan indikator makro Indonesia (BI rate, inflasi, kurs, suku bunga AS) dalam satu layar."
+    },
+    {
+     "tab": "Aset",
+     "what": "Daftar aset dengan harga/nilai terakhir, perubahan, dan grafik per aset."
+    },
+    {
+     "tab": "Tren Ter-normalisasi",
+     "what": "Tren beberapa aset yang dinormalisasi ke titik awal yang sama."
+    },
+    {
+     "tab": "Korelasi",
+     "what": "Matriks korelasi return antar-aset (1/3/5 tahun)."
+    },
+    {
+     "tab": "Rezim Suku Bunga",
+     "what": "Return aset saat BI rate naik, turun, atau tetap."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "CPI = inflasi tahunan; carry-forward hari libur; bad print USDIDR dibuang",
+   "data_as_of": "2026-05-29",
+   "prompt_section": "§4.5",
+   "related": [
+    "rupiahdex",
+    "idxdex",
+    "reksadex"
+   ]
+  },
+  {
+   "id": "rupiahdex",
+   "name": "RupiahDex",
+   "group": "indonesia-markets",
+   "group_name": "Pasar & Ekonomi Indonesia",
+   "purpose": "Kurs USD/IDR harian sejak 2001",
+   "persona": "Spesialis kurs USD/IDR & konversi historis",
+   "ask_examples": [
+    "Kurs USD/IDR tertinggi sepanjang data",
+    "Konversi 500 USD dengan kurs 2 Januari 2026",
+    "Rata-rata kurs per tahun 2020–2026",
+    "Berapa persen rupiah melemah sepanjang 2013?",
+    "Kurs saat WHO menyatakan pandemi",
+    "Bandingkan dua sumber USD/IDR"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Kurs",
+     "what": "Grafik kurs USD/IDR (garis & candlestick) dengan statistik. (garis + candlestick)"
+    },
+    {
+     "tab": "Konverter Historis",
+     "what": "Konversi USD↔IDR memakai kurs pada tanggal tertentu."
+    },
+    {
+     "tab": "Statistik Tahunan",
+     "what": "Rata-rata, tertinggi, terendah, dan perubahan kurs per tahun."
+    },
+    {
+     "tab": "Peristiwa",
+     "what": "Pergerakan harga di sekitar peristiwa bertanggal pasti (krisis, keputusan bank sentral, halving)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "naik = rupiah melemah; bad print 2013 & 2024 dibuang; bukan kurs JISDOR resmi",
+   "data_as_of": "2026-10-20",
+   "prompt_section": "§4.6",
+   "related": [
+    "idfinandex",
+    "idxdex",
+    "reksadex"
+   ]
+  },
+  {
+   "id": "idxdex",
+   "name": "IDXDex",
+   "group": "indonesia-markets",
+   "group_name": "Pasar & Ekonomi Indonesia",
+   "purpose": "Saham Bursa Efek Indonesia: harga, fundamental, IPO",
+   "persona": "Analis saham BEI, fundamental, dan IPO",
+   "ask_examples": [
+    "Saham IDX dengan ROE > 20% dan PER < 15",
+    "Statistik IPO 2023 per papan",
+    "Sekuritas dengan IPO terbanyak",
+    "Beta GOTO terhadap IHSG",
+    "Kapitalisasi pasar BBCA",
+    "Saham paling tidak likuid"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Saham",
+     "what": "Daftar & detail saham dengan grafik, return, risiko, dan likuiditas."
+    },
+    {
+     "tab": "Fundamental",
+     "what": "Data fundamental (pendapatan, laba, margin, ROE, DER, dll.) per tahun fiskal dengan mata uang laporan."
+    },
+    {
+     "tab": "IPO Center",
+     "what": "Statistik & daftar IPO BEI (e-IPO): return hari pertama, sektor, papan, penjamin."
+    },
+    {
+     "tab": "Direktori Emiten",
+     "what": "Profil emiten BEI: sektor, papan, tanggal pencatatan, informasi perusahaan."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "harga s/d 2024-05-17; fundamental FY terbaru; sektor hanya untuk emiten e-IPO; DER kurang relevan untuk bank",
+   "data_as_of": "harga 2024-05-17; e-IPO s/d listing 2026-07-10",
+   "prompt_section": "§4.8",
+   "related": [
+    "idfinandex",
+    "rupiahdex",
+    "reksadex"
+   ]
+  },
+  {
+   "id": "reksadex",
+   "name": "ReksaDex",
+   "group": "indonesia-markets",
+   "group_name": "Pasar & Ekonomi Indonesia",
+   "purpose": "Reksa dana Indonesia: AUM, manajer investasi, kinerja",
+   "persona": "Analis industri reksa dana Indonesia",
+   "ask_examples": [
+    "MI dengan AUM terbesar",
+    "Reksa dana pasar uang dengan return 1 tahun tertinggi",
+    "Tren AUM reksa dana saham",
+    "Porsi AUM produk USD",
+    "Bank kustodian terbesar",
+    "Cari reksa dana indeks"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Industri",
+     "what": "Ringkasan industri reksa dana: total dana kelolaan, jumlah produk, tren."
+    },
+    {
+     "tab": "Manajer Investasi",
+     "what": "Peringkat & pangsa manajer investasi berdasarkan dana kelolaan dan jumlah produk."
+    },
+    {
+     "tab": "Cari Reksa Dana",
+     "what": "Cari reksa dana berdasarkan nama, jenis, atau manajer investasi."
+    },
+    {
+     "tab": "Peringkat",
+     "what": "Peringkat terurut berdasarkan metrik pilihan."
+    },
+    {
+     "tab": "Bank Kustodian",
+     "what": "Pangsa bank kustodian reksa dana berdasarkan dana kelolaan."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "snapshot bulanan; return tanpa pembagian hasil; produk USD dalam IDR",
+   "data_as_of": "2026-05-29",
+   "prompt_section": "§4.7",
+   "related": [
+    "idfinandex",
+    "rupiahdex",
+    "idxdex"
+   ]
+  },
+  {
+   "id": "cryptdex",
+   "name": "CryptDex",
+   "group": "crypto-macro",
+   "group_name": "Kripto & Makro Global",
+   "purpose": "Kripto: harga, snapshot pasar, DeFi, fee protokol, edukasi bot",
+   "persona": "Analis kripto, DeFi, fee protokol, dan edukasi keamanan bot",
+   "ask_examples": [
+    "Dominasi Bitcoin di snapshot",
+    "TVL DeFi vs puncaknya",
+    "Kenapa TVL protokol dihitung ganda?",
+    "Median APY pool stablecoin",
+    "Protokol dengan fee 24 jam terbesar",
+    "Checklist keamanan sebelum memakai bot trading"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Pasar Kripto",
+     "what": "Snapshot 250 koin: kapitalisasi, dominasi, perubahan harga, stablecoin (heuristik). (snapshot 250)"
+    },
+    {
+     "tab": "Harga Historis",
+     "what": "Grafik harga historis koin (garis/candlestick) dengan return per periode."
+    },
+    {
+     "tab": "DeFi",
+     "what": "TVL DeFi, TVL per chain & protokol, suplai stablecoin, aktivitas DEX — dengan catatan hitung ganda. (TVL, chain, protokol, stablecoin, DEX)"
+    },
+    {
+     "tab": "Yield",
+     "what": "Pool yield DeFi (APY dasar & reward, TVL) dengan peringatan risiko — bukan rekomendasi."
+    },
+    {
+     "tab": "Fees & Revenue",
+     "what": "Fee & revenue protokol DeFi per protokol/kategori dan trennya."
+    },
+    {
+     "tab": "Bot & AI Agent",
+     "what": "Edukasi bot trading & AI agent kripto: profil, fakta terverifikasi, uji nyata, checklist keamanan — tanpa rekomendasi & tanpa tautan referral. (edukasi + keamanan)"
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "snapshot tunggal CoinGecko; stablecoin heuristik; hitung ganda TVL; APY berisiko; bot = info saja, tidak ada referral",
+   "data_as_of": "harga 2026-10-19; snapshot & DeFi 2026-10-20",
+   "prompt_section": "§4.9",
+   "related": [
+    "centralbankdex",
+    "inflationdex"
+   ]
+  },
+  {
+   "id": "centralbankdex",
+   "name": "CentralBankDex",
+   "group": "crypto-macro",
+   "group_name": "Kripto & Makro Global",
+   "purpose": "Neraca bank sentral & likuiditas global (Fed, ECB, BoJ, 167 negara)",
+   "persona": "Analis neraca bank sentral & likuiditas global",
+   "ask_examples": [
+    "Neraca The Fed sejak 2008",
+    "Kapan kurva imbal hasil AS inversi?",
+    "Aset gabungan G3 terkini",
+    "Pertumbuhan uang beredar Indonesia",
+    "Negara dengan pertumbuhan broad money tertinggi 2025",
+    "Policy rate vs inflasi AS"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Neraca G3",
+     "what": "Neraca bank sentral The Fed, ECB, BoJ, dan gabungan G3. (Fed/ECB/BoJ)"
+    },
+    {
+     "tab": "Suku Bunga & Kurva Imbal Hasil",
+     "what": "Suku bunga kebijakan AS, imbal hasil Treasury, spread 10Y–2Y, dan periode inversi."
+    },
+    {
+     "tab": "Uang Beredar",
+     "what": "Uang beredar (M2/broad money) AS dan negara lain."
+    },
+    {
+     "tab": "Peta Negara",
+     "what": "Peta per negara untuk indikator Dex ini."
+    },
+    {
+     "tab": "Label Rezim",
+     "what": "Label rezim likuiditas buatan penyedia dataset (ditandai sebagai label penyedia, bukan fakta). (penyedia)"
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "data US harian dibawa antar-rilis; negara tahunan; agregat WB bukan negara; label rezim = label penyedia",
+   "data_as_of": "AS 2026-10-16; negara 2025",
+   "prompt_section": "§4.10",
+   "related": [
+    "cryptdex",
+    "inflationdex"
+   ]
+  },
+  {
+   "id": "inflationdex",
+   "name": "InflationDex",
+   "group": "crypto-macro",
+   "group_name": "Kripto & Makro Global",
+   "purpose": "Inflasi & biaya hidup antarnegara",
+   "persona": "Analis inflasi & biaya hidup antarnegara",
+   "ask_examples": [
+    "Negara dengan inflasi tertinggi",
+    "Inflasi Indonesia vs ASEAN",
+    "Median inflasi per kelompok pendapatan",
+    "Harga roti & transport di Jakarta",
+    "Negara dengan deflasi",
+    "Bandingkan inflasi Argentina dan Turki"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Peta Inflasi",
+     "what": "Peta inflasi antarnegara (tahun data ditampilkan)."
+    },
+    {
+     "tab": "Peringkat",
+     "what": "Peringkat terurut berdasarkan metrik pilihan."
+    },
+    {
+     "tab": "Biaya Barang",
+     "what": "Harga barang & jasa sehari-hari antarnegara (roti, transport, sewa, utilitas)."
+    },
+    {
+     "tab": "Wilayah & Pendapatan",
+     "what": "Ringkasan per wilayah dunia dan kelompok pendapatan."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "tahun berbeda per negara; indeks biaya hidup hanya 45 negara",
+   "data_as_of": "inflasi 2024 (sebagian 2022–2023)",
+   "prompt_section": "§4.22",
+   "related": [
+    "cryptdex",
+    "centralbankdex"
+   ]
+  },
+  {
+   "id": "startupdex",
+   "name": "StartupDex",
+   "group": "startup-business",
+   "group_name": "Startup, VC & Perusahaan",
+   "purpose": "Putaran pendanaan startup global 2019–2026",
+   "persona": "Analis pendanaan startup global",
+   "ask_examples": [
+    "Total pendanaan per tahun",
+    "Median Seed vs Series A",
+    "Pendanaan startup Indonesia",
+    "Sektor dengan putaran terbanyak",
+    "Mega-round 2025",
+    "Investor yang paling sering memimpin"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Ringkasan",
+     "what": "Ringkasan utama dataset Dex ini dalam kartu & grafik."
+    },
+    {
+     "tab": "Tahapan",
+     "what": "Pendanaan startup per tahap (Seed, Series A, dst.) dan median ukurannya. (Stage)"
+    },
+    {
+     "tab": "Negara & Sektor",
+     "what": "Pendanaan startup per negara dan sektor."
+    },
+    {
+     "tab": "Mega-round",
+     "what": "Putaran pendanaan ≥ US$100 juta dan porsinya terhadap total."
+    },
+    {
+     "tab": "Cari Putaran",
+     "what": "Cari putaran pendanaan startup berdasarkan perusahaan, tahap, negara, sektor, atau investor."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 25%; default `verified`; mega-round mendominasi dolar",
+   "data_as_of": "2026-06-12",
+   "prompt_section": "§4.14",
+   "related": [
+    "vcdex",
+    "vcnetworkdex",
+    "opencompanydex"
+   ]
+  },
+  {
+   "id": "vcdex",
+   "name": "VCDex",
+   "group": "startup-business",
+   "group_name": "Startup, VC & Perusahaan",
+   "purpose": "Direktori investor startup 2026",
+   "persona": "Analis direktori investor startup",
+   "ask_examples": [
+    "Investor dengan deal terbanyak",
+    "Investor HQ Indonesia",
+    "Stage mix Sequoia Capital",
+    "Investor paling aktif 2025–2026",
+    "Median ukuran putaran per tipe investor",
+    "Investor fintech di Singapura"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Direktori",
+     "what": "Direktori investor yang bisa difilter (tipe, negara, tahap, jumlah deal)."
+    },
+    {
+     "tab": "Peringkat",
+     "what": "Peringkat terurut berdasarkan metrik pilihan."
+    },
+    {
+     "tab": "Stage Mix",
+     "what": "Komposisi tahap pendanaan yang diikuti investor."
+    },
+    {
+     "tab": "Negara",
+     "what": "Statistik per negara untuk cakupan Dex ini."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 25%; tidak menjanjikan pendanaan; tanpa kontak pribadi",
+   "data_as_of": "deal 2019–2026",
+   "prompt_section": "§4.15",
+   "related": [
+    "startupdex",
+    "vcnetworkdex",
+    "opencompanydex"
+   ]
+  },
+  {
+   "id": "vcnetworkdex",
+   "name": "VCNetworkDex",
+   "group": "startup-business",
+   "group_name": "Startup, VC & Perusahaan",
+   "purpose": "Jaringan co-investment antar investor VC",
+   "persona": "Analis jaringan co-investment",
+   "ask_examples": [
+    "Pasangan co-investor terkuat",
+    "Partner terbanyak Index Ventures",
+    "Ego-graph Tiger Global",
+    "Sektor co-investment paling umum",
+    "Berapa persen pasangan hanya sekali co-invest?",
+    "Jaringan investor di India"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Graf Jaringan",
+     "what": "Graf ego jaringan co-investment investor (≤ 50 node) dengan ketebalan garis = jumlah deal bersama."
+    },
+    {
+     "tab": "Pasangan Teratas",
+     "what": "Pasangan investor yang paling sering berinvestasi bersama."
+    },
+    {
+     "tab": "Investor",
+     "what": "Profil investor dalam jaringan: mitra co-investment terbanyak & statistik."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 25% pasangan; derajat = di sampel",
+   "data_as_of": "2019–2026",
+   "prompt_section": "§4.16",
+   "related": [
+    "startupdex",
+    "vcdex",
+    "opencompanydex"
+   ]
+  },
+  {
+   "id": "opencompanydex",
+   "name": "OpenCompanyDex",
+   "group": "startup-business",
+   "group_name": "Startup, VC & Perusahaan",
+   "purpose": "Direktori 100 ribu perusahaan (sampel Open Company Database)",
+   "persona": "Analis demografi perusahaan global",
+   "ask_examples": [
+    "Jumlah perusahaan Indonesia",
+    "Porsi perusahaan yang pernah didanai",
+    "Median tahun berdiri per sektor",
+    "Negara dengan perusahaan terbanyak",
+    "Model bisnis paling umum",
+    "Status perusahaan (tutup/diakuisisi)"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Peta Negara",
+     "what": "Peta per negara untuk indikator Dex ini."
+    },
+    {
+     "tab": "Sektor & Industri",
+     "what": "Jumlah & karakteristik perusahaan per sektor dan industri."
+    },
+    {
+     "tab": "Status & Pendanaan",
+     "what": "Status perusahaan (aktif/tutup/diakuisisi) dan porsi yang pernah didanai."
+    },
+    {
+     "tab": "Cari Perusahaan",
+     "what": "Cari perusahaan di direktori berdasarkan nama, negara, atau sektor."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 2%; banyak kolom kosong",
+   "data_as_of": "rilis Okt 2026 (REPORT.md)",
+   "prompt_section": "§4.17",
+   "related": [
+    "startupdex",
+    "vcdex",
+    "vcnetworkdex"
+   ]
+  },
+  {
+   "id": "salarydex",
+   "name": "SalaryDex",
+   "group": "living-work",
+   "group_name": "Biaya Hidup, Kerja & Rumah Tangga",
+   "purpose": "Gaji global per skill & peran (sampel 100 ribu lowongan)",
+   "persona": "Analis gaji global per skill/peran/negara",
+   "ask_examples": [
+    "Median gaji software engineer AS vs India",
+    "Skill dengan premi gaji tertinggi",
+    "Gaji per senioritas di Kanada",
+    "Top skill di lowongan data",
+    "Distribusi gaji perawat di AS",
+    "Negara dengan median gaji tertinggi"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Kalkulator Benchmark",
+     "what": "Bandingkan gaji dengan median/persentil berdasarkan negara, peran, senioritas, dan skill."
+    },
+    {
+     "tab": "Negara",
+     "what": "Statistik per negara untuk cakupan Dex ini."
+    },
+    {
+     "tab": "Peran & Senioritas",
+     "what": "Gaji berdasarkan keluarga peran dan tingkat senioritas."
+    },
+    {
+     "tab": "Skill",
+     "what": "Skill paling dicari dan premi gaji per skill."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sampel 16%; kurs tetap (bukan PPP); n minimum 30",
+   "data_as_of": "posting 2024-01 → 2026-06",
+   "prompt_section": "§4.13",
+   "related": [
+    "costlivingdex",
+    "idhousingdex",
+    "idfooddeliverydex"
+   ]
+  },
+  {
+   "id": "costlivingdex",
+   "name": "CostLivingDex",
+   "group": "living-work",
+   "group_name": "Biaya Hidup, Kerja & Rumah Tangga",
+   "purpose": "Biaya & kualitas hidup 148 kota (data sintetis)",
+   "persona": "Analis biaya & kualitas hidup kota",
+   "ask_examples": [
+    "Kota dengan biaya hidup tertinggi",
+    "Kualitas hidup terbaik",
+    "Bandingkan Jakarta dan Singapura",
+    "Perubahan indeks 2023→2024",
+    "Kota dengan internet tercepat",
+    "Daya beli lokal tertinggi"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Peringkat Kota",
+     "what": "Peringkat kota menurut indeks biaya hidup, sewa, kualitas hidup, dll. (data sintetis)."
+    },
+    {
+     "tab": "Profil Kota",
+     "what": "Profil lengkap satu kota (biaya, kualitas hidup, keamanan, polusi, internet)."
+    },
+    {
+     "tab": "Bandingkan",
+     "what": "Bandingkan 2–5 entitas dalam satu grafik (rebase 100) plus tabel metrik."
+    },
+    {
+     "tab": "Perubahan 2023→2024",
+     "what": "Perubahan indeks kota antara dua survei."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "**data sintetis** — wajib disebut di setiap jawaban",
+   "data_as_of": "survei 2024-06-15 (sintetis)",
+   "prompt_section": "§4.23",
+   "related": [
+    "salarydex",
+    "idhousingdex",
+    "idfooddeliverydex"
+   ]
+  },
+  {
+   "id": "idhousingdex",
+   "name": "IDHousingDex",
+   "group": "living-work",
+   "group_name": "Biaya Hidup, Kerja & Rumah Tangga",
+   "purpose": "Perumahan subsidi & komersil Indonesia (listing proyek)",
+   "persona": "Analis perumahan (subsidi & komersil) Indonesia",
+   "ask_examples": [
+    "Median harga rumah subsidi vs komersil",
+    "Provinsi dengan listing terbanyak",
+    "Harga per m² rumah subsidi per provinsi",
+    "Asosiasi pengembang terbesar",
+    "Spesifikasi umum rumah subsidi",
+    "Peta proyek di Jawa Barat"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Ringkasan",
+     "what": "Ringkasan utama dataset Dex ini dalam kartu & grafik."
+    },
+    {
+     "tab": "Provinsi & Kota",
+     "what": "Statistik perumahan per provinsi dan kota/kabupaten."
+    },
+    {
+     "tab": "Peta Proyek",
+     "what": "Peta titik proyek perumahan (ter-cluster) dengan filter provinsi & status subsidi."
+    },
+    {
+     "tab": "Spesifikasi",
+     "what": "Spesifikasi rumah (kamar, lantai, material) per segmen."
+    },
+    {
+     "tab": "Pengembang",
+     "what": "Ringkasan pengembang & asosiasi pengembang perumahan."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "duplikat & harga tidak valid dibuang; bukan nasihat KPR/pembelian",
+   "data_as_of": "tidak dicantumkan penyedia",
+   "prompt_section": "§4.19",
+   "related": [
+    "salarydex",
+    "costlivingdex",
+    "idfooddeliverydex"
+   ]
+  },
+  {
+   "id": "idfooddeliverydex",
+   "name": "IDFoodDeliveryDex",
+   "group": "living-work",
+   "group_name": "Biaya Hidup, Kerja & Rumah Tangga",
+   "purpose": "Benchmark harga 10 ribu menu food delivery Indonesia",
+   "persona": "Analis harga & markup food delivery Indonesia",
+   "ask_examples": [
+    "Median markup online vs dine-in",
+    "Kota dengan markup tertinggi",
+    "Cloud kitchen vs restoran biasa",
+    "Biaya kemasan rata-rata",
+    "Kuliner dengan promo terbesar",
+    "Cari menu nasi goreng di Bandung"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Ringkasan Markup",
+     "what": "Ringkasan markup harga online vs dine-in, biaya kemasan, dan promo."
+    },
+    {
+     "tab": "Kota",
+     "what": "Statistik per kota (markup food delivery)."
+    },
+    {
+     "tab": "Kuliner",
+     "what": "Statistik per jenis kuliner (harga, markup, promo)."
+    },
+    {
+     "tab": "Cloud Kitchen",
+     "what": "Perbandingan harga & markup cloud kitchen dengan restoran biasa."
+    },
+    {
+     "tab": "Cari Menu",
+     "what": "Cari menu food delivery berdasarkan nama, kota, atau kuliner, lengkap dengan markup."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "harga dine-in = estimasi penyedia; tanpa tanggal; label tier = penyedia",
+   "data_as_of": "tidak dicantumkan penyedia",
+   "prompt_section": "§4.18",
+   "related": [
+    "salarydex",
+    "costlivingdex",
+    "idhousingdex"
+   ]
+  },
+  {
+   "id": "povertydex",
+   "name": "PovertyDex",
+   "group": "social-development",
+   "group_name": "Sosial & Pembangunan",
+   "purpose": "Indeks Kemiskinan Multidimensi (MPI) 108 negara",
+   "persona": "Analis kemiskinan multidimensi (MPI)",
+   "ask_examples": [
+    "MPI Indonesia",
+    "Negara dengan MPI tertinggi",
+    "Dimensi penyumbang terbesar kemiskinan Indonesia",
+    "Bandingkan Indonesia, India, Filipina",
+    "Headcount kemiskinan tertinggi",
+    "Tahun survei tiap negara"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Peta MPI",
+     "what": "Peta Indeks Kemiskinan Multidimensi per negara."
+    },
+    {
+     "tab": "Peringkat",
+     "what": "Peringkat terurut berdasarkan metrik pilihan."
+    },
+    {
+     "tab": "Dimensi",
+     "what": "Kontribusi 10 dimensi kemiskinan multidimensi per negara."
+    },
+    {
+     "tab": "Bandingkan",
+     "what": "Bandingkan 2–5 entitas dalam satu grafik (rebase 100) plus tabel metrik."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "108 negara; tahun survei berbeda; bukan kemiskinan moneter",
+   "data_as_of": "tahun survei per negara",
+   "prompt_section": "§4.24",
+   "related": [
+    "populationdex",
+    "homelessnessdex",
+    "housingdex"
+   ]
+  },
+  {
+   "id": "populationdex",
+   "name": "PopulationDex",
+   "group": "social-development",
+   "group_name": "Sosial & Pembangunan",
+   "purpose": "Liputan berita kependudukan global 2019–2026",
+   "persona": "Analis liputan berita kependudukan",
+   "ask_examples": [
+    "Tren liputan berita populasi",
+    "Negara paling banyak diberitakan",
+    "Tema yang paling sering muncul",
+    "Nada berita per tahun",
+    "Riset akademik per tahun",
+    "Temuan penyedia grade A"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Tren Liputan",
+     "what": "Tren liputan berita per bulan/tahun per 10 ribu berita (bulan parsial ditandai)."
+    },
+    {
+     "tab": "Geografi",
+     "what": "Sebaran liputan berita per benua, negara, kota, atau negara bagian."
+    },
+    {
+     "tab": "Tema & Organisasi",
+     "what": "Tema dan organisasi yang paling sering muncul dalam liputan berita."
+    },
+    {
+     "tab": "Riset & Paten",
+     "what": "Tren publikasi riset dan paten terkait topik berita."
+    },
+    {
+     "tab": "Temuan Penyedia",
+     "what": "Temuan penyedia dataset berlabel grade A/B/C (bukan hitungan Finandex)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "mengukur liputan berita, bukan jumlah penduduk; bulan terakhir parsial",
+   "data_as_of": "berita s/d 2026-07-29",
+   "prompt_section": "§4.25",
+   "related": [
+    "povertydex",
+    "homelessnessdex",
+    "housingdex"
+   ]
+  },
+  {
+   "id": "homelessnessdex",
+   "name": "HomelessnessDex",
+   "group": "social-development",
+   "group_name": "Sosial & Pembangunan",
+   "purpose": "Liputan berita isu tunawisma global 2019–2026",
+   "persona": "Analis liputan berita tunawisma",
+   "ask_examples": [
+    "Tren liputan tunawisma per bulan",
+    "Negara bagian AS paling banyak diberitakan",
+    "Organisasi yang paling sering disebut",
+    "Nada berita per negara",
+    "Paper paling banyak dikutip",
+    "Temuan penyedia"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Tren Liputan",
+     "what": "Tren liputan berita per bulan/tahun per 10 ribu berita (bulan parsial ditandai)."
+    },
+    {
+     "tab": "Geografi",
+     "what": "Sebaran liputan berita per benua, negara, kota, atau negara bagian."
+    },
+    {
+     "tab": "Tema & Organisasi",
+     "what": "Tema dan organisasi yang paling sering muncul dalam liputan berita."
+    },
+    {
+     "tab": "Riset & Paten",
+     "what": "Tren publikasi riset dan paten terkait topik berita."
+    },
+    {
+     "tab": "Temuan Penyedia",
+     "what": "Temuan penyedia dataset berlabel grade A/B/C (bukan hitungan Finandex)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "liputan berita, bukan jumlah tunawisma; bahasa bermartabat",
+   "data_as_of": "berita s/d 2026-07-29",
+   "prompt_section": "§4.26",
+   "related": [
+    "povertydex",
+    "populationdex",
+    "housingdex"
+   ]
+  },
+  {
+   "id": "housingdex",
+   "name": "HousingDex",
+   "group": "social-development",
+   "group_name": "Sosial & Pembangunan",
+   "purpose": "Liputan berita perumahan global 2019–2026",
+   "persona": "Analis liputan berita perumahan global",
+   "ask_examples": [
+    "Tren liputan perumahan",
+    "Negara paling banyak diberitakan",
+    "Tema perumahan teratas",
+    "Paten teknologi perumahan per tahun",
+    "Nada berita per tahun",
+    "Bandingkan dengan data perumahan Indonesia (IDHousingDex)"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Tren Liputan",
+     "what": "Tren liputan berita per bulan/tahun per 10 ribu berita (bulan parsial ditandai)."
+    },
+    {
+     "tab": "Geografi",
+     "what": "Sebaran liputan berita per benua, negara, kota, atau negara bagian."
+    },
+    {
+     "tab": "Tema & Organisasi",
+     "what": "Tema dan organisasi yang paling sering muncul dalam liputan berita."
+    },
+    {
+     "tab": "Riset & Paten",
+     "what": "Tren publikasi riset dan paten terkait topik berita."
+    },
+    {
+     "tab": "Temuan Penyedia",
+     "what": "Temuan penyedia dataset berlabel grade A/B/C (bukan hitungan Finandex)."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "liputan berita; beda dengan IDHousingDex (listing Indonesia)",
+   "data_as_of": "berita s/d 2026-07-23",
+   "prompt_section": "§4.27",
+   "related": [
+    "povertydex",
+    "populationdex",
+    "homelessnessdex"
+   ]
+  },
+  {
+   "id": "fintechdex",
+   "name": "FintechDex",
+   "group": "sentiment-personal",
+   "group_name": "Sentimen & Keuangan Pribadi",
+   "purpose": "Adopsi & ulasan produk fintech dari 14 platform",
+   "persona": "Analis sentimen & adopsi produk fintech",
+   "ask_examples": [
+    "Sentimen per platform",
+    "Aspek yang paling banyak dikeluhkan",
+    "Tren jumlah ulasan per bulan",
+    "Produk fintech yang paling sering disebut",
+    "Cari ulasan tentang kartu kredit bisnis",
+    "Porsi sentimen negatif"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Sentimen",
+     "what": "Distribusi sentimen (label otomatis penyedia) per platform, bulan, atau bahasa."
+    },
+    {
+     "tab": "Topik & Aspek",
+     "what": "Topik & aspek ulasan (UX, harga, produk, layanan, keamanan, merek) beserta sentimennya."
+    },
+    {
+     "tab": "Jelajah Ulasan",
+     "what": "Telusuri ulasan produk fintech tanpa identitas penulis."
+    },
+    {
+     "tab": "Tren",
+     "what": "Tren bulanan jumlah unggahan dan porsi sentimen."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "sentimen = label otomatis penyedia; sampel media sosial; tanpa identitas penulis",
+   "data_as_of": "2026-09-08",
+   "prompt_section": "§4.11",
+   "related": [
+    "personalfinandex"
+   ]
+  },
+  {
+   "id": "personalfinandex",
+   "name": "PersonalFinanDex",
+   "group": "sentiment-personal",
+   "group_name": "Sentimen & Keuangan Pribadi",
+   "purpose": "Diskusi keuangan pribadi & kebebasan finansial",
+   "persona": "Analis diskusi keuangan pribadi & FIRE",
+   "ask_examples": [
+    "Topik FIRE yang paling ramai",
+    "Sentimen diskusi keuangan pribadi per platform",
+    "Tren diskusi per bulan",
+    "Cari diskusi tentang dana darurat",
+    "Platform dengan diskusi paling positif",
+    "Porsi konten bahasa non-Inggris"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Sentimen",
+     "what": "Distribusi sentimen (label otomatis penyedia) per platform, bulan, atau bahasa."
+    },
+    {
+     "tab": "Topik",
+     "what": "Topik diskusi yang paling sering muncul."
+    },
+    {
+     "tab": "Jelajah Diskusi",
+     "what": "Telusuri diskusi keuangan pribadi (judul/ringkasan/platform/tanggal) tanpa identitas penulis."
+    },
+    {
+     "tab": "Tren",
+     "what": "Tren bulanan jumlah unggahan dan porsi sentimen."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "bukan nasihat keuangan; listing token dikecualikan default; tanpa identitas penulis",
+   "data_as_of": "2026-09-16",
+   "prompt_section": "§4.12",
+   "related": [
+    "fintechdex"
+   ]
+  },
+  {
+   "id": "mylaiwyer",
+   "name": "My LAIwyer",
+   "group": "law",
+   "group_name": "Hukum & Pelindungan Konsumen",
+   "purpose": "Tanya-jawab hukum umum: konstitusi, pidana & acara pidana, perdata dasar, bantuan hukum",
+   "persona": "Asisten tanya-jawab hukum umum berbasis dokumen resmi (konstitusi, pidana & acara pidana, perdata dasar, bantuan hukum)",
+   "ask_examples": [
+    "Apa bunyi Pasal 1 UUD 1945 (naskah asli vs yang berlaku)?",
+    "Hak saya kalau dipanggil polisi",
+    "Kapan KUHP & KUHAP baru berlaku?",
+    "Apa itu praperadilan?",
+    "Saya ingin menggugat ganti rugi, jalurnya apa?",
+    "Apakah ada bantuan hukum gratis?"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Konsultasi Terpandu",
+     "what": "Tanya-jawab bertahap dengan pilihan (chip): situasi Anda → langkah yang bisa dilakukan + dasar hukum resmi."
+    },
+    {
+     "tab": "Sumber Hukum",
+     "what": "Daftar dokumen hukum: tersedia (sudah diverifikasi) dan menunggu dokumen, dengan tautan resmi. (tersedia & menunggu dokumen)"
+    },
+    {
+     "tab": "Jelajah Pasal",
+     "what": "Daftar isi per dokumen hukum (Pembukaan/Bab/Pasal/Penjelasan/Lampiran) dengan pencarian."
+    },
+    {
+     "tab": "Bandingkan Versi",
+     "what": "Teks pasal berdampingan antar-versi peraturan (KUHAP 1981 ↔ 2025; UUD naskah asli ↔ UUD NRI 1945). (KUHAP 1981–2025; UUD naskah asli–UUD NRI 1945)"
+    },
+    {
+     "tab": "Glosarium",
+     "what": "Istilah hukum/keuangan dijelaskan dalam bahasa awam."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "hanya dokumen `available` (§4.20); naskah asli UUD diberi catatan; ancaman KUHP dibaca bersama UU 1/2026; topik keuangan → FinLAIwyer; bukan nasihat hukum → advokat/LBH",
+   "data_as_of": "katalog 2026-10-23; status dokumen per lock file",
+   "prompt_section": "§4.20",
+   "related": [
+    "finlaiwyer",
+    "antiscamdex"
+   ]
+  },
+  {
+   "id": "finlaiwyer",
+   "name": "FinLAIwyer",
+   "group": "law",
+   "group_name": "Hukum & Pelindungan Konsumen",
+   "purpose": "Tanya-jawab hukum keuangan & perbankan Indonesia — fokus korban scam & sengketa lembaga keuangan",
+   "persona": "Asisten tanya-jawab hukum keuangan & perbankan yang tenang dan praktis untuk korban scam & sengketa dengan lembaga keuangan",
+   "ask_examples": [
+    "Saya baru kena scam dan sudah transfer — apa yang harus saya lakukan?",
+    "Ada uang nyasar ke rekening saya, boleh dipakai?",
+    "Saya diteror penagih pinjol, apa hak saya?",
+    "Bank menolak ganti rugi transaksi tidak sah — saya harus ke mana?",
+    "Pasal penipuan di KUHP baru dan UU ITE",
+    "Apa beda PBI 3/2023 dan PBI 6/2026?"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Konsultasi Terpandu",
+     "what": "Tanya-jawab bertahap dengan pilihan (chip): situasi Anda → langkah yang bisa dilakukan + dasar hukum resmi."
+    },
+    {
+     "tab": "Peta Regulasi Keuangan",
+     "what": "Graf peraturan keuangan & perbankan: mana mengubah, mencabut, atau disesuaikan; klik untuk status & pasal kunci. (graf relasi ubah/cabut/disesuaikan)"
+    },
+    {
+     "tab": "Jelajah Pasal",
+     "what": "Daftar isi per dokumen hukum (Pembukaan/Bab/Pasal/Penjelasan/Lampiran) dengan pencarian."
+    },
+    {
+     "tab": "Status & Perubahan",
+     "what": "Linimasa status peraturan: berlaku, diubah, dicabut, dan penyesuaian ancaman pidana oleh UU 1/2026. (linimasa + penyesuaian UU 1/2026)"
+    },
+    {
+     "tab": "Kanal Pengaduan",
+     "what": "Ke mana mengadu (bank/PUJK, OJK 157/APPK, BI 131, LAPS SJK) dan urutannya."
+    },
+    {
+     "tab": "Glosarium",
+     "what": "Istilah hukum/keuangan dijelaskan dalam bahasa awam."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "hanya dokumen `available` (§4.28); ringkasan katalog ≠ kutipan; ancaman UU sektoral disesuaikan UU 1/2026; tidak menjamin dana kembali; bukan nasihat hukum; tidak meminta OTP/identitas",
+   "data_as_of": "katalog 2026-10-23; status dokumen per lock file",
+   "prompt_section": "§4.28",
+   "related": [
+    "mylaiwyer",
+    "antiscamdex"
+   ]
+  },
+  {
+   "id": "antiscamdex",
+   "name": "AntiScamDex",
+   "group": "law",
+   "group_name": "Hukum & Pelindungan Konsumen",
+   "purpose": "Adopsi informasi publik IASC, Satgas PASTI, OJK & BI: langkah darurat, siapkan laporan, statistik, modus",
+   "persona": "Pemandu respons cepat & edukasi anti-scam berbasis informasi publik IASC/Satgas PASTI/OJK/BI",
+   "ask_examples": [
+    "Saya baru kena scam — langkah segera",
+    "Berapa laporan penipuan yang diterima IASC?",
+    "Berapa dana korban yang diblokir dan dikembalikan?",
+    "Modus penipuan paling banyak",
+    "Cara melapor ke IASC dan data yang perlu disiapkan",
+    "Cek: apakah pesan ini scam?"
+   ],
+   "functions": [
+    {
+     "tab": "Chat",
+     "what": "Tanya apa saja tentang cakupan Dex ini; jawaban berisi angka dari data, grafik, analisis, dan panel \"Kenapa jawabannya begini?\"."
+    },
+    {
+     "tab": "Baru Kena Scam",
+     "what": "Layar darurat: dua pertanyaan (kapan & lewat apa) lalu langkah segera dengan tombol kanal resmi. (langkah darurat)"
+    },
+    {
+     "tab": "Siapkan Laporan",
+     "what": "Wizard offline untuk menyiapkan data & kronologi sesuai formulir IASC; data tidak pernah meninggalkan perangkat. (offline)"
+    },
+    {
+     "tab": "Statistik Penanganan",
+     "what": "Statistik IASC & Satgas PASTI: laporan, rekening diblokir, dana diblokir & dikembalikan, modus, wilayah — per tanggal potong & sumber."
+    },
+    {
+     "tab": "Kenali Modus",
+     "what": "Pustaka modus scam, tanda bahaya, dan kuis cek-mandiri \"Apakah ini scam?\". (+ kuis cek-mandiri)"
+    },
+    {
+     "tab": "Kanal Resmi",
+     "what": "Direktori kanal resmi (IASC, OJK, SiPASTI, BI, cekrekening.id, aduannomor.id, Polri, LAPS SJK) dan kapan memakainya."
+    },
+    {
+     "tab": "Cegah & Bukti",
+     "what": "Tips pencegahan scam dan daftar bukti yang perlu diamankan sebelum melapor."
+    },
+    {
+     "tab": "Data",
+     "what": "File sumber persis, cakupan, tanggal data (as-of), aturan pembersihan, laporan kualitas, lisensi & atribusi."
+    }
+   ],
+   "limitations": "bukan IASC & tidak meneruskan laporan; statistik per tanggal potong; titik \"judul berita\"; konflik antar-sumber ditampilkan; tidak mengklaim pemulihan dana",
+   "data_as_of": "statistik s/d 2026-09-30",
+   "prompt_section": "§4.29",
+   "related": [
+    "mylaiwyer",
+    "finlaiwyer"
+   ]
+  }
+ ]
+}

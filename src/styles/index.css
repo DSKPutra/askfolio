@@ -1,75 +1,221 @@
 /* © 2026 Dea Saka Kurnia Putra. All rights reserved. */
+/* "Index Constellation" design system (master prompt §10.0–§10.4). Tokens mirror src/config/brand.ts (tested). */
 @import 'tailwindcss';
 
 :root,
-[data-theme='dark'] {
-  --bg: #0a0f0c;
-  --surface: #111915;
-  --surface-2: #17221c;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #eef3ef;
-  --text-muted: #9db0a4;
-  --brand: #19f23a;
-  --brand-text: #19f23a;
-  --positive: #19f23a;
-  --negative: #ff5a5f;
-  --warning: #ffb020;
-  --info: #4da3ff;
-  color-scheme: dark;
-}
-
 [data-theme='light'] {
-  --bg: #f6f8f7;
-  --surface: #ffffff;
-  --surface-2: #eef2f0;
-  --border: rgba(10, 15, 12, 0.1);
-  --text: #0a0f0c;
-  --text-muted: #4a5b51;
-  --brand: #19f23a;
-  --brand-text: #0a7d24;
-  --positive: #0a7d24;
-  --negative: #c62828;
-  --warning: #a15c00;
-  --info: #1565c0;
+  --field-0: #e4eae2;
+  --field-1: #eef2ec;
+  --pane: #f8faf6;
+  --pane-2: #e3ebe2;
+  --edge: rgba(20, 58, 40, 0.16);
+  --ink: #13261c;
+  --ink-muted: #4c6355;
+  --primary: #1d6a44;
+  --on-primary: #ffffff;
+  --data: #1d6a44;
+  --ai: #256c7c;
+  --quote: #5a4630;
+  --quote-bg: #f4f0e3;
+  --flag: #8a5a0e;
+  --negative: #a63b28;
+  --positive: #1d6a44;
+  --series-1: #1d6a44;
+  --series-2: #256c7c;
+  --series-3: #8a5a0e;
+  --series-4: #a63b28;
+  --series-5: #5e4fa2;
+  --series-6: #3f8f7a;
+  --series-7: #7a5c38;
+  --series-8: #5f7f2a;
+  --guilloche-opacity: 0.06;
   color-scheme: light;
 }
 
-[data-colorblind='true'] {
-  --positive: #4da3ff;
-  --negative: #ff9f1c;
+[data-theme='dark'] {
+  --field-0: #0b1814;
+  --field-1: #0f1f19;
+  --pane: #152a23;
+  --pane-2: #1c362d;
+  --edge: rgba(190, 225, 200, 0.14);
+  --ink: #e6eee7;
+  --ink-muted: #9fb5a6;
+  --primary: #5bc795;
+  --on-primary: #0f1f19;
+  --data: #5bc795;
+  --ai: #79c6d2;
+  --quote: #e9dfc7;
+  --quote-bg: #1f2a22;
+  --flag: #e3ae55;
+  --negative: #ee8e79;
+  --positive: #5bc795;
+  --series-1: #5bc795;
+  --series-2: #79c6d2;
+  --series-3: #e3ae55;
+  --series-4: #ee8e79;
+  --series-5: #b3a4f0;
+  --series-6: #6fd0b8;
+  --series-7: #d4b48a;
+  --series-8: #b5cf6e;
+  --guilloche-opacity: 0.05;
+  color-scheme: dark;
+}
+
+/* Colour-blind mode: positive/negative never rely on red/green; ▲/▼ glyphs always accompany colour. */
+[data-theme='light'][data-colorblind='true'] {
+  --positive: #256c7c;
+  --negative: #9c5719;
+}
+[data-theme='dark'][data-colorblind='true'] {
+  --positive: #79c6d2;
+  --negative: #f0a35e;
+}
+
+/* High-contrast mode: guilloche off, 2 px edges. */
+[data-contrast='more'] {
+  --guilloche-opacity: 0;
+  --edge: var(--ink-muted);
+}
+@media (prefers-contrast: more) {
+  :root {
+    --guilloche-opacity: 0;
+  }
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-border: var(--border);
-  --color-text: var(--text);
-  --color-muted: var(--text-muted);
-  --color-brand: var(--brand);
-  --color-brand-text: var(--brand-text);
-  --color-positive: var(--positive);
+  --color-field-0: var(--field-0);
+  --color-field-1: var(--field-1);
+  --color-pane: var(--pane);
+  --color-pane-2: var(--pane-2);
+  --color-edge: var(--edge);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-data: var(--data);
+  --color-ai: var(--ai);
+  --color-quote: var(--quote);
+  --color-quote-bg: var(--quote-bg);
+  --color-flag: var(--flag);
   --color-negative: var(--negative);
-  --color-warning: var(--warning);
-  --color-info: var(--info);
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Montserrat', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-positive: var(--positive);
+  /* semantic aliases used across components */
+  --color-bg: var(--field-1);
+  --color-surface: var(--pane);
+  --color-surface-2: var(--pane-2);
+  --color-border: var(--edge);
+  --color-text: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-brand: var(--primary);
+  --color-brand-text: var(--primary);
+  --color-warning: var(--flag);
+  --color-info: var(--ai);
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Unbounded', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-serif: 'IBM Plex Serif', serif;
+  /* three radii by hierarchy (§10.0): pane 20 px, control 12 px (--radius-xl), chip = full */
+  --radius-pane: 20px;
+  --radius-xl: 12px;
+  /* modular scale 1.25 (§10.4) */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 25px;
+  --text-2xl: 31px;
+  --text-3xl: 39px;
+  --text-4xl: 49px;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 html,
 body {
-  background: var(--bg);
-  color: var(--text);
+  background-color: var(--field-1);
+  color: var(--ink);
   font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Plain paper background (no glow, no decorative gradient). The guilloche texture is only used on the home hero
+   and the whitepaper cover (see .guilloche). */
+body {
+  background-color: var(--field-1);
 }
 
 h1,
 h2,
-h3,
 .font-display {
   font-family: var(--font-display);
   letter-spacing: 0.01em;
+  font-weight: 600;
+}
+h3,
+h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+/* Layered panes: surface tone + a thin edge; never a generic grey shadow or glow. */
+.pane {
+  background: var(--pane);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-pane);
+}
+.pane-2 {
+  background: var(--pane-2);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-pane);
+}
+[data-contrast='more'] .pane,
+[data-contrast='more'] .pane-2 {
+  border-width: 2px;
+}
+
+/* Provenance edges (§10.0.2). */
+.prov-ai {
+  border-left: 3px solid var(--ai);
+}
+.prov-data {
+  border-left: 3px solid var(--data);
+}
+.prov-flag {
+  border-left: 3px solid var(--flag);
+}
+.quote-paper {
+  background: var(--quote-bg);
+  color: var(--quote);
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Hover/focus emphasis without glow: a 1 px primary outline. */
+.focus-ring:hover,
+.focus-ring:focus-visible {
+  border-color: var(--primary);
+}
+
+/* Guilloche texture (deterministic SVG, opacity ≤ 6 %), hero & whitepaper cover only. */
+.guilloche {
+  position: relative;
+  isolation: isolate;
+}
+.guilloche::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: var(--guilloche-opacity);
+  background-image: var(--guilloche-svg);
+  background-size: 640px 220px;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.measure {
+  max-width: 72ch;
 }
 
 .safe-bottom {
@@ -109,16 +255,24 @@ h3,
 }
 .prose-chat table {
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 .prose-chat th,
 .prose-chat td {
-  border: 1px solid var(--border);
+  border: 1px solid var(--edge);
   padding: 0.25rem 0.5rem;
 }
 .prose-chat a {
-  color: var(--brand-text);
+  color: var(--primary);
   text-decoration: underline;
+}
+.prose-chat blockquote {
+  background: var(--quote-bg);
+  color: var(--quote);
+  font-family: var(--font-serif);
+  border-left: 3px solid var(--quote);
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
 }
 
 @keyframes pulse-dot {
@@ -139,12 +293,14 @@ h3,
   display: none;
 }
 
-.tabular {
+.tabular,
+table {
   font-variant-numeric: tabular-nums;
 }
 
+/* Focus ring: primary 2 px + 2 px offset. */
 :focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -153,6 +309,14 @@ h3,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+[data-motion='reduce'] *,
+[data-motion='reduce'] *::before,
+[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }

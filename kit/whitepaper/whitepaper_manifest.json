@@ -1,0 +1,43 @@
+{
+ "version": "1.0",
+ "date": "2026-10-23",
+ "author": "Dea Saka Kurnia Putra",
+ "copyright": "\u00a9 2026 Dea Saka Kurnia Putra. All rights reserved.",
+ "files": [
+  {
+   "file": "Finandex_Whitepaper_ID.pdf",
+   "bytes": 750994,
+   "sha256": "4a27e2f1ec090b5efaf06cc4fbf8df511e94d031e27b56d461986715fa64650d",
+   "lang": "id",
+   "kind": "pdf"
+  },
+  {
+   "file": "Finandex_Whitepaper_EN.pdf",
+   "bytes": 695925,
+   "sha256": "cde8799609201086bdaf96dc478f9ab6108e4457e4aec21f345a1fc81a2c3471",
+   "lang": "en",
+   "kind": "pdf"
+  },
+  {
+   "file": "Finandex_Platform_Overview.pptx",
+   "bytes": 1844982,
+   "sha256": "267d0845706883ac1b83a5039b9c48fbabf1c03a7ebb53b10c8dbd3b9cfda887",
+   "lang": "id",
+   "kind": "pptx"
+  },
+  {
+   "file": "FINANDEX_WHITEPAPER_ID.md",
+   "bytes": 60666,
+   "sha256": "c21e5dc5f55797a8de00093cb7c0e7bdcc2a453be9c92f7c348df9d999153c31",
+   "lang": "id",
+   "kind": "md"
+  },
+  {
+   "file": "FINANDEX_WHITEPAPER_EN.md",
+   "bytes": 39318,
+   "sha256": "baf37a09cbd31af6668417a48cf8ff24192c1e5c0c4e2b882eccdce583200539",
+   "lang": "en",
+   "kind": "md"
+  }
+ ]
+}

@@ -1,0 +1,1831 @@
+{
+ "meta": {
+  "id": "regulation_catalog",
+  "version": "2026-10-23",
+  "compiled_on": "2026-10-23",
+  "purpose": "Registry dokumen hukum untuk My LAIwyer (corpus 'umum') dan FinLAIwyer (corpus 'keuangan').",
+  "copyright_note": "Peraturan perundang-undangan tidak dilindungi hak cipta (UU 28/2014 tentang Hak Cipta, Pasal 42); tetap sebut sumber resmi dan jangan mengubah teks.",
+  "fetch_policy": "Unduh hanya dari domain resmi pemerintah (lihat allowed_domains), hormati robots.txt, ≤ 1 permintaan/detik, cache di GitHub Release 'data-regulations-v1', kunci SHA-256 di regulations.lock.json. Gagal unduh → status 'menunggu dokumen' + minta file ke pemilik.",
+  "allowed_domains": [
+   "peraturan.bpk.go.id",
+   "peraturan.go.id",
+   "ojk.go.id",
+   "www.ojk.go.id",
+   "bi.go.id",
+   "www.bi.go.id",
+   "jdih.kemenkeu.go.id",
+   "jdih.ppatk.go.id",
+   "jdih.mahkamahagung.go.id",
+   "jdihn.go.id",
+   "jdih.komdigi.go.id",
+   "dpr.go.id",
+   "jdih.dpr.go.id",
+   "setneg.go.id",
+   "jdih.setneg.go.id"
+  ],
+  "penalty_rule": "Ancaman pidana UU di luar KUHP wajib dibaca bersama lampiran UU 1/2026 (Penyesuaian Pidana); katalog ini sengaja tidak menyimpan angka ancaman."
+ },
+ "documents": [
+  {
+   "id": "uud-1945-naskah-asli",
+   "type": "UUD",
+   "number": null,
+   "year": 1945,
+   "title": "Undang-Undang Dasar 1945 (naskah asli, sebelum Perubahan I–IV)",
+   "short": "UUD 1945 (naskah asli)",
+   "corpus": "umum",
+   "also_relevant_to": [],
+   "status": "historis (telah diubah 4 kali 1999–2002)",
+   "effective": null,
+   "source": "input",
+   "input_no": 35,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UUD None 1945 Undang-Undang Dasar 1945 (naskah asli, sebelum Perubahan I–IV)",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "konstitusi",
+    "lembaga negara",
+    "hak warga negara"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "kit/golden/law/golden.json"
+   ],
+   "notes": "Setiap kutipan wajib disertai catatan bahwa ini naskah asli; teks berlaku = UUD NRI 1945 (dalam satu naskah)."
+  },
+  {
+   "id": "uud-nri-1945",
+   "type": "UUD",
+   "number": null,
+   "year": 1945,
+   "title": "Undang-Undang Dasar Negara Republik Indonesia Tahun 1945 (dalam satu naskah, termasuk Perubahan I–IV)",
+   "short": "UUD NRI 1945",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [
+    "https://jdih.kemenkeu.go.id/download/9d9e91bd-e9f0-4e8c-86f1-c6841cf834f3/UUD1945dlmsatunaskah.pdf"
+   ],
+   "resolve_query": "UUD None 1945 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945 (dalam satu naskah, termasuk Perubahan I–IV)",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "konstitusi",
+    "hak asasi manusia",
+    "perekonomian nasional (Pasal 33)",
+    "bank sentral (Pasal 23D)"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [
+    {
+     "pasal": "23D",
+     "must_contain": "bank sentral"
+    }
+   ],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": "Dokumen 'dalam satu naskah' adalah kompilasi resmi untuk dibaca; bila sumber JDIH tidak tersedia, minta file ke pemilik."
+  },
+  {
+   "id": "uu-8-1981-kuhap",
+   "type": "UU",
+   "number": 8,
+   "year": 1981,
+   "title": "Hukum Acara Pidana",
+   "short": "KUHAP 1981 (UU 8/1981)",
+   "corpus": "umum",
+   "also_relevant_to": [],
+   "status": "dicabut",
+   "effective": null,
+   "source": "input",
+   "input_no": 30,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 8 1981 Hukum Acara Pidana",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [
+    "uu-20-2025-kuhap"
+   ],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penyidikan",
+    "penangkapan",
+    "penahanan",
+    "praperadilan"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "kit/golden/law/golden.json"
+   ],
+   "notes": "Berlaku untuk riwayat & perbandingan; dicabut UU 20/2025 sejak 2 Januari 2026."
+  },
+  {
+   "id": "uu-20-2025-kuhap",
+   "type": "UU",
+   "number": 20,
+   "year": 2025,
+   "title": "Kitab Undang-Undang Hukum Acara Pidana",
+   "short": "KUHAP 2025 (UU 20/2025)",
+   "corpus": "umum",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": "2026-01-02",
+   "source": "input",
+   "input_no": 31,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/337302/uu-no-20-tahun-2025"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 20 2025 Kitab Undang-Undang Hukum Acara Pidana",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [
+    "uu-8-1981-kuhap"
+   ],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "hukum acara pidana",
+    "hak tersangka/korban",
+    "laporan polisi"
+   ],
+   "scam_relevance": "Mengatur proses setelah korban membuat Laporan Polisi (penyelidikan, penyidikan, hak korban).",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "kit/golden/law/golden.json",
+    "https://peraturan.bpk.go.id/Details/337302/uu-no-20-tahun-2025",
+    "https://www.jawapos.com/kasuistika/2601020137/kuhp-dan-kuhap-yang-baru-mulai-berlaku-2-januari-2026"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-1-1946",
+   "type": "UU",
+   "number": 1,
+   "year": 1946,
+   "title": "Peraturan Hukum Pidana",
+   "short": "UU 1/1946",
+   "corpus": "umum",
+   "also_relevant_to": [],
+   "status": "historis",
+   "effective": null,
+   "source": "input",
+   "input_no": 34,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 1 1946 Peraturan Hukum Pidana",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "dasar berlakunya KUHP lama (WvS)"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "kit/golden/law/golden.json"
+   ],
+   "notes": "Bukan teks lengkap KUHP lama."
+  },
+  {
+   "id": "uu-1-2023-kuhp",
+   "type": "UU",
+   "number": 1,
+   "year": 2023,
+   "title": "Kitab Undang-Undang Hukum Pidana",
+   "short": "KUHP (UU 1/2023)",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": "2026-01-02",
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/234935/uu-no-1-tahun-2023"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 1 2023 Kitab Undang-Undang Hukum Pidana",
+   "amends": [],
+   "amended_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "hukum pidana materiil",
+    "penipuan",
+    "penggelapan",
+    "pemalsuan"
+   ],
+   "scam_relevance": "Delik penipuan untuk perkara scam setelah 2 Januari 2026.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 492",
+     "summary": "Penipuan: menguntungkan diri secara melawan hukum dengan nama/kedudukan palsu, tipu muslihat, atau rangkaian kebohongan sehingga orang menyerahkan barang, memberi utang, membuat pengakuan utang, atau menghapus piutang. Ancaman menurut sumber: penjara paling lama 4 tahun atau denda paling banyak kategori V.",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 79 ayat (1)",
+     "summary": "Kategori pidana denda (kategori V = Rp500 juta menurut sumber).",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 624",
+     "summary": "Mulai berlaku 3 tahun sejak diundangkan (2 Januari 2026).",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/",
+      "https://www.jawapos.com/kasuistika/2601020137/kuhp-dan-kuhap-yang-baru-mulai-berlaku-2-januari-2026"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [
+    {
+     "pasal": "492",
+     "must_contain": "penipuan"
+    }
+   ],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/234935/uu-no-1-tahun-2023",
+    "https://www.jawapos.com/kasuistika/2601020137/kuhp-dan-kuhap-yang-baru-mulai-berlaku-2-januari-2026"
+   ],
+   "notes": "Disesuaikan oleh UU 1/2026; selalu periksa lampiran UU 1/2026 sebelum menyebut ancaman."
+  },
+  {
+   "id": "uu-1-2026-penyesuaian-pidana",
+   "type": "UU",
+   "number": 1,
+   "year": 2026,
+   "title": "Penyesuaian Pidana",
+   "short": "UU 1/2026 (Penyesuaian Pidana)",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": "2026-01-02",
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/337869/uu-no-1-tahun-2026"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 1 2026 Penyesuaian Pidana",
+   "amends": [
+    "uu-1-2023-kuhp",
+    "uu-12-2011-p3"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penyesuaian ketentuan pidana UU sektoral & Perda dengan Buku Kesatu KUHP",
+    "kategori denda"
+   ],
+   "scam_relevance": "Ancaman pidana di UU ITE, UU Transfer Dana, UU TPPU, UU PDP, UU P2SK, UU Perbankan dll. harus dibaca bersama lampiran UU ini.",
+   "key_provisions": [
+    {
+     "ref": "Ketentuan umum",
+     "summary": "Menyesuaikan ketentuan pidana dalam UU di luar KUHP dan peraturan daerah agar selaras dengan Buku Kesatu KUHP, serta menyesuaikan sejumlah ketentuan KUHP; ditetapkan, diundangkan, dan berlaku 2 Januari 2026 (LN 2026 (1), TLN 7153).",
+     "verified_by": [
+      "https://peraturan.bpk.go.id/Details/337869/uu-no-1-tahun-2026",
+      "https://kabar24.bisnis.com/read/20251208/15/1935112/sah-ruu-penyesuaian-pidana-resmi-menjadi-undang-undang"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/337869/uu-no-1-tahun-2026",
+    "https://kabar24.bisnis.com/read/20251208/15/1935112/sah-ruu-penyesuaian-pidana-resmi-menjadi-undang-undang"
+   ],
+   "notes": null
+  },
+  {
+   "id": "kuhperdata",
+   "type": "KUHPerdata",
+   "number": null,
+   "year": 1847,
+   "title": "Kitab Undang-Undang Hukum Perdata (Burgerlijk Wetboek, Staatsblad 1847 No. 23)",
+   "short": "KUHPerdata",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "Kitab Undang-Undang Hukum Perdata Burgerlijk Wetboek Staatsblad 1847 23",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "perjanjian",
+    "wanprestasi",
+    "perbuatan melawan hukum",
+    "ganti rugi"
+   ],
+   "scam_relevance": "Dasar gugatan perdata ganti rugi terhadap pelaku (perbuatan melawan hukum) atau terhadap pihak yang wanprestasi.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 1320",
+     "summary": "Syarat sah perjanjian.",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    },
+    {
+     "ref": "Pasal 1243",
+     "summary": "Ganti biaya, rugi, dan bunga karena perikatan tidak dipenuhi (wanprestasi).",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    },
+    {
+     "ref": "Pasal 1365",
+     "summary": "Perbuatan melawan hukum yang menimbulkan kerugian mewajibkan ganti rugi.",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    }
+   ],
+   "anchors": [
+    {
+     "pasal": "1365",
+     "must_contain": "melanggar hukum"
+    }
+   ],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": "Tidak ada versi 'resmi' terbitan negara yang tunggal; gunakan terjemahan yang dipublikasikan JDIH pemerintah. Bila tidak ditemukan, minta file ke pemilik."
+  },
+  {
+   "id": "uu-16-2011-bantuan-hukum",
+   "type": "UU",
+   "number": 16,
+   "year": 2011,
+   "title": "Bantuan Hukum",
+   "short": "UU Bantuan Hukum",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 16 2011 Bantuan Hukum",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "bantuan hukum cuma-cuma bagi orang miskin",
+    "LBH/pemberi bantuan hukum"
+   ],
+   "scam_relevance": "Rujukan untuk mengarahkan korban yang membutuhkan pendampingan hukum gratis.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "perma-2-2015-jo-4-2019",
+   "type": "PERMA",
+   "number": 2,
+   "year": 2015,
+   "title": "Tata Cara Penyelesaian Gugatan Sederhana (sebagaimana diubah PERMA 4 Tahun 2019)",
+   "short": "PERMA Gugatan Sederhana",
+   "corpus": "umum",
+   "also_relevant_to": [
+    "keuangan"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "PERMA 4 Tahun 2019 Perubahan PERMA 2 Tahun 2015 Tata Cara Penyelesaian Gugatan Sederhana",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "gugatan sederhana",
+    "wanprestasi",
+    "perbuatan melawan hukum"
+   ],
+   "scam_relevance": "Jalur gugatan perdata cepat bila nilai kerugian materiil ≤ Rp500 juta dan para pihak di wilayah hukum yang sama.",
+   "key_provisions": [
+    {
+     "ref": "Kriteria",
+     "summary": "Nilai gugatan materiil paling banyak Rp500 juta; perkara wanprestasi atau perbuatan melawan hukum; bukan sengketa tanah atau perkara pengadilan khusus (mis. sengketa konsumen yang menjadi yurisdiksi khusus); penggugat & tergugat di daerah hukum yang sama.",
+     "verified_by": [
+      "https://www.hukumonline.com/berita/a/kriteria-perkara-yang-bisa-dilakukan-gugatan-sederhana-lt636b8b1d00129"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://www.hukumonline.com/berita/a/kriteria-perkara-yang-bisa-dilakukan-gugatan-sederhana-lt636b8b1d00129"
+   ],
+   "notes": "Dua dokumen (PERMA 2/2015 dan PERMA 4/2019) diambil dan diindeks sebagai satu entri berversi."
+  },
+  {
+   "id": "uu-12-2011-p3",
+   "type": "UU",
+   "number": 12,
+   "year": 2011,
+   "title": "Pembentukan Peraturan Perundang-undangan (sebagaimana diubah UU 15/2019 dan UU 13/2022)",
+   "short": "UU P3",
+   "corpus": "umum",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 12 2011 Pembentukan Peraturan Perundang-undangan (sebagaimana diubah UU 15/2019 dan UU 13/2022)",
+   "amends": [],
+   "amended_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "hierarki peraturan (Pasal 7)",
+    "materi muatan ketentuan pidana (Pasal 15)"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/337869/uu-no-1-tahun-2026"
+   ],
+   "notes": "UU 1/2026 mengubah Pasal 15 (menurut JDIH BPK)."
+  },
+  {
+   "id": "uu-4-2023-p2sk",
+   "type": "UU",
+   "number": 4,
+   "year": 2023,
+   "title": "Pengembangan dan Penguatan Sektor Keuangan",
+   "short": "UU P2SK",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/240203/uu-no-4-tahun-2023"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 4 2023 Pengembangan dan Penguatan Sektor Keuangan",
+   "amends": [
+    "uu-23-1999-bi",
+    "uu-21-2011-ojk",
+    "uu-7-1992-perbankan",
+    "uu-21-2008-perbankan-syariah",
+    "uu-24-2004-lps",
+    "uu-8-1995-pasar-modal",
+    "uu-40-2014-perasuransian"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "omnibus sektor keuangan",
+    "pelindungan konsumen sektor keuangan",
+    "kewenangan OJK & BI",
+    "aset keuangan digital"
+   ],
+   "scam_relevance": "Siaran pers peluncuran IASC mengaitkan IASC dengan UU P2SK; memuat penguatan pelindungan konsumen dan kewenangan OJK.",
+   "key_provisions": [
+    {
+     "ref": "Bab pelindungan konsumen",
+     "summary": "Ketentuan pelindungan konsumen dan masyarakat di sektor keuangan; lokasi pasal ditentukan saat ingest lewat pencarian.",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/240203/uu-no-4-tahun-2023",
+    "https://ojk.go.id/id/berita-dan-kegiatan/info-terkini/Pages/Tingkatkan-Pelindungan-Konsumen-Satgas-Pasti-Lakukan-Soft-Launching-IASC.aspx"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-21-2011-ojk",
+   "type": "UU",
+   "number": 21,
+   "year": 2011,
+   "title": "Otoritas Jasa Keuangan",
+   "short": "UU OJK",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/39257/uu-no-21-tahun-2011"
+   ],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/uu21-2011bt.pdf",
+    "https://peraturan.go.id/files/uu21-2011pjl.pdf"
+   ],
+   "resolve_query": "UU 21 2011 Otoritas Jasa Keuangan",
+   "amends": [],
+   "amended_by": [
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "tugas & wewenang OJK",
+    "pelindungan konsumen",
+    "pengaduan"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/39257/uu-no-21-tahun-2011"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-7-1992-perbankan",
+   "type": "UU",
+   "number": 7,
+   "year": 1992,
+   "title": "Perbankan",
+   "short": "UU Perbankan",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/46599/uu-no-7-tahun-1992"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 7 1992 Perbankan",
+   "amends": [],
+   "amended_by": [
+    "uu-10-1998-perbankan",
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "kegiatan usaha bank",
+    "rahasia bank",
+    "sanksi pidana perbankan"
+   ],
+   "scam_relevance": "Rahasia bank menjelaskan mengapa bank tidak dapat membuka data pemilik rekening pelaku kepada korban kecuali melalui jalur hukum.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 40 dst.",
+     "summary": "Rahasia bank dan pengecualiannya (sebagaimana diubah UU 10/1998).",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/46599/uu-no-7-tahun-1992"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-10-1998-perbankan",
+   "type": "UU",
+   "number": 10,
+   "year": 1998,
+   "title": "Perubahan atas Undang-Undang Nomor 7 Tahun 1992 tentang Perbankan",
+   "short": "UU 10/1998",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/45486/uu-no-10-tahun-1998"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 10 1998 Perubahan atas Undang-Undang Nomor 7 Tahun 1992 tentang Perbankan",
+   "amends": [
+    "uu-7-1992-perbankan"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "rahasia bank",
+    "perbankan syariah (awal)"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/45486/uu-no-10-tahun-1998"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-21-2008-perbankan-syariah",
+   "type": "UU",
+   "number": 21,
+   "year": 2008,
+   "title": "Perbankan Syariah",
+   "short": "UU Perbankan Syariah",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/39655/uu-no-21-tahun-2008"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 21 2008 Perbankan Syariah",
+   "amends": [],
+   "amended_by": [
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "bank syariah",
+    "penyelesaian sengketa perbankan syariah"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/39655/uu-no-21-tahun-2008"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-23-1999-bi",
+   "type": "UU",
+   "number": 23,
+   "year": 1999,
+   "title": "Bank Indonesia",
+   "short": "UU BI",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/45332/uu-no-23-tahun-1999"
+   ],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/uu23-1999.pdf"
+   ],
+   "resolve_query": "UU 23 1999 Bank Indonesia",
+   "amends": [],
+   "amended_by": [
+    "uu-3-2004-bi",
+    "uu-6-2009-bi",
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "tugas BI",
+    "sistem pembayaran"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/45332/uu-no-23-tahun-1999"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-3-2004-bi",
+   "type": "UU",
+   "number": 3,
+   "year": 2004,
+   "title": "Perubahan atas Undang-Undang Nomor 23 Tahun 1999 tentang Bank Indonesia",
+   "short": "UU 3/2004",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/40458/uu-no-3-tahun-2004"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 3 2004 Perubahan atas Undang-Undang Nomor 23 Tahun 1999 tentang Bank Indonesia",
+   "amends": [
+    "uu-23-1999-bi"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/40458/uu-no-3-tahun-2004"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-6-2009-bi",
+   "type": "UU",
+   "number": 6,
+   "year": 2009,
+   "title": "Penetapan Perppu Nomor 2 Tahun 2008 tentang Perubahan Kedua atas UU Nomor 23 Tahun 1999 tentang Bank Indonesia menjadi Undang-Undang",
+   "short": "UU 6/2009",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/38588/uu-no-6-tahun-2009"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 6 2009 Penetapan Perppu Nomor 2 Tahun 2008 tentang Perubahan Kedua atas UU Nomor 23 Tahun 1999 tentang Bank Indonesia menjadi Undang-Undang",
+   "amends": [
+    "uu-23-1999-bi"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/38588/uu-no-6-tahun-2009"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-3-2011-transfer-dana",
+   "type": "UU",
+   "number": 3,
+   "year": 2011,
+   "title": "Transfer Dana",
+   "short": "UU Transfer Dana",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/39133/uu-no-3-tahun-2011",
+    "https://ojk.go.id/id/regulasi/Pages/UU-Republik-Indonesia-tentang-Transfer-Dana.aspx"
+   ],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/uu3-2011bt.pdf",
+    "https://peraturan.go.id/files/uu3-2011pjl.pdf"
+   ],
+   "resolve_query": "UU 3 2011 Transfer Dana",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [
+    "perintah transfer dana",
+    "salah transfer",
+    "pengembalian dana"
+   ],
+   "scam_relevance": "Modus 'dana masuk tak dikenal lalu diminta dikembalikan'; juga hak & kewajiban dalam transfer.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 85",
+     "summary": "Pidana bagi setiap orang yang dengan sengaja menguasai dan mengakui sebagai miliknya dana hasil transfer yang diketahui atau patut diketahui bukan haknya. Ancaman: baca dari teks resmi + UU 1/2026.",
+     "verified_by": [
+      "https://www.hukumonline.com/berita/a/kasus-salah-transfer--penggunaan-pasal-85-uu-transfer-dana-harus-hati-hati-lt61849edb377d1"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [
+    {
+     "pasal": "85",
+     "must_contain": "bukan haknya"
+    }
+   ],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/39133/uu-no-3-tahun-2011",
+    "https://www.hukumonline.com/berita/a/kasus-salah-transfer--penggunaan-pasal-85-uu-transfer-dana-harus-hati-hati-lt61849edb377d1"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-8-2010-tppu",
+   "type": "UU",
+   "number": 8,
+   "year": 2010,
+   "title": "Pencegahan dan Pemberantasan Tindak Pidana Pencucian Uang",
+   "short": "UU TPPU",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/38547/uu-no-8-tahun-2010"
+   ],
+   "pdf_candidates": [
+    "https://jdih.ppatk.go.id/storage/dokumen_produk_hukum/UU Nomor  8 Tahun 2010 (2).pdf"
+   ],
+   "resolve_query": "UU 8 2010 Pencegahan dan Pemberantasan Tindak Pidana Pencucian Uang",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [
+    "tindak pidana asal",
+    "penundaan transaksi",
+    "pemblokiran",
+    "pelaporan PPATK"
+   ],
+   "scam_relevance": "Penipuan adalah tindak pidana asal; pihak yang menampung/menyamarkan dana hasil penipuan (mis. rekening penampung) dapat dijerat TPPU.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 2 ayat (1) huruf r",
+     "summary": "Penipuan termasuk hasil tindak pidana (tindak pidana asal).",
+     "verified_by": [
+      "https://tirto.id/isi-pasal-tentang-pencucian-uang-tppu-dalam-uu-no-8-tahun-2010-gAXr"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 3",
+     "summary": "Menempatkan, mentransfer, mengalihkan, membelanjakan, dst. harta yang diketahui/patut diduga hasil tindak pidana (TPPU aktif).",
+     "verified_by": [
+      "https://tirto.id/isi-pasal-tentang-pencucian-uang-tppu-dalam-uu-no-8-tahun-2010-gAXr"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 4",
+     "summary": "Menyembunyikan atau menyamarkan asal-usul harta hasil tindak pidana.",
+     "verified_by": [
+      "https://tirto.id/isi-pasal-tentang-pencucian-uang-tppu-dalam-uu-no-8-tahun-2010-gAXr"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 5 ayat (1)",
+     "summary": "Menerima atau menguasai harta yang diketahui/patut diduga hasil tindak pidana (TPPU pasif).",
+     "verified_by": [
+      "https://tirto.id/isi-pasal-tentang-pencucian-uang-tppu-dalam-uu-no-8-tahun-2010-gAXr"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [
+    {
+     "pasal": "2",
+     "must_contain": "penipuan"
+    }
+   ],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/38547/uu-no-8-tahun-2010",
+    "https://tirto.id/isi-pasal-tentang-pencucian-uang-tppu-dalam-uu-no-8-tahun-2010-gAXr",
+    "https://ojk.go.id/id/berita-dan-kegiatan/info-terkini/Pages/Tingkatkan-Pelindungan-Konsumen-Satgas-Pasti-Lakukan-Soft-Launching-IASC.aspx"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-8-1999-perlindungan-konsumen",
+   "type": "UU",
+   "number": 8,
+   "year": 1999,
+   "title": "Perlindungan Konsumen",
+   "short": "UUPK",
+   "corpus": "keuangan",
+   "also_relevant_to": [
+    "umum"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/45288/uu-no-8-tahun-1999"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 8 1999 Perlindungan Konsumen",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "hak & kewajiban konsumen",
+    "klausula baku",
+    "BPSK"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/45288/uu-no-8-tahun-1999"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-27-2022-pdp",
+   "type": "UU",
+   "number": 27,
+   "year": 2022,
+   "title": "Pelindungan Data Pribadi",
+   "short": "UU PDP",
+   "corpus": "keuangan",
+   "also_relevant_to": [
+    "umum"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 27 2022 Pelindungan Data Pribadi",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [
+    "hak subjek data",
+    "kewajiban pengendali data",
+    "kebocoran data",
+    "larangan & ketentuan pidana"
+   ],
+   "scam_relevance": "Penyalahgunaan/penyebaran data pribadi (mis. teror pinjol ilegal, jual-beli data) dan kewajiban notifikasi kebocoran.",
+   "key_provisions": [
+    {
+     "ref": "Bab larangan & ketentuan pidana",
+     "summary": "Larangan memperoleh, mengungkapkan, menggunakan, atau memalsukan data pribadi secara melawan hukum; lokasi pasal & ancaman dibaca dari teks resmi + UU 1/2026.",
+     "verified_by": [],
+     "status": "to_verify_on_ingest"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-11-2008-ite",
+   "type": "UU",
+   "number": 11,
+   "year": 2008,
+   "title": "Informasi dan Transaksi Elektronik",
+   "short": "UU ITE",
+   "corpus": "keuangan",
+   "also_relevant_to": [
+    "umum"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 11 2008 Informasi dan Transaksi Elektronik",
+   "amends": [],
+   "amended_by": [
+    "uu-19-2016-ite",
+    "uu-1-2024-ite"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [
+    "transaksi elektronik",
+    "dokumen elektronik sebagai alat bukti",
+    "perbuatan yang dilarang"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "uu-19-2016-ite",
+   "type": "UU",
+   "number": 19,
+   "year": 2016,
+   "title": "Perubahan atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "short": "UU 19/2016",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 19 2016 Perubahan atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "amends": [
+    "uu-11-2008-ite"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "uu-1-2024-ite",
+   "type": "UU",
+   "number": 1,
+   "year": 2024,
+   "title": "Perubahan Kedua atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "short": "UU 1/2024 (ITE)",
+   "corpus": "keuangan",
+   "also_relevant_to": [
+    "umum"
+   ],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://peraturan.bpk.go.id/Details/274494"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "UU 1 2024 Perubahan Kedua atas Undang-Undang Nomor 11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+   "amends": [
+    "uu-11-2008-ite"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [
+    "uu-1-2026-penyesuaian-pidana"
+   ],
+   "topics": [
+    "berita bohong yang merugikan konsumen transaksi elektronik",
+    "ketentuan pidana"
+   ],
+   "scam_relevance": "Penipuan online yang menimbulkan kerugian materiel konsumen dalam transaksi elektronik.",
+   "key_provisions": [
+    {
+     "ref": "Pasal 28 ayat (1)",
+     "summary": "Mendistribusikan/mentransmisikan informasi atau dokumen elektronik berisi pemberitahuan bohong atau informasi menyesatkan yang mengakibatkan kerugian materiel bagi konsumen dalam transaksi elektronik.",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 45A ayat (1)",
+     "summary": "Ancaman pidana atas Pasal 28 ayat (1); sumber menyebut penjara paling lama 6 tahun dan/atau denda paling banyak Rp1 miliar sebagaimana diundangkan — wajib dicek terhadap UU 1/2026.",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [
+    {
+     "pasal": "28",
+     "must_contain": "kerugian materiel"
+    }
+   ],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://peraturan.bpk.go.id/Details/274494",
+    "https://www.hukumonline.com/klinik/a/cara-menentukan-pasal-untuk-menjerat-pelaku-penipuan-online-lt5d1ad428d8fa3/"
+   ],
+   "notes": null
+  },
+  {
+   "id": "uu-24-2004-lps",
+   "type": "UU",
+   "number": 24,
+   "year": 2004,
+   "title": "Lembaga Penjamin Simpanan",
+   "short": "UU LPS",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 24 2004 Lembaga Penjamin Simpanan",
+   "amends": [],
+   "amended_by": [
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penjaminan simpanan",
+    "bank gagal"
+   ],
+   "scam_relevance": "Penjaminan simpanan TIDAK mencakup kerugian akibat penipuan oleh pihak ketiga; relevan untuk menjelaskan perbedaan.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "uu-42-1999-fidusia",
+   "type": "UU",
+   "number": 42,
+   "year": 1999,
+   "title": "Jaminan Fidusia",
+   "short": "UU Fidusia",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 42 1999 Jaminan Fidusia",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "jaminan fidusia",
+    "eksekusi/penarikan objek jaminan"
+   ],
+   "scam_relevance": "Pertanyaan tentang penarikan kendaraan/agunan oleh penagih; dibaca bersama POJK 22/2023 (mekanisme penagihan & penarikan agunan).",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "uu-8-1995-pasar-modal",
+   "type": "UU",
+   "number": 8,
+   "year": 1995,
+   "title": "Pasar Modal",
+   "short": "UU Pasar Modal",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 8 1995 Pasar Modal",
+   "amends": [],
+   "amended_by": [
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penawaran umum",
+    "penipuan di pasar modal",
+    "manipulasi pasar"
+   ],
+   "scam_relevance": "Investasi bodong yang menawarkan efek tanpa izin.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "uu-40-2014-perasuransian",
+   "type": "UU",
+   "number": 40,
+   "year": 2014,
+   "title": "Perasuransian",
+   "short": "UU Perasuransian",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "UU 40 2014 Perasuransian",
+   "amends": [],
+   "amended_by": [
+    "uu-4-2023-p2sk"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "asuransi",
+    "klaim",
+    "agen asuransi"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  },
+  {
+   "id": "pojk-22-2023",
+   "type": "POJK",
+   "number": 22,
+   "year": 2023,
+   "title": "Pelindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan",
+   "short": "POJK 22/2023",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": "2023-12-22",
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://ojk.go.id/id/regulasi/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan.aspx"
+   ],
+   "pdf_candidates": [
+    "https://ojk.go.id/id/regulasi/Documents/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan/Abstrak%20POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf"
+   ],
+   "resolve_query": "POJK 22 2023 Pelindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [
+    "pojk-6-2022"
+   ],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "hak & kewajiban konsumen/PUJK",
+    "larangan bekerja sama dengan pelaku usaha tak berizin",
+    "penagihan & penarikan agunan",
+    "layanan pengaduan",
+    "pelindungan data & keamanan sistem",
+    "gugatan perdata oleh OJK"
+   ],
+   "scam_relevance": "Dasar pengaduan korban ke bank/pelaku usaha jasa keuangan dan kewajiban PUJK menjaga keamanan sistem; mengatur etika penagihan.",
+   "key_provisions": [
+    {
+     "ref": "Ringkasan 11 substansi",
+     "summary": "Antara lain: larangan menerima konsumen/bermitra dengan pelaku usaha sektor keuangan tanpa izin; mekanisme penagihan & penarikan agunan; penyesuaian jangka waktu layanan pengaduan; pelindungan data/informasi serta keamanan sistem informasi & ketahanan siber; penguatan kewenangan OJK mengajukan gugatan perdata.",
+     "verified_by": [
+      "https://www.hukumonline.com/berita/a/perkuat-perlindungan-konsumen--ini-11-substansi-pojk-22-2023-lt65a2863f13fda"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Ketentuan penutup",
+     "summary": "Berlaku sejak diundangkan 22 Desember 2023; mencabut POJK 6/POJK.07/2022 dan sebagian ketentuan enam POJK lain (antara lain POJK 18/POJK.07/2018, POJK 31/POJK.07/2020, POJK 10/POJK.05/2022).",
+     "verified_by": [
+      "https://ojk.go.id/id/regulasi/Documents/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan/Abstrak%20POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan.aspx",
+    "https://ojk.go.id/id/regulasi/Documents/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan/Abstrak%20POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf",
+    "https://www.hukumonline.com/berita/a/perkuat-perlindungan-konsumen--ini-11-substansi-pojk-22-2023-lt65a2863f13fda"
+   ],
+   "notes": "Jangka waktu pengaduan dalam hari kerja dibaca dari batang tubuh saat ingest (tidak ada di abstrak)."
+  },
+  {
+   "id": "pojk-6-2022",
+   "type": "POJK",
+   "number": "6/POJK.07",
+   "year": 2022,
+   "title": "Perlindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan",
+   "short": "POJK 6/2022",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "dicabut",
+   "effective": null,
+   "source": "catalog-only",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "POJK 6/POJK.07 2022 Perlindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [
+    "pojk-22-2023"
+   ],
+   "penalty_adjusted_by": [],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Documents/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan/Abstrak%20POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf"
+   ],
+   "notes": "Hanya dicatat untuk riwayat; tidak diambil."
+  },
+  {
+   "id": "pojk-31-2020",
+   "type": "POJK",
+   "number": "31/POJK.07",
+   "year": 2020,
+   "title": "Penyelenggaraan Layanan Konsumen dan Masyarakat di Sektor Jasa Keuangan oleh Otoritas Jasa Keuangan",
+   "short": "POJK 31/2020",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku sebagian (sebagian dicabut POJK 22/2023)",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "POJK 31/POJK.07 2020 Penyelenggaraan Layanan Konsumen dan Masyarakat di Sektor Jasa Keuangan oleh Otoritas Jasa Keuangan",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "layanan & pengaduan konsumen oleh OJK (APPK/Kontak 157)"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Documents/Pages/Pelindungan-Konsumen-dan-Masyarakat-di-Sektor-Jasa-Keuangan/Abstrak%20POJK%2022%20Tahun%202023%20Pelindungan%20Konsumen%20dan%20Masyarakat%20di%20Sektor%20Jasa%20Keuangan.pdf"
+   ],
+   "notes": "Judul dikonfirmasi saat ingest. OJK menyatakan (Agustus 2026) sedang merevisi ketentuan layanan konsumen dengan target terbit akhir 2026 — cek status terbaru."
+  },
+  {
+   "id": "pojk-61-2020-laps",
+   "type": "POJK",
+   "number": "61/POJK.07",
+   "year": 2020,
+   "title": "Lembaga Alternatif Penyelesaian Sengketa Sektor Jasa Keuangan",
+   "short": "POJK LAPS SJK",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/ojk61-2020bt.pdf"
+   ],
+   "resolve_query": "POJK 61/POJK.07 2020 Lembaga Alternatif Penyelesaian Sengketa Sektor Jasa Keuangan",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "LAPS SJK",
+    "mediasi",
+    "arbitrase"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [
+    {
+     "ref": "Pasal 1 angka 1",
+     "summary": "Definisi LAPS SJK: lembaga penyelesaian sengketa sektor jasa keuangan di luar pengadilan.",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/penyelesaian-sengketa-di-luar-pengadilan-via-laps-sjk-lt628e118797df9"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pasal 32 ayat (1)",
+     "summary": "Syarat pengajuan: sudah diadukan ke PUJK dan ditolak/tidak dijawab; sengketa perdata; belum diperiksa pengadilan/arbitrase/LAPS lain.",
+     "verified_by": [
+      "https://www.hukumonline.com/klinik/a/penyelesaian-sengketa-di-luar-pengadilan-via-laps-sjk-lt628e118797df9"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://www.hukumonline.com/klinik/a/penyelesaian-sengketa-di-luar-pengadilan-via-laps-sjk-lt628e118797df9"
+   ],
+   "notes": null
+  },
+  {
+   "id": "pojk-12-2024-anti-fraud",
+   "type": "POJK",
+   "number": 12,
+   "year": 2024,
+   "title": "Penerapan Strategi Anti Fraud bagi Lembaga Jasa Keuangan",
+   "short": "POJK 12/2024 (Anti Fraud)",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Terbitkan-Peraturan-Penerapan-Strategi-Anti-Fraud-Bagi-Lembaga-Jasa-Keuangan.aspx"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "POJK 12 2024 Penerapan Strategi Anti Fraud bagi Lembaga Jasa Keuangan",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "strategi anti fraud",
+    "sistem deteksi fraud",
+    "pelaporan fraud ke OJK"
+   ],
+   "scam_relevance": "Kewajiban lembaga jasa keuangan membangun pencegahan & deteksi fraud yang juga melindungi konsumen.",
+   "key_provisions": [
+    {
+     "ref": "Ringkasan",
+     "summary": "Mendefinisikan fraud, mewajibkan kebijakan strategi anti fraud, pelaporan fraud rutin & insidental (denda bila terlambat), penerapan sistem deteksi fraud dan peningkatan kesadaran, dengan pendekatan pencegahan–deteksi–investigasi–perbaikan sistem.",
+     "verified_by": [
+      "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Terbitkan-Peraturan-Penerapan-Strategi-Anti-Fraud-Bagi-Lembaga-Jasa-Keuangan.aspx"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Terbitkan-Peraturan-Penerapan-Strategi-Anti-Fraud-Bagi-Lembaga-Jasa-Keuangan.aspx"
+   ],
+   "notes": null
+  },
+  {
+   "id": "pojk-40-2024-lpbbti",
+   "type": "POJK",
+   "number": 40,
+   "year": 2024,
+   "title": "Layanan Pendanaan Bersama Berbasis Teknologi Informasi",
+   "short": "POJK 40/2024 (pindar)",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://ojk.go.id/id/regulasi/Pages/POJK-40-Tahun-2024-Layanan-Pendanaan-Bersama-Berbasis-Teknologi-Informasi.aspx"
+   ],
+   "pdf_candidates": [
+    "https://peraturan.go.id/files/peraturan-ojk-no-40-tahun-2024.pdf"
+   ],
+   "resolve_query": "POJK 40 2024 Layanan Pendanaan Bersama Berbasis Teknologi Informasi",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "pinjaman daring berizin (LPBBTI)",
+    "penagihan",
+    "perjanjian pendanaan"
+   ],
+   "scam_relevance": "Membedakan pinjaman daring berizin dari pinjol ilegal; hak penerima dana.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Pages/POJK-40-Tahun-2024-Layanan-Pendanaan-Bersama-Berbasis-Teknologi-Informasi.aspx"
+   ],
+   "notes": "OJK menerbitkan rancangan perubahan POJK 40/2024 (RPOJK) — cek status."
+  },
+  {
+   "id": "pojk-27-2024-akd",
+   "type": "POJK",
+   "number": 27,
+   "year": 2024,
+   "title": "Penyelenggaraan Perdagangan Aset Keuangan Digital Termasuk Aset Kripto",
+   "short": "POJK 27/2024 (aset kripto)",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://ojk.go.id/id/regulasi/Pages/POJK-27-2024-AKD-AK.aspx"
+   ],
+   "pdf_candidates": [],
+   "resolve_query": "POJK 27 2024 Penyelenggaraan Perdagangan Aset Keuangan Digital Termasuk Aset Kripto",
+   "amends": [],
+   "amended_by": [
+    "pojk-23-2025"
+   ],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "pedagang aset kripto berizin",
+    "pelindungan konsumen aset kripto"
+   ],
+   "scam_relevance": "Penipuan berkedok platform/investasi kripto: cek izin pedagang aset kripto.",
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Pages/POJK-27-2024-AKD-AK.aspx"
+   ],
+   "notes": null
+  },
+  {
+   "id": "pojk-23-2025",
+   "type": "POJK",
+   "number": 23,
+   "year": 2025,
+   "title": "Perubahan atas POJK Nomor 27 Tahun 2024 tentang Penyelenggaraan Perdagangan Aset Keuangan Digital Termasuk Aset Kripto",
+   "short": "POJK 23/2025",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [
+    "https://ojk.go.id/id/regulasi/Documents/Pages/POJK-23-2025-Perubahan-POJK-27-Tahun-2024-tentang-Penyelenggaraan-Perdagangan-Aset-Keuangan-Digital-Termasuk-Aset-Kripto/Abstrak%20POJK%2023%20Tahun%202025%20Perubahan%20Atas%20Peraturan%20Otoritas%20Jasa%20Keuangan%20Nomor%2027%20Tahun%202024%20tentang%20Penyelenggaraan%20Perdagangan%20Aset%20Keuangan%20Digital%20Termasuk%20Aset%20Kripto.pdf"
+   ],
+   "resolve_query": "POJK 23 2025 Perubahan atas POJK Nomor 27 Tahun 2024 tentang Penyelenggaraan Perdagangan Aset Keuangan Digital Termasuk Aset Kripto",
+   "amends": [
+    "pojk-27-2024-akd"
+   ],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://ojk.go.id/id/regulasi/Documents/Pages/POJK-23-2025-Perubahan-POJK-27-Tahun-2024-tentang-Penyelenggaraan-Perdagangan-Aset-Keuangan-Digital-Termasuk-Aset-Kripto/Abstrak%20POJK%2023%20Tahun%202025%20Perubahan%20Atas%20Peraturan%20Otoritas%20Jasa%20Keuangan%20Nomor%2027%20Tahun%202024%20tentang%20Penyelenggaraan%20Perdagangan%20Aset%20Keuangan%20Digital%20Termasuk%20Aset%20Kripto.pdf"
+   ],
+   "notes": null
+  },
+  {
+   "id": "pbi-6-2026-pkbi",
+   "type": "PBI",
+   "number": 6,
+   "year": 2026,
+   "title": "Pelindungan Konsumen Bank Indonesia",
+   "short": "PBI 6/2026",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [
+    "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI_062026.aspx"
+   ],
+   "pdf_candidates": [
+    "https://www.bi.go.id/id/publikasi/peraturan/Documents/PBI-062026-.pdf",
+    "https://www.bi.go.id/id/publikasi/peraturan/Documents/FAQ-PBI-062026.pdf"
+   ],
+   "resolve_query": "PBI 6 2026 Pelindungan Konsumen Bank Indonesia",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [
+    "pbi-3-2023-pkbi"
+   ],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penyelenggara sistem pembayaran",
+    "perjanjian baku",
+    "transaksi tidak sah",
+    "pengaduan ke penyelenggara lalu ke BI",
+    "pelindungan data"
+   ],
+   "scam_relevance": "Dasar pengaduan masalah transfer/e-wallet/QRIS: mengadu ke penyelenggara dulu, lalu ke BI; perjanjian baku wajib mengatur keamanan transaksi dan pembagian kerugian akibat transaksi tidak sah.",
+   "key_provisions": [
+    {
+     "ref": "Ketentuan penutup",
+     "summary": "Mencabut PBI 3/2023 tentang PKBI; berlaku sejak diundangkan; masa penyesuaian penyelenggara paling lama 6 bulan.",
+     "verified_by": [
+      "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI_062026.aspx"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Perjanjian baku",
+     "summary": "Wajib memuat keamanan transaksi, proses otorisasi & pembatalan, pembagian kerugian akibat gangguan sistem atau transaksi tidak sah, dan prosedur pengaduan; dilarang mengalihkan tanggung jawab penyelenggara kepada konsumen.",
+     "verified_by": [
+      "https://www.bi.go.id/id/publikasi/peraturan/Documents/FAQ-PBI-062026.pdf"
+     ],
+     "status": "summary"
+    },
+    {
+     "ref": "Pengaduan",
+     "summary": "Penyelenggara wajib menangani pengaduan & mengganti kerugian akibat gangguan yang disebabkannya; bila konsumen menolak penyelesaian, dapat mengadu ke BI atau menempuh LAPS/pengadilan.",
+     "verified_by": [
+      "https://www.bi.go.id/id/publikasi/peraturan/Documents/FAQ-PBI-062026.pdf"
+     ],
+     "status": "summary"
+    }
+   ],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI_062026.aspx",
+    "https://www.bi.go.id/id/publikasi/peraturan/Documents/FAQ-PBI-062026.pdf"
+   ],
+   "notes": null
+  },
+  {
+   "id": "pbi-3-2023-pkbi",
+   "type": "PBI",
+   "number": 3,
+   "year": 2023,
+   "title": "Pelindungan Konsumen Bank Indonesia",
+   "short": "PBI 3/2023",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "dicabut",
+   "effective": null,
+   "source": "catalog-only",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "PBI 3 2023 Pelindungan Konsumen Bank Indonesia",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [
+    "pbi-6-2026-pkbi"
+   ],
+   "penalty_adjusted_by": [],
+   "topics": [],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": true,
+   "verified_by": [
+    "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI_062026.aspx"
+   ],
+   "notes": "Dicatat untuk riwayat & perbandingan; tidak diambil."
+  },
+  {
+   "id": "pbi-22-23-2020-sp",
+   "type": "PBI",
+   "number": "22/23/PBI",
+   "year": 2020,
+   "title": "Sistem Pembayaran",
+   "short": "PBI Sistem Pembayaran",
+   "corpus": "keuangan",
+   "also_relevant_to": [],
+   "status": "berlaku",
+   "effective": null,
+   "source": "fetch",
+   "input_no": null,
+   "official_pages": [],
+   "pdf_candidates": [],
+   "resolve_query": "PBI 22/23/PBI 2020 Sistem Pembayaran",
+   "amends": [],
+   "amended_by": [],
+   "revokes": [],
+   "revoked_by": [],
+   "penalty_adjusted_by": [],
+   "topics": [
+    "penyelenggara jasa sistem pembayaran",
+    "perizinan PJP"
+   ],
+   "scam_relevance": null,
+   "key_provisions": [],
+   "anchors": [],
+   "metadata_verified": false,
+   "verified_by": [],
+   "notes": null
+  }
+ ]
+}

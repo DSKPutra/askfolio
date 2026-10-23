@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" font-family="IBM Plex Sans, sans-serif">
+  <title>Finandex answer pipeline</title>
+  <rect width="960" height="300" rx="20" fill="#07130D"/>
+  <style>
+    .pane{fill:#0C1D15;stroke:#C9FFD6;stroke-opacity:.18}
+    .t{fill:#E9F5EC;font-size:15px;font-weight:600}
+    .s{fill:#93AE9D;font-size:12px}
+    .g{fill:#19F23A;font-size:12px;font-weight:600}
+    .c{fill:#3FD9FF;font-size:12px;font-weight:600}
+    .p{fill:#F3EEDF;font-size:12px;font-weight:600}
+    .a{fill:#FFB23E;font-size:12px;font-weight:600}
+    .ln{stroke:#19F23A;stroke-width:2;fill:none}
+  </style>
+  <rect x="24" y="40" width="160" height="120" rx="16" class="pane"/><text x="40" y="72" class="t">Question</text><text x="40" y="96" class="s">Dex · locale · context</text><text x="40" y="118" class="s">client checks: OTP,</text><text x="40" y="136" class="s">NIK, card, seed phrase</text>
+  <rect x="212" y="40" width="200" height="120" rx="16" class="pane"/><text x="228" y="72" class="t">Orchestrator</text><text x="228" y="96" class="s">system prompt + Dex prompt</text><text x="228" y="118" class="s">≤ 8 turns · ≤ 12 tools</text><text x="228" y="136" class="s">deadline 50 s · SSE</text>
+  <rect x="440" y="40" width="220" height="120" rx="16" class="pane"/><text x="456" y="72" class="t">Deterministic tools</text><text x="456" y="96" class="g">numbers from datasets</text><text x="456" y="118" class="p">official legal text</text><text x="456" y="136" class="s">ui spec + method event</text>
+  <rect x="688" y="40" width="248" height="216" rx="16" class="pane"/><text x="704" y="72" class="t">Answer card</text>
+  <text x="704" y="100" class="c">1  Core answer (AI)</text><text x="704" y="124" class="g">2  Chart / quote (data)</text><text x="704" y="148" class="c">3  Analysis 3–6 points</text><text x="704" y="172" class="g">4  Why this answer? (method)</text><text x="704" y="196" class="a">5  Limitations · sources</text><text x="704" y="220" class="s">6  Disclaimer</text>
+  <path d="M184 100 H212" class="ln"/><path d="M412 100 H440" class="ln"/><path d="M660 100 H688" class="ln"/>
+  <rect x="24" y="190" width="636" height="66" rx="16" class="pane"/>
+  <text x="40" y="218" class="t">Colour = provenance</text>
+  <text x="40" y="242" class="g">phosphor = data</text><text x="170" y="242" class="c">ion = AI narrative</text><text x="318" y="242" class="p">paper = official text</text><text x="470" y="242" class="a">amber = limitation</text>
+</svg>

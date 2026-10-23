@@ -12,7 +12,9 @@ test('consent is required on first use, then the answer card renders', async ({ 
   await page.getByRole('button', { name: 'Saya mengerti' }).click();
   await expect(page.getByText(/Emas \(GC=F\) memberi return/)).toBeVisible();
   await expect(page.getByRole('img', { name: /Perbandingan/ })).toBeVisible();
-  await page.getByRole('button', { name: 'Kenapa jawabannya begini?' }).click();
+  // The method panel opens by default in the Evidence Pane (§10.0.2); open it only if it is collapsed.
+  const why = page.getByRole('button', { name: 'Kenapa jawabannya begini?' }).first();
+  if ((await why.getAttribute('aria-expanded')) !== 'true') await why.click();
   await expect(page.getByText(/baris dipakai/).first()).toBeVisible();
   await expect(page.getByText(/Sumber: Global_Financial_Markets_Dataset_2000-Present\.zip/).first()).toBeVisible();
 });
@@ -41,20 +43,23 @@ test('sensitive data is blocked before sending', async ({ page }) => {
   expect(sent).toBe(false);
 });
 
-test('offline: banner shown, cached core data still renders, chat send disabled', async ({ page, context, browserName }) => {
-  test.skip(browserName !== 'chromium', 'service-worker offline replay is verified on Chromium');
-  await prime(page);
-  await page.goto('/');
-  await page.evaluate(async () => {
-    await navigator.serviceWorker.ready;
+test.describe('offline', () => {
+  test.use({ serviceWorkers: 'allow' });
+  test('offline: banner shown, cached core data still renders, chat send disabled', async ({ page, context, browserName }) => {
+    test.skip(browserName !== 'chromium', 'service-worker offline replay is verified on Chromium');
+    await prime(page);
+    await page.goto('/');
+    await page.evaluate(async () => {
+      await navigator.serviceWorker.ready;
+    });
+    await page.reload();
+    await expect(page.getByText('Ringkasan pasar')).toBeVisible();
+    await context.setOffline(true);
+    await page.reload();
+    await expect(page.getByText(/Anda sedang offline/)).toBeVisible();
+    await expect(page.locator('section[aria-labelledby="mkt-summary"]').getByText('S&P 500')).toBeVisible();
+    await page.goto('/dex/finandex-ai/chat').catch(() => undefined);
+    await expect(page.getByRole('button', { name: 'Kirim' })).toBeDisabled();
+    await context.setOffline(false);
   });
-  await page.reload();
-  await expect(page.getByText('Ringkasan pasar')).toBeVisible();
-  await context.setOffline(true);
-  await page.reload();
-  await expect(page.getByText(/Anda sedang offline/)).toBeVisible();
-  await expect(page.locator('section[aria-labelledby="mkt-summary"]').getByText('S&P 500')).toBeVisible();
-  await page.goto('/dex/finandex-ai/chat').catch(() => undefined);
-  await expect(page.getByRole('button', { name: 'Kirim' })).toBeDisabled();
-  await context.setOffline(false);
 });

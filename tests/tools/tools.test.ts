@@ -20,6 +20,8 @@ const NO_NUMBERS = new Set([
   'investor_search', 'investor_profile', 'company_search', 'item_search', 'project_search', 'ipo_search', 'withdrawn_ipos', 'city_profile', 'search_posts', 'top_papers',
   'provider_findings', 'sample_articles', 'get_penjelasan', 'open_page', 'list_sources', 'security_checklist', 'cross_dex_lookup', 'network_stats', 'dataset_info',
   'provider_labels', 'tone_breakdown', 'developer_summary', 'investor_leads', 'median_round', 'compare_sources',
+  // Law / consumer-protection tools: quotations, flows, directories, guides (no computed numbers).
+  'get_pasal', 'cross_reference', 'start_flow', 'flow_step', 'channel_directory', 'glossary', 'feature_guide', 'modus_library', 'evidence_checklist', 'prevention_tips', 'reporting_guide', 'region_stats',
 ]);
 
 describe.runIf(existsSync('public/data/manifest.json'))('gate: tools', () => {

@@ -7,7 +7,7 @@ import type { ChartSpec } from '../../shared/chat-protocol';
 import { formatDate } from '../../shared/format';
 import { axisValue, formatValue } from './format';
 
-export type ChartColors = { text: string; muted: string; border: string; surface: string; positive: string; negative: string; brand: string; info: string };
+export type ChartColors = { text: string; muted: string; border: string; surface: string; positive: string; negative: string; brand: string; info: string; warning: string; palette?: string[] };
 
 type Opt = Record<string, unknown>;
 
@@ -15,9 +15,9 @@ const isDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s);
 
 function base(c: ChartColors): Opt {
   return {
-    color: [...CHART_PALETTE],
+    color: c.palette?.length ? c.palette : [...CHART_PALETTE],
     backgroundColor: 'transparent',
-    textStyle: { color: c.text, fontFamily: 'Inter, system-ui, sans-serif' },
+    textStyle: { color: c.text, fontFamily: 'IBM Plex Sans, system-ui, sans-serif' },
     animationDuration: 300,
     graphic: [{ type: 'text', right: 12, bottom: 8, silent: true, style: { text: 'Finandex', fill: c.muted, opacity: 0.35, fontSize: 11 } }],
   };
@@ -60,17 +60,21 @@ export function toOption(spec: ChartSpec, c: ChartColors, locale: Locale, opts: 
           ...axisCommon(c),
           axisLabel: { color: c.muted, formatter: (v: number) => axisValue(v, unit, locale, spec.currency) },
         },
+        graphic: spec.series.some((s) => s.marker?.includes('headline'))
+          ? [...(base(c).graphic as Opt[]), { type: 'text', left: 12, bottom: long ? 34 : 4, silent: true, style: { text: locale === 'id' ? '◆ = angka dari judul berita saja' : '◆ = figure from a news headline only', fill: c.warning, fontSize: 11 } }]
+          : base(c).graphic,
         dataZoom: long ? [{ type: 'inside' }, { type: 'slider', height: 20, bottom: 8, textStyle: { color: c.muted }, borderColor: c.border }] : undefined,
         series: spec.series.map((s, i) => ({
           name: s.name,
           type: 'line',
-          data: s.data,
+          // Points sourced from a news headline only get a distinct --flag diamond (§4.29).
+          data: s.marker ? s.data.map((v, j) => (s.marker![j] === 'headline' ? { value: v, symbol: 'diamond', symbolSize: 11, itemStyle: { color: c.warning } } : { value: v, symbol: 'circle', symbolSize: 7 })) : s.data,
           step: s.step ? 'end' : undefined,
-          showSymbol: false,
+          showSymbol: !!s.marker,
           connectNulls: false,
           sampling: 'lttb',
-          lineStyle: { width: 1.6 },
-          areaStyle: s.area ? { opacity: 0.15 } : undefined,
+          lineStyle: { width: 1.75 },
+          areaStyle: s.area ? { opacity: 0.12 } : undefined,
           markLine:
             i === 0 && (spec.zeroLine || spec.marks?.length)
               ? {
@@ -269,6 +273,16 @@ export function specRows(spec: ChartSpec): { columns: string[]; rows: (string | 
     case 'quote':
       return { columns: ['doc_id', 'pasal', 'page', 'text'], rows: [[spec.doc_id, spec.pasal, spec.page, spec.text]] };
     case 'card':
-      return { columns: ['text'], rows: [[spec.body], ...(spec.items ?? []).map((i) => [i])] };
+      return { columns: ['text'], rows: [[spec.body], ...(spec.items ?? []).map((i) => [i]), ...(spec.functions ?? []).map((f) => [`${f.tab}: ${f.what}`])] };
+    case 'steps':
+      return { columns: ['n', 'step', 'urgent', 'channels'], rows: spec.steps.map((s, i) => [i + 1, s.text, s.urgent, s.channels.map((c) => c.url ?? c.phone ?? c.name).join(' | ')]) };
+    case 'choices':
+      return { columns: ['n', 'option'], rows: spec.options.length ? spec.options.map((o) => [o.index + 1, o.label]) : (spec.flows ?? []).map((f, i) => [i + 1, f.title]) };
+    case 'timeline':
+      return { columns: ['date', 'document', 'relation', 'status'], rows: spec.items.map((x) => [x.date, x.label, x.relation, x.status ?? null]) };
+    case 'gauge':
+      return { columns: ['label', 'value', 'numerator', 'denominator', 'cutoff'], rows: [[spec.label, spec.value, spec.numerator.value, spec.denominator.value, spec.cutoff]] };
+    case 'compare_text':
+      return { columns: ['document', 'pasal', 'page', 'text'], rows: [spec.left, spec.right].map((s) => [s.label, s.pasal, s.page, s.text]) };
   }
 }

@@ -29,10 +29,10 @@ export function StatTile({ label, value, changes, spark, footer, href }: { label
     </>
   );
   return href ? (
-    <Link to={href} className="block rounded-2xl border border-border bg-surface p-3 hover:bg-surface-2">
+    <Link to={href} className="block rounded-pane border border-border bg-surface p-3 hover:bg-surface-2">
       {inner}
     </Link>
   ) : (
-    <div className="rounded-2xl border border-border bg-surface p-3">{inner}</div>
+    <div className="rounded-pane border border-border bg-surface p-3">{inner}</div>
   );
 }

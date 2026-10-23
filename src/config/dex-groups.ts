@@ -3,12 +3,12 @@
 
 export const DEX_GROUP_IDS = [
   'global-markets',
-  'indonesia',
+  'indonesia-markets',
   'crypto-macro',
-  'startup-vc',
-  'living-cost',
-  'social',
-  'sentiment',
+  'startup-business',
+  'living-work',
+  'social-development',
+  'sentiment-personal',
   'law',
 ] as const;
 
@@ -32,7 +32,7 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
   {
-    id: 'indonesia',
+    id: 'indonesia-markets',
     order: 2,
     name: { id: 'Pasar & Ekonomi Indonesia', en: 'Indonesian Markets & Economy' },
     description: {
@@ -50,7 +50,7 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
   {
-    id: 'startup-vc',
+    id: 'startup-business',
     order: 4,
     name: { id: 'Startup, VC & Perusahaan', en: 'Startups, VC & Companies' },
     description: {
@@ -59,7 +59,7 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
   {
-    id: 'living-cost',
+    id: 'living-work',
     order: 5,
     name: { id: 'Biaya Hidup, Kerja & Rumah Tangga', en: 'Cost of Living, Work & Household' },
     description: {
@@ -68,7 +68,7 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
   {
-    id: 'social',
+    id: 'social-development',
     order: 6,
     name: { id: 'Sosial & Pembangunan', en: 'Social & Development' },
     description: {
@@ -77,7 +77,7 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
   {
-    id: 'sentiment',
+    id: 'sentiment-personal',
     order: 7,
     name: { id: 'Sentimen & Keuangan Pribadi', en: 'Sentiment & Personal Finance' },
     description: {

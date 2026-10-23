@@ -57,8 +57,13 @@ export async function runTool(tools: ToolDef[], use: ToolUse, ctx: ToolCtx) {
 }
 
 const SENSITIVE_REPLY = {
-  id: 'Pesan Anda tampaknya memuat data sensitif (seed phrase, private key, nomor kartu, atau NIK). Demi keamanan, Finandex tidak memproses data tersebut. Hapus data itu dari pesan dan jangan pernah membagikan seed phrase atau private key kepada siapa pun.',
-  en: 'Your message appears to contain sensitive data (seed phrase, private key, card number, or national ID). For your safety, Finandex does not process it. Please remove it and never share a seed phrase or private key with anyone.',
+  id: 'Pesan Anda tampaknya memuat data sensitif (OTP/PIN, nomor rekening atau kartu, NIK, seed phrase, atau private key). Demi keamanan, Finandex tidak memproses data tersebut. Hapus data itu dari pesan dan jangan pernah membagikan OTP, PIN, seed phrase, atau private key kepada siapa pun — bank, OJK, dan IASC tidak pernah memintanya.',
+  en: 'Your message appears to contain sensitive data (OTP/PIN, account or card number, national ID, seed phrase, or private key). For your safety, Finandex does not process it. Please remove it and never share an OTP, PIN, seed phrase, or private key with anyone — banks, OJK, and IASC never ask for them.',
+};
+/** Extra line for the law & consumer-protection Dex (§12.6: Finandex never collects or forwards reports). */
+const SENSITIVE_LAW_NOTE = {
+  id: ' Finandex tidak meneruskan laporan dan bukan IASC; laporan resmi hanya di iasc.ojk.go.id, diisi sendiri oleh Anda. Untuk menyiapkan laporan tanpa mengirim data, pakai "Siapkan Laporan" di AntiScamDex (tersimpan hanya di perangkat).',
+  en: ' Finandex does not forward reports and is not IASC; official reports only at iasc.ojk.go.id, filed by you. To prepare a report without sending data, use "Prepare a Report" in AntiScamDex (stored only on your device).',
 };
 
 export async function orchestrate(req: ChatRequest, deps: OrchestratorDeps, emit: (e: SseEvent) => void, signal: AbortSignal, requestId: string): Promise<void> {
@@ -71,7 +76,8 @@ export async function orchestrate(req: ChatRequest, deps: OrchestratorDeps, emit
 
   const last = req.messages.at(-1)!;
   if (detectSensitive(last.content).length) {
-    emit({ event: 'text', data: { delta: SENSITIVE_REPLY[req.locale] } });
+    const law = req.dex === 'antiscamdex' || req.dex === 'finlaiwyer' || req.dex === 'mylaiwyer';
+    emit({ event: 'text', data: { delta: SENSITIVE_REPLY[req.locale] + (law ? SENSITIVE_LAW_NOTE[req.locale] : '') } });
     emit({ event: 'done', data: { usage: { input_tokens: 0, output_tokens: 0 }, tools_used: [], elapsed_ms: now() - t0 } });
     return;
   }

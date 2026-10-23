@@ -21,7 +21,7 @@ import en from '../../src/i18n/en.json';
 import id from '../../src/i18n/id.json';
 import { ChartSpec, LIMITS } from '../../src/shared/chat-protocol';
 
-const C: ChartColors = { text: '#fff', muted: '#999', border: '#333', surface: '#111', positive: '#0f0', negative: '#f00', brand: '#0f0', info: '#00f' };
+const C: ChartColors = { text: '#fff', muted: '#999', border: '#333', surface: '#111', positive: '#0f0', negative: '#f00', brand: '#0f0', info: '#00f', warning: '#fa0' };
 
 describe('chart option builder', () => {
   it('builds every spec type without throwing and keeps data intact', () => {
@@ -124,7 +124,7 @@ describe('panels & tabs', () => {
   it('maps tools back to tabs', () => {
     expect(tabForTool('nasdaqdex', 'pulse')).toBe('pulse');
     expect(tabForTool('nasdaqdex', 'nope')).toBeUndefined();
-    expect(Object.keys(TABS)).toHaveLength(27);
+    expect(Object.keys(TABS)).toHaveLength(29);
   });
   it('every Dex has data notes with at least one rule', () => {
     for (const d of DEX_REGISTRY) expect(DATA_NOTES[d.id].rules.length, d.id).toBeGreaterThan(0);
@@ -152,17 +152,19 @@ describe('exports & chat helpers', () => {
     expect(out.at(-1)!.content.length).toBe(LIMITS.messageChars);
   });
   it('chooses Dex-specific disclaimers', () => {
-    expect(disclaimerKey('mylaiwyer')).toBe('disclaimer.law');
+    expect(disclaimerKey('mylaiwyer')).toBe('disclaimer.mylaiwyer');
+    expect(disclaimerKey('finlaiwyer')).toBe('disclaimer.finlaiwyer');
+    expect(disclaimerKey('antiscamdex')).toBe('disclaimer.antiscamdex');
     expect(disclaimerKey('cryptdex')).toBe('disclaimer.cryptoBot');
     expect(disclaimerKey('salarydex')).toBe('disclaimer.sample');
     expect(disclaimerKey('nasdaqdex')).toBe('disclaimer.short');
   });
   it('filters Dex for the feature map', () => {
     const all = [...DEX_REGISTRY];
-    expect(filterDex(all, { q: '', group: null, indonesia: false, hideNc: false })).toHaveLength(27);
-    expect(filterDex(all, { q: '', group: null, indonesia: false, hideNc: true })).toHaveLength(21);
+    expect(filterDex(all, { q: '', group: null, indonesia: false, hideNc: false })).toHaveLength(29);
+    expect(filterDex(all, { q: '', group: null, indonesia: false, hideNc: true })).toHaveLength(23);
     expect(filterDex(all, { q: 'rupiah', group: null, indonesia: false, hideNc: false }).map((d) => d.id)).toContain('rupiahdex');
-    expect(filterDex(all, { q: '', group: 'law', indonesia: true, hideNc: false }).map((d) => d.id)).toEqual(['mylaiwyer']);
+    expect(filterDex(all, { q: '', group: 'law', indonesia: true, hideNc: false }).map((d) => d.id)).toEqual(['mylaiwyer', 'finlaiwyer', 'antiscamdex']);
   });
   it('sorts and filters table rows (nulls last)', () => {
     const rows = [{ a: 2, b: 'x' }, { a: null, b: 'y' }, { a: 1, b: 'z' }];
@@ -214,14 +216,21 @@ describe('runtime URL resolution (§15.6)', () => {
 });
 
 describe('whitepaper', () => {
-  it('has matching id/en chapters and generated PDFs', async () => {
-    const { WHITEPAPER, WHITEPAPER_PDF } = await import('../../src/content/whitepaper');
-    const { existsSync, statSync } = await import('node:fs');
-    expect(WHITEPAPER.id.chapters.length).toBe(WHITEPAPER.en.chapters.length);
-    for (const L of ['id', 'en'] as const) {
-      const f = `public${WHITEPAPER_PDF[L]}`;
-      expect(existsSync(f), f).toBe(true);
-      expect(statSync(f).size).toBeGreaterThan(50_000);
+  it('kit editions have matching id/en chapters and the reader parses them', async () => {
+    const { prepareMarkdown, chaptersOf } = await import('../../src/pages/Whitepaper');
+    const { readFileSync, existsSync, statSync } = await import('node:fs');
+    const id = chaptersOf(prepareMarkdown(readFileSync('kit/whitepaper/FINANDEX_WHITEPAPER_ID.md', 'utf8')));
+    const en = chaptersOf(prepareMarkdown(readFileSync('kit/whitepaper/FINANDEX_WHITEPAPER_EN.md', 'utf8')));
+    expect(id.length).toBeGreaterThan(3);
+    expect(id.length).toBe(en.length);
+    for (const f of ['Finandex_Whitepaper_ID.pdf', 'Finandex_Whitepaper_EN.pdf', 'Finandex_Platform_Overview.pptx']) {
+      expect(existsSync(`kit/whitepaper/${f}`), f).toBe(true);
+      expect(statSync(`kit/whitepaper/${f}`).size).toBeGreaterThan(50_000);
     }
+  });
+  it('prepareMarkdown strips front matter and turns figure HTML into images', async () => {
+    const { prepareMarkdown } = await import('../../src/pages/Whitepaper');
+    const out = prepareMarkdown('---\na: 1\n---\n<div class="figure"><img src="assets/x.png" alt="X" /><p class="caption">Cap</p></div>');
+    expect(out).toBe('![X](/whitepaper/assets/x.png)\n\n*Cap*');
   });
 });

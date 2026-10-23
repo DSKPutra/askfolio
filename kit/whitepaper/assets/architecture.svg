@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="IBM Plex Sans, sans-serif">
+  <title>Finandex architecture</title>
+  <rect width="960" height="560" rx="20" fill="#07130D"/>
+  <g stroke="#2A4A38" stroke-width="1" opacity="0.5">
+    <path d="M0 48H960M0 96H960M0 144H960M0 192H960M0 240H960M0 288H960M0 336H960M0 384H960M0 432H960M0 480H960M0 528H960"/>
+    <path d="M48 0V560M96 0V560M144 0V560M192 0V560M240 0V560M288 0V560M336 0V560M384 0V560M432 0V560M480 0V560M528 0V560M576 0V560M624 0V560M672 0V560M720 0V560M768 0V560M816 0V560M864 0V560M912 0V560"/>
+  </g>
+  <style>
+    .pane{fill:#0C1D15;stroke:#C9FFD6;stroke-opacity:.18}
+    .t{fill:#E9F5EC;font-size:15px;font-weight:600}
+    .s{fill:#93AE9D;font-size:12px}
+    .h{fill:#19F23A;font-size:12px;font-weight:600;letter-spacing:.04em}
+    .ion{fill:#3FD9FF;font-size:12px;font-weight:600}
+    .ln{stroke:#19F23A;stroke-width:2;fill:none}
+    .ln2{stroke:#3FD9FF;stroke-width:2;fill:none;stroke-dasharray:6 5}
+  </style>
+  <text x="32" y="40" class="h">Clients — one codebase</text>
+  <g>
+    <rect x="32" y="56" width="176" height="76" rx="12" class="pane"/><text x="48" y="86" class="t">Web / PWA</text><text x="48" y="108" class="s">React · Vite · Workbox</text>
+    <rect x="32" y="144" width="176" height="76" rx="12" class="pane"/><text x="48" y="174" class="t">iOS · Android</text><text x="48" y="196" class="s">Capacitor</text>
+    <rect x="32" y="232" width="176" height="76" rx="12" class="pane"/><text x="48" y="262" class="t">macOS · Windows</text><text x="48" y="284" class="s">Tauri 2 desktop</text>
+    <rect x="32" y="320" width="176" height="76" rx="12" class="pane"/><text x="48" y="350" class="t">Lovable preview</text><text x="48" y="372" class="s">same repo, main branch</text>
+  </g>
+  <text x="300" y="40" class="h">Hosting</text>
+  <rect x="300" y="56" width="248" height="164" rx="20" class="pane"/>
+  <text x="318" y="88" class="t">Vercel + Netlify</text>
+  <text x="318" y="112" class="s">Static SPA (dist) + CDN</text>
+  <text x="318" y="134" class="s">/data/core · /data/heavy (JSON, f32)</text>
+  <text x="318" y="156" class="s">/whitepaper (PDF, PPTX)</text>
+  <text x="318" y="178" class="s">/downloads/manifest.json</text>
+  <text x="318" y="200" class="s">CSP · HSTS · CORS allowlist</text>
+  <rect x="300" y="244" width="248" height="152" rx="20" class="pane"/>
+  <text x="318" y="276" class="t">API: handle(Request, env)</text>
+  <text x="318" y="300" class="s">Vercel Function · Netlify Function</text>
+  <text x="318" y="322" class="s">/api/chat (SSE) · /api/dex · /api/health</text>
+  <text x="318" y="344" class="s">Orchestrator · tools · zod · rate limit</text>
+  <text x="318" y="366" class="s">DataStore: fetch + LRU + ETag</text>
+  <text x="318" y="388" class="s">Upstash Redis (optional)</text>
+  <text x="640" y="40" class="h">AI</text>
+  <rect x="640" y="56" width="288" height="112" rx="20" class="pane"/>
+  <text x="658" y="88" class="t">Claude API (@anthropic-ai/sdk)</text>
+  <text x="658" y="112" class="ion">claude-sonnet-5-5 · claude-haiku-5-5</text>
+  <text x="658" y="134" class="s">strict tool use · prompt caching · streaming</text>
+  <text x="658" y="156" class="s">numbers only from deterministic tools</text>
+  <text x="640" y="214" class="h">Data build (CI)</text>
+  <rect x="640" y="230" width="288" height="166" rx="20" class="pane"/>
+  <text x="658" y="262" class="t">ETL (TypeScript, streaming)</text>
+  <text x="658" y="286" class="s">42 uploaded datasets → GitHub Release</text>
+  <text x="658" y="308" class="s">kit datasets: AntiScam · law catalog · flows</text>
+  <text x="658" y="330" class="s">official regulation PDFs → lock + SHA-256</text>
+  <text x="658" y="352" class="s">golden tests · Python parity</text>
+  <text x="658" y="374" class="s">writes public/data/** + manifest</text>
+  <path d="M208 94 H300" class="ln"/><path d="M208 182 C260 182 260 120 300 120" class="ln"/><path d="M208 270 C260 270 260 140 300 140" class="ln"/><path d="M208 358 C260 358 260 160 300 160" class="ln"/>
+  <path d="M424 220 V244" class="ln"/>
+  <path d="M548 300 C600 300 600 112 640 112" class="ln2"/>
+  <path d="M640 312 C600 312 590 150 548 150" class="ln"/>
+  <rect x="32" y="424" width="896" height="104" rx="20" class="pane"/>
+  <text x="52" y="456" class="h">Quality gates (npm run verify)</text>
+  <text x="52" y="482" class="s">lint · typecheck · unit ≥ 90% · golden 100% · tools · eval mock 100% / live ≥ 95% (safety 100%) · Playwright (Chromium, WebKit, Firefox) · axe · Lighthouse ≥ 90</text>
+  <text x="52" y="506" class="s">UI audit &amp; visual regression · gitleaks · licence check · copyright check · install &amp; desktop smoke tests</text>
+</svg>

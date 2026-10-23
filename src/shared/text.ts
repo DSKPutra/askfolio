@@ -37,7 +37,7 @@ export function clipExcerpt(s: string | null | undefined, max = 300): string {
   return s.length > max ? `${s.slice(0, max - 1)}…` : s;
 }
 
-export type SensitiveKind = 'seed_phrase' | 'private_key' | 'card_number' | 'nik';
+export type SensitiveKind = 'seed_phrase' | 'private_key' | 'card_number' | 'nik' | 'otp' | 'account_number';
 
 export function luhnValid(digits: string): boolean {
   let sum = 0;
@@ -69,7 +69,8 @@ function longestBip39Run(s: string): number {
 
 /**
  * Detects data that must never be sent (§13.2): BIP-39 seed phrases (12+ consecutive wordlist words),
- * 64-hex private keys, Luhn-valid card numbers (13–19 digits), and 16-digit NIK.
+ * 64-hex private keys, Luhn-valid card numbers (13–19 digits), 16-digit NIK, OTP/PIN (4–8 digits within a few
+ * words of OTP/PIN/kode/verifikasi), and account numbers (10–16 digits within a few words of rekening/norek/account).
  */
 export function detectSensitive(s: string): SensitiveKind[] {
   const found = new Set<SensitiveKind>();
@@ -84,6 +85,13 @@ export function detectSensitive(s: string): SensitiveKind[] {
     } else if (digits.length === 16) {
       found.add('nik');
     }
+  }
+  const near = (words: string, digits: string) => new RegExp(`(?:${words})\\W+(?:\\w+\\W+){0,4}?(${digits})(?!\\d)|(?<!\\d)(${digits})\\W+(?:\\w+\\W+){0,3}?(?:${words})`, 'i');
+  if (near('otp|pin|kode|code|verifikasi|verification|token', '\\d{4,8}').test(s)) found.add('otp');
+  if (near('rekening|rek\\.?|norek|no\\.? rek|account|acct|a/n', '\\d[\\d -]{8,18}\\d').test(s)) {
+    const m = /\d[\d -]{8,18}\d/.exec(s);
+    const digits = (m?.[0] ?? '').replace(/[ -]/g, '');
+    if (digits.length >= 10 && digits.length <= 16 && !found.has('nik') && !found.has('card_number')) found.add('account_number');
   }
   return [...found];
 }

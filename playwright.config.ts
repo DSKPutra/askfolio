@@ -4,6 +4,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const local = !!process.env.PW_LOCAL;
+// Service workers are blocked by default: every context would otherwise precache all of data/core (~33 MB) and saturate
+// the preview server. The offline test opts back in with test.use({ serviceWorkers: 'allow' }).
 
 export default defineConfig({
   testDir: 'tests',
@@ -14,7 +16,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 2 : 4,
   reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
-  use: { baseURL: 'http://localhost:4173', trace: 'retain-on-failure', locale: 'id-ID', serviceWorkers: 'allow' },
+  use: { baseURL: 'http://localhost:4173', trace: 'retain-on-failure', locale: 'id-ID', serviceWorkers: 'block' },
   webServer: { command: 'npx vite preview --port 4173 --strictPort', url: 'http://localhost:4173', reuseExistingServer: !process.env.CI, timeout: 120_000, env: { CHAT_MODE: 'mock' } },
   projects: local
     ? [

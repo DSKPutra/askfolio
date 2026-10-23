@@ -37,3 +37,14 @@ export const DISTRIBUTION = ((import.meta.env.VITE_DISTRIBUTION as string | unde
 export const SUPPORT_EMAIL = (import.meta.env.VITE_SUPPORT_EMAIL as string | undefined) ?? '';
 export const APP_VERSION = (import.meta.env.VITE_APP_VERSION as string | undefined) ?? '0.1.0';
 export const BUILD_ID = (import.meta.env.VITE_BUILD_ID as string | undefined) ?? 'dev';
+
+/** Store / download links for the install centre (§14.1, §19) — badges stay hidden while empty. */
+const env = (k: string) => ((import.meta.env as Record<string, string | undefined>)[k] ?? '').trim();
+export const STORE_LINKS = {
+  appStore: env('VITE_APP_STORE_URL'),
+  testFlight: env('VITE_TESTFLIGHT_URL'),
+  playStore: env('VITE_PLAY_STORE_URL'),
+  msStore: env('VITE_MS_STORE_URL'),
+  /** [KONFIRMASI] direct APK download from GitHub Releases (§19 ANDROID_APK_DIRECT, default false). */
+  apkDirect: env('VITE_ANDROID_APK_DIRECT') === 'true',
+} as const;

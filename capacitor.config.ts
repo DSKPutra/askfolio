@@ -8,10 +8,10 @@ const config: CapacitorConfig = {
   appName: 'Finandex',
   webDir: 'dist',
   server: { androidScheme: 'https' },
-  backgroundColor: '#0A0F0C',
+  backgroundColor: '#EEF2EC',
   plugins: {
-    SplashScreen: { launchShowDuration: 1200, launchAutoHide: false, backgroundColor: '#0A0F0C', showSpinner: false, androidScaleType: 'CENTER_CROP' },
-    StatusBar: { style: 'DARK', backgroundColor: '#0A0F0C', overlaysWebView: false },
+    SplashScreen: { launchShowDuration: 1200, launchAutoHide: false, backgroundColor: '#EEF2EC', showSpinner: false, androidScaleType: 'CENTER_CROP' },
+    StatusBar: { style: 'LIGHT', backgroundColor: '#EEF2EC', overlaysWebView: false },
     Keyboard: { resize: 'body', resizeOnFullScreen: true },
   },
   ios: { contentInset: 'automatic' },

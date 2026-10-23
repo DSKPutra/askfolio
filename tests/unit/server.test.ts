@@ -127,9 +127,9 @@ describe.runIf(existsSync('public/data/manifest.json'))('handler', () => {
     expect(((await h.json()) as { ok: boolean }).ok).toBe(true);
     expect((await handle(new Request('https://finandex.test/api/version'), ENV, undefined, { fetcher })).status).toBe(200);
     const d = (await (await handle(new Request('https://finandex.test/api/dex'), ENV, undefined, { fetcher })).json()) as { dex: unknown[] };
-    expect(d.dex).toHaveLength(27);
+    expect(d.dex).toHaveLength(29);
     const c = (await (await handle(new Request('https://finandex.test/api/dex'), { ...ENV, VITE_DISTRIBUTION: 'commercial' }, undefined, { fetcher })).json()) as { dex: unknown[] };
-    expect(c.dex).toHaveLength(21);
+    expect(c.dex).toHaveLength(23);
     expect((await handle(new Request('https://finandex.test/api/feedback', { method: 'POST', body: '{"dex":"rupiahdex","rating":1}' }), ENV, undefined, { fetcher })).status).toBe(202);
     expect((await handle(new Request('https://finandex.test/api/feedback', { method: 'POST', body: '{"text":"hi"}' }), ENV, undefined, { fetcher })).status).toBe(400);
     expect((await handle(new Request('https://finandex.test/api/nope'), ENV, undefined, { fetcher })).status).toBe(404);

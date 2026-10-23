@@ -62,3 +62,9 @@
 - Whitepaper v2 (18 bab, termasuk tech stack) dengan unduhan PDF Bahasa Indonesia & English di Beranda dan /whitepaper.
 - Presentasi `docs/presentation/Finandex-Presentation-{ID,EN}.pptx` (17 slide, tangkapan layar asli) dari `scripts/build/make-presentation.py` + `scripts/build/capture-screens.ts`.
 - Verifikasi: lint/typecheck 0 error; 793 test lulus; bundel awal 180,9 KB gzip (≤ 250 KB); copyright check lulus.
+
+## v3 / v3.1 — 29 Dex, FinLAIwyer, AntiScamDex, Index Constellation, tema Obligasi & Brankas (2026-10-23)
+- Repo dipindah ke `DSKPutra/finandex` (main/release di-force-push; riwayat lama di `archive/v2-*`); domain `finandex.vercel.app` / `finandex.netlify.app`.
+- Hukum: katalog kit + lock regulasi (35/37 teks resmi; `kuhperdata`, `pp-33-2026-pdp` pending), mesin Konsultasi Terpandu, tool hukum baru (status regulasi, rujukan silang, banding versi, kanal, glosarium), AntiScamDex (statistik IASC/Satgas/OJK, modus, swa-periksa, langkah darurat, wizard laporan offline terenkripsi).
+- Eval mock 161/161 (keamanan 100%); golden kit lulus.
+- UI "Index Constellation" lalu recolor "Obligasi & Brankas": token baru di `brand.ts` + CSS (kontras AA teruji kedua tema), konstelasi titik tinta, guilloche ≤ 6% hanya di hero, ECharts 1,75 px/area 12%, splash/PWA/status bar `#EEF2EC`/`#0F1F19`, Pengaturan (sistem/Obligasi/Brankas, kurangi gerak, kontras tinggi, haptic), `ui:audit` 0 temuan, tangkapan sebelum/sesudah di `docs/ui-review/recolor/`.

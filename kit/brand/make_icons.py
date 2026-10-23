@@ -179,6 +179,19 @@ ICONS = {
   <path d="M104 268 H196 A46 46 0 0 1 104 268 Z" fill="{INK}"/>
   <path d="M316 268 H408 A46 46 0 0 1 316 268 Z" fill="{GREEN}" filter="url(#glow)"/>
   <path d="M352 96 l7 17 17 7 -17 7 -7 17 -7 -17 -17 -7 17 -7 Z" fill="#FFFFFF"/>'''),
+  "finlaiwyer": ("FinLAIwyer", f'''
+  <polygon points="256,112 396,196 116,196" fill="{INK}"/>
+  <circle cx="256" cy="166" r="20" fill="{GREEN}" filter="url(#glow)"/>
+  <rect x="128" y="208" width="256" height="18" rx="6" fill="{INK}"/>
+  <g fill="{INK}"><rect x="146" y="238" width="34" height="104" rx="6"/><rect x="212" y="238" width="34" height="104" rx="6"/><rect x="266" y="238" width="34" height="104" rx="6"/><rect x="332" y="238" width="34" height="104" rx="6"/></g>
+  <rect x="120" y="354" width="272" height="20" rx="6" fill="{INK}"/>
+  <rect x="104" y="382" width="304" height="16" rx="8" fill="{GREEN}" filter="url(#glow)"/>
+  <path d="M372 96 l7 17 17 7 -17 7 -7 17 -7 -17 -17 -7 17 -7 Z" fill="#FFFFFF"/>'''),
+  "antiscamdex": ("AntiScamDex", f'''
+  <path d="M256 104 L384 152 V246 C384 328 328 382 256 408 C184 382 128 328 128 246 V152 Z" fill="none" stroke="{INK}" stroke-width="24" stroke-linejoin="round"/>
+  <circle cx="262" cy="168" r="14" fill="none" stroke="{INK}" stroke-width="10"/>
+  <path d="M262 182 V282 A42 42 0 0 1 178 282 V262 L204 286" fill="none" stroke="{INK}" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="168" y1="352" x2="348" y2="172" stroke="{GREEN}" stroke-width="24" stroke-linecap="round" filter="url(#glow)"/>'''),
   "vcdex": ("VCDex", f'''
   <ellipse cx="256" cy="352" rx="120" ry="34" fill="{INK}"/>
   <rect x="136" y="318" width="240" height="34" fill="{INK}"/>
@@ -201,7 +214,7 @@ async def render():
             svg = open(os.path.join(OUT, f"{key}.svg")).read()
             for size in (1024, 512, 192):
                 await pg.set_viewport_size({"width": size, "height": size})
-                await pg.set_content(f'<html><body style="margin:0;background:transparent">{svg.replace("width=\"512\" height=\"512\"", f"width=\"{size}\" height=\"{size}\"")}</body></html>')
+                await pg.set_content(f'<html><body style="margin:0;background:transparent">{svg.replace("width=\"512\" height=\"512\"", f"width=\"{size}\" height=\"{size}\"", 1)}</body></html>')
                 await pg.locator("svg").screenshot(path=os.path.join(OUT, f"{key}-{size}.png"), omit_background=True)
         # contact sheet
         cells = "".join(f'<figure><div class="i">{open(os.path.join(OUT, k + ".svg")).read()}</div><figcaption>{t}</figcaption></figure>' for k, (t, _) in ICONS.items())

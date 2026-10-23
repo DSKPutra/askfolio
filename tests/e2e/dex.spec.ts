@@ -15,13 +15,15 @@ for (const d of DEX_REGISTRY) {
     const tabs = page.getByRole('navigation', { name: d.name }).getByRole('link');
     await expect(tabs.first()).toHaveText('Chat');
     await expect(tabs.last()).toHaveText('Data');
-    await expect(page.locator('main button.rounded-full')).toHaveCount(6);
+    // ≥ 6 example chips (§8.9) plus the "what can I ask?" feature chip (and "Konsultasi Terpandu" for law Dex).
+    await expect.poll(() => page.locator('main button.rounded-full').count()).toBeGreaterThanOrEqual(7);
     const feature = d.tabs[1]!;
     await page.goto(`/dex/${d.id}/${feature.id}`);
     await expect(page.locator('main [role="status"][aria-label]')).toHaveCount(0, { timeout: 30_000 });
     await expect(page.locator('main [role="alert"]')).toHaveCount(0);
     await page.goto(`/dex/${d.id}/data`);
-    await expect(page.getByText(INPUT_FILES[d.inputs[0]!]!, { exact: true })).toBeVisible();
+    if (d.inputs.length) await expect(page.getByText(INPUT_FILES[d.inputs[0]!]!, { exact: true })).toBeVisible();
+    else await expect(page.getByText(d.kitDatasets![0]!.split('/').pop()!).first()).toBeVisible();
   });
 }
 

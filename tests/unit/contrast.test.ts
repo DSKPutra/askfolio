@@ -1,7 +1,9 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// WCAG 2.2 AA contrast for text tokens on background/surface tokens in both themes (§10.3, §18.8).
+// WCAG 2.2 AA contrast for every text/background token pair of both themes ("Obligasi & Brankas", THEME_RECOLOR §3),
+// and the CSS variables in src/styles/index.css must equal the token table in src/config/brand.ts.
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { COLORBLIND_OVERRIDES, TOKENS } from '../../src/config/brand';
+import { CHART_PALETTES, COLORBLIND_OVERRIDES, CONTRAST_PAIRS, TOKENS } from '../../src/config/brand';
 
 function lum(hex: string): number {
   const n = hex.replace('#', '');
@@ -14,16 +16,37 @@ export const contrast = (a: string, b: string) => {
 };
 
 describe('token contrast (AA, 4.5:1 for text)', () => {
-  for (const theme of ['dark', 'light'] as const) {
-    const t = TOKENS[theme];
-    for (const bg of ['bg', 'surface', 'surface-2'] as const) {
-      for (const fg of ['text', 'text-muted', 'brand-text', 'positive', 'negative', 'warning', 'info'] as const) {
-        it(`${theme}: ${fg} on ${bg}`, () => expect(contrast(t[fg], t[bg])).toBeGreaterThanOrEqual(4.5));
-      }
-    }
+  for (const theme of ['light', 'dark'] as const) {
+    for (const [fg, bg] of CONTRAST_PAIRS)
+      it(`${theme}: ${fg} on ${bg}`, () => expect(contrast(TOKENS[theme][fg], TOKENS[theme][bg])).toBeGreaterThanOrEqual(4.5));
+    it(`${theme}: colour-blind overrides on page and panes`, () => {
+      for (const c of Object.values(COLORBLIND_OVERRIDES[theme]))
+        for (const bg of ['field-1', 'pane', 'pane-2'] as const) expect(contrast(c, TOKENS[theme][bg])).toBeGreaterThanOrEqual(4.5);
+    });
+    it(`${theme}: text on the emergency button (on-primary on negative)`, () => expect(contrast(TOKENS[theme]['on-primary'], TOKENS[theme].negative)).toBeGreaterThanOrEqual(4.5));
+    it(`${theme}: chart series ≥ 3:1 against panes (non-text, WCAG 1.4.11)`, () => {
+      for (const c of CHART_PALETTES[theme]) expect(contrast(c, TOKENS[theme].pane)).toBeGreaterThanOrEqual(3);
+    });
   }
-  it('colour-blind overrides stay readable on the dark theme', () => {
-    for (const c of Object.values(COLORBLIND_OVERRIDES)) expect(contrast(c, TOKENS.dark.bg)).toBeGreaterThanOrEqual(4.5);
+});
+
+describe('no legacy neon tokens', () => {
+  it('brand.ts tokens contain no #19F23A / #07130D / #3FD9FF', () => {
+    const all = JSON.stringify(TOKENS).toUpperCase();
+    for (const bad of ['#19F23A', '#07130D', '#3FD9FF']) expect(all).not.toContain(bad);
   });
-  it('primary button text (#0A0F0C) on brand green', () => expect(contrast('#0A0F0C', TOKENS.dark.brand)).toBeGreaterThanOrEqual(4.5));
+});
+
+describe('CSS variables = brand.ts tokens', () => {
+  const css = readFileSync('src/styles/index.css', 'utf8');
+  const block = (sel: string) => css.slice(css.indexOf(sel), css.indexOf('}', css.indexOf(sel)));
+  for (const [theme, sel] of [
+    ['light', ":root,\n[data-theme='light'] {"],
+    ['dark', "[data-theme='dark'] {"],
+  ] as const)
+    it(theme, () => {
+      const b = block(sel);
+      expect(b.length).toBeGreaterThan(10);
+      for (const [k, v] of Object.entries(TOKENS[theme])) expect(b.toLowerCase(), `--${k}`).toContain(`--${k}: ${v.toLowerCase().replace(/,/g, ', ')};`);
+    });
 });

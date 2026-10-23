@@ -78,7 +78,7 @@ export function DataTable({ columns, rows, title, source, asOf, maxHeight = 420 
             onChange={(e) => setFilter(e.target.value)}
             placeholder={locale === 'id' ? 'Saring tabel…' : 'Filter table…'}
             aria-label={locale === 'id' ? 'Saring tabel' : 'Filter table'}
-            className="min-h-9 flex-1 rounded-lg border border-border bg-surface-2 px-3 text-sm"
+            className="min-h-9 flex-1 rounded-xl border border-border bg-surface-2 px-3 text-sm"
           />
         )}
         <span className="text-xs text-muted">

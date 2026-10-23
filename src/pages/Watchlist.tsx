@@ -23,7 +23,7 @@ export default function Watchlist() {
             const d = getDex(w.dexId);
             if (!d || !isDexId(w.dexId)) return null;
             return (
-              <li key={`${w.dexId}:${w.entity}`} className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3">
+              <li key={`${w.dexId}:${w.entity}`} className="flex items-center gap-3 rounded-pane border border-border bg-surface p-3">
                 <DexIcon dex={d} size={32} />
                 <Link to={entityHref(w.dexId, w.entity)} className="min-w-0 flex-1">
                   <span className="block truncate font-medium">{w.label}</span>
