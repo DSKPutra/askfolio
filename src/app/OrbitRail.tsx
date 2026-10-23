@@ -99,6 +99,9 @@ export function OrbitRail() {
         ))}
       </ul>
       <div className="mt-auto flex flex-col gap-1">
+        <NavLink to="/agents" aria-label={t('nav.agents')} title={t('nav.agents')} className={({ isActive }) => clsx(railItem, isActive && 'text-primary')}>
+          <span aria-hidden>◈</span>
+        </NavLink>
         <NavLink to="/watchlist" aria-label={t('nav.watchlist')} title={t('nav.watchlist')} className={({ isActive }) => clsx(railItem, isActive && 'text-primary')}>
           <span aria-hidden>☆</span>
         </NavLink>

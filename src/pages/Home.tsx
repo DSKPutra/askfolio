@@ -29,6 +29,7 @@ export default function Home() {
   const quick: { to: string; label: string }[] = [
     { to: '/dex/mylaiwyer/chat', label: t('home.qa_law') },
     { to: '/dex/finlaiwyer/chat', label: t('home.qa_finlaw') },
+    { to: '/agents', label: t('home.qa_agents') },
     { to: '/whitepaper', label: t('home.qa_whitepaper') },
     { to: '/install', label: t('home.qa_install') },
     { to: '/panduan', label: t('home.qa_guide') },

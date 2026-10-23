@@ -50,7 +50,8 @@
     "qa_install": "Install the app",
     "qa_law": "Ask about law",
     "qa_whitepaper": "Download whitepaper",
-    "quick": "Quick actions"
+    "quick": "Quick actions",
+    "qa_agents": "Agent Room (watch the AI work)"
   },
   "dex": {
     "open": "Open",

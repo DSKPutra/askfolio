@@ -33,6 +33,13 @@ const HEX = UTS
   : { bg: "07130D", pane: "0C1D15", pane2: "12291E", ink: "E9F5EC", muted: "93AE9D", phos: "19F23A", ion: "3FD9FF", amber: "FFB23E", coral: "FF6B5E", paper: "F3EEDF", edge: "24412F" };
 // UTS cover data (copied verbatim from UTS_PPTX_PROMPT §2). Optional fields stay null until the owner provides them;
 // null fields are omitted (never shown as placeholders).
+// Latest project data for the UTS deck (read from the repository next to kit/: package.json, agent cards & evals,
+// chat eval + test reports, regulation lock, SBOM summary/check). Missing reports print "belum diukur".
+const ROOT = path.resolve(KIT, "..");
+const RJ = (p) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8")); } catch { return null; } };
+const LATEST = UTS ? { pkg: RJ("package.json"), agents: RJ("src/config/agents.generated.json"), agentEval: RJ("docs/agents/eval.json"), chatEval: RJ("reports/eval-mock.json"),
+  tests: RJ("reports/vitest.json"), lock: RJ("src/config/regulations.lock.json"), sbom: RJ("docs/compliance/sbom/SBOM_SUMMARY.json"), sbomCheck: RJ("docs/compliance/sbom/SBOM_CHECK.json") } : null;
+const ver = (n) => { const p = LATEST.pkg; return String((p.dependencies[n] || p.devDependencies[n] || "?")).replace(/^[\^~]/, ""); };
 const UTS_COVER = {
   label: "UJIAN TENGAH SEMESTER (UTS)",
   title: "Finandex",
@@ -133,6 +140,7 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
 
   }
 
+  if (!UTS) {
   // ---------------------------------------------------------------- 2. Ringkasan
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Pembuka" });
   s.addText("Satu aplikasi, 29 chatbot dengan datanya sendiri", { placeholder: "title" });
@@ -148,6 +156,27 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   text(s, [{ text: "Angka hanya dari data. ", options: { bold: true, color: HEX.phos } }, { text: "Setiap angka berasal dari tool deterministik dan diuji terhadap golden fixtures. Setiap jawaban menampilkan grafik, analisis, panel \"Kenapa jawabannya begini?\", keterbatasan, dan sumber.", options: { color: HEX.ink } }],
     { x: 0.6, y: 5.2, w: 12.1, h: 1.2, fontSize: 16 });
   s.addNotes("Empat angka kunci. Prinsip utama: model bahasa tidak boleh menghitung atau mengingat angka; semua angka dari tool deterministik.");
+  } else {
+  // UTS (data terbaru): 29 Dex · 32 agen AI · 42 dataset · 161 item evaluasi
+  const LA = LATEST;
+  const chatPass = LA.chatEval ? LA.chatEval.grades.filter((g) => g.pass).length : null;
+  const nSkills = LA.agents.agents.reduce((n, a) => n + a.skills.length, 0);
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Pembuka" });
+  s.addText("Satu aplikasi, 29 chatbot dengan datanya sendiri", { placeholder: "title" });
+  const stats = [[String(fg.dex.length), "chatbot Dex", "masing-masing dengan menu, fitur, logo, dan dataset sendiri", HEX.phos],
+                 [String(LA.agents.agents.length), "agen AI", `1 Konduktor, ${fg.dex.length} agen Dex, Verifikator, Penjaga · ${nSkills} keahlian`, HEX.ion],
+                 [String(man.length), "dataset unggahan", "+ 4 dataset kit: anti-scam, katalog regulasi, alur konsultasi, panduan fitur", HEX.amber],
+                 [String(ev.items.length), "pertanyaan evaluasi", chatPass === null ? "eval mock belum diukur" : `mock ${chatPass}/${LA.chatEval.grades.length} lulus, item keamanan ${Math.round(LA.chatEval.safety * 100)}%`, HEX.coral]];
+  stats.forEach(([n, l, d, col], i) => { const x = 0.6 + i * 3.08;
+    pane(s, x, 1.55, 2.86, 3.3, `stat-${i}`);
+    text(s, n, { x: x + 0.3, y: 1.8, w: 2.3, h: 1.1, fontSize: 60, bold: true, color: col, fontFace: "Arial" });
+    text(s, l, { x: x + 0.3, y: 2.95, w: 2.3, h: 0.45, fontSize: 18, bold: true });
+    text(s, d, { x: x + 0.3, y: 3.45, w: 2.35, h: 1.2, fontSize: 14, color: HEX.muted }); });
+  const tests = LA.tests ? `${LA.tests.numPassedTests}/${LA.tests.numTotalTests} tes otomatis lulus` : "tes otomatis: belum diukur";
+  text(s, [{ text: "Angka hanya dari data. ", options: { bold: true, color: HEX.phos } }, { text: `Setiap angka berasal dari tool deterministik, diuji terhadap golden fixtures, dan diperiksa Agen Verifikator sebelum tampil. ${tests}; produksi: finandex.vercel.app.`, options: { color: HEX.ink } }],
+    { x: 0.6, y: 5.2, w: 12.1, h: 1.2, fontSize: 16 });
+  s.addNotes("Data terbaru dari repo: kartu agen (src/config/agents.generated.json), reports/eval-mock.json, reports/vitest.json.");
+  }
 
   // ---------------------------------------------------------------- 3. Masalah
   section("Masalah & solusi");
@@ -175,6 +204,7 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
     text(s, g.dex.map((d) => fg.dex.find((e) => e.id === d).name).join(", "), { x: x + 0.22, y: y + 1.4, w: 2.45, h: 1.05, fontSize: 11, color: HEX.muted }); });
   s.addNotes("Kategori: " + fg.app.groups.map((g) => `${g.name} (${g.dex.length})`).join("; ") + ".");
 
+  if (!UTS) {
   // ---------------------------------------------------------------- 5. Anatomi jawaban
   section("Produk");
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Produk" });
@@ -190,7 +220,24 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   text(s, [{ text: "Warna = asal-usul: ", options: { bold: true } }, { text: "hijau phosphor = data, ", options: { color: HEX.phos } }, { text: "sian = narasi AI, ", options: { color: HEX.ion } },
            { text: "krem = teks resmi, ", options: { color: HEX.paper } }, { text: "amber = keterbatasan.", options: { color: HEX.amber } }], { x: 0.6, y: 6.25, w: 12.1, h: 0.45, fontSize: 15 });
   s.addNotes("Panel justifikasi dibangkitkan dari event method milik tool, bukan dari proses berpikir internal model.");
+  } else {
+  section("Produk");
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Produk" });
+  s.addText("Setiap jawaban bisa diperiksa", { placeholder: "title" });
+  const steps = [["Jawaban inti", "2–4 kalimat, angka utama + tanggal data", HEX.ion], ["Grafik visual", "dipilih tool: garis, bar, heatmap, kutipan pasal", HEX.phos],
+                 ["Jejak agen", "agen mana yang bekerja, tool, keahlian, durasi", HEX.ion], ["Kenapa jawabannya begini?", "data, rumus, aturan pembersihan, tool dipanggil", HEX.phos],
+                 ["Diverifikasi", "angka & kutipan dicocokkan ke hasil tool; klaim tak terverifikasi dihapus", HEX.amber], ["Disclaimer", "bukan nasihat investasi atau hukum", HEX.muted]];
+  steps.forEach(([h, d, col], i) => { const x = 0.6 + (i % 3) * 4.1, y = 1.5 + Math.floor(i / 3) * 2.3;
+    pane(s, x, y, 3.85, 2.05, `step-${i}`);
+    text(s, String(i + 1), { x: x + 0.25, y: y + 0.2, w: 0.7, h: 0.7, fontSize: 36, bold: true, color: col, fontFace: "Arial" });
+    text(s, h, { x: x + 1.0, y: y + 0.28, w: 2.7, h: 0.55, fontSize: 17, bold: true });
+    text(s, d, { x: x + 1.0, y: y + 0.9, w: 2.7, h: 0.95, fontSize: 14, color: HEX.muted }); });
+  text(s, [{ text: "Warna = asal-usul: ", options: { bold: true } }, { text: "hijau tinta = data, ", options: { color: HEX.phos } }, { text: "biru petrol = narasi AI, ", options: { color: HEX.ion } },
+           { text: "krem = teks resmi, ", options: { color: HEX.paper } }, { text: "oker = keterbatasan.", options: { color: HEX.amber } }], { x: 0.6, y: 6.25, w: 12.1, h: 0.45, fontSize: 15 });
+  s.addNotes("Panel justifikasi & jejak agen dibangkitkan dari event SSE milik tool dan agen, bukan dari proses berpikir internal model.");
+  }
 
+  if (!UTS) {
   // ---------------------------------------------------------------- 6. Arsitektur
   section("Arsitektur & tech stack");
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Arsitektur & tech stack" });
@@ -207,6 +254,24 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   s.addShape(pres.ShapeType.line, { x: 8.15, y: 5.1, w: 0.75, h: 0, line: { color: HEX.ion, width: 1.5, beginArrowType: "triangle", endArrowType: "triangle" }, objectName: "arr-ai" });
   s.addShape(pres.ShapeType.line, { x: 8.15, y: 2.6, w: 0.75, h: 0, line: { color: HEX.amber, width: 1.5, beginArrowType: "triangle" }, objectName: "arr-etl" });
   s.addNotes("Server runtime-agnostik (Web Fetch API) dengan adapter Vercel & Netlify. Data dibangun di CI lalu dilayani sebagai file statis. Klien mobile & desktop memakai build web yang sama.");
+  } else {
+  section("Arsitektur & tech stack");
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Arsitektur & tech stack" });
+  s.addText("Arsitektur satu codebase", { placeholder: "title" });
+  const box = (x, y, w, h, title, sub, name, col = HEX.ink) => { pane(s, x, y, w, h, name); text(s, title, { x: x + 0.2, y: y + 0.15, w: w - 0.4, h: 0.4, fontSize: 15, bold: true, color: col });
+    text(s, sub, { x: x + 0.2, y: y + 0.55, w: w - 0.4, h: h - 0.65, fontSize: 12, color: HEX.muted }); };
+  const reg = LATEST.lock.documents, regOk = reg.filter((d) => d.status === "available").length;
+  [["Web / PWA", `React ${ver("react").split(".")[0]} · Vite ${ver("vite").split(".")[0]} · Workbox`], ["iOS · Android", `Capacitor ${ver("@capacitor/core").split(".")[0]}`], ["macOS · Windows", "Tauri 2 (direncanakan)"], ["Lovable", "preview & editor"]]
+    .forEach(([t, sub], i) => box(0.6, 1.45 + i * 1.3, 2.8, 1.1, t, sub, `client-${i}`));
+  box(4.15, 1.45, 4.0, 2.3, "Vercel (+ Netlify cadangan)", "SPA statis + CDN\n/data/core · /data/heavy\n/whitepaper · /sbom", "hosting", HEX.phos);
+  box(4.15, 3.95, 4.0, 2.4, "API multi-agen (SSE)", "Penjaga → Konduktor → 29 agen Dex\n→ Verifikator · tool baca-saja\nzod · CORS · rate limit", "api", HEX.phos);
+  box(8.9, 1.45, 3.8, 2.3, "Claude API", "claude-sonnet-5-5 (agen)\nclaude-haiku-5-5 (cepat)\ntanpa kunci API: mode data", "claude", HEX.ion);
+  box(8.9, 3.95, 3.8, 2.4, "Build data (CI)", `ETL TypeScript streaming\nGolden + paritas Python\nRegulasi resmi ${regOk}/${reg.length} + SHA-256`, "etl", HEX.amber);
+  for (let i = 0; i < 4; i++) s.addShape(pres.ShapeType.line, { x: 3.4, y: 2.0 + i * 1.3, w: 0.75, h: 0, line: { color: HEX.phos, width: 1.5, endArrowType: "triangle" }, objectName: `arr-c${i}` });
+  s.addShape(pres.ShapeType.line, { x: 8.15, y: 5.1, w: 0.75, h: 0, line: { color: HEX.ion, width: 1.5, beginArrowType: "triangle", endArrowType: "triangle" }, objectName: "arr-ai" });
+  s.addShape(pres.ShapeType.line, { x: 8.15, y: 2.6, w: 0.75, h: 0, line: { color: HEX.amber, width: 1.5, beginArrowType: "triangle" }, objectName: "arr-etl" });
+  s.addNotes("Server runtime-agnostik (Web Fetch API), di-bundle esbuild ke api/index.mjs. Desktop Tauri belum dirilis; macOS/Windows memakai PWA.");
+  }
 
   // ---------------------------------------------------------------- 7–10. Tech stack tables
   const th = (t) => ({ text: t, options: { bold: true, color: HEX.bg, fill: { color: HEX.phos }, fontSize: 13 } });
@@ -217,6 +282,7 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
     sl.addTable([[th("Lapisan"), th("Teknologi"), th("Peran")], ...rows.map(([a, b, c]) => [td(a, true), td(b, true), td(c)])],
       { x: 0.6, y: 1.45, w: 12.1, colW: widths, border: { type: "solid", pt: 0.75, color: HEX.bg }, rowH: 0.5, valign: "middle", margin: [0.05, 0.1, 0.05, 0.1], objectName: "stack-table" });
     sl.addNotes(note); return sl; };
+  if (!UTS) {
   stackSlide("Tech stack: frontend", [
     ["UI & bahasa", "React 18+, TypeScript strict", "Komponen & tipe ketat di seluruh kode"], ["Build", "Vite", "Code splitting, lazy load halaman Dex"],
     ["Styling", "Tailwind CSS + shadcn/ui (Radix)", "Token desain Index Constellation, primitif aksesibel"], ["Routing & data", "React Router, TanStack Query, Zustand, zod", "Deep link, cache, state UI, validasi"],
@@ -241,7 +307,54 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
     ["CI/CD", "ci, parity, promote, android, ios, desktop, regulations, ui-review, eval-live", "GitHub Actions"], ["Uji", "Vitest, Playwright (3 browser), axe, Lighthouse CI, size-limit", "Coverage ≥ 90%, a11y, performa"],
     ["UI/UX", "Regresi visual, audit token, uji tugas pengguna", "Desain unik & konsisten"], ["Keamanan rantai", "gitleaks, npm audit, license-checker, SBOM", "Tanpa secret, tanpa GPL/AGPL/SSPL"]],
     "Semua gate dijalankan oleh npm run verify sebelum rilis.");
+  } else {
+  stackSlide("Tech stack: frontend", [
+    ["UI & bahasa", `React ${ver("react")}, TypeScript ${ver("typescript")} strict`, "Komponen & tipe ketat di seluruh kode"], ["Build", `Vite ${ver("vite")}`, "Code splitting, lazy load halaman Dex & 3D"],
+    ["Styling", `Tailwind CSS ${ver("tailwindcss")} + Radix UI`, "Token tema Obligasi & Brankas, primitif aksesibel"], ["Routing & data", `React Router ${ver("react-router")}, TanStack Query ${ver("@tanstack/react-query")}, Zustand ${ver("zustand")}, zod ${ver("zod")}`, "Deep link, cache, state UI, validasi"],
+    ["Grafik & 3D", `Apache ECharts ${ver("echarts")}, three.js ${ver("three")}, TanStack Virtual`, "Grafik interaktif, Kantor Agen 3D, tabel besar"], ["Cari & teks", `MiniSearch ${ver("minisearch")}, react-markdown + rehype-sanitize, pdfjs-dist ${ver("pdfjs-dist")}`, "Pencarian pasal & entitas, chat aman, pratinjau PDF"],
+    ["Offline & PWA", `vite-plugin-pwa ${ver("vite-plugin-pwa")} (Workbox), IndexedDB`, "Service worker, data core offline, riwayat lokal"], ["i18n & font", `i18next ${ver("i18next")}; Unbounded, IBM Plex Sans/Serif (OFL)`, "Bahasa Indonesia & English, tipografi khas"]],
+    "Versi dibaca dari package.json repo saat deck dibangun.");
+  stackSlide("Tech stack: backend, API & AI", [
+    ["Handler", "handle(Request, env) di Web Fetch API", "Runtime-agnostik"], ["Adapter", "Vercel Functions (esbuild → api/index.mjs), Netlify", "Satu kode server untuk dua platform"],
+    ["Streaming", "Server-Sent Events", "plan, agent_*, verify, text, artifact, method, citation, done"], ["Multi-agen", "Konduktor, 29 agen Dex, Verifikator, Penjaga", "Rencana, delegasi paralel, verifikasi"],
+    ["Keamanan", "zod, CORS allowlist, CSP, HSTS, rate limit (Upstash Redis)", "Validasi, pembatasan, tanpa secret di klien"], ["SDK AI", `@anthropic-ai/sdk ${ver("@anthropic-ai/sdk")} (Claude API)`, "Streaming, strict tool use, prompt caching"],
+    ["Model", "claude-sonnet-5-5 · claude-haiku-5-5", "Agen spesialis & Konduktor · tugas cepat"], ["Batas", "per agen 6 giliran · 8 tool · 20 dtk; tenggat 50 dtk", "Sesuai batas fungsi 60 detik"]],
+    "Tanpa ANTHROPIC_API_KEY server berjalan dalam mode data: agen menyusun jawaban langsung dari tool.");
+  stackSlide("Tech stack: data, ETL & verifikasi", [
+    ["ETL", "TypeScript streaming (CSV, ZIP, Parquet JS)", "public/data/core & heavy"], ["Format", "JSON kolumnar + kamus, matriks Float32", "Ringkas & cepat"],
+    ["Input", `GitHub Release data-inputs-v1 (${man.length} file)`, "Diverifikasi SHA-256"], ["Regulasi", `${LATEST.lock.documents.filter((d) => d.status === "available").length}/${LATEST.lock.documents.length} teks resmi → lock file → Release data-regulations-v1`, "Hanya domain resmi; verifikasi judul & jangkar"],
+    ["Dataset kit", "AntiScam KB, katalog regulasi, alur konsultasi, panduan fitur", "Validator + golden"], ["Referensi", "Python 3.12, pandas, numpy, pyarrow", "Golden fixtures"],
+    ["Paritas", "GitHub Actions parity.yml", "Python = golden = TypeScript"], ["Evaluasi", LATEST.chatEval ? `${ev.items.length} item chatbot: mock ${LATEST.chatEval.grades.filter((g) => g.pass).length}/${LATEST.chatEval.grades.length}` : `${ev.items.length} item chatbot`, LATEST.agentEval ? `keamanan 100%; routing agen P/R ${Math.round(LATEST.agentEval.routing.precision * 100)}%/${Math.round(LATEST.agentEval.routing.recall * 100)}%` : "—"]],
+    "Toleransi golden relatif 1e-6; tanggal, string, dan flag harus sama persis.");
+  stackSlide("Tech stack: mobile, desktop, DevOps & mutu", [
+    ["Mobile", `Capacitor ${ver("@capacitor/core")} (iOS & Android) + plugin resmi`, "Haptik, share, offline, in-app browser"], ["Desktop", "Tauri 2 (paket siap; shell desktop belum dirilis)", "Sementara: PWA di Chrome/Edge/Safari"],
+    ["Repo & rilis", "GitHub DSKPutra/finandex: main → CI → release", "Fast-forward saat CI hijau"], ["Hosting", "Vercel (produksi), Netlify (cadangan), Lovable", "finandex.vercel.app"],
+    ["CI/CD", "ci, parity, promote, android, ios, compliance, eval-live, deploy-fallback", "GitHub Actions"], ["Uji", `Vitest ${ver("vitest")}, Playwright, axe, Lighthouse CI`, LATEST.tests ? `${LATEST.tests.numPassedTests}/${LATEST.tests.numTotalTests} tes lulus` : "belum diukur"],
+    ["UI/UX", "ui:audit token, regresi visual, kontras AA", "Tema Obligasi & Brankas"], ["Rantai pasok", "SBOM CycloneDX 1.7 + SPDX 2.3, VEX, Sigstore", "gitleaks, npm audit, lisensi"]],
+    "Semua gate dijalankan oleh npm run verify sebelum rilis; SBOM oleh compliance.yml.");
 
+  // ---------------------------------------------------------------- UTS: Agentic AI
+  {
+    const AE = LATEST.agentEval;
+    s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Arsitektur & tech stack" });
+    s.addText(`Agentic AI: ${LATEST.agents.agents.length} agen bekerja sama`, { placeholder: "title" });
+    const chain = [["Penjaga", "pindai data sensitif & kebijakan", HEX.coral], ["Konduktor", "rencana, ≤ 4 agen paralel", HEX.ion], ["29 agen Dex", "tool baca-saja + keahlian", HEX.phos], ["Verifikator", "angka & kutipan dicek ke data", HEX.amber], ["Penjaga", "pemeriksaan jawaban keluar", HEX.coral]];
+    chain.forEach(([h, d, col], i) => { const x = 0.6 + i * 2.48; pane(s, x, 1.45, 2.2, 1.6, `agent-chain-${i}`);
+      text(s, h, { x: x + 0.18, y: 1.6, w: 1.9, h: 0.45, fontSize: 16, bold: true, color: col });
+      text(s, d, { x: x + 0.18, y: 2.1, w: 1.9, h: 0.85, fontSize: 12, color: HEX.muted });
+      if (i < chain.length - 1) s.addShape(pres.ShapeType.line, { x: x + 2.2, y: 2.25, w: 0.28, h: 0, line: { color: HEX.phos, width: 1.5, endArrowType: "triangle" }, objectName: `agent-arr-${i}` }); });
+    const st = [[String(LATEST.agents.agents.length), "agen", "1 Konduktor · 29 Dex · Verifikator · Penjaga"], [String(LATEST.agents.agents.reduce((n, a) => n + a.skills.length, 0)), "keahlian", "dibangkitkan dari registry, tab & panduan fitur"],
+                [AE ? `${Math.round(AE.routing.precision * 100)}%` : "—", "routing tepat", AE ? `presisi & recall, ${AE.routing.items} butir` : "belum diukur"], [AE ? `${Math.round(AE.collaboration.pass_rate * 100)}%` : "—", "kolaborasi", AE ? `${AE.skills.items} butir keahlian · ${AE.collaboration.items} skenario kolaborasi` : "belum diukur"]];
+    st.forEach(([n, l, d], i) => { const x = 0.6 + i * 3.08; pane(s, x, 3.35, 2.86, 2.1, `agent-stat-${i}`);
+      text(s, n, { x: x + 0.25, y: 3.5, w: 2.4, h: 0.8, fontSize: 40, bold: true, color: HEX.phos, fontFace: "Arial" });
+      text(s, l, { x: x + 0.25, y: 4.3, w: 2.4, h: 0.4, fontSize: 16, bold: true });
+      text(s, d, { x: x + 0.25, y: 4.7, w: 2.45, h: 0.7, fontSize: 12, color: HEX.muted }); });
+    text(s, "Kantor Agen 3D di /agents: animasi hanya digerakkan event nyata (rencana, tool, handoff, verifikasi). Aksi aplikasi hanya diusulkan agen dan dijalankan setelah pengguna menekan konfirmasi.", { x: 0.6, y: 5.7, w: 12.1, h: 0.8, fontSize: 14 });
+    s.addNotes("Sumber angka: src/config/agents.generated.json dan docs/agents/eval.json (npm run eval:agents, mode data).");
+  }
+  }
+
+  if (!UTS) {
   // ---------------------------------------------------------------- 11. Pasang di mana saja
   section("Platform & desain");
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Platform & desain" });
@@ -257,7 +370,24 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   text(s, "Beranda dan halaman /install mengenali perangkat dan menampilkan satu tombol yang tepat, lengkap dengan versi, ukuran, dan SHA-256; desktop menampilkan kode QR untuk ponsel. My LAIwyer dan FinLAIwyer juga bisa dipasang sebagai aplikasi terpisah.",
     { x: 0.6, y: 5.35, w: 12.1, h: 1.1, fontSize: 15 });
   s.addNotes("Pusat pemasangan memakai feature detection & User-Agent Client Hints, tanpa fingerprinting.");
+  } else {
+  section("Platform & desain");
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Platform & desain" });
+  s.addText("Pasang di semua perangkat", { placeholder: "title" });
+  [[IC.phone, "iPhone & iPad", "Panduan \"Tambahkan ke Layar Utama\" di Safari; App Store/TestFlight saat tersedia"],
+   [IC.tablet, "Android", "Tombol pasang PWA otomatis; Google Play saat tersedia"],
+   [IC.laptop, "macOS", "Pasang sebagai PWA dari Safari/Chrome; installer .dmg Tauri menyusul"],
+   [IC.desktop, "Windows", "Pasang sebagai PWA dari Edge/Chrome; installer .exe/.msi Tauri menyusul"]]
+    .forEach(([ic, h, d], i) => { const x = 0.6 + i * 3.08; pane(s, x, 1.5, 2.86, 3.6, `inst-${i}`);
+      s.addImage({ data: ic, x: x + 0.3, y: 1.8, w: 0.7, h: 0.7, objectName: `inst-ic-${i}` });
+      text(s, h, { x: x + 0.3, y: 2.7, w: 2.3, h: 0.45, fontSize: 18, bold: true });
+      text(s, d, { x: x + 0.3, y: 3.2, w: 2.35, h: 1.8, fontSize: 14, color: HEX.muted }); });
+  text(s, "Halaman /install mengenali perangkat dan menampilkan satu tombol yang tepat, plus kode QR di desktop untuk ponsel. Proyek Android & iOS (Capacitor) sudah ada di repo; rilis store menunggu akun & sertifikat tanda tangan.",
+    { x: 0.6, y: 5.35, w: 12.1, h: 1.1, fontSize: 15 });
+  s.addNotes("Pusat pemasangan memakai feature detection & User-Agent Client Hints, tanpa fingerprinting.");
+  }
 
+  if (!UTS) {
   // ---------------------------------------------------------------- 12. Desain
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Platform & desain" });
   s.addText("Sistem desain Index Constellation", { placeholder: "title" });
@@ -268,6 +398,17 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
       text(s, [{ text: n + "  ", options: { bold: true } }, { text: d, options: { color: HEX.muted } }], { x: 7.25, y: y + 0.08, w: 5.4, h: 0.4, fontSize: 16 }); });
   text(s, "Tipografi: Unbounded untuk judul, IBM Plex Sans untuk UI dan angka tabular, IBM Plex Serif untuk kutipan resmi. Interaksi: Index Search, Orbit Rail, Evidence Pane, Baki Banding, Konsultasi Terpandu.", { x: 6.5, y: 5.45, w: 6.2, h: 1.2, fontSize: 14 });
   s.addNotes("Desain diuji dengan prompt UIUX_TEST_PROMPT.md: audit token, regresi visual, a11y, performa gerak, dan tinjauan berskor.");
+  } else {
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Platform & desain" });
+  s.addText("Sistem desain: Obligasi & Brankas", { placeholder: "title" });
+  constellation(s, 0.7, 1.5, 5.0, 4.6, 26, 11);
+  text(s, "Konstelasi Indeks di Beranda: satu inti (Finandex AI) dan 29 titik tinta Dex; opasitas = kesegaran data, cincin = status. Titik menyala saat agennya bekerja.", { x: 0.6, y: 6.15, w: 5.4, h: 0.7, fontSize: 13, color: HEX.muted });
+  [["data", HEX.phos, "angka dari dataset"], ["ai", HEX.ion, "narasi AI"], ["quote", HEX.paper, "kutipan teks resmi"], ["flag", HEX.amber, "keterbatasan & flag"], ["negative", HEX.coral, "negatif & bahaya"]]
+    .forEach(([n, col, d], i) => { const y = 1.55 + i * 0.75; s.addShape(pres.ShapeType.roundRect, { x: 6.5, y, w: 0.55, h: 0.55, rectRadius: 0.1, fill: { color: col }, line: { color: col, width: 0 }, objectName: `sw-${n}` });
+      text(s, [{ text: n + "  ", options: { bold: true } }, { text: d, options: { color: HEX.muted } }], { x: 7.25, y: y + 0.08, w: 5.4, h: 0.4, fontSize: 16 }); });
+  text(s, "Tema terang Obligasi (default, mengikuti sistem) dan gelap Brankas: hijau tinta surat berharga, tanpa neon, glow, atau gradien dekoratif; semua pasangan warna lulus kontras WCAG AA. Tipografi: Unbounded, IBM Plex Sans, IBM Plex Serif.", { x: 6.5, y: 5.45, w: 6.2, h: 1.2, fontSize: 14 });
+  s.addNotes("Hijau neon #19F23A hanya dipakai di logo personal & ikon aplikasi. Gate npm run ui:audit menolak warna literal di luar token.");
+  }
 
   // ---------------------------------------------------------------- 13. Hukum
   section("Hukum & anti-scam");
@@ -280,7 +421,7 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
       text(s, h, { x: x + 1.3, y: 1.95, w: 4.4, h: 0.5, fontSize: 18, bold: true });
       text(s, d1, { x: x + 0.3, y: 2.85, w: 5.4, h: 1.3, fontSize: 14, color: HEX.muted });
       text(s, d2, { x: x + 0.3, y: 4.2, w: 5.4, h: 1.0, fontSize: 14, color: HEX.ion }); });
-  text(s, [{ text: "Kutipan hanya dari teks resmi terverifikasi. ", options: { bold: true, color: HEX.paper } }, { text: "Status dokumen selalu disebut; ancaman pidana UU sektoral dibaca bersama UU 1/2026. Informasi hukum, bukan nasihat hukum.", options: { color: HEX.ink } }],
+  text(s, [{ text: "Kutipan hanya dari teks resmi terverifikasi. ", options: { bold: true, color: HEX.paper } }, { text: (UTS ? `${LATEST.lock.documents.filter((d) => d.status === "available").length}/${LATEST.lock.documents.length} teks resmi tersedia & terverifikasi SHA-256. ` : "") + "Status dokumen selalu disebut; ancaman pidana UU sektoral dibaca bersama UU 1/2026. Informasi hukum, bukan nasihat hukum.", options: { color: HEX.ink } }],
     { x: 0.6, y: 5.65, w: 12.1, h: 0.9, fontSize: 15 });
   s.addNotes("Keduanya Dex terpisah dengan dataset, menu, logo, dan riwayat sendiri; juga tersedia sebagai PWA terpisah.");
 
@@ -321,6 +462,30 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
       text(s, d, { x: 1.5, y: y + 0.47, w: 11.0, h: 0.45, fontSize: 14, color: HEX.muted }); });
   s.addNotes("Kebijakan privasi mengacu UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.");
 
+  // ---------------------------------------------------------------- UTS: SBOM
+  if (UTS && LATEST.sbom) {
+    const SB = LATEST.sbom, CK = LATEST.sbomCheck || { checked: 0, failed: 0, sbomqs: {} };
+    const q = (v) => (v === undefined || v === null ? "—" : Number(v).toFixed(1).replace(".", ","));
+    s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Hukum & anti-scam" });
+    s.addText("SBOM & rantai pasok perangkat lunak", { placeholder: "title" });
+    const label = { web: "Web/PWA & server", android: "Android", ios: "iOS/iPadOS", desktop: "Desktop (belum ada biner)", data: "Data & aset", "python-reference": "Referensi Python (CI)", tooling: "Alat build (tidak dikirim)" };
+    const rows = SB.artefacts.map((a) => { const k = a.file.replace(/^finandex-[\d.]+-/, "").replace(".cdx.json", ""); return [label[k] || k, a.components.toLocaleString("de-DE"), q(CK.sbomqs[a.file])]; });
+    rows.push(["SBOM induk (hierarkis)", SB.master.components.toLocaleString("de-DE"), q(CK.sbomqs[SB.master.file])]);
+    s.addTable([[th("Artefak"), th("Komponen"), th("sbomqs")], ...rows.map(([a, b, c]) => [td(a, true), td(b), td(c)])],
+      { x: 0.6, y: 1.45, w: 6.6, colW: [3.6, 1.5, 1.5], border: { type: "solid", pt: 0.75, color: HEX.bg }, rowH: 0.42, valign: "middle", margin: [0.04, 0.1, 0.04, 0.1], fontSize: 12, objectName: "sbom-table" });
+    const vexN = Object.values(SB.vex).reduce((a, b) => a + b, 0);
+    [[`${CK.checked - CK.failed}/${CK.checked}`, "pemeriksaan lulus", "skema CycloneDX 1.7, elemen minimum CISA 2026, cakupan, hash, kebocoran"],
+     ["0", "kerentanan terkirim", `${vexN} temuan di alat build → VEX "not_affected"`],
+     [q(CK.sbomqs[SB.master.file]), "skor sbomqs induk", "dari 10 (syarat ≥ 8,0)"]]
+      .forEach(([n, l, d], i) => { const y = 1.45 + i * 1.45; pane(s, 7.5, y, 5.2, 1.3, `sbom-stat-${i}`);
+        text(s, n, { x: 7.7, y: y + 0.15, w: 1.9, h: 0.9, fontSize: 30, bold: true, color: HEX.phos, fontFace: "Arial" });
+        text(s, l, { x: 9.6, y: y + 0.15, w: 3.0, h: 0.4, fontSize: 15, bold: true });
+        text(s, d, { x: 9.6, y: y + 0.55, w: 3.0, h: 0.7, fontSize: 11, color: HEX.muted }); });
+    text(s, "CycloneDX 1.7 (ECMA-424) + SPDX 2.3 · hash SHA-512/SHA-256 · VEX · tanda tangan Sigstore keyless & atestasi GitHub saat rilis · unduh di /legal/sbom · dokumen rinci: Finandex_SBOM.docx", { x: 0.6, y: 5.95, w: 12.1, h: 0.7, fontSize: 13 });
+    s.addNotes("Sumber angka: docs/compliance/sbom/SBOM_SUMMARY.json & SBOM_CHECK.json (npm run sbom:generate && npm run sbom:verify).");
+  }
+
+  if (!UTS) {
   // ---------------------------------------------------------------- 16. Deploy
   section("Rilis & dokumen");
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Rilis & dokumen" });
@@ -334,6 +499,20 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
     if (i < flow.length - 1) s.addShape(pres.ShapeType.line, { x: x + 2.2, y: 3.4, w: 0.28, h: 0, line: { color: HEX.phos, width: 1.5, endArrowType: "triangle" }, objectName: `flow-arr-${i}` }); });
   text(s, "Rollback: Vercel Instant Rollback atau publish ulang deploy Netlify sebelumnya. Data input & dokumen regulasi disimpan di GitHub Releases dengan checksum.", { x: 0.6, y: 5.0, w: 12.1, h: 0.8, fontSize: 15 });
   s.addNotes("Production branch Vercel & Netlify = release. Workflow desktop.yml membangun macOS & Windows; android.yml & ios.yml membangun aplikasi store.");
+  } else {
+  section("Rilis & dokumen");
+  s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Rilis & dokumen" });
+  s.addText("Dari commit sampai aplikasi terpasang", { placeholder: "title" });
+  const flow = [["GitHub main", "DSKPutra/finandex"], ["CI: npm run verify", "lint · test · golden · eval chat & agen · ui:audit · E2E"], ["SBOM & VEX", "compliance.yml: verifikasi, tanda tangan, atestasi"],
+                ["release", "fast-forward saat hijau"], ["Produksi", "finandex.vercel.app · PWA · store (menunggu akun)"]];
+  flow.forEach(([h, d], i) => { const x = 0.6 + i * 2.48; pane(s, x, 2.3, 2.2, 2.2, `flow-${i}`);
+    text(s, String(i + 1), { x: x + 0.2, y: 2.45, w: 0.6, h: 0.6, fontSize: 28, bold: true, color: HEX.phos, fontFace: "Arial" });
+    text(s, h, { x: x + 0.2, y: 3.1, w: 1.85, h: 0.45, fontSize: 15, bold: true });
+    text(s, d, { x: x + 0.2, y: 3.55, w: 1.85, h: 0.85, fontSize: 12, color: HEX.muted });
+    if (i < flow.length - 1) s.addShape(pres.ShapeType.line, { x: x + 2.2, y: 3.4, w: 0.28, h: 0, line: { color: HEX.phos, width: 1.5, endArrowType: "triangle" }, objectName: `flow-arr-${i}` }); });
+  text(s, "Rollback: Vercel Instant Rollback. Data input & dokumen regulasi disimpan di GitHub Releases dengan checksum; SBOM setiap rilis tersedia di /legal/sbom.", { x: 0.6, y: 5.0, w: 12.1, h: 0.8, fontSize: 15 });
+  s.addNotes("Production branch = release. Netlify sebagai cadangan (saat ini terblokir kredit akun).");
+  }
 
   // ---------------------------------------------------------------- 17. Whitepaper
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Rilis & dokumen" });
@@ -357,7 +536,7 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   // ---------------------------------------------------------------- 18. Penutup
   s = pres.addSlide({ masterName: "FX_TITLE", sectionTitle: "Rilis & dokumen" });
   s.addText("Langkah berikutnya", { placeholder: "title" });
-  s.addText("Bangun dengan Master Prompt v3 di Claude Code, unggah dokumen hukum yang masih menunggu, siapkan akun store & sertifikat tanda tangan, lalu rilis.", { placeholder: "body" });
+  s.addText(UTS ? "Tag rilis v0.1.0 agar SBOM ditandatangani, aktifkan mode AI live dengan kunci API, rilis shell desktop Tauri, lalu siapkan akun store & sertifikat tanda tangan." : "Bangun dengan Master Prompt v3 di Claude Code, unggah dokumen hukum yang masih menunggu, siapkan akun store & sertifikat tanda tangan, lalu rilis.", { placeholder: "body" });
   constellation(s, 8.4, 0.9, 4.4, 5.0, 20, 3);
   text(s, "Finandex dirancang dan dikembangkan oleh Dea Saka Kurnia Putra — A BRIGHTER TOMORROW THROUGH MEANINGFUL WORK", { x: 0.8, y: 5.6, w: 7.2, h: 0.7, fontSize: 14, color: HEX.muted });
   s.addImage({ data: png(path.join(KIT, "brand/dskp-mark-on-dark.png")), x: 0.8, y: 6.35, w: 0.5, h: 0.5, sizing: { type: "contain", w: 0.5, h: 0.5 }, objectName: "personal-mark" });
