@@ -160,11 +160,10 @@ const rows: Row[] = direct.map((pkg) => {
 const FONT = 'Calibri';
 const C = { ink: '13261C', muted: '4C6355', primary: '1D6A44', head: 'E3EBE2', zebra: 'F5F8F4', edge: 'C9D6CB', flag: '8A5A0E' };
 const P = (text: string | TextRun[], o: { bold?: boolean; size?: number; color?: string; italic?: boolean; align?: (typeof AlignmentType)[keyof typeof AlignmentType]; after?: number; before?: number } = {}) =>
-  new Paragraph({ alignment: o.align, spacing: { after: o.after ?? 120, before: o.before ?? 0 }, children: typeof text === 'string' ? [new TextRun({ text, bold: o.bold, size: o.size ?? 21, color: o.color ?? C.ink, italics: o.italic, font: FONT })] : text });
-const R = (text: string, o: { bold?: boolean; color?: string; size?: number; italic?: boolean; mono?: boolean } = {}) => new TextRun({ text, bold: o.bold, color: o.color ?? C.ink, size: o.size ?? 21, italics: o.italic, font: o.mono ? 'Consolas' : FONT });
+  new Paragraph({ ...(o.align ? { alignment: o.align } : {}), spacing: { after: o.after ?? 120, before: o.before ?? 0 }, children: typeof text === 'string' ? [new TextRun({ text, bold: !!o.bold, size: o.size ?? 21, color: o.color ?? C.ink, italics: !!o.italic, font: FONT })] : text });
+const R = (text: string, o: { bold?: boolean; color?: string; size?: number; italic?: boolean; mono?: boolean } = {}) => new TextRun({ text, bold: !!o.bold, color: o.color ?? C.ink, size: o.size ?? 21, italics: !!o.italic, font: o.mono ? 'Consolas' : FONT });
 const H = (text: string, level: 1 | 2 | 3) => new Paragraph({ heading: level === 1 ? HeadingLevel.HEADING_1 : level === 2 ? HeadingLevel.HEADING_2 : HeadingLevel.HEADING_3, spacing: { before: level === 1 ? 240 : 180, after: 100 }, children: [new TextRun({ text, font: FONT })] });
 const bullet = (text: string | TextRun[]) => new Paragraph({ numbering: { reference: 'bullets', level: 0 }, spacing: { after: 60 }, children: typeof text === 'string' ? [R(text)] : text });
-const num = (text: string | TextRun[]) => new Paragraph({ numbering: { reference: 'numbers', level: 0 }, spacing: { after: 60 }, children: typeof text === 'string' ? [R(text)] : text });
 const code = (text: string) => text.split('\n').map((l) => new Paragraph({ spacing: { after: 0 }, shading: { type: ShadingType.CLEAR, color: 'auto', fill: 'EEF2EC' }, children: [R(l || ' ', { mono: true, size: 17 })] }));
 const fmt = (n: number) => n.toLocaleString('id-ID');
 
