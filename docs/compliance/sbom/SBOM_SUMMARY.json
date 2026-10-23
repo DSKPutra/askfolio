@@ -1,0 +1,49 @@
+{
+ "version": "0.1.0",
+ "commit": "4a4a942",
+ "generated": "2026-10-23T11:28:58.000Z",
+ "artefacts": [
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "components": 252
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "components": 16
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "components": 11
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "components": 0
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "components": 114
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "components": 3
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "components": 1144
+  }
+ ],
+ "master": {
+  "file": "finandex-0.1.0.cdx.json",
+  "components": 1549,
+  "services": 7,
+  "ai_models": 2
+ },
+ "vex": {
+  "not_affected": 22
+ },
+ "lockfile": {
+  "total": 1523,
+  "prod": 262,
+  "dev": 1261
+ }
+}

@@ -2,7 +2,7 @@
 // Server environment (§19), validated with safe defaults. Secrets never leave the server.
 import { z } from 'zod';
 
-const EnvSchema = z.object({
+export const EnvSchema = z.object({
   ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL: z.string().default('claude-sonnet-5-5'),
   ANTHROPIC_MODEL_FAST: z.string().default('claude-haiku-5-5'),

@@ -83,3 +83,28 @@ export const TERMS: LegalSection[] = [
     body: [{ id: 'Ketentuan ini tunduk pada hukum Republik Indonesia.', en: 'These terms are governed by the laws of the Republic of Indonesia.' }],
   },
 ];
+
+/** /legal/security — summary of SECURITY.md (TECHNICAL_DOCS_PROMPT §4). */
+export const SECURITY: LegalSection[] = [
+  {
+    title: { id: 'Melaporkan kerentanan', en: 'Reporting a vulnerability' },
+    body: [
+      { id: 'Laporkan secara privat melalui GitHub Security Advisories di repo DSKPutra/finandex (Security → Report a vulnerability). Jangan membuka issue publik. Sertakan langkah reproduksi, versi atau commit, dan dampaknya.', en: 'Report privately via GitHub Security Advisories on the DSKPutra/finandex repository (Security → Report a vulnerability). Do not open a public issue. Include reproduction steps, the version or commit, and the impact.' },
+      { id: 'Jangan menguji dengan data pribadi orang lain atau melakukan serangan penolakan layanan. Perbaikan dirilis bersama pernyataan VEX di halaman SBOM.', en: 'Do not test with other people’s personal data or run denial-of-service attacks. Fixes are released with a VEX statement on the SBOM page.' },
+    ],
+  },
+  {
+    title: { id: 'Kontrol keamanan', en: 'Security controls' },
+    body: [
+      { id: 'Kunci API hanya di server; bundel aplikasi dipindai pola kunci. CSP ketat, HSTS, CORS allowlist, validasi semua input API, dan pembatasan laju per perangkat.', en: 'API keys live only on the server; the app bundle is scanned for key patterns. Strict CSP, HSTS, a CORS allowlist, validation of every API input, and per-device rate limits.' },
+      { id: 'Data sensitif (OTP/PIN, NIK, nomor kartu/rekening, seed phrase, private key) dicegah sebelum terkirim, di perangkat maupun di server. Alat AI hanya membaca data; aksi aplikasi baru dijalankan setelah Anda konfirmasi.', en: 'Sensitive data (OTP/PIN, national ID, card/account numbers, seed phrases, private keys) is blocked before it is sent, on the device and on the server. AI tools only read data; in-app actions run only after you confirm.' },
+      { id: 'Tanpa akun dan tanpa analytics pihak ketiga. Riwayat chat dan isian "Siapkan Laporan" hanya tersimpan di perangkat Anda (terenkripsi AES-GCM).', en: 'No accounts and no third-party analytics. Chat history and "Prepare a Report" entries are stored only on your device (AES-GCM encrypted).' },
+    ],
+  },
+  {
+    title: { id: 'Rantai pasok perangkat lunak', en: 'Software supply chain' },
+    body: [
+      { id: 'Setiap rilis disertai SBOM CycloneDX 1.7 dan SPDX 2.3, pernyataan VEX untuk setiap temuan pemindai, tanda tangan Sigstore, dan atestasi GitHub. Unduh dan verifikasi di halaman SBOM.', en: 'Every release ships CycloneDX 1.7 and SPDX 2.3 SBOMs, a VEX statement for every scanner finding, Sigstore signatures and GitHub attestations. Download and verify them on the SBOM page.' },
+    ],
+  },
+];

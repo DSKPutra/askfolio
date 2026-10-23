@@ -160,7 +160,9 @@
     "terms": "Ketentuan Penggunaan",
     "disclaimer": "Disclaimer",
     "data-sources": "Sumber Data",
-    "licenses": "Lisensi"
+    "licenses": "Lisensi",
+    "sbom": "SBOM",
+    "security": "Keamanan"
   },
   "common": {
     "retry": "Coba lagi",

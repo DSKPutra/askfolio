@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { copyrightFor } from '../config/brand';
 import { useLocale } from '../lib/locale';
 
-export const LEGAL_PAGES = ['privacy', 'terms', 'disclaimer', 'data-sources', 'licenses'] as const;
+export const LEGAL_PAGES = ['privacy', 'terms', 'disclaimer', 'data-sources', 'licenses', 'sbom', 'security'] as const;
 
 export function Footer() {
   const { t } = useTranslation();

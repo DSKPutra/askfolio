@@ -41,3 +41,6 @@ public/licenses.json
 .vercel
 public/whitepaper/
 *.tsbuildinfo
+
+# SBOM artefacts are generated per build/release (npm run sbom:generate; compliance.yml)
+public/sbom/

@@ -160,7 +160,9 @@
     "terms": "Terms of Use",
     "disclaimer": "Disclaimer",
     "data-sources": "Data Sources",
-    "licenses": "Licences"
+    "licenses": "Licences",
+    "sbom": "SBOM",
+    "security": "Security"
   },
   "common": {
     "retry": "Retry",

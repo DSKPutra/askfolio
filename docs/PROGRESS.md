@@ -68,3 +68,9 @@
 - Hukum: katalog kit + lock regulasi (35/37 teks resmi; `kuhperdata`, `pp-33-2026-pdp` pending), mesin Konsultasi Terpandu, tool hukum baru (status regulasi, rujukan silang, banding versi, kanal, glosarium), AntiScamDex (statistik IASC/Satgas/OJK, modus, swa-periksa, langkah darurat, wizard laporan offline terenkripsi).
 - Eval mock 161/161 (keamanan 100%); golden kit lulus.
 - UI "Index Constellation" lalu recolor "Obligasi & Brankas": token baru di `brand.ts` + CSS (kontras AA teruji kedua tema), konstelasi titik tinta, guilloche ≤ 6% hanya di hero, ECharts 1,75 px/area 12%, splash/PWA/status bar `#EEF2EC`/`#0F1F19`, Pengaturan (sistem/Obligasi/Brankas, kurangi gerak, kontras tinggi, haptic), `ui:audit` 0 temuan, tangkapan sebelum/sesudah di `docs/ui-review/recolor/`.
+
+## Secure SBOM — Paket B (2026-10-23)
+- `npm run sbom:generate` → 7 SBOM artefak + SBOM induk (1.549 komponen, 7 layanan, 2 model AI) + SPDX 2.3 + VEX (22 pernyataan, semuanya devDependencies `not_affected`) + SHA256SUMS di `public/sbom/<versi>/`.
+- `npm run sbom:verify`: 156 pemeriksaan (skema CycloneDX 1.7, elemen minimum CISA 2026, cakupan lockfile, hash, VEX, kebocoran) — 0 gagal; sbomqs SBOM induk 9,0/10.
+- Dokumen B01–B05 (+ PDF) di `docs/compliance/sbom/`, `STANDARDS_REFERENCED.md`, `OPEN_ITEMS.md`, `INDEX.md`; halaman `/legal/sbom` & `/legal/security`; `SECURITY.md`; workflow `compliance.yml` (sbomqs, osv-scanner, grype, cosign keyless, attest-sbom, attest-build-provenance, unggah ke Release).
+- Belum: Paket A (A01–A13) dan Paket C (C01–C14), tanda tangan/atestasi nyata (menunggu tag rilis).

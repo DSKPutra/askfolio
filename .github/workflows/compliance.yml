@@ -1,0 +1,98 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Secure SBOM per release (TECHNICAL_DOCS_PROMPT §2, §4): generate CycloneDX 1.7 + SPDX 2.3 SBOMs and VEX → validate
+# schema & CISA 2026 minimum elements → sbomqs ≥ 8.0 → scan the SBOM (osv-scanner, grype) → Sigstore keyless signatures
+# + GitHub artifact attestations (SBOM + build provenance) → upload to the GitHub Release and the job summary.
+name: compliance
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write # upload release assets
+  id-token: write # Sigstore keyless (OIDC) + attestations
+  attestations: write
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - name: Resolve version
+        id: v
+        run: |
+          V=$(node -p "require('./package.json').version")
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$V" >> "$GITHUB_ENV"
+      - name: Build web artefact (attestation subject)
+        run: |
+          npm run build:api
+          npx vite build
+          tar -czf finandex-web-dist.tgz dist api/index.mjs
+      - name: Generate SBOMs + VEX
+        run: npm run sbom:generate
+      - name: Install sbomqs v2.1.2 (verified checksum)
+        run: |
+          cd "$RUNNER_TEMP"
+          gh release download v2.1.2 -R interlynk-io/sbomqs -p 'sbomqs_2.1.2_amd64.deb' -p checksums.txt
+          grep 'sbomqs_2.1.2_amd64.deb' checksums.txt | sha256sum -c
+          sudo dpkg -i sbomqs_2.1.2_amd64.deb
+        env: { GH_TOKEN: '${{ github.token }}' }
+      - name: Vulnerability scan of the SBOM (osv-scanner)
+        uses: google/osv-scanner-action/osv-scanner-action@v2.6.0
+        continue-on-error: true # findings must be covered by VEX; the gate below enforces it
+        with:
+          scan-args: |-
+            --format=json
+            --output=osv-results.json
+            --lockfile=package-lock.json
+      - name: Vulnerability scan of the SBOM (grype)
+        uses: anchore/scan-action@v7.4.2
+        continue-on-error: true
+        with:
+          sbom: public/sbom/${{ env.VERSION }}/finandex-${{ env.VERSION }}-web.cdx.json
+          fail-build: false
+          output-format: json
+      - name: Gate — schema, CISA minimum elements, coverage, VEX, sbomqs ≥ 8.0, no leakage
+        run: npm run sbom:verify
+      - uses: sigstore/cosign-installer@v4.1.2
+      - name: Sign SBOMs (Sigstore keyless)
+        run: npm run sbom:sign
+      - name: Attest SBOM (CycloneDX master)
+        uses: actions/attest-sbom@v4.1.0
+        with:
+          subject-path: finandex-web-dist.tgz
+          sbom-path: public/sbom/${{ steps.v.outputs.version }}/finandex-${{ steps.v.outputs.version }}.cdx.json
+      - name: Attest build provenance (SLSA)
+        uses: actions/attest-build-provenance@v4.2.2
+        with:
+          subject-path: |
+            finandex-web-dist.tgz
+            public/sbom/${{ steps.v.outputs.version }}/*.json
+            public/sbom/${{ steps.v.outputs.version }}/SHA256SUMS
+      - name: Upload to the GitHub Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v3.0.3
+        with:
+          files: |
+            finandex-web-dist.tgz
+            public/sbom/${{ steps.v.outputs.version }}/*
+      - name: Summary
+        run: |
+          {
+            echo "## SBOM ${{ steps.v.outputs.version }}"
+            node -e "const s=require('./docs/compliance/sbom/SBOM_SUMMARY.json');console.log('| artefact | components |\n|---|---|');for(const a of s.artefacts)console.log('| '+a.file+' | '+a.components+' |');console.log('\nVEX: '+JSON.stringify(s.vex))"
+            node -e "const c=require('./docs/compliance/sbom/SBOM_CHECK.json');console.log('\nChecks: '+c.checked+', failed: '+c.failed+'; sbomqs: '+JSON.stringify(c.sbomqs))"
+            echo
+            echo 'Verify: `gh attestation verify finandex-web-dist.tgz -R ${{ github.repository }}`'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ steps.v.outputs.version }}
+          path: |
+            public/sbom/${{ steps.v.outputs.version }}
+            docs/compliance/sbom/*.json
+            osv-results.json

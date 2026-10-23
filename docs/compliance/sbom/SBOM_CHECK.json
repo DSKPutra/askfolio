@@ -1,0 +1,860 @@
+{
+ "version": "0.1.0",
+ "checked": 156,
+ "failed": 0,
+ "coverage": {
+  "prod": 261,
+  "dev": 1198,
+  "missingProd": [],
+  "missingDev": 108
+ },
+ "sbomqs": {
+  "finandex-0.1.0-android.cdx.json": 8.3,
+  "finandex-0.1.0-data.cdx.json": 6.8,
+  "finandex-0.1.0-desktop.cdx.json": 4.7,
+  "finandex-0.1.0-ios.cdx.json": 8.5,
+  "finandex-0.1.0-python-reference.cdx.json": 6.8,
+  "finandex-0.1.0-tooling.cdx.json": 9.2,
+  "finandex-0.1.0-web.cdx.json": 9.2,
+  "finandex-0.1.0-web.spdx.json": 7.1,
+  "finandex-0.1.0.cdx.json": 9,
+  "finandex-0.1.0.vex.cdx.json": 4.7
+ },
+ "checks": [
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "16 components"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "16 components"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "16 components"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "16 components"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "16 components"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "17 entries"
+  },
+  {
+   "file": "finandex-0.1.0-android.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "114 components"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "114 components"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "114 components"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "114 components"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "114 components"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "115 entries"
+  },
+  {
+   "file": "finandex-0.1.0-data.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "0 components"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "0 components"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "0 components"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "0 components"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "0 components"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "1 entries"
+  },
+  {
+   "file": "finandex-0.1.0-desktop.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "11 components"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "11 components"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "11 components"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "11 components"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "11 components"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "12 entries"
+  },
+  {
+   "file": "finandex-0.1.0-ios.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "3 components"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "3 components"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "3 components"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "3 components"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "3 components"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "4 entries"
+  },
+  {
+   "file": "finandex-0.1.0-python-reference.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "1144 components"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "1144 components"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "1144 components"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "1144 components"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "1144 components"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "1145 entries"
+  },
+  {
+   "file": "finandex-0.1.0-tooling.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "252 components"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "252 components"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "252 components"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "252 components"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "252 components"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "253 entries"
+  },
+  {
+   "file": "finandex-0.1.0-web.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: SPDX version (SPDX-2.3)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Author (creators Person/Organization)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Tool (creators Tool:)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Timestamp (creationInfo.created)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Generation context (creationInfo.comment)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Unique namespace",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Packages name/version",
+   "ok": true,
+   "detail": "217 packages"
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Packages identifiers (purl)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Packages checksums (or declared known unknown)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Packages licence (declared/concluded)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0-web.spdx.json",
+   "check": "SPDX/CISA: Relationships",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component Name/Version",
+   "ok": true,
+   "detail": "1549 components"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component Producer (supplier/manufacturer)",
+   "ok": true,
+   "detail": "1549 components"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
+   "ok": true,
+   "detail": "1549 components"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
+   "ok": true,
+   "detail": "1549 components"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component License",
+   "ok": true,
+   "detail": "1549 components"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "CISA: Component Dependency Relationship (dependencies[])",
+   "ok": true,
+   "detail": "1549 entries"
+  },
+  {
+   "file": "finandex-0.1.0.cdx.json",
+   "check": "dependency refs resolve",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "SHA256SUMS",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "no leakage (paths, user names, tokens, internal URLs)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CycloneDX 1.7 JSON schema",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Author (metadata.authors)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Data Format Name/Version (bomFormat/specVersion)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Generation Context (metadata.lifecycles[].phase)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Tool Name/Version (metadata.tools.components)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Version (version + serialNumber)",
+   "ok": true
+  },
+  {
+   "file": "finandex-0.1.0.vex.cdx.json",
+   "check": "CISA: SBOM Timestamp (metadata.timestamp)",
+   "ok": true
+  },
+  {
+   "file": "web+tooling",
+   "check": "coverage: production lockfile packages in web SBOM",
+   "ok": true,
+   "detail": "251/261 + 10 optional platform-specific packages recorded as known unknowns"
+  },
+  {
+   "file": "web+tooling",
+   "check": "coverage: dev lockfile packages in tooling SBOM (installed tree)",
+   "ok": true,
+   "detail": "1090/1198 present; 108 optional/os-specific packages not installed here (known unknowns)"
+  },
+  {
+   "file": "vex",
+   "check": "VEX covers every npm audit finding",
+   "ok": true,
+   "detail": "22 findings, 22 statements"
+  },
+  {
+   "file": "vex",
+   "check": "osv-scanner / grype over the SBOM",
+   "ok": true,
+   "detail": "belum diukur di mesin ini — dijalankan oleh .github/workflows/compliance.yml"
+  },
+  {
+   "file": "master",
+   "check": "sbomqs ≥ 8.0 (master SBOM)",
+   "ok": true,
+   "detail": "9"
+  },
+  {
+   "file": "master",
+   "check": "Sigstore signature + GitHub attestation",
+   "ok": true,
+   "detail": "belum ditandatangani — dibuat oleh compliance.yml (OIDC keyless) saat tag v*"
+  }
+ ]
+}

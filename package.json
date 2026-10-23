@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:api && vite build && npm run typecheck:server",
-    "build:ci": "npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build && npm run whitepaper:copy && npm run test:golden && npm run build",
+    "build:ci": "npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build && npm run whitepaper:copy && npm run test:golden && npm run sbom:generate && npm run build",
     "preview": "vite preview",
     "data:fetch": "tsx scripts/data/fetch-inputs.ts",
     "data:verify": "tsx scripts/data/verify-inputs.ts",
@@ -52,7 +52,14 @@
     "feature-guide:check": "vitest run tests/golden/kb.test.ts -t \"feature guide\"",
     "ui:audit": "tsx scripts/ui/audit.ts",
     "agents:gen": "tsx scripts/build/gen-agents.ts",
-    "eval:agents": "tsx scripts/eval/eval-agents.ts"
+    "eval:agents": "tsx scripts/eval/eval-agents.ts",
+    "sbom:generate": "tsx scripts/compliance/sbom.ts",
+    "sbom:merge": "tsx scripts/compliance/sbom.ts",
+    "vex:generate": "tsx scripts/compliance/sbom.ts",
+    "sbom:verify": "tsx scripts/compliance/check-sbom-min-elements.ts",
+    "sbom:sign": "bash scripts/compliance/sign-sbom.sh",
+    "sbom:attest": "echo \"Attestations are created by .github/workflows/compliance.yml (actions/attest-sbom, actions/attest-build-provenance); verify with: gh attestation verify <file> -R DSKPutra/finandex\"",
+    "sbom:docs": "tsx scripts/compliance/build-sbom-docs.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.0.0",
