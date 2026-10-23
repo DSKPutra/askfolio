@@ -1,11 +1,11 @@
 {
  "version": "0.1.0",
- "commit": "4a4a942",
- "generated": "2026-10-23T11:28:58.000Z",
+ "commit": "a4f91ae",
+ "generated": "2026-10-23T12:18:02.000Z",
  "artefacts": [
   {
    "file": "finandex-0.1.0-web.cdx.json",
-   "components": 252
+   "components": 259
   },
   {
    "file": "finandex-0.1.0-android.cdx.json",
@@ -29,21 +29,21 @@
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
-   "components": 1144
+   "components": 1159
   }
  ],
  "master": {
   "file": "finandex-0.1.0.cdx.json",
-  "components": 1549,
+  "components": 1571,
   "services": 7,
   "ai_models": 2
  },
  "vex": {
-  "not_affected": 22
+  "not_affected": 24
  },
  "lockfile": {
-  "total": 1523,
+  "total": 1545,
   "prod": 262,
-  "dev": 1261
+  "dev": 1283
  }
 }

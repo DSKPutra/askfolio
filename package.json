@@ -59,7 +59,8 @@
     "sbom:verify": "tsx scripts/compliance/check-sbom-min-elements.ts",
     "sbom:sign": "bash scripts/compliance/sign-sbom.sh",
     "sbom:attest": "echo \"Attestations are created by .github/workflows/compliance.yml (actions/attest-sbom, actions/attest-build-provenance); verify with: gh attestation verify <file> -R DSKPutra/finandex\"",
-    "sbom:docs": "tsx scripts/compliance/build-sbom-docs.ts"
+    "sbom:docs": "tsx scripts/compliance/build-sbom-docs.ts",
+    "sbom:docx": "tsx scripts/compliance/build-sbom-docx.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.0.0",
@@ -141,6 +142,7 @@
     "@vitejs/plugin-react": "6.1.2",
     "@vitest/coverage-v8": "5.0.5",
     "cross-env": "^10.1.0",
+    "docx": "9.9.0",
     "eslint": "9.39.5",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react-hooks": "7.1.1",

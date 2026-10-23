@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B04 |
 | Judul | Register kerentanan & VEX |
-| Versi | 0.1.0 (= versi aplikasi) · commit `4a4a942` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `a4f91ae` |
 | Tanggal | 2026-10-23 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -25,7 +25,7 @@
 
 ## 1. Ringkasan rilis 0.1.0
 - Sumber temuan: `npm audit` (GitHub Advisory Database) atas seluruh pohon dependensi; osv-scanner & grype dijalankan di CI (compliance.yml).
-- Total pernyataan VEX: **22** — per status: `not_affected` 22; per tingkat: high 15, low 2, medium 4, critical 1.
+- Total pernyataan VEX: **24** — per status: `not_affected` 24; per tingkat: high 17, low 2, medium 4, critical 1.
 - Artefak yang didistribusikan (web/PWA, fungsi server, aplikasi mobile): **0 kerentanan** menurut `npm audit --omit=dev`.
 - Tidak ada temuan kritis/tinggi tanpa pernyataan VEX (gate `sbom:verify`).
 
@@ -35,6 +35,8 @@
 | [GHSA-c475-qrg2-pj4r](https://github.com/advisories/GHSA-c475-qrg2-pj4r) | basic-ftp@5.3.1 | high | not_affected | code_not_present: basic-ftp is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
 | [GHSA-jmr9-qjv8-65gv](https://github.com/advisories/GHSA-jmr9-qjv8-65gv) | extract-zip@2.0.1 | high | not_affected | code_not_present: extract-zip is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
 | [GHSA-7pqw-9j4j-h8q3](https://github.com/advisories/GHSA-7pqw-9j4j-h8q3) | extract-zip@2.0.1 | high | not_affected | code_not_present: extract-zip is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
+| [GHSA-5p2g-fcmc-qvqq](https://github.com/advisories/GHSA-5p2g-fcmc-qvqq) | image-size@1.2.1 | high | not_affected | code_not_present: image-size is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
+| [GHSA-w3rx-r6r6-pgpr](https://github.com/advisories/GHSA-w3rx-r6r6-pgpr) | image-size@1.2.1 | high | not_affected | code_not_present: image-size is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
 | [GHSA-238p-pmpm-9mq7](https://github.com/advisories/GHSA-238p-pmpm-9mq7) | katex@0.16.47 | low | not_affected | code_not_present: katex is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
 | [GHSA-f88m-g3jw-g9cj](https://github.com/advisories/GHSA-f88m-g3jw-g9cj) | sharp@0.32.6 | high | not_affected | code_not_present: sharp is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
 | [GHSA-rgj7-g3m4-5g8c](https://github.com/advisories/GHSA-rgj7-g3m4-5g8c) | sharp@0.32.6 | high | not_affected | code_not_present: sharp is a build/test tooling dependency (devDependencies tree, transitive); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot. |
@@ -60,4 +62,4 @@
 ## 3. Riwayat
 | Rilis | Tanggal | Temuan | Keputusan |
 |---|---|---|---|
-| 0.1.0 | 2026-10-23 | 22 | not_affected 22 |
+| 0.1.0 | 2026-10-23 | 24 | not_affected 24 |

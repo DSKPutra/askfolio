@@ -1,12 +1,16 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Build kit/whitepaper/Finandex_Platform_Overview.pptx (Bahasa Indonesia) from kit data only.
 // Requires: pptxgenjs, react, react-dom, react-icons, sharp. Usage: node kit/whitepaper/build_deck.js kit [path/to/apply_theme.js]
+// --uts: build kit/whitepaper/Finandex_UTS_Kelompok.pptx — same 18 slides, UTS cover with the group members, the
+//        "Obligasi & Brankas" (dark) palette (no neon outside logos/icons), UTS metadata and one UTS line on slide 18.
 const fs = require("fs"), path = require("path"), { execSync } = require("child_process");
 const pptxgen = require("pptxgenjs");
 const React = require("react"), RDS = require("react-dom/server"), sharp = require("sharp");
 const fa = require("react-icons/fa");
 
-const KIT = path.resolve(process.argv[2] || path.join(__dirname, ".."));
+const ARGS = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+const UTS = process.argv.includes("--uts");
+const KIT = path.resolve(ARGS[0] || path.join(__dirname, ".."));
 const WP = path.join(KIT, "whitepaper");
 const J = (p) => JSON.parse(fs.readFileSync(path.join(KIT, p), "utf8"));
 const fg = J("datasets/app/feature_guide.json"), ag = J("golden/antiscam/golden.json"), ev = J("golden/chatbot_eval.json");
@@ -15,10 +19,27 @@ const idn = (x, d = 0) => x.toLocaleString("de-DE", { minimumFractionDigits: d, 
 const miliar = (v) => "Rp" + idn(v / 1e9, (v / 1e9) % 1 ? (Math.round((v / 1e9) * 100) % 10 ? 2 : 1) : 0) + " M";
 const pages = (f) => { try { return execSync(`pdfinfo "${path.join(WP, f)}"`).toString().match(/Pages:\s+(\d+)/)[1]; } catch { return null; } };
 
-const THEME = { name: "Finandex Nocturne", headFontFace: "Arial", bodyFontFace: "Calibri",
-  colors: { dk1: "E9F5EC", lt1: "07130D", dk2: "93AE9D", lt2: "0C1D15", accent1: "19F23A", accent2: "3FD9FF", accent3: "FFB23E", accent4: "FF6B5E",
-            accent5: "B79CFF", accent6: "2ED3B7", hlink: "3FD9FF", folHlink: "B79CFF" } };
-const HEX = { bg: "07130D", pane: "0C1D15", pane2: "12291E", ink: "E9F5EC", muted: "93AE9D", phos: "19F23A", ion: "3FD9FF", amber: "FFB23E", coral: "FF6B5E", paper: "F3EEDF", edge: "24412F" };
+const THEME = UTS
+  ? { name: "Finandex Brankas", headFontFace: "Arial", bodyFontFace: "Calibri",
+      colors: { dk1: "E6EEE7", lt1: "0F1F19", dk2: "9FB5A6", lt2: "152A23", accent1: "5BC795", accent2: "79C6D2", accent3: "E3AE55", accent4: "EE8E79",
+                accent5: "B3A4F0", accent6: "6FD0B8", hlink: "79C6D2", folHlink: "B3A4F0" } }
+  : { name: "Finandex Nocturne", headFontFace: "Arial", bodyFontFace: "Calibri",
+      colors: { dk1: "E9F5EC", lt1: "07130D", dk2: "93AE9D", lt2: "0C1D15", accent1: "19F23A", accent2: "3FD9FF", accent3: "FFB23E", accent4: "FF6B5E",
+                accent5: "B79CFF", accent6: "2ED3B7", hlink: "3FD9FF", folHlink: "B79CFF" } };
+// UTS uses the "Brankas" tokens of THEME_RECOLOR_PROMPT §3 (data/primary #5BC795 replaces the neon #19F23A); edge =
+// rgba(190,225,200,0.14) composited over the page colour #0F1F19.
+const HEX = UTS
+  ? { bg: "0F1F19", pane: "152A23", pane2: "1C362D", ink: "E6EEE7", muted: "9FB5A6", phos: "5BC795", ion: "79C6D2", amber: "E3AE55", coral: "EE8E79", paper: "E9DFC7", edge: "283A31" }
+  : { bg: "07130D", pane: "0C1D15", pane2: "12291E", ink: "E9F5EC", muted: "93AE9D", phos: "19F23A", ion: "3FD9FF", amber: "FFB23E", coral: "FF6B5E", paper: "F3EEDF", edge: "24412F" };
+// UTS cover data (copied verbatim from UTS_PPTX_PROMPT §2). Optional fields stay null until the owner provides them;
+// null fields are omitted (never shown as placeholders).
+const UTS_COVER = {
+  label: "UJIAN TENGAH SEMESTER (UTS)",
+  title: "Finandex",
+  subtitle: "Gambaran Platform & Tech Stack",
+  members: [["261012000111", "DEA SAKA KURNIA PUTRA"], ["261012000045", "ROSSY ARTANTI ZULAIEKHA"], ["261012000093", "TAJUL TABRIZI"]],
+  course: null, lecturer: null, program: null, university: null, term: null, date: null, campusLogo: null,
+};
 const COPY = "© 2026 Dea Saka Kurnia Putra. Hak cipta dilindungi undang-undang.";
 
 async function icon(Comp, color, size = 256) {
@@ -31,15 +52,22 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
 (async () => {
   const pres = new pptxgen();
   pres.layout = "LAYOUT_WIDE"; // 13.33 x 7.5 in
-  pres.author = "Dea Saka Kurnia Putra"; pres.company = "Finandex"; pres.title = "Finandex — Gambaran Platform & Tech Stack"; pres.subject = "Presentasi platform Finandex";
+  if (UTS) { pres.author = "DEA SAKA KURNIA PUTRA; ROSSY ARTANTI ZULAIEKHA; TAJUL TABRIZI"; pres.company = "Finandex"; pres.title = "Finandex — Gambaran Platform & Tech Stack (UTS)"; pres.subject = "Ujian Tengah Semester (UTS)"; }
+  else { pres.author = "Dea Saka Kurnia Putra"; pres.company = "Finandex"; pres.title = "Finandex — Gambaran Platform & Tech Stack"; pres.subject = "Presentasi platform Finandex"; }
   pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
   const C = pres.SchemeColor;
+  // UTS: explicit Brankas colours for placeholders (scheme colours depend on an external theme module that may be absent,
+  // which would render titles black on the dark background); titles left-aligned.
+  const T1 = UTS ? HEX.ink : C.text1, T2 = UTS ? HEX.muted : C.text2, AL = UTS ? { align: "left" } : {};
 
   pres.defineSlideMaster({ title: "FX_TITLE", background: { color: HEX.bg },
-    objects: [{ placeholder: { options: { name: "title", type: "title", x: 0.8, y: 2.2, w: 7.4, h: 1.3, fontSize: 54, bold: true, color: C.text1, fontFace: "Arial", margin: 0, valign: "bottom" }, text: "" } },
-              { placeholder: { options: { name: "body", type: "body", x: 0.8, y: 3.6, w: 7.0, h: 1.2, fontSize: 20, color: C.text2, margin: 0, valign: "top" }, text: "" } }] });
+    objects: [{ placeholder: { options: Object.assign({ name: "title", type: "title", x: 0.8, y: 2.2, w: 7.4, h: 1.3, fontSize: 54, bold: true, color: T1, fontFace: "Arial", margin: 0, valign: "bottom" }, AL), text: "" } },
+              { placeholder: { options: Object.assign({ name: "body", type: "body", x: 0.8, y: 3.6, w: 7.0, h: 1.2, fontSize: 20, color: T2, margin: 0, valign: "top" }, AL), text: "" } }] });
+  if (UTS) pres.defineSlideMaster({ title: "FX_UTS", background: { color: HEX.bg },
+    objects: [{ placeholder: { options: { name: "title", type: "title", x: 0.8, y: 1.3, w: 7.4, h: 1.05, fontSize: 60, bold: true, color: T1, fontFace: "Arial", margin: 0, valign: "bottom", align: "left" }, text: "" } },
+              { placeholder: { options: { name: "body", type: "body", x: 0.8, y: 2.45, w: 7.4, h: 0.5, fontSize: 20, color: HEX.ink, margin: 0, valign: "top", align: "left" }, text: "" } }] });
   pres.defineSlideMaster({ title: "FX_CONTENT", background: { color: HEX.bg }, margin: [0.5, 0.6, 0.7, 0.6],
-    objects: [{ placeholder: { options: { name: "title", type: "title", x: 0.6, y: 0.35, w: 12.1, h: 0.85, fontSize: 34, bold: true, color: C.text1, fontFace: "Arial", margin: 0, valign: "middle" }, text: "" } },
+    objects: [{ placeholder: { options: Object.assign({ name: "title", type: "title", x: 0.6, y: 0.35, w: 12.1, h: 0.85, fontSize: 34, bold: true, color: T1, fontFace: "Arial", margin: 0, valign: "middle" }, AL), text: "" } },
               { text: { text: COPY, options: { x: 0.6, y: 7.0, w: 8.0, h: 0.3, fontSize: 10, color: HEX.muted, margin: 0 } } }],
     slideNumber: { x: 12.2, y: 7.0, w: 0.5, h: 0.3, fontSize: 10, color: HEX.muted, align: "right" } });
 
@@ -68,16 +96,42 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
 
   // ---------------------------------------------------------------- 1. Title
   section("Pembuka");
-  let s = pres.addSlide({ masterName: "FX_TITLE", sectionTitle: "Pembuka" });
-  s.addText("Finandex", { placeholder: "title" });
-  s.addText("Wawasan indeks pasar keuangan global — 29 chatbot berbasis data dalam satu aplikasi web, mobile, dan desktop", { placeholder: "body" });
-  s.addImage({ data: png(path.join(KIT, "brand/icons/finandex-512.png")), x: 0.8, y: 0.8, w: 1.1, h: 1.1, objectName: "app-icon" });
-  constellation(s, 8.4, 0.8, 4.4, 5.2, 22, 7);
-  text(s, "Disusun oleh Dea Saka Kurnia Putra", { x: 0.8, y: 5.4, w: 6.5, h: 0.4, fontSize: 16, color: HEX.ink, bold: true });
-  text(s, "Versi 1.0, 23 Oktober 2026", { x: 0.8, y: 5.8, w: 6.5, h: 0.35, fontSize: 13, color: HEX.muted });
-  s.addImage({ data: png(path.join(KIT, "brand/dskp-wordmark-on-dark.png")), x: 0.8, y: 6.3, w: 2.6, h: 0.52, sizing: { type: "contain", w: 2.6, h: 0.52 }, objectName: "personal-wordmark" });
-  text(s, COPY, { x: 7.2, y: 6.95, w: 5.6, h: 0.3, fontSize: 10, color: HEX.muted, align: "right" });
-  s.addNotes("Finandex: aplikasi insights indeks pasar keuangan dengan 29 chatbot (Dex). Satu codebase untuk web/PWA, iOS, Android, macOS, dan Windows. Dirancang dan dikembangkan oleh Dea Saka Kurnia Putra.");
+  let s;
+  if (UTS) {
+    // UTS cover (UTS_PPTX_PROMPT §3): left ≈ 60 % — label, course (optional), title, subtitle, members table, details line;
+    // right — app icon + constellation motif (smaller), campus logo top-right when provided.
+    const U = UTS_COVER;
+    s = pres.addSlide({ masterName: "FX_UTS", sectionTitle: "Pembuka" });
+    text(s, U.label, { x: 0.8, y: 0.6, w: 7.4, h: 0.35, fontSize: 14, bold: true, color: HEX.phos, charSpacing: 4, objectName: "uts-label" });
+    if (U.course) text(s, U.course, { x: 0.8, y: 0.98, w: 7.4, h: 0.32, fontSize: 16, color: HEX.ink, objectName: "uts-course" });
+    s.addText(U.title, { placeholder: "title" });
+    s.addText(U.subtitle, { placeholder: "body" });
+    text(s, "Anggota Kelompok", { x: 0.8, y: 3.35, w: 7.4, h: 0.35, fontSize: 14, bold: true, color: HEX.ink, objectName: "uts-members-title" });
+    const line = { pt: 0.75, color: HEX.edge }, none = { type: "none" };
+    const cell = (t, o) => ({ text: t, options: Object.assign({ color: HEX.ink, fontSize: 16, border: [none, none, line, none], valign: "middle" }, o) });
+    s.addTable([[cell("NIM", { fontSize: 12, bold: true, color: HEX.muted }), cell("NAMA", { fontSize: 12, bold: true, color: HEX.muted })],
+                ...U.members.map(([nim, nama]) => [cell(nim, { fontFace: "Consolas" }), cell(nama)])],
+      { x: 0.8, y: 3.8, w: 7.4, colW: [2.4, 5.0], rowH: [0.38, 0.5, 0.5, 0.5], margin: [0.04, 0.08, 0.04, 0.0], objectName: "uts-members" });
+    const details = [U.lecturer, U.program, U.university, U.term, U.date].filter(Boolean);
+    if (details.length) text(s, details.join(" · "), { x: 0.8, y: 6.05, w: 7.4, h: 0.3, fontSize: 12, color: HEX.muted, objectName: "uts-details" });
+    if (U.campusLogo) s.addImage({ path: U.campusLogo, x: 11.6, y: 0.35, w: 1.3, h: 0.9, sizing: { type: "contain", w: 1.3, h: 0.9 }, objectName: "campus-logo" });
+    s.addImage({ data: png(path.join(KIT, "brand/icons/finandex-512.png")), x: 9.0, y: 0.75, w: 1.0, h: 1.0, objectName: "app-icon" });
+    constellation(s, 8.9, 2.0, 3.9, 3.9, 20, 7);
+    text(s, COPY, { x: 7.2, y: 6.95, w: 5.6, h: 0.3, fontSize: 10, color: HEX.muted, align: "right" });
+    s.addNotes("Presentasi UTS kelompok: Finandex — gambaran platform & tech stack. Anggota: DEA SAKA KURNIA PUTRA (261012000111), ROSSY ARTANTI ZULAIEKHA (261012000045), TAJUL TABRIZI (261012000093).");
+  } else {
+    s = pres.addSlide({ masterName: "FX_TITLE", sectionTitle: "Pembuka" });
+    s.addText("Finandex", { placeholder: "title" });
+    s.addText("Wawasan indeks pasar keuangan global — 29 chatbot berbasis data dalam satu aplikasi web, mobile, dan desktop", { placeholder: "body" });
+    s.addImage({ data: png(path.join(KIT, "brand/icons/finandex-512.png")), x: 0.8, y: 0.8, w: 1.1, h: 1.1, objectName: "app-icon" });
+    constellation(s, 8.4, 0.8, 4.4, 5.2, 22, 7);
+    text(s, "Disusun oleh Dea Saka Kurnia Putra", { x: 0.8, y: 5.4, w: 6.5, h: 0.4, fontSize: 16, color: HEX.ink, bold: true });
+    text(s, "Versi 1.0, 23 Oktober 2026", { x: 0.8, y: 5.8, w: 6.5, h: 0.35, fontSize: 13, color: HEX.muted });
+    s.addImage({ data: png(path.join(KIT, "brand/dskp-wordmark-on-dark.png")), x: 0.8, y: 6.3, w: 2.6, h: 0.52, sizing: { type: "contain", w: 2.6, h: 0.52 }, objectName: "personal-wordmark" });
+    text(s, COPY, { x: 7.2, y: 6.95, w: 5.6, h: 0.3, fontSize: 10, color: HEX.muted, align: "right" });
+    s.addNotes("Finandex: aplikasi insights indeks pasar keuangan dengan 29 chatbot (Dex). Satu codebase untuk web/PWA, iOS, Android, macOS, dan Windows. Dirancang dan dikembangkan oleh Dea Saka Kurnia Putra.");
+
+  }
 
   // ---------------------------------------------------------------- 2. Ringkasan
   s = pres.addSlide({ masterName: "FX_CONTENT", sectionTitle: "Pembuka" });
@@ -308,11 +362,12 @@ const png = (p) => "image/png;base64," + fs.readFileSync(p).toString("base64");
   text(s, "Finandex dirancang dan dikembangkan oleh Dea Saka Kurnia Putra — A BRIGHTER TOMORROW THROUGH MEANINGFUL WORK", { x: 0.8, y: 5.6, w: 7.2, h: 0.7, fontSize: 14, color: HEX.muted });
   s.addImage({ data: png(path.join(KIT, "brand/dskp-mark-on-dark.png")), x: 0.8, y: 6.35, w: 0.5, h: 0.5, sizing: { type: "contain", w: 0.5, h: 0.5 }, objectName: "personal-mark" });
   text(s, COPY, { x: 1.45, y: 6.45, w: 6.5, h: 0.3, fontSize: 10, color: HEX.muted });
+  if (UTS) text(s, "UTS · Kelompok: DEA SAKA KURNIA PUTRA, ROSSY ARTANTI ZULAIEKHA, TAJUL TABRIZI", { x: 0.8, y: 5.05, w: 7.2, h: 0.4, fontSize: 12, color: HEX.muted, objectName: "uts-group-line" });
   s.addNotes("Template ADD_NEW_DEX_PROMPT.md untuk fitur baru; UPDATE_V3_PROMPT.md untuk repo yang sudah dibangun dari v2.");
 
-  const out = path.join(WP, "Finandex_Platform_Overview.pptx");
+  const out = path.join(WP, UTS ? "Finandex_UTS_Kelompok.pptx" : "Finandex_Platform_Overview.pptx");
   await pres.writeFile({ fileName: out });
-  const themeMod = process.argv[3] || "/mnt/skills/public/pptx/scripts/apply_theme.js";
+  const themeMod = ARGS[1] || "/mnt/skills/public/pptx/scripts/apply_theme.js";
   if (fs.existsSync(themeMod)) { const { applyTheme } = require(themeMod); await applyTheme(out, THEME); }
   console.log("ok", out);
 })().catch((e) => { console.error(e); process.exit(1); });

@@ -386,11 +386,62 @@ function finalize(bom: Cdx): Cdx {
   return bom;
 }
 
+/**
+ * Dev-tree packages whose code is bundled into the shipped web artefact: anything imported from src/** that npm marks
+ * as dev (e.g. workbox-* in the service worker, tailwindcss-generated CSS) plus virtual-module providers
+ * (virtual:pwa-register → workbox-window). They are moved into the web SBOM together with their dependency closure.
+ */
+function bundledDevPackages(): string[] {
+  const lock = JSON.parse(readFileSync('package-lock.json', 'utf8')) as { packages: Record<string, { dev?: boolean }> };
+  // Only top-level installs: that is what an import from src/** resolves to (nested copies belong to other packages).
+  const dev = new Set(Object.entries(lock.packages).filter(([k, v]) => k.startsWith('node_modules/') && k.lastIndexOf('node_modules/') === 0 && v.dev).map(([k]) => k.slice(13)));
+  const found = new Set<string>();
+  const walk = (dir: string) => {
+    for (const n of readdirSync(dir)) {
+      const p = join(dir, n);
+      if (statSync(p).isDirectory()) walk(p);
+      else if (/\.(ts|tsx|css)$/.test(n)) {
+        const t = readFileSync(p, 'utf8');
+        for (const m of t.matchAll(/(?:from\s+|import\s*\(\s*|import\s+|@import\s+)['"]((?:@[\w.-]+\/)?[\w.-]+)/g)) if (dev.has(m[1]!)) found.add(m[1]!);
+        if (/virtual:pwa-register/.test(t) && dev.has('workbox-window')) found.add('workbox-window');
+      }
+    }
+  };
+  walk('src');
+  return [...found].sort();
+}
+
+function moveBundled(web: Cdx, tooling: Cdx, names: string[]) {
+  const comps = flatten(tooling.components);
+  const byName = new Map(comps.map((c) => [`${c.group ? `${String(c.group)}/` : ''}${c.name}`, c]));
+  const deps = new Map((tooling.dependencies ?? []).map((d) => [d.ref, d.dependsOn ?? []]));
+  const take = new Set<string>();
+  const stack = names.map((n) => byName.get(n)?.['bom-ref']).filter((x): x is string => !!x);
+  while (stack.length) {
+    const r = stack.pop()!;
+    if (take.has(r)) continue;
+    take.add(r);
+    for (const d of deps.get(r) ?? []) stack.push(d);
+  }
+  const moved = comps.filter((c) => take.has(c['bom-ref']!));
+  for (const c of moved) c.properties = [...((c.properties as unknown[]) ?? []), { name: 'finandex:origin', value: 'devDependency tree, bundled into the shipped web artefact (service worker / generated CSS)' }];
+  web.components = [...(web.components ?? []), ...moved];
+  web.dependencies = [...(web.dependencies ?? []), ...(tooling.dependencies ?? []).filter((d) => take.has(d.ref))];
+  const root = (web.metadata.component as Comp)['bom-ref']!;
+  const rootDep = web.dependencies.find((d) => d.ref === root);
+  const direct = names.map((n) => byName.get(n)?.['bom-ref']).filter((x): x is string => !!x);
+  if (rootDep) rootDep.dependsOn = [...new Set([...(rootDep.dependsOn ?? []), ...direct])];
+  tooling.components = (tooling.components ?? []).filter((c) => !take.has(c['bom-ref']!));
+  tooling.dependencies = (tooling.dependencies ?? []).filter((d) => !take.has(d.ref)).map((d) => ({ ref: d.ref, dependsOn: (d.dependsOn ?? []).filter((x) => !take.has(x)) }));
+  web.metadata.properties = [...((web.metadata.properties as unknown[]) ?? []), { name: 'finandex:bundled-dev-packages', value: names.join(', ') }];
+}
+
 function main() {
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(OUT, { recursive: true });
   const web = npmBom(true, 'web');
   const tooling = npmBom(false, 'tooling');
+  moveBundled(web, tooling, bundledDevPackages());
   const parts = [
     { file: `finandex-${VERSION}-web.cdx.json`, bom: web },
     { file: `finandex-${VERSION}-android.cdx.json`, bom: androidBom() },

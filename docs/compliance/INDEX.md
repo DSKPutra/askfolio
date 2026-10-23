@@ -2,7 +2,7 @@
 
 > © 2026 Dea Saka Kurnia Putra. All rights reserved.
 
-Versi aplikasi 0.1.0 · commit `4a4a942` · 2026-10-23. Paket B (Secure SBOM) selesai; Paket A (dokumentasi teknis ISO/IEC) dan Paket C (UU PDP) menyusul.
+Versi aplikasi 0.1.0 · commit `a4f91ae` · 2026-10-23. Paket B (Secure SBOM) selesai; Paket A (dokumentasi teknis ISO/IEC) dan Paket C (UU PDP) menyusul.
 
 | ID | Judul | Versi | Status | Klasifikasi | MD | PDF |
 |---|---|---|---|---|---|---|

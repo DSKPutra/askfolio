@@ -106,10 +106,10 @@ function coverage(web: Comp[], tooling: Comp[]) {
   }
   const w = new Set(web.map(key));
   const t = new Set(tooling.map(key));
-  const optional = new Set(Object.entries(lock.packages).filter(([k, v]) => k.startsWith('node_modules/') && (v as { optional?: boolean }).optional).map(([k, v]) => `${k.slice(k.lastIndexOf('node_modules/') + 13)}@${v.version}`));
+  const optional: Set<string> = new Set(Object.entries(lock.packages).filter(([k, v]) => k.startsWith('node_modules/') && (v as { optional?: boolean }).optional).map(([k, v]) => `${k.slice(k.lastIndexOf('node_modules/') + 13)}@${v.version}`));
   const missingProd = [...prod].filter((p) => !w.has(p) && !optional.has(p));
   const optionalAbsent = [...prod].filter((p) => !w.has(p) && optional.has(p));
-  const missingDev = [...dev].filter((p) => !t.has(p) && !w.has(p));
+  const missingDev = [...dev].filter((p) => !t.has(p) && !w.has(p) && !optional.has(p));
   // Optional platform-specific packages (e.g. @rollup/rollup-linux-*) are absent from this machine's tree: known unknowns.
   add('web+tooling', 'coverage: production lockfile packages in web SBOM', missingProd.length === 0, missingProd.length ? `missing: ${missingProd.slice(0, 5).join(', ')}` : `${prod.size - optionalAbsent.length}/${prod.size} + ${optionalAbsent.length} optional platform-specific packages recorded as known unknowns`);
   add('web+tooling', 'coverage: dev lockfile packages in tooling SBOM (installed tree)', true, `${dev.size - missingDev.length}/${dev.size} present; ${missingDev.length} optional/os-specific packages not installed here (known unknowns)`);

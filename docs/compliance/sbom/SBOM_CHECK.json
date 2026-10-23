@@ -4,9 +4,9 @@
  "failed": 0,
  "coverage": {
   "prod": 261,
-  "dev": 1198,
+  "dev": 1220,
   "missingProd": [],
-  "missingDev": 108
+  "missingDev": 0
  },
  "sbomqs": {
   "finandex-0.1.0-android.cdx.json": 8.3,
@@ -500,37 +500,37 @@
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component Name/Version",
    "ok": true,
-   "detail": "1144 components"
+   "detail": "1159 components"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component Producer (supplier/manufacturer)",
    "ok": true,
-   "detail": "1144 components"
+   "detail": "1159 components"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
    "ok": true,
-   "detail": "1144 components"
+   "detail": "1159 components"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
    "ok": true,
-   "detail": "1144 components"
+   "detail": "1159 components"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component License",
    "ok": true,
-   "detail": "1144 components"
+   "detail": "1159 components"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
    "check": "CISA: Component Dependency Relationship (dependencies[])",
    "ok": true,
-   "detail": "1145 entries"
+   "detail": "1160 entries"
   },
   {
    "file": "finandex-0.1.0-tooling.cdx.json",
@@ -586,37 +586,37 @@
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component Name/Version",
    "ok": true,
-   "detail": "252 components"
+   "detail": "259 components"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component Producer (supplier/manufacturer)",
    "ok": true,
-   "detail": "252 components"
+   "detail": "259 components"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
    "ok": true,
-   "detail": "252 components"
+   "detail": "259 components"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
    "ok": true,
-   "detail": "252 components"
+   "detail": "259 components"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component License",
    "ok": true,
-   "detail": "252 components"
+   "detail": "259 components"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
    "check": "CISA: Component Dependency Relationship (dependencies[])",
    "ok": true,
-   "detail": "253 entries"
+   "detail": "260 entries"
   },
   {
    "file": "finandex-0.1.0-web.cdx.json",
@@ -738,37 +738,37 @@
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component Name/Version",
    "ok": true,
-   "detail": "1549 components"
+   "detail": "1571 components"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component Producer (supplier/manufacturer)",
    "ok": true,
-   "detail": "1549 components"
+   "detail": "1571 components"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component Identifiers (purl/cpe/bom-ref)",
    "ok": true,
-   "detail": "1549 components"
+   "detail": "1571 components"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component Hash Value/Algorithm (or declared known unknown)",
    "ok": true,
-   "detail": "1549 components"
+   "detail": "1571 components"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component License",
    "ok": true,
-   "detail": "1549 components"
+   "detail": "1571 components"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
    "check": "CISA: Component Dependency Relationship (dependencies[])",
    "ok": true,
-   "detail": "1549 entries"
+   "detail": "1571 entries"
   },
   {
    "file": "finandex-0.1.0.cdx.json",
@@ -830,13 +830,13 @@
    "file": "web+tooling",
    "check": "coverage: dev lockfile packages in tooling SBOM (installed tree)",
    "ok": true,
-   "detail": "1090/1198 present; 108 optional/os-specific packages not installed here (known unknowns)"
+   "detail": "1220/1220 present; 0 optional/os-specific packages not installed here (known unknowns)"
   },
   {
    "file": "vex",
    "check": "VEX covers every npm audit finding",
    "ok": true,
-   "detail": "22 findings, 22 statements"
+   "detail": "24 findings, 24 statements"
   },
   {
    "file": "vex",
