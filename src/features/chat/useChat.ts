@@ -9,6 +9,9 @@ import { useApp } from '../../lib/store';
 import { LIMITS } from '../../shared/chat-protocol';
 import type { ChatRequest } from '../../shared/chat-protocol';
 import { detectSensitive } from '../../shared/text';
+import { useAgentActivity } from '../agents/activity';
+import { applyAgentEvent, emptyTrace, isAgentEvent } from '../agents/trace';
+import type { AgentTrace } from '../agents/trace';
 
 export type ChatContext = NonNullable<ChatRequest['context']>;
 export type SendResult = 'sent' | 'sensitive' | 'too-long' | 'offline' | 'busy' | 'empty';
@@ -58,10 +61,22 @@ export function useChat(dex: DexId, context: ChatContext | undefined) {
       const base: Conversation = { ...convRef.current, messages: [...messages, { role: 'assistant', content: '', artifacts: [], methods: [], citations: [] }], title: convRef.current.title || titleFrom(messages.find((m) => m.role === 'user')?.content ?? ''), updatedAt: Date.now() };
       setConv(base);
       const req: ChatRequest = { dex, locale, clientId, messages: toRequestMessages(messages), ...(context && Object.keys(context).length ? { context } : {}) };
+      let trace: AgentTrace = emptyTrace();
+      const activity = useAgentActivity.getState();
+      activity.begin(messages.at(-1)?.content ?? '', trace);
       try {
         await streamChat(
           req,
           (e) => {
+            if (isAgentEvent(e)) {
+              const next = applyAgentEvent(trace, e, locale);
+              if (next !== trace) {
+                trace = next;
+                const snap = trace;
+                patchLast((m) => ({ ...m, agents: snap }));
+              }
+              activity.push(e, trace);
+            }
             switch (e.event) {
               case 'meta':
                 patchLast((m) => ({ ...m, asOf: e.data.as_of }));

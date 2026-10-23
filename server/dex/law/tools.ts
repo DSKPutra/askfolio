@@ -161,6 +161,11 @@ export function lawTools(dex: LawDexId): ToolDef[] {
             corpus,
             documents: rows.map((d) => ({ doc_id: d.doc_id, short: d.short, title: d.title, status: d.status, available: d.available, pages: d.pages, effective: d.effective, badges: statusBadge(d.doc_id, L), supplement: d.supplement, reason: d.available ? null : (d.lock_reason ?? (d.source === 'catalog-only' ? 'catalog-only (riwayat)' : 'menunggu dokumen')) })),
             uud_note: corpus === 'umum' ? (isAvailable('uud-nri-1945') ? NOTES.uud_both[L] : NOTES.uud_original[L]) : null,
+            counts: (() => {
+              const cat = rows.filter((d) => !d.supplement);
+              const sup = rows.filter((d) => d.supplement);
+              return { total: rows.length, available: rows.filter((d) => d.available).length, pending: rows.filter((d) => !d.available).length, catalog: cat.length, catalog_available: cat.filter((d) => d.available).length, catalog_pending: cat.filter((d) => !d.available).length, supplement: sup.length, supplement_available: sup.filter((d) => d.available).length };
+            })(),
           },
           ui: [
             artifact(

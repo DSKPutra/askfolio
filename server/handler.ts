@@ -1,6 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Runtime-agnostic API router (§5.3): Web Fetch API only (no fs / Node-specific APIs).
 import { DEX_REGISTRY, visibleDex } from '../src/config/dex-registry';
+import type { DexId } from '../src/config/dex-registry';
 import { ChatRequest, LIMITS } from '../src/shared/chat-protocol';
 import type { ErrorCode, SseEvent } from '../src/shared/chat-protocol';
 import { orchestrate } from './chat/orchestrator';
@@ -121,13 +122,16 @@ async function chat(request: Request, s: State, cors: Record<string, string>, op
     return json(errorBody(lim.code, msg, lim.retryAfter), 429, { ...cors, 'Retry-After': String(lim.retryAfter) });
   }
   let llm = opts.llm;
+  let llmFor: ((dex: DexId) => Llm) | undefined;
+  const live = !opts.llm && s.env.CHAT_MODE === 'live' && !!s.env.ANTHROPIC_API_KEY;
   if (!llm) {
-    if (s.env.CHAT_MODE === 'live' && s.env.ANTHROPIC_API_KEY) llm = new ClaudeLlm(s.env);
+    if (live) llm = new ClaudeLlm(s.env);
     else {
-      // Data mode: no AI model configured (or CHAT_MODE=mock) → answers composed directly from the Dex tools.
+      // Data mode: no AI model configured (or CHAT_MODE=mock) → each Dex agent composes answers from its own tools.
       const { DataLlm } = await import('./chat/data-llm');
       const { KNOWN_QUESTIONS } = await import('./chat/known-questions');
       llm = new DataLlm(req.dex, s.store, req.locale, KNOWN_QUESTIONS);
+      llmFor = (dex) => new DataLlm(dex, s.store, req.locale, KNOWN_QUESTIONS);
     }
   }
   const requestId = crypto.randomUUID();
@@ -141,7 +145,7 @@ async function chat(request: Request, s: State, cors: Record<string, string>, op
       };
       const ping = setInterval(() => !closed && controller.enqueue(PING), 15_000);
       try {
-        await orchestrate(req, { llm: llm!, store: s.store, manifest: s.manifest, deadlineMs: s.env.CHAT_DEADLINE_MS, distribution: s.env.VITE_DISTRIBUTION, appVersion: s.env.APP_VERSION, log: (r) => s.env.LOG_LEVEL === 'debug' && console.warn(JSON.stringify(r)) }, emit, abort.signal, requestId);
+        await orchestrate(req, { llm: llm!, ...(llmFor ? { llmFor } : {}), live, store: s.store, manifest: s.manifest, deadlineMs: s.env.CHAT_DEADLINE_MS, distribution: s.env.VITE_DISTRIBUTION, appVersion: s.env.APP_VERSION, log: (r) => s.env.LOG_LEVEL === 'debug' && console.warn(JSON.stringify(r)) }, emit, abort.signal, requestId);
       } catch (e) {
         const aborted = abort.signal.aborted;
         const code: ErrorCode = aborted ? 'TIMEOUT' : (e as { status?: number })?.status === 429 ? 'RATE_LIMIT' : (e as { status?: number })?.status ? 'UPSTREAM' : 'INTERNAL';

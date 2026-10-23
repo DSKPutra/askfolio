@@ -1,0 +1,308 @@
+{
+ "generated": "2026-10-23T11:24:34.234Z",
+ "mode": "data (deterministic Dex composers; mock for collaboration stubs)",
+ "routing": {
+  "items": 67,
+  "precision": 1,
+  "recall": 1,
+  "pass_rate": 1
+ },
+ "skills": {
+  "agents": 32,
+  "skills": 178,
+  "items": 534,
+  "pass_rate": 1
+ },
+ "collaboration": {
+  "items": 8,
+  "pass_rate": 1,
+  "results": [
+   {
+    "suite": "collaboration",
+    "id": "cross-domain",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "partial-labelled",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "unverified-removed",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "conflict-not-averaged",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "handoff-or-delegate",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "guard-advice-note",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "guard-sensitive-blocked",
+    "pass": true
+   },
+   {
+    "suite": "collaboration",
+    "id": "event-order",
+    "pass": true
+   }
+  ]
+ },
+ "latency": {
+  "median_ms_1_agent": 22,
+  "median_ms_3_agents": 19,
+  "median_tokens": 0,
+  "samples": {
+   "one": [
+    7,
+    1,
+    22,
+    43,
+    333
+   ],
+   "three": [
+    7,
+    753,
+    19
+   ]
+  }
+ },
+ "per_agent": [
+  {
+   "id": "conductor",
+   "skills": 3,
+   "tools": 3,
+   "items": 9,
+   "pass_rate": 1
+  },
+  {
+   "id": "finandex-ai",
+   "skills": 6,
+   "tools": 16,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "nasdaqdex",
+   "skills": 6,
+   "tools": 19,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "snp500dex",
+   "skills": 6,
+   "tools": 24,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "commercedex",
+   "skills": 6,
+   "tools": 19,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "ipodex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "idfinandex",
+   "skills": 6,
+   "tools": 19,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "rupiahdex",
+   "skills": 7,
+   "tools": 20,
+   "items": 21,
+   "pass_rate": 1
+  },
+  {
+   "id": "idxdex",
+   "skills": 7,
+   "tools": 23,
+   "items": 21,
+   "pass_rate": 1
+  },
+  {
+   "id": "reksadex",
+   "skills": 6,
+   "tools": 22,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "cryptdex",
+   "skills": 9,
+   "tools": 29,
+   "items": 27,
+   "pass_rate": 1
+  },
+  {
+   "id": "centralbankdex",
+   "skills": 6,
+   "tools": 11,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "inflationdex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "startupdex",
+   "skills": 6,
+   "tools": 11,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "vcdex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "vcnetworkdex",
+   "skills": 4,
+   "tools": 10,
+   "items": 12,
+   "pass_rate": 1
+  },
+  {
+   "id": "opencompanydex",
+   "skills": 5,
+   "tools": 9,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "salarydex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "costlivingdex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "idhousingdex",
+   "skills": 6,
+   "tools": 11,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "idfooddeliverydex",
+   "skills": 6,
+   "tools": 10,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "povertydex",
+   "skills": 5,
+   "tools": 9,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "populationdex",
+   "skills": 6,
+   "tools": 15,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "homelessnessdex",
+   "skills": 6,
+   "tools": 15,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "housingdex",
+   "skills": 6,
+   "tools": 15,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "fintechdex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "personalfinandex",
+   "skills": 5,
+   "tools": 10,
+   "items": 15,
+   "pass_rate": 1
+  },
+  {
+   "id": "mylaiwyer",
+   "skills": 6,
+   "tools": 17,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "finlaiwyer",
+   "skills": 6,
+   "tools": 16,
+   "items": 18,
+   "pass_rate": 1
+  },
+  {
+   "id": "antiscamdex",
+   "skills": 7,
+   "tools": 17,
+   "items": 21,
+   "pass_rate": 1
+  },
+  {
+   "id": "verifier",
+   "skills": 3,
+   "tools": 2,
+   "items": 9,
+   "pass_rate": 1
+  },
+  {
+   "id": "guard",
+   "skills": 3,
+   "tools": 2,
+   "items": 9,
+   "pass_rate": 1
+  }
+ ],
+ "failures": []
+}

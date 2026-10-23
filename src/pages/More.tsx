@@ -22,6 +22,9 @@ export default function More() {
       <ul className="divide-y divide-border overflow-hidden rounded-pane border border-border bg-surface">
         {row('/watchlist', t('nav.watchlist'))}
         {row('/settings', t('nav.settings'))}
+        {row('/agents', t('nav.agents'))}
+        {row('/panduan', t('nav.guide'))}
+        {row('/install', t('nav.install'))}
         {row('/whitepaper', t('nav.whitepaper'))}
         {row('/about', t('nav.about'))}
       </ul>

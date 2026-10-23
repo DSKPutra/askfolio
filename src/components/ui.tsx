@@ -2,10 +2,10 @@
 // UI primitives on the "Index Constellation" tokens (§10.3–10.4): buttons, layered panes, chips, skeleton, and the
 // empty / error / offline / insufficient-history states. Radii: pane 20 px, control 12 px, chip pill.
 import { clsx } from 'clsx';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'ghost' | 'outline' | 'danger' | 'emergency'; size?: 'sm' | 'md' | 'lg' };
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { ref?: Ref<HTMLButtonElement>; variant?: 'primary' | 'ghost' | 'outline' | 'danger' | 'emergency'; size?: 'sm' | 'md' | 'lg' };
 
 export function buttonClass(variant: ButtonProps['variant'] = 'outline', size: ButtonProps['size'] = 'md', className?: string): string {
   return clsx(

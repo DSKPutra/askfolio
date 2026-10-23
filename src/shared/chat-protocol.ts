@@ -1,6 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Chat protocol shared by server and client (§8.1, §8.2, §8.8).
 
+import type { AgentEvent } from './agents';
 import { z } from 'zod';
 import { DEX_IDS } from '../config/dex-registry';
 
@@ -214,14 +215,18 @@ export type Citation = z.infer<typeof Citation>;
 
 export type ErrorCode = 'RATE_LIMIT' | 'BUDGET' | 'UPSTREAM' | 'TIMEOUT' | 'BAD_REQUEST' | 'INTERNAL';
 
+/** Optional source-agent tag on evidence events (AGENTIC_AI_PROMPT §6). */
+type Tagged<T> = T & { agentId?: string };
+
 export type SseEvent =
-  | { event: 'meta'; data: { requestId: string; dex: string; as_of: string; model: string } }
+  | { event: 'meta'; data: { requestId: string; dex: string; as_of: string; model: string; agents?: boolean } }
   | { event: 'status'; data: { code: 'thinking' | 'tool'; tool?: string; label: string } }
   | { event: 'text'; data: { delta: string } }
-  | { event: 'artifact'; data: Artifact }
-  | { event: 'method'; data: Method }
-  | { event: 'citation'; data: Citation }
-  | { event: 'done'; data: { usage: { input_tokens: number; output_tokens: number }; tools_used: string[]; elapsed_ms: number } }
+  | { event: 'artifact'; data: Tagged<Artifact> }
+  | { event: 'method'; data: Tagged<Method> }
+  | { event: 'citation'; data: Tagged<Citation> }
+  | AgentEvent
+  | { event: 'done'; data: { usage: { input_tokens: number; output_tokens: number }; tools_used: string[]; elapsed_ms: number; partial?: boolean } }
   | { event: 'error'; data: { code: ErrorCode; message: string; retryAfter?: number } };
 
 /** Parse one SSE frame (`event: x\ndata: {...}`) — used by the client and tests. */

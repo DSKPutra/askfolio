@@ -118,7 +118,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'live',
     indonesia: false,
-    keywords: ['indeks', 'index', 'komoditas', 'commodity', 'emas', 'gold', 'minyak', 'oil', 'kurs', 'fx'],
+    keywords: ['indeks', 'index', 'komoditas', 'commodity', 'emas', 'gold', 'minyak', 'oil', 'kurs', 'fx', 'bitcoin', 'btc', 'ethereum', 's&p 500', 'nasdaq', 'nikkei', 'dax', 'ftse'],
   },
   {
     id: 'nasdaqdex',
@@ -163,7 +163,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'live',
     indonesia: false,
-    keywords: ['saham', 'stock', 'dividen', 'dividend', 's&p'],
+    keywords: ['saham', 'stock', 'dividen', 'dividend', 's&p', 'split', 'aapl', 'msft', 'nvda', 'googl', 'amzn', 'tsla'],
   },
   {
     id: 'commercedex',
@@ -188,7 +188,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'live',
     indonesia: false,
-    keywords: ['e-commerce', 'ecommerce', 'marketplace', 'amazon', 'tokopedia'],
+    keywords: ['e-commerce', 'ecommerce', 'marketplace', 'amazon', 'tokopedia', 'goto', 'sea', 'grab', 'shopee'],
   },
   {
     id: 'ipodex',
@@ -376,7 +376,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'live',
     indonesia: false,
-    keywords: ['inflasi', 'inflation', 'harga', 'biaya hidup'],
+    keywords: ['inflasi', 'inflation', 'inflasi indonesia', 'harga', 'biaya hidup'],
   },
   {
     id: 'startupdex',
@@ -422,7 +422,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     status: 'live',
     indonesia: false,
     sample: { id: 'sampel', en: 'sample' },
-    keywords: ['vc', 'venture capital', 'investor', 'angel'],
+    keywords: ['vc', 'venture capital', 'investor', 'angel', 'startup', 'mendanai'],
   },
   {
     id: 'vcnetworkdex',
@@ -750,7 +750,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'partial',
     indonesia: true,
-    keywords: ['hukum keuangan', 'perbankan', 'bank', 'ojk', 'bi', 'scam', 'penipuan', 'pinjol', 'pindar', 'transfer', 'uang nyasar', 'investasi bodong', 'konsumen', 'data pribadi', 'ite', 'tppu', 'p2sk'],
+    keywords: ['hukum keuangan', 'perbankan', 'bank', 'ojk', 'bi', 'scam', 'penipuan', 'pinjol', 'pindar', 'transfer', 'uang nyasar', 'baru kena scam', 'baru tertipu', 'ditipu', 'just scammed', 'scammed', 'investasi bodong', 'konsumen', 'data pribadi', 'ite', 'tppu', 'p2sk'],
   },
   {
     id: 'antiscamdex',
@@ -781,7 +781,7 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     ),
     status: 'live',
     indonesia: true,
-    keywords: ['scam', 'penipuan', 'iasc', 'satgas pasti', 'lapor', 'blokir rekening', 'modus', 'phishing', 'otp', 'investasi ilegal', 'pinjol ilegal', 'statistik'],
+    keywords: ['scam', 'penipuan', 'iasc', 'satgas pasti', 'lapor', 'blokir rekening', 'modus', 'phishing', 'otp', 'investasi ilegal', 'pinjol ilegal', 'statistik', 'pengaduan'],
   },
 ];
 

@@ -22,6 +22,7 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 const DaruratScam = lazy(() => import('../pages/DaruratScam'));
 const Install = lazy(() => import('../pages/Install'));
 const Guide = lazy(() => import('../pages/Guide'));
+const Agents = lazy(() => import('../pages/Agents'));
 
 const page = (el: ReactNode) => <Suspense fallback={<LoadingBlock />}>{el}</Suspense>;
 
@@ -47,6 +48,7 @@ export const routes = [
       { path: 'darurat-scam', element: page(<DaruratScam />) },
       { path: 'install', element: page(<Install />) },
       { path: 'panduan', element: page(<Guide />) },
+      { path: 'agents', element: page(<Agents />) },
       { path: '*', element: page(<NotFound />) },
     ],
   },

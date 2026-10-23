@@ -1,0 +1,152 @@
+{
+ "generated": "2026-10-23",
+ "mode": "data",
+ "routing": {
+  "items": 67,
+  "precision": 1,
+  "recall": 1
+ },
+ "skills": {
+  "items": 534,
+  "pass_rate": 1
+ },
+ "collaboration": {
+  "items": 8,
+  "pass_rate": 1
+ },
+ "chat_mock": "npm run eval:chat:mock",
+ "latency": {
+  "median_ms_1_agent": 22,
+  "median_ms_3_agents": 19
+ },
+ "per_agent": {
+  "conductor": {
+   "items": 9,
+   "pass_rate": 1
+  },
+  "finandex-ai": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "nasdaqdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "snp500dex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "commercedex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "ipodex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "idfinandex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "rupiahdex": {
+   "items": 21,
+   "pass_rate": 1
+  },
+  "idxdex": {
+   "items": 21,
+   "pass_rate": 1
+  },
+  "reksadex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "cryptdex": {
+   "items": 27,
+   "pass_rate": 1
+  },
+  "centralbankdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "inflationdex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "startupdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "vcdex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "vcnetworkdex": {
+   "items": 12,
+   "pass_rate": 1
+  },
+  "opencompanydex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "salarydex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "costlivingdex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "idhousingdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "idfooddeliverydex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "povertydex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "populationdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "homelessnessdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "housingdex": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "fintechdex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "personalfinandex": {
+   "items": 15,
+   "pass_rate": 1
+  },
+  "mylaiwyer": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "finlaiwyer": {
+   "items": 18,
+   "pass_rate": 1
+  },
+  "antiscamdex": {
+   "items": 21,
+   "pass_rate": 1
+  },
+  "verifier": {
+   "items": 9,
+   "pass_rate": 1
+  },
+  "guard": {
+   "items": 9,
+   "pass_rate": 1
+  }
+ }
+}

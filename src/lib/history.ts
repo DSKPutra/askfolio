@@ -2,6 +2,7 @@
 // Chat history per Dex in IndexedDB (max 50 conversations per Dex; deletable) — device only (§10.6, §13.2).
 import { createStore, del, entries, get, set } from 'idb-keyval';
 import type { Artifact, Citation, Method } from '../shared/chat-protocol';
+import type { AgentTrace } from '../features/agents/trace';
 
 export type ChatMessage = {
   role: 'user' | 'assistant';
@@ -13,6 +14,8 @@ export type ChatMessage = {
   citations?: Citation[];
   error?: string;
   asOf?: string;
+  /** Multi-agent trace of this answer (AGENTIC_AI_PROMPT §7.2); stored only on this device. */
+  agents?: AgentTrace;
 };
 export type Conversation = { id: string; dexId: string; title: string; updatedAt: number; messages: ChatMessage[] };
 

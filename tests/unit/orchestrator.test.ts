@@ -1,4 +1,5 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
+import { AGENT_LIMITS } from '../../src/shared/agents';
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { SseEvent } from '../../src/shared/chat-protocol';
@@ -54,7 +55,7 @@ describe.runIf(existsSync('public/data/manifest.json'))('orchestrator', () => {
     expect(JSON.stringify(seen)).toMatch(/is_error/);
     expect(JSON.stringify(seen)).toMatch(/not available in this Dex/);
   });
-  it('caps tool calls at 12 per request', async () => {
+  it('caps tool calls at the agent card limit', async () => {
     let last: unknown;
     const llm = new ScriptLlm((req, n) => {
       if (n === 0) return tool('get_snapshot', { id: 'USDIDR' }, 14);
@@ -63,7 +64,7 @@ describe.runIf(existsSync('public/data/manifest.json'))('orchestrator', () => {
     });
     const ev = await run(llm);
     expect(JSON.stringify(last)).toMatch(/Tool-call limit reached/);
-    expect((ev.at(-1)!.data as { tools_used: string[] }).tools_used).toHaveLength(12);
+    expect((ev.at(-1)!.data as { tools_used: string[] }).tools_used).toHaveLength(AGENT_LIMITS.maxTools);
   });
   it('stops at the deadline with a polite note', async () => {
     let t = 0;
@@ -71,9 +72,9 @@ describe.runIf(existsSync('public/data/manifest.json'))('orchestrator', () => {
     const ev = await run(llm, { deadlineMs: 5, now: () => (t += 10) });
     expect(ev.some((e) => e.event === 'text' && /Time limit/.test(e.data.delta))).toBe(true);
   });
-  it('stops after 8 turns even if the model keeps calling tools', async () => {
+  it('stops after the agent card turn limit even if the model keeps calling tools', async () => {
     const llm = new ScriptLlm(() => tool('app_info', {}));
     await run(llm);
-    expect(llm.turns).toBe(8);
+    expect(llm.turns).toBe(AGENT_LIMITS.maxTurns);
   });
 });

@@ -17,6 +17,10 @@ export type TurnRequest = {
   messages: { role: 'user' | 'assistant'; content: unknown }[];
   signal: AbortSignal;
   onText: (delta: string) => void;
+  /** Force one tool (used by the Conductor's plan step). */
+  toolChoice?: string;
+  /** Override the model for this turn (Verifier/Guard use the fast model). */
+  model?: string;
 };
 
 export type TurnResult = { content: Block[]; stop_reason: string; usage: { input_tokens: number; output_tokens: number }; model: string };
@@ -47,12 +51,13 @@ export class ClaudeLlm implements Llm {
     // No temperature/top_p/top_k on this model generation (§5.4). Low effort keeps chat turns fast.
     const stream = this.client.beta.messages.stream(
       {
-        model: this.model,
+        model: req.model ?? this.model,
         max_tokens: 2048,
         system: [{ type: 'text', text: req.system, cache_control: { type: 'ephemeral' } }],
         tools,
         messages: req.messages as Anthropic.Beta.BetaMessageParam[],
         output_config: { effort: 'low' },
+        ...(req.toolChoice ? { tool_choice: { type: 'tool' as const, name: req.toolChoice } } : {}),
         ...(fallbacks ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' as const } : {}),
       },
       { signal: req.signal },

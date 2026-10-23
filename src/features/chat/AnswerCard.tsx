@@ -13,6 +13,7 @@ import { Button } from '../../components/ui';
 import type { DexId } from '../../config/dex-registry';
 import { EXPORT_WATERMARK } from '../../config/brand';
 import type { ChatMessage } from '../../lib/history';
+import { AgentStrip, ProposedActions } from '../agents/AgentUi';
 
 /** Splits model markdown into the core answer (lead paragraphs) and the analysis (from the first list/heading). */
 export function splitAnswer(md: string): { core: string; analysis: string } {
@@ -70,6 +71,7 @@ export function AnswerCard({ msg, last, streaming, onRetry, disclaimer, selected
   };
   return (
     <article className={clsx('pane prov-ai space-y-3 p-4', selected && 'border-ai')} aria-current={selected ? 'true' : undefined}>
+      {msg.agents && <AgentStrip trace={msg.agents} live={live} />}
       {core && <Md text={core} />}
       {analysis && (
         <section aria-label={t('chat.analysis')}>
@@ -86,6 +88,7 @@ export function AnswerCard({ msg, last, streaming, onRetry, disclaimer, selected
           </span>
         </button>
       )}
+      {!live && msg.agents && <ProposedActions actions={msg.agents.actions} />}
       {msg.error && (
         <p role="alert" className="text-sm text-negative">
           {msg.error}
