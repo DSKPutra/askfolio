@@ -28,7 +28,12 @@ for (const [vp, size] of VIEWPORTS)
           await prime(page, { theme, locale });
           await page.goto(path, { waitUntil: 'load' });
           await page.locator('main#main').waitFor();
-          await page.evaluate(() => document.fonts.ready);
+          // Late badges (e.g. live data) must be in the frame; the home page keeps a connection open, so cap the wait.
+          await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => undefined);
+          await page.evaluate(async () => {
+            await document.fonts.ready;
+            window.scrollTo(0, 0);
+          });
           await page.waitForTimeout(800);
           await expect(page).toHaveScreenshot(`${name}-${vp}-${theme}-${locale}.png`, {
             maxDiffPixelRatio: 0.001,

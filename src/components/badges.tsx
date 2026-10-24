@@ -55,7 +55,8 @@ export function LiveBadge({ dexId }: { dexId: string }) {
   const q = useQuery({ queryKey: ['live-index'], queryFn: () => getJson<LiveIndexT>('live/index.json').catch(() => null), staleTime: 10 * 60_000, retry: 0 });
   const e = q.data?.dex[dexId];
   if (!e) return null;
-  const source = e.source.split(' — ')[0]!;
+  const SHORT: Record<string, string> = { ecb: 'ECB', worldbank: 'World Bank' };
+  const source = SHORT[e.source_id] ?? e.source.split(' — ')[0]!;
   return (
     <Badge tone={e.flags ? 'warning' : 'brand'} title={e.source}>
       {t('dex.live', { date: fmt(e.as_of), source })}
