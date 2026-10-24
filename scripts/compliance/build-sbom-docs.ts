@@ -1,7 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // `npm run sbom:docs` (TECHNICAL_DOCS_PROMPT §2.6): Package B documents B01–B05 in docs/compliance/sbom/, generated from
-// the SBOM files of this version (public/sbom/<v>/), SBOM_SUMMARY.json, SBOM_CHECK.json and the VEX document, plus the
-// SBOM rows of STANDARDS_REFERENCED.md, OPEN_ITEMS.md and INDEX.md. Numbers come only from those artefacts.
+// the SBOM files of this version (public/sbom/<v>/), SBOM_SUMMARY.json, SBOM_CHECK.json and the VEX document. Numbers
+// come only from those artefacts.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { controlBlock, fmtInt, table } from './control';
@@ -223,56 +223,6 @@ writeFileSync(join(OUT, 'B03-rantai-pasok.md'), b03);
 writeFileSync(join(OUT, 'B04-register-kerentanan-vex.md'), b04);
 writeFileSync(join(OUT, 'B05-ai-bom.md'), b05);
 
-// ------------------------------------------------------------------ shared registers (SBOM part)
-const standards = `# Standar & rujukan yang dipakai
-
-> © 2026 Dea Saka Kurnia Putra. All rights reserved.
-
-Diperiksa ${today}. Kolom "Verifikasi" menyebut sumber yang dicek; "belum diverifikasi ulang" berarti edisi diambil dari prompt dan wajib dicek ke katalog resmi sebelum disetujui.
-
-${table(['Area', 'Rujukan', 'Edisi / tanggal', 'Verifikasi'], [
-  ['Format SBOM (utama)', 'CycloneDX 1.7 = ECMA-424', 'edisi ke-2, Desember 2025', 'ecma-international.org (ECMA-424 mendefinisikan CycloneDX v1.7); cyclonedx.org — dicek ' + today],
-  ['Format SBOM (sekunder)', 'SPDX', '2.3 (ISO/IEC 5962:2021 = SPDX 2.2.1)', 'belum diverifikasi ulang'],
-  ['Elemen minimum SBOM', 'CISA dkk. — 2026 Minimum Elements for a Software Bill of Materials', '29 Juli 2026; menggantikan NTIA 2021', 'cisa.gov & nsa.gov (Cybersecurity Information Sheet) — dicek ' + today],
-  ['SBOM untuk AI', 'CISA & mitra — Software Bill of Materials for AI, Minimum Elements', '2026 (halaman CISA bertanggal 12 Mei 2026)', 'cisa.gov — judul halaman perlu dicek ulang'],
-  ['Rantai pasok', 'NIST SP 800-218 (SSDF)', '1.1', 'belum diverifikasi ulang'],
-  ['Rantai pasok', 'SLSA (Build track)', 'spesifikasi final terbaru', 'belum diverifikasi ulang'],
-  ['OpenChain', 'ISO/IEC 5230:2020; ISO/IEC 18974:2023', '—', 'belum diverifikasi ulang'],
-  ['Kualitas SBOM', 'sbomqs (Interlynk)', 'v2.1.2 (dipakai mengukur)', 'GitHub release + checksum'],
-])}
-`;
-writeFileSync('docs/compliance/STANDARDS_REFERENCED.md', standards);
-
-const open = `# Butir yang memerlukan keputusan pemilik — [KONFIRMASI]
-
-> © 2026 Dea Saka Kurnia Putra. All rights reserved.
-
-| # | Butir | Dokumen | Keterangan |
-|---|---|---|---|
-| 1 | Penyetuju (approver) dokumen kepatuhan | semua | blok kontrol dokumen |
-| 2 | Alamat kontak keamanan & pertanyaan SBOM | B01, SECURITY.md | email/alamat resmi |
-| 3 | Menandai rilis \`v${V}\` (tag) agar compliance.yml menandatangani & mengatestasi SBOM | B01, B02 | butuh izin push tag |
-| 4 | Pin versi paket Python referensi (pandas, numpy, pyarrow) | B01 §5, B03 | parity.yml |
-| 5 | Mengaktifkan OpenSSF Scorecard | B03 | workflow terpisah |
-`;
-writeFileSync('docs/compliance/OPEN_ITEMS.md', open);
-
-const docs = [
-  ['B01', 'Kebijakan & prosedur SBOM', 'Publik', 'sbom/B01-kebijakan-sbom.md'],
-  ['B02', 'Panduan verifikasi untuk penerima', 'Publik', 'sbom/B02-verifikasi-penerima.md'],
-  ['B03', 'Keamanan rantai pasok', 'Internal', 'sbom/B03-rantai-pasok.md'],
-  ['B04', 'Register kerentanan & VEX', 'Internal', 'sbom/B04-register-kerentanan-vex.md'],
-  ['B05', 'AI-BOM', 'Publik', 'sbom/B05-ai-bom.md'],
-];
-const index = `# Daftar induk dokumen kepatuhan
-
-> © 2026 Dea Saka Kurnia Putra. All rights reserved.
-
-Versi aplikasi ${V} · commit \`${f.app.commit}\` · ${today}. Paket B (Secure SBOM) selesai; Paket A (dokumentasi teknis ISO/IEC) dan Paket C (UU PDP) menyusul.
-
-${table(['ID', 'Judul', 'Versi', 'Status', 'Klasifikasi', 'MD', 'PDF'], docs.map(([id, t, cls, p]) => [id!, t!, V, 'Draf', cls!, `[MD](${p})`, `[PDF](pdf/${id}.pdf)`]))}
-
-Artefak SBOM: \`public/sbom/${V}/\` (publik di /legal/sbom) · ringkasan: [SBOM_SUMMARY.json](sbom/SBOM_SUMMARY.json) · hasil gate: [SBOM_CHECK.json](sbom/SBOM_CHECK.json) · [standar](STANDARDS_REFERENCED.md) · [butir terbuka](OPEN_ITEMS.md).
-`;
-writeFileSync('docs/compliance/INDEX.md', index);
+// INDEX.md, OPEN_ITEMS.md and STANDARDS_REFERENCED.md cover all three packages and are written by build-docs.ts.
+const docs = ['B01', 'B02', 'B03', 'B04', 'B05'];
 console.log(`sbom docs: ${docs.length} documents → ${OUT}; services detected: ${detectServices().filter((s) => s.used).length}`);

@@ -79,3 +79,9 @@
 - Benchmark Bibit, Stockbit, TradingView, Revolut → `docs/ui-review/benchmark.md`; tema Obligasi & Brankas diganti Spektrum (teal + oranye + indigo, 8 warna kategori).
 - Kartu Dex bergaris warna kategori dengan ikon bertinta, header Dex berpita kategori, chip & judul bagian bertitik warna, konstelasi dan ruangan Agent Room memakai warna kategori; splash/PWA/status bar `#F6F7F9`/`#0F1520`; Pengaturan: Terang/Gelap.
 - `ui:audit` 0 temuan (fallback literal di scene Agent Room diganti token), 923 test lulus, tangkapan sebelum/sesudah di `docs/ui-review/spektrum/`.
+
+## Dokumentasi teknis — Paket A & C (2026-10-24)
+- `npm run docs:build` → A01–A13 (`docs/compliance/technical/`, + `openapi.json`), C01–C14 (`docs/compliance/privacy/`, + `LEGAL_REFS_VERIFIED.md`), 32 PDF bergaya Spektrum, diagram Mermaid → SVG (`docs/compliance/diagrams/`); INDEX/OPEN_ITEMS/STANDARDS untuk ketiga paket.
+- `npm run docs:verify`: 1.092 pemeriksaan, 0 gagal; 205 kebutuhan `REQ-*` semuanya tertaut ke tes; 14/14 rujukan pasal UU PDP cocok dengan teks resmi; 13 rujukan PP 33/2026 belum dapat diverifikasi (teks resmi belum tersedia).
+- `npm run compliance:all` = SBOM + gate SBOM + dokumen + gate dokumen; langkah dokumen ditambahkan ke `compliance.yml`.
+- VEX diperbaiki (zod 3 hanya di alat dev) → 27/27 `not_affected`.

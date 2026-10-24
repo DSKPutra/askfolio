@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
- "commit": "11eb21e",
- "generated": "2026-10-23T13:09:58.000Z",
+ "commit": "1cec7e2",
+ "generated": "2026-10-24T13:25:57.000Z",
  "artefacts": [
   {
    "file": "finandex-0.1.0-web.cdx.json",
@@ -39,7 +39,7 @@
   "ai_models": 2
  },
  "vex": {
-  "not_affected": 24
+  "not_affected": 27
  },
  "lockfile": {
   "total": 1545,

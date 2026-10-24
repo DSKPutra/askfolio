@@ -60,7 +60,11 @@
     "sbom:sign": "bash scripts/compliance/sign-sbom.sh",
     "sbom:attest": "echo \"Attestations are created by .github/workflows/compliance.yml (actions/attest-sbom, actions/attest-build-provenance); verify with: gh attestation verify <file> -R DSKPutra/finandex\"",
     "sbom:docs": "tsx scripts/compliance/build-sbom-docs.ts",
-    "sbom:docx": "tsx scripts/compliance/build-sbom-docx.ts"
+    "sbom:docx": "tsx scripts/compliance/build-sbom-docx.ts",
+    "docs:build": "npm run sbom:docs && tsx scripts/compliance/build-docs.ts && npm run docs:pdf",
+    "docs:pdf": "tsx scripts/compliance/pdf.ts docs/compliance/technical/A*.md docs/compliance/sbom/B*.md docs/compliance/privacy/C*.md",
+    "docs:verify": "tsx scripts/compliance/verify-docs.ts",
+    "compliance:all": "npm run sbom:generate && npm run sbom:verify && npm run docs:build && npm run docs:verify"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.0.0",

@@ -73,6 +73,12 @@ jobs:
             finandex-web-dist.tgz
             public/sbom/${{ steps.v.outputs.version }}/*.json
             public/sbom/${{ steps.v.outputs.version }}/SHA256SUMS
+      - name: Rebuild Packages A–C (Markdown, Mermaid SVG, PDF) and run the documentation gate
+        run: |
+          npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build
+          npx playwright install --with-deps chromium
+          npm run docs:build
+          npm run docs:verify
       - name: Upload to the GitHub Release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v3.0.3
@@ -95,4 +101,6 @@ jobs:
           path: |
             public/sbom/${{ steps.v.outputs.version }}
             docs/compliance/sbom/*.json
+            docs/compliance/pdf
+            docs/compliance/diagrams
             osv-results.json

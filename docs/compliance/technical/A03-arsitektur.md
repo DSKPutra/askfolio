@@ -1,0 +1,158 @@
+# A03 — Deskripsi arsitektur
+
+> © 2026 Dea Saka Kurnia Putra. All rights reserved.
+
+| Kontrol dokumen | |
+|---|---|
+| ID dokumen | A03 |
+| Judul | Deskripsi arsitektur |
+| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Tanggal | 2026-10-24 |
+| Status | Draf |
+| Klasifikasi | Internal |
+| Pemilik | Dea Saka Kurnia Putra |
+| Penyusun | Dibangkitkan oleh `scripts/compliance/*` (Claude Code) dari sumber kebenaran repo |
+| Penyetuju | [KONFIRMASI] — penyetuju dokumen belum ditetapkan |
+| Lingkup | Web/PWA, fungsi serverless, aplikasi mobile & desktop |
+| Standar acuan | ISO/IEC/IEEE 42010:2022 |
+| Dokumen terkait | A04, A05, A09, C01 |
+
+**Riwayat perubahan**
+
+| Versi | Tanggal | Perubahan |
+|---|---|---|
+| 0.1.0 | 2026-10-24 | Versi pertama, dibangkitkan dari sumber kebenaran repo. |
+
+## 1. Concerns pemangku kepentingan
+| Concern | Pemangku kepentingan | View yang menjawab |
+|---|---|---|
+| Apakah angka dapat dipercaya? | pengguna | logis, AI |
+| Data apa yang meninggalkan perangkat? | pengguna, regulator | aliran data, keamanan |
+| Berapa biaya & batas pemakaian LLM? | pemilik | deployment, AI |
+| Bagaimana rilis ke web, store dan desktop? | pemilik | deployment |
+
+## 2. View konteks sistem
+```mermaid
+flowchart LR
+  U[Pengguna] -->|HTTPS| W[Finandex PWA / app]
+  W -->|/api/chat SSE| S[Fungsi serverless Vercel]
+  S -->|teks percakapan| A[Anthropic API]
+  S -->|rate limit, opsional| R[(Upstash Redis)]
+  W -->|data statis| D[(public/data · CDN)]
+  G[GitHub Actions] -->|build & deploy| S
+  G --> D
+```
+
+## 3. View logis
+- **Frontend** (`src/**`): React 19 + Vite; registry 29 Dex; tab chat/data/statistik per Dex; Index Constellation; Agent Room 3D.
+- **Server** (`server/**`): `server/handler.ts` merutekan 5 rute API (GET /api/health, GET /api/version, GET /api/dex, POST /api/feedback, POST /api/chat); orkestrator agen; tool per Dex membaca `DataStore`.
+- **ETL** (`scripts/data/**`): input terverifikasi hash → `public/data/**` + golden.
+
+## 4. View deployment
+| Target | Bukti | Status |
+|---|---|---|
+| Vercel (produksi) | `vercel.json`; https://finandex.vercel.app | aktif |
+| Netlify (cadangan) | `netlify.toml` | dikonfigurasi |
+| Android / iOS (Capacitor) | `capacitor.config.ts` | proyek Android ada; proyek iOS ada |
+| Desktop (Tauri) | `src-tauri/tauri.conf.json` | belum ada di repo |
+| GitHub Releases | `.github/workflows/compliance.yml` | SBOM & atestasi saat tag |
+
+## 5. View aliran data
+Lihat C01 untuk tabel lengkap. Ringkas: hanya permintaan chat yang meninggalkan perangkat (pesan, Dex, bahasa, konteks, clientId); semuanya lain tetap di perangkat.
+
+```mermaid
+sequenceDiagram
+  participant P as Perangkat
+  participant S as Server Finandex
+  participant L as Anthropic
+  P->>S: POST /api/chat (pesan, Dex, clientId)
+  S->>S: Penjaga (data sensitif) + rate limit
+  S->>L: prompt + hasil tool
+  L-->>S: teks
+  S->>S: Verifikator (angka hanya dari tool)
+  S-->>P: event SSE (plan, agent_*, verify, delta, done)
+```
+
+## 6. View AI
+Lihat A10. Model dipilih lewat env (`ANTHROPIC_MODEL`, `ANTHROPIC_MODEL_FAST`); 32 kartu agen; batas: 4 spesialis, 6 giliran, 8 panggilan tool, 20 detik per agen.
+
+## 7. Data & regulasi
+42 file input, 4 dataset kit, 35/37 teks regulasi resmi tersedia.
+
+## 8. Keputusan arsitektur (ADR)
+| Tanggal | Keputusan · alasan · alternatif ditolak |
+|---|---|
+| 2026-10-21 | Input dataset dicocokkan via SHA-256 dari folder `Dataset/` lalu di-*clone* (APFS `cp -c`) ke `data/inputs/` dengan nama persis §3.1 · nama asli memakai spasi/tanda baca berbeda; clone tidak memakan ruang disk tambahan · menyalin penuh (boros ~650 MB), symlink (rapuh lintas tool). |
+| 2026-10-21 | Node 24.22.0 LTS (`.nvmrc`, `engines >=24.11 <25`) · LTS terbaru; Vitest 5 tidak mendukung Node 23 · Node 23 (non-LTS, terpasang lokal). |
+| 2026-10-21 | TypeScript 6.0.3 (bukan 7.0) · typescript-eslint 8.72 hanya mendukung TS < 6.1 · TS 7 native (lint strict tidak bisa jalan). |
+| 2026-10-21 | ESLint 9 (bukan 10) · eslint-plugin-jsx-a11y 6.10 belum mendukung ESLint 10 · ESLint 10 tanpa jsx-a11y (melanggar §5.5). |
+| 2026-10-21 | React 19, React Router 8, Vite 8, Tailwind 4 (versi stabil terbaru) · prompt meminta "React 18+" dan versi stabil terbaru · mengunci React 18 (tanpa alasan teknis). |
+| 2026-10-21 | npm 11 memblokir install script secara default; hanya `esbuild` yang di-*approve* (dibutuhkan `tsx`/Vite) · prinsip izin minimum · `--ignore-scripts=false` global. |
+| 2026-10-21 | `asOf` di registry menyimpan label persis dari tabel §1 (tanggal, periode, atau `unknown`), UI membaca `public/data/manifest.json` · menghindari tanggal karangan · mengisi tanggal akhir periode (mis. 2024-12-31) yang tidak tertulis di sumber. |
+| 2026-10-22 | Empat file IDX tambahan di `Dataset/` (Stocks/ETF/Index, Dataset Saham Indonesia, IDX 2020-2024 w Foreign, Stock Price All Time) **tidak dipakai** · tidak ada di §3.1, tanpa aturan pembersihan & golden; pengguna tidak memberi arahan · menggabungkan ke IDXDex tanpa referensi (berisiko angka tak terverifikasi). Bisa ditambahkan nanti sebagai Dex baru via `kit/templates/ADD_NEW_DEX_PROMPT.md`. |
+| 2026-10-22 | Urutan entri berimbang pada daftar top-N (mis. `top_participant_admin_by_count` IDX) memakai tie-break deterministik: jumlah turun lalu nama naik; golden test memeriksa entri seri secara himpunan (jumlah per posisi & nilai tiap entri persis) · reference memakai quicksort pandas yang tidak stabil sehingga urutan seri bergantung platform · meniru urutan sort numpy (tidak dapat direproduksi lintas CPU). |
+| 2026-10-22 | Ekstraksi teks PDF My LAIwyer memakai pdfjs-dist (baris direkonstruksi dari koordinat item teks) · cocok 100% dengan golden `pdftotext -layout` (jumlah halaman, heading pasal, pasal tak terdeteksi, halaman penjelasan, klausul berlaku, 6 kutipan emas) tanpa dependensi sistem (poppler) di build Vercel/Netlify · memanggil `pdftotext` (tidak tersedia di image build hosting). |
+| 2026-10-22 | Aturan lint `@typescript-eslint/no-non-null-assertion` dimatikan · kode numerik berindeks di bawah `noUncheckedIndexedAccess` memakai `!` setelah batas indeks diperiksa loop; alternatif (cast/guard di setiap akses) memperlambat & mengaburkan rumus · mengubah semua array menjadi akses berpengaman. |
+| 2026-10-22 | Parquet dibaca dengan hyparquet + hyparquet-compressors (JS murni) · sesuai catatan reference; tanpa pyarrow/duckdb native. |
+| 2026-10-22 | Tab "Peristiwa" (Finandex AI, RupiahDex) memakai peristiwa **turunan data** (pergerakan harian absolut terbesar per aset), bukan narasi eksternal · prinsip "angka hanya dari data" & tanpa fakta karangan · daftar peristiwa sejarah yang ditulis manual (tidak dapat diverifikasi dari dataset). |
+| 2026-10-22 | Checklist keamanan CryptDex-bot ditulis editorial oleh Finandex (dilabeli "bukan dari dataset") · dataset bot berisi materi promosi/afiliasi; prompt mewajibkan checklist keamanan · memakai teks dari dataset. |
+| 2026-10-22 | Kolom `first_author` (top_papers) dan `api_url` berita tidak dikeluarkan ETL · minimisasi data pribadi & larangan fetch API penyedia. |
+| 2026-10-22 | Ambang coverage: baris/statement/fungsi ≥ 90% (sesuai §18.2), branch ≥ 70% · banyak tool memiliki cabang null-guard defensif (nilai kosong di data) yang tidak bermakna diuji satu per satu · branch ≥ 90% (menambah ratusan test sintetis tanpa nilai). |
+| 2026-10-22 | Tool memakai skema zod sebagai sumber kebenaran; skema API untuk `strict: true` dibersihkan dari batasan numerik/panjang yang tidak didukung structured outputs, dan validasi penuh dilakukan zod di server sebelum tool berjalan · keamanan + kompatibilitas · menulis JSON Schema terpisah per tool (duplikasi). |
+| 2026-10-22 | Chat memakai `output_config.effort: "low"` dan server-side refusal fallback (`fallbacks: "default"`, beta `server-side-fallback-2026-07-01`, dapat dimatikan via `ANTHROPIC_FALLBACKS=off`) · chat berlatensi rendah; penolakan tetap tertangani · effort default (lebih lambat) atau tanpa fallback. |
+| 2026-10-22 | Detektor data sensitif dijalankan juga di server sebelum panggilan model (selain di klien) · pertahanan berlapis (§13.2) · hanya di klien. |
+| 2026-10-22 | Mode `CHAT_MODE=mock` (LLM tiruan berskenario) dipakai untuk eval mock, test, dan demo offline · eval 100% deterministik tanpa API key · eval hanya live. |
+| 2026-10-22 | Tab fitur setiap Dex menjalankan **tool yang sama dengan chatbot** di browser (lazy-load `server/dex/index`, DataStore di atas `DATA_BASE_URL`); kontrol tab dibangkitkan dari skema zod tool · satu jalur angka (golden-tested), offline via cache SW, tanpa duplikasi logika UI · komponen tab manual per Dex (27× kode, angka bisa menyimpang dari chat). |
+| 2026-10-22 | Peta (`map`) dirender sebagai bar peringkat (negara/provinsi) atau scatter lon/lat (titik proyek) · tidak ada GeoJSON di kit dan §4.19 melarang tile pihak ketiga tanpa CSP/atribusi; §8.8 mengizinkan bar bila geometri tidak ada · mengunduh GeoJSON eksternal (sumber/lisensi tidak terverifikasi). |
+| 2026-10-22 | Label tab, nama kategori, dan tagline Dex tetap di registry/`dex-groups.ts` sebagai objek bilingual (id/en) — sumber tunggal yang juga dipakai server & ETL; string UI lain di `src/i18n/{id,en}.json` · registry adalah sumber kebenaran §6.2 · menduplikasi label ke JSON (risiko tidak sinkron). |
+| 2026-10-22 | Judul percakapan dibuat lokal dari pesan pertama (dipotong 60 karakter), bukan oleh model FAST · tanpa panggilan model tambahan (biaya, privasi, offline) · panggilan Claude Haiku per percakapan. |
+| 2026-10-22 | Glosarium My LAIwyer menampilkan istilah yang dicari di teks undang-undang (`search_law`), bukan definisi tulisan sendiri · tidak ada definisi hukum karangan; makna dikutip dari dokumen · glosarium definisi editorial. |
+| 2026-10-22 | Aset runtime pdf.js (WASM dekoder CCITT/JBIG2/JPX, font standar, cMap) disalin ke `public/pdfjs/` saat `predev`/`prebuild` · UU 20/2025 adalah pindaian CCITT yang tidak dapat didekode pdf.js 6 tanpa `wasmUrl` · pra-render gambar halaman (butuh poppler/canvas native di build). |
+| 2026-10-22 | DataTable ditulis tanpa @tanstack/react-table (sort/saring/ekspor sederhana + @tanstack/react-virtual) · API v9 berubah total; kebutuhan kecil · mengikuti API v9 (risiko API belum stabil di ekosistem). |
+| 2026-10-22 | Middleware `/api` di dev server Vite memakai handler yang sama; tanpa `ANTHROPIC_API_KEY` memakai LLM tiruan (skenario eval bila pertanyaan cocok, selain itu demo offline) · UI dapat diuji lokal tanpa secret · `vercel dev`/`netlify dev` (butuh akun & login). |
+| 2026-10-22 | File kecil `core/global/spark.json` (≤ 65 titik per aset, 1 tahun terakhir) untuk sparkline Beranda & Pasar Global · Beranda tidak perlu mengunduh 6 seri penuh (~1,5 MB) · seri penuh. |
+| 2026-10-22 | Service worker `injectManifest` (src/sw.ts): precache app shell + seluruh `core/` (revisi = SHA-256 manifest), `heavy/` stale-while-revalidate dengan kuota byte LRU 300 MB (metadata ukuran & akses di IndexedDB) · Workbox ExpirationPlugin hanya membatasi jumlah entri, bukan byte · generateSW dengan maxEntries (kuota tidak terjamin). |
+| 2026-10-22 | Ikon launcher & splash native dibangkitkan oleh `scripts/brand/make-native-assets.py` (PIL) dari `kit/brand` · `@capacitor/assets` membutuhkan install script `sharp` (unduhan biner libvips) yang diblokir kebijakan npm proyek · menyetujui install script sharp. |
+| 2026-10-22 | Build native memakai `VITE_API_BASE_URL`/`VITE_DATA_BASE_URL` = `https://finandex.vercel.app` dan hanya membundel `core/`; klien native membaca `core/` bundel lebih dulu, lalu remote · ukuran app kecil & tetap offline untuk core (§14) · membundel seluruh data (≈ 610 MB). |
+| 2026-10-22 | BUNDLE_ID memakai default `com.deasakakurniaputra.finandex` (dapat diganti via env `BUNDLE_ID`) — **[KONFIRMASI] tertunda** · default dari §19 · menunggu jawaban sebelum membuat platform. |
+| 2026-10-22 | Fungsi Vercel tunggal `api/index.ts` dengan rewrite `/api/:path*` → `/api?route=:path*`, path asli dipulihkan di adapter (teruji) · perilaku catch-all `[[...route]]` untuk proyek non-Next tidak terdokumentasi pasti · bergantung pada routing berkas dinamis. |
+| 2026-10-22 | CSP `script-src 'self' 'wasm-unsafe-eval'` · decoder WASM pdf.js (pindaian CCITT) memerlukan kompilasi WebAssembly; tanpa `unsafe-eval`/`unsafe-inline` untuk skrip · melonggarkan CSP lebih jauh. |
+| 2026-10-22 | CSS aplikasi (≈ 7,6 KB gzip) di-inline ke `index.html`, font atas-lipatan di-preload, Beranda tidak di-lazy-load, `summary.json` (4 KB) menggantikan `manifest.json` (189 KB) di UI · Lighthouse mobile Beranda naik dari 74 → ≥ 90 (CLS 0,38 → 0,03) · menurunkan ambang performa. |
+| 2026-10-22 | Parity menoleransi hanya *entri seri di batas top-N* (mis. admin IPO ke-4 dengan jumlah IPO sama) — semua entri di atas batas dan nilai tetap harus cocok · reference Python sendiri menghasilkan pilihan berbeda antar platform (quicksort pandas tidak stabil) · menganggapnya regresi. |
+| 2026-10-22 | E2E lokal memakai Chrome terpasang (`PW_LOCAL=1`, desktop + Pixel 7); CI menjalankan Chromium, Firefox, WebKit, Pixel, iPhone · tidak mengunduh browser Playwright di mesin pengembang · melewati E2E lokal. |
+| 2026-10-22 | Tanpa `ANTHROPIC_API_KEY` (atau `CHAT_MODE=mock`) chat berjalan dalam **mode data**: router deterministik memilih tool Dex (pertanyaan eval yang dikenal → skenario; deteksi entitas & periode; kecocokan kata kunci + opsi enum + negara, kandidat dicoba dan yang menghasilkan data dipakai; fallback panel ringkasan Dex) dan jawaban disusun dari hasil tool; teks "Mode demo offline" dihapus · pengguna mendapat jawaban berbasis dataset (angka, grafik, panel metode) tanpa model AI · 503 "belum dikonfigurasi" atau teks demo. |
+| 2026-10-23 | My LAIwyer diperluas dengan korpus 19 teks resmi hukum sektor keuangan (UU P2SK & perubahan 2026, OJK, Perbankan, BI, LPS, Perlindungan Konsumen, Transfer Dana, TPPU, ITE ×3, PDP, KUHP 2023, POJK 22/2023, POJK 12/2024, POJK 40/2024, PBI 3/2023), diunduh dari peraturan.go.id/ojk.go.id/JDIH BPK, SHA-256 dipatok dan dicerminkan ke release `law-docs-v1` · permintaan pemilik: tanya jawab hukum keuangan & korban scam; teks peraturan tidak dilindungi hak cipta (UU 28/2014 Pasal 42) · menjawab dari pengetahuan model (tidak dapat ditelusuri). |
+| 2026-10-23 | Tool `scam_guide`: langkah & kanal pelaporan ditulis editorial dari situs resmi (IASC iasc.ojk.go.id, Kontak OJK 157/WA/email, sipasti.ojk.go.id, BI 131, polisi, 112) dan diberi flag `editorial_steps_not_from_dataset`; dasar hukum selalu kutipan teks peraturan hasil pencarian BM25 · korban butuh langkah segera, bukan hanya pasal · membiarkan model menyusun langkah sendiri. |
+| 2026-10-23 | Golden & `LAW_COVERAGE` kit tidak diubah; korpus keuangan disimpan terpisah (`src/config/law-finance.ts`) · menjaga golden test 100% · menggabungkan ke `LAW_DOCS`. |
+| 2026-10-23 | **v3:** Hukum dipecah menjadi My LAIwyer (korpus `umum`) dan FinLAIwyer (korpus `keuangan`), ditopang AntiScamDex; korpus keuangan sementara (`law-finance.ts`, `scam_guide`, `fetch-law-extra`) **dihapus** dan digantikan katalog kit (`law_catalog.json`, `legal_qa_flows.json`, `antiscam_kb.json`) · kit v3.1 adalah sumber kebenaran; golden `law_catalog`/`legal_flows`/`antiscam` cocok 100% · mempertahankan korpus paralel (dua sumber kebenaran). |
+| 2026-10-23 | Teks resmi diambil `scripts/data/fetch-regulations.ts` hanya dari domain resmi (peraturan.go.id, JDIH BPK, ojk.go.id, bi.go.id, dll.) dengan robots.txt, UA jujur, ≤ 1 req/detik/host, verifikasi isi (nomor/tahun/judul ≥ 60%, ≥ 1 Pasal), SHA-256 di `src/config/regulations.lock.json`, cermin release `data-regulations-v1` · 35/37 tersedia; `kuhperdata` & `pp-33-2026-pdp` tetap `pending` dengan ringkasan katalog berlabel (tanpa kutipan) · mirror tidak resmi (dilarang). |
+| 2026-10-23 | Dokumen `uu-4-2026-perubahan-p2sk` dan `pp-33-2026-pdp` ditambahkan lewat `src/config/regulation-catalog.supplement.json` (bertanda `supplement: true`), bukan dengan mengubah katalog kit · golden kit tetap utuh · mengedit `law_catalog.json`. |
+| 2026-10-23 | `normaliseLaw` memulihkan reduplikasi yang kehilangan tanda hubung di lapisan teks PDF ("UndangUndang" → "Undang-Undang", pola `\b(\p{Lu}\p{Ll}{3,})\1\b`) · artefak ekstraksi UUD NRI 1945 merusak pencarian pasal · OCR ulang. |
+| 2026-10-23 | PDF `data/law-extra/` (≈ 48 MB) yang sempat ter-commit di 6beb834 di-untrack dan masuk `.gitignore`; riwayat git **tidak** ditulis ulang · menulis ulang riwayat publik membutuhkan persetujuan pemilik (force-push semua clone) · `git filter-repo` tanpa persetujuan. |
+| 2026-10-23 | Whitepaper & presentasi memakai berkas kit (`kit/whitepaper/*.pdf\|.pptx\|.md`) yang disalin + diverifikasi SHA-256 oleh `scripts/whitepaper/copy-whitepaper.ts`; generator PDF lokal (`whitepaper-pdf.ts`, `src/content/whitepaper*.ts`) dihapus · satu sumber kebenaran, ditandatangani kit · menghasilkan PDF sendiri (dua versi berbeda). |
+| 2026-10-23 | **Tema "Obligasi & Brankas"** (`kit/templates/THEME_RECOLOR_PROMPT.md`) **menggantikan §10.3** "Nocturne/Ledger": terang Obligasi = default (mengikuti preferensi sistem bila belum memilih), gelap Brankas; token lama (`--phosphor`, `--ion`, `--amber`, `--coral`, `--paper*`) dan semua glow/gradien radial/grid bercahaya dihapus; `#19F23A` hanya di `BRAND_NEON` (logo & ikon) · tampilan hitam+neon terlihat generik "buatan AI" · mempertahankan tema lama. |
+| 2026-10-23 | Warna negatif mode buta warna terang diubah dari `#B5651D` (prompt recolor) ke `#9C5719` (hue sama, luminansi ×0,86) · `#B5651D` hanya 3,8:1 di `--field-1` dan 3,6:1 di `--pane-2`, gagal gate AA yang diwajibkan prompt yang sama; `#9C5719` = 4,9 / 5,3 / 4,6 · melonggarkan gate. |
+| 2026-10-23 | Teks master prompt §10.0/§10.3 dan `UIUX_TEST_PROMPT.md` di kit diperbarui sesuai §4.8 prompt recolor (+ `THEME_RECOLOR_PROMPT.md` & `LIVE_DATA_PROMPT.md` ditambahkan ke `kit/templates/`); `kit/manifest/kit_files.sha256` diperbarui untuk keempat berkas · permintaan eksplisit pemilik; checksum kit tetap terverifikasi · menulis addendum di luar kit. |
+| 2026-10-23 | Ikon Dex & aplikasi **tidak** digambar ulang (glow hijau = identitas brand, §4.6 prompt recolor); di UI ikon ditampilkan di atas tile `--pane-2` · **[KONFIRMASI]** tertunda: keluarga ikon versi tinta `#1D6A44` tanpa glow. |
+| 2026-10-23 | QR kode `/install` selalu tinta gelap di atas kertas terang (token Obligasi) sebagai `<img>` data-URL dari pustaka `qrcode` · kamera ponsel butuh kontras gelap-di-terang di kedua tema; tanpa `dangerouslySetInnerHTML` · SVG inline. |
+| 2026-10-23 | `npm run ui:audit` (`scripts/ui/audit.ts`) memindai `src/**/*.{ts,tsx,css}` + `index.html`: hex neon lama, nama token lama, glow, gradien dekoratif, palet Tailwind bawaan, warna literal di luar `brand.ts`/blok token CSS → laporan `docs/ui-review/audit.json`; dijalankan di `verify` · gate §5 prompt recolor. |
+| 2026-10-23 | **Agentic AI** (`kit/templates/AGENTIC_AI_PROMPT.md`): /api/chat menjalankan Penjaga → Konduktor → agen Dex (loop §8.3 per agen dengan batas kartu: 6 giliran, 8 tool, 20 dtk) → Verifikator → Penjaga; 32 agen (1 Konduktor, 29 Dex, Verifikator, Penjaga) · permintaan pemilik · satu loop tunggal. |
+| 2026-10-23 | Kartu agen & 178 keahlian **dibangkitkan** (`npm run agents:gen`) dari registry, panel tab (tool + input contoh), catatan data (§9) dan `feature_guide.json`; keahlian yang disebut prompt ditulis tangan di generator; setiap tool di keahlian divalidasi milik agennya · keterlacakan ke kode, tidak mengarang tool · menulis 178 berkas manual. |
+| 2026-10-23 | Rencana Konduktor deterministik (klausa → aturan domain; Dex yang dibuka tetap memimpin bila kata pemicu tercakup kata kuncinya) dipakai di mode data; dengan model AI, Konduktor (sonnet) dapat memperbaiki rencana via tool `submit_plan` (divalidasi zod, fallback deterministik) · routing teruji 100% pada 67 butir (set disusun sendiri, lihat docs/agents/EVAL.md) · selalu memakai LLM untuk rencana (latensi & biaya). |
+| 2026-10-23 | Komposisi multi-agen deterministik (satu bagian per agen + catatan konflik "tidak dirata-rata" + label parsial), tanpa panggilan model tambahan · latensi & biaya; tidak ada angka baru dari LLM · sintesis LLM kedua. |
+| 2026-10-23 | Verifikator deterministik menahan setiap unit teks (baris/kalimat, tidak memotong di dalam kutipan) sampai angka & kutipannya cocok dengan hasil tool; bukti tambahan yang sah: label sampel registry, catatan data, direktori kanal resmi KB AntiScamDex; tanggal, tahun, nomor pasal/UU dan angka dari pertanyaan bukan klaim · "tidak boleh mengirim klaim tak terverifikasi" walau streaming · verifikasi setelah selesai (klaim terlanjur terkirim). Pemeriksaan LLM (haiku) untuk kasus ambigu belum diaktifkan. |
+| 2026-10-23 | `list_sources` kini mengembalikan `counts` (total/tersedia/menunggu/suplemen) · angka hitungan yang disebut jawaban harus ada di hasil tool · menghitung di komposer. |
+| 2026-10-23 | Kata kunci registry ditambah agar routing tidak mendelegasikan entitas yang sudah dicakup Dex terbuka (mis. Finandex AI: bitcoin, S&P 500, NASDAQ; SnP500Dex: AAPL/MSFT/NVDA…; CommerceDex: GoTo/Sea; FinLAIwyer: "baru kena scam"; AntiScamDex: pengaduan; VCDex: startup) · semua benar terhadap cakupan dataset · aturan khusus per pasangan Dex. |
+| 2026-10-23 | Kantor Agen 3D memakai three.js 0.186.1 (dimuat lazy hanya di /agents dan "Lihat kantor"); label agen hanya tampil saat agen bekerja/dipilih; padanan teks per ruangan selalu ada · keterbacaan & aksesibilitas · label semua agen (bertumpuk). |
+| 2026-10-23 | Uji E2E memblokir service worker kecuali uji offline · setiap konteks mengunduh 33 MB `core/` lewat SW dan membebani server preview · mengizinkan SW di semua uji. |
+| 2026-10-23 | **Secure SBOM (Paket B, TECHNICAL_DOCS_PROMPT §2)**: SBOM per artefak (web, Android, iOS, desktop, data, referensi Python, tooling) + SBOM induk hierarkis, CycloneDX 1.7 (utama, divalidasi skema resmi dari @cyclonedx/cyclonedx-library) + SPDX 2.3 (`npm sbom`), VEX CycloneDX, SHA256SUMS; dibangkitkan saat build (`build:ci`) dan rilis (`compliance.yml`), tidak di-commit (`public/sbom/` di .gitignore) · SBOM selalu sesuai artefak yang dibangun · menyimpan SBOM di repo (membengkak tiap rilis). |
+| 2026-10-23 | Hash komponen npm = SHA-512 dari `integrity` lockfile; dependensi Maven/SPM, versi Python yang tidak dipin, paket opsional OS lain, digest artefak rilis, dan biner desktop dicatat eksplisit sebagai *known unknown* · CISA 2026 meminta yang tidak diketahui dinyatakan, bukan ditebak · mengarang hash/versi. |
+| 2026-10-23 | Lisensi yang lolos kebijakan `check:licenses` juga dicatat `acknowledgement: concluded`; lisensi dokumen SBOM CC0-1.0; kelengkapan dinyatakan lewat `compositions` (incomplete bila ada known unknown) · sbomqs SBOM induk 8,0 → 9,0 tanpa mengubah fakta · membiarkan skor di ambang batas. |
+| 2026-10-23 | 22 temuan `npm audit` berada di devDependencies (alat build: Lighthouse CI, Capacitor CLI, mermaid, sharp) → VEX `not_affected` / `code_not_present` untuk artefak yang didistribusikan, dengan catatan risiko lingkungan build di B04 · `npm audit --omit=dev` = 0 · menandai artefak terdampak. |
+| 2026-10-23 | Tanda tangan Sigstore keyless & atestasi GitHub hanya dibuat di CI (`compliance.yml`, OIDC) saat tag `v*`; secara lokal gate mencatat "belum ditandatangani" · kunci penanda tangan tidak pernah ada di mesin/repo · kunci cosign lokal. |
+| 2026-10-23 | sbomqs v2.1.2 (biner rilis resmi, checksum diverifikasi) dipakai mengukur skor secara lokal via `SBOMQS_BIN`; di CI dipasang dari paket .deb rilis yang sama · gate ≥ 8,0 terukur, bukan diasumsikan. |
+| 2026-10-23 | SBOM web kini juga memuat paket pohon *dev* yang kodenya ikut terkirim (workbox-core/precaching/routing/strategies di service worker, workbox-window untuk registrasi, CSS hasil tailwindcss) beserta dependensinya, ditandai `finandex:origin` · pemindaian impor `src/**` menemukan kode terkirim yang sebelumnya tidak tercatat · menganggap semua devDependencies tidak terkirim. |
+| 2026-10-23 | Dokumen Word SBOM (`npm run sbom:docx` → `docs/compliance/sbom/Finandex_SBOM_<v>.docx`, pustaka docx 9.9.0) dibangkitkan dari file SBOM + pemindaian impor; satu-satunya teks tulis tangan adalah kolom "Peran di Finandex" per dependensi langsung; paket yang dideklarasikan tetapi tidak diimpor dinyatakan apa adanya · permintaan pemilik (rincian front-end & back-end) · dokumen manual. |
+| 2026-10-23 | Deck UTS: opsi `--uts` pada `kit/whitepaper/build_deck.js` (deck asli tidak berubah, hash diverifikasi) → `Finandex_UTS_Kelompok.pptx`, palet Brankas, warna placeholder hex eksplisit (tanpa modul tema eksternal judul menjadi hitam), kolom cover opsional yang belum diisi dihapus · UTS_PPTX_PROMPT · mengubah deck asli. |
+| 2026-10-23 | Deck UTS diperbarui dengan data terbaru (20 slide: + Agentic AI, + SBOM); angka dibaca saat build dari package.json, kartu agen, docs/agents/eval.json, reports/eval-mock.json, reports/vitest.json, regulations.lock.json dan SBOM_SUMMARY/CHECK — bila laporan tidak ada tertulis "belum diukur". Deck asli tidak berubah · permintaan pemilik · mengetik angka manual. |
+| 2026-10-24 | Tema "Spektrum" menggantikan "Obligasi & Brankas": kanvas netral abu dingin/biru malam, primer teal, aksen oranye, AI indigo, plus 8 warna kategori (`--group-1..8`, `GROUP_COLORS` di brand.ts) di kartu, header Dex, peta fitur, konstelasi dan Agent Room; semua token teks & warna kategori ≥ 4,5 : 1 di tiga permukaan kedua tema · permintaan pemilik (UI monoton) dan benchmark Bibit/Stockbit/TradingView/Revolut di `docs/ui-review/benchmark.md` · mempertahankan palet hijau tunggal; gradien/ilustrasi warna-warni (ditolak: melanggar ui:audit dan memperberat bundel). |

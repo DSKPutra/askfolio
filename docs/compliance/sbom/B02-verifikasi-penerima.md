@@ -6,8 +6,8 @@
 |---|---|
 | ID dokumen | B02 |
 | Judul | Panduan verifikasi untuk penerima SBOM |
-| Versi | 0.1.0 (= versi aplikasi) · commit `a4f91ae` |
-| Tanggal | 2026-10-23 |
+| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Publik |
 | Pemilik | Dea Saka Kurnia Putra |
@@ -21,7 +21,7 @@
 
 | Versi | Tanggal | Perubahan |
 |---|---|---|
-| 0.1.0 | 2026-10-23 | Versi pertama, dibangkitkan dari artefak SBOM rilis ini. |
+| 0.1.0 | 2026-10-24 | Versi pertama, dibangkitkan dari artefak SBOM rilis ini. |
 
 ## 1. Unduh
 ```bash

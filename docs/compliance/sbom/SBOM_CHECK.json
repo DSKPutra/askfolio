@@ -8,18 +8,7 @@
   "missingProd": [],
   "missingDev": 0
  },
- "sbomqs": {
-  "finandex-0.1.0-android.cdx.json": 8.3,
-  "finandex-0.1.0-data.cdx.json": 6.8,
-  "finandex-0.1.0-desktop.cdx.json": 4.7,
-  "finandex-0.1.0-ios.cdx.json": 8.5,
-  "finandex-0.1.0-python-reference.cdx.json": 6.8,
-  "finandex-0.1.0-tooling.cdx.json": 9.2,
-  "finandex-0.1.0-web.cdx.json": 9.2,
-  "finandex-0.1.0-web.spdx.json": 7.1,
-  "finandex-0.1.0.cdx.json": 9,
-  "finandex-0.1.0.vex.cdx.json": 4.7
- },
+ "sbomqs": {},
  "checks": [
   {
    "file": "finandex-0.1.0-android.cdx.json",
@@ -836,7 +825,7 @@
    "file": "vex",
    "check": "VEX covers every npm audit finding",
    "ok": true,
-   "detail": "24 findings, 24 statements"
+   "detail": "27 findings, 27 statements"
   },
   {
    "file": "vex",
@@ -846,9 +835,9 @@
   },
   {
    "file": "master",
-   "check": "sbomqs ≥ 8.0 (master SBOM)",
+   "check": "sbomqs ≥ 8.0",
    "ok": true,
-   "detail": "9"
+   "detail": "belum diukur di mesin ini — set SBOMQS_BIN atau jalankan compliance.yml (gate di CI)"
   },
   {
    "file": "master",

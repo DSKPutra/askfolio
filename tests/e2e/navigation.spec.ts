@@ -1,5 +1,5 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Routes, deep links + refresh, home feature map (27 cards / 8 categories), copyright placement, i18n, theme.
+// Routes (incl. /install, /agents, /legal/sbom — REQ-app-007), deep links + refresh, home feature map (27 cards / 8 categories), copyright placement, i18n, theme.
 import { expect, test } from '@playwright/test';
 import { COPYRIGHT_ID, CREDIT_EN, CREDIT_ID, PERSONAL_TAGLINE } from '../../src/config/brand';
 import { DEX_GROUPS } from '../../src/config/dex-groups';
@@ -22,7 +22,7 @@ test('splash in index.html carries the byline', async ({ request }) => {
   expect(html).toContain('<meta name="author" content="Dea Saka Kurnia Putra"');
 });
 
-const DEEP = ['/', '/ai', '/dex', '/dex/nasdaqdex/screener', '/dex/rupiahdex/converter', '/dex/mylaiwyer/sources', '/markets/GSPC', '/dex/idxdex/stocks/BBCA', '/watchlist', '/settings', '/about', '/legal/privacy', '/legal/data-sources', '/legal/licenses', '/more'];
+const DEEP = ['/', '/ai', '/dex', '/dex/nasdaqdex/screener', '/dex/rupiahdex/converter', '/dex/mylaiwyer/sources', '/markets/GSPC', '/dex/idxdex/stocks/BBCA', '/watchlist', '/settings', '/about', '/legal/privacy', '/legal/data-sources', '/legal/licenses', '/legal/sbom', '/legal/security', '/install', '/agents', '/more'];
 for (const path of DEEP) {
   test(`deep link survives refresh: ${path}`, async ({ page }) => {
     await page.goto(path);

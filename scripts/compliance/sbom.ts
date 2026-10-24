@@ -320,21 +320,25 @@ function vex(webRefs: Set<string>, toolingBom: Cdx): Cdx {
     audit = JSON.parse(String((e as { stdout?: string }).stdout ?? '{}'));
   }
   const toolingRefs = new Map(flatten(toolingBom.components).map((c) => [`${c.group ? `${String(c.group)}/` : ''}${c.name}`, c['bom-ref']!]));
+  const lock = JSON.parse(readFileSync('package-lock.json', 'utf8')) as { packages: Record<string, { version?: string }> };
   const vulns: Record<string, unknown>[] = [];
   for (const [pkg, v] of Object.entries(audit.vulnerabilities ?? {})) {
     for (const via of v.via) {
       if (typeof via === 'string') continue; // transitive pointer; the advisory is listed under its own package
-      const shipped = [...webRefs].some((r) => r.includes(`/${pkg}@`) || r.includes(`|${pkg}@`));
+      // Match on the affected installed copies (node path → version), not the package name: the same package can ship in
+      // a fixed version while an old copy sits only in a dev-tool tree (e.g. zod 4 shipped, zod 3 under @lhci/cli).
+      const versions = [...new Set(v.nodes.map((n) => lock.packages[n]?.version).filter((x): x is string => !!x))];
+      const shipped = versions.some((ver) => [...webRefs].some((r) => r.includes(`/${pkg}@${ver}`) || r.includes(`|${pkg}@${ver}`)));
       vulns.push({
         'bom-ref': `vex:${via.source}:${pkg}`,
         id: /GHSA-[\w-]+/.exec(via.url)?.[0] ?? `npm-advisory-${via.source}`,
         source: { name: 'npm audit (GitHub Advisory Database)', url: via.url },
         ratings: [{ severity: via.severity === 'moderate' ? 'medium' : via.severity }],
         description: via.title,
-        affects: [{ ref: toolingRefs.get(pkg) ?? `pkg:npm/${pkg}` , versions: [{ range: via.range, status: 'affected' }] }],
+        affects: [{ ref: toolingRefs.get(pkg) ?? `pkg:npm/${pkg}`, versions: [{ range: via.range, status: 'affected' }, ...versions.map((ver) => ({ version: ver, status: 'affected' }))] }],
         analysis: shipped
           ? { state: 'in_triage', detail: 'Ships in the web artefact — must be fixed before release.' }
-          : { state: 'not_affected', justification: 'code_not_present', detail: `${pkg} is a build/test tooling dependency (devDependencies tree${v.isDirect ? ', direct' : ', transitive'}); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot.` },
+          : { state: 'not_affected', justification: 'code_not_present', detail: `${pkg}@${versions.join(', ') || '?'} (${v.nodes.join(', ')}) is a build/test tooling copy (devDependencies tree${v.isDirect ? ', direct' : ', transitive'}); it is not included in the web bundle, the serverless function, or the mobile apps. Tracked for upgrade via Dependabot.` },
       });
     }
   }

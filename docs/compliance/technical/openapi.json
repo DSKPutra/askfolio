@@ -1,0 +1,79 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Finandex API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://finandex.vercel.app"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Rute /api/health (lihat server/handler.ts)",
+        "responses": {
+          "200": {
+            "description": "application/json"
+          },
+          "429": {
+            "description": "RATE_LIMIT / BUDGET"
+          }
+        }
+      }
+    },
+    "/api/version": {
+      "get": {
+        "summary": "Rute /api/version (lihat server/handler.ts)",
+        "responses": {
+          "200": {
+            "description": "application/json"
+          },
+          "429": {
+            "description": "RATE_LIMIT / BUDGET"
+          }
+        }
+      }
+    },
+    "/api/dex": {
+      "get": {
+        "summary": "Rute /api/dex (lihat server/handler.ts)",
+        "responses": {
+          "200": {
+            "description": "application/json"
+          },
+          "429": {
+            "description": "RATE_LIMIT / BUDGET"
+          }
+        }
+      }
+    },
+    "/api/feedback": {
+      "post": {
+        "summary": "Rute /api/feedback (lihat server/handler.ts)",
+        "responses": {
+          "200": {
+            "description": "application/json"
+          },
+          "429": {
+            "description": "RATE_LIMIT / BUDGET"
+          }
+        }
+      }
+    },
+    "/api/chat": {
+      "post": {
+        "summary": "Rute /api/chat (lihat server/handler.ts)",
+        "responses": {
+          "200": {
+            "description": "text/event-stream — event SSE"
+          },
+          "429": {
+            "description": "RATE_LIMIT / BUDGET"
+          }
+        }
+      }
+    }
+  }
+}
