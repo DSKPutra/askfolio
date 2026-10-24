@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B01 |
 | Judul | Kebijakan & prosedur SBOM |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -35,11 +35,11 @@ Setiap rilis Finandex disertai *Software Bill of Materials* (SBOM) yang dapat di
 | Desktop macOS/Windows (Tauri 2) — belum ada biner di rilis ini | `finandex-0.1.0-desktop.cdx.json` | 0 | belum diukur |
 | 42 dataset input, dataset kit, PDF regulasi terverifikasi, font OFL, ikon | `finandex-0.1.0-data.cdx.json` | 114 | belum diukur |
 | Implementasi referensi Python (hanya CI paritas; tidak didistribusikan) | `finandex-0.1.0-python-reference.cdx.json` | 3 | belum diukur |
-| Alat build & uji (devDependencies npm; tidak didistribusikan) | `finandex-0.1.0-tooling.cdx.json` | 1.159 | belum diukur |
+| Alat build & uji (devDependencies npm; tidak didistribusikan) | `finandex-0.1.0-tooling.cdx.json` | 1.160 | belum diukur |
 
-**SBOM induk** `finandex-0.1.0.cdx.json`: 1.571 komponen (hierarkis: satu komponen per artefak, masing-masing berisi komponennya sendiri dan menautkan file SBOM-nya lewat `bom-link`), 7 layanan eksternal (`services[]`) dan 2 model AI (`machine-learning-model`, lihat B05). Skor sbomqs: **belum diukur**.
+**SBOM induk** `finandex-0.1.0.cdx.json`: 1.572 komponen (hierarkis: satu komponen per artefak, masing-masing berisi komponennya sendiri dan menautkan file SBOM-nya lewat `bom-link`), 7 layanan eksternal (`services[]`) dan 2 model AI (`machine-learning-model`, lihat B05). Skor sbomqs: **belum diukur**.
 
-Cakupan mencakup semua dependensi transitif tanpa batas kedalaman. Lockfile berisi 1.545 paket (262 produksi, 1.283 dev); paket opsional khusus platform yang tidak terpasang di mesin pembangkit dicatat sebagai *known unknown* di `metadata.properties`.
+Cakupan mencakup semua dependensi transitif tanpa batas kedalaman. Lockfile berisi 1.546 paket (262 produksi, 1.284 dev); paket opsional khusus platform yang tidak terpasang di mesin pembangkit dicatat sebagai *known unknown* di `metadata.properties`.
 
 ## 3. Format
 - **Utama:** CycloneDX **1.7** JSON (ECMA-424 edisi ke-2), divalidasi terhadap skema JSON resmi.
@@ -65,7 +65,7 @@ Cakupan mencakup semua dependensi transitif tanpa batas kedalaman. Lockfile beri
 | Coverage | seluruh komponen transitif; `compositions[].aggregate` | — | ya (selisih lockfile = 0 atau *known unknown*) |
 | Distribution and Delivery, Frequency | proses di dokumen ini (§6) | proses | — |
 
-Hasil pemeriksaan terakhir: **156 pemeriksaan, 0 gagal** (`docs/compliance/sbom/SBOM_CHECK.json`, dibangkitkan oleh scripts/compliance/check-sbom-min-elements.ts @ 93c89df).
+Hasil pemeriksaan terakhir: **156 pemeriksaan, 0 gagal** (`docs/compliance/sbom/SBOM_CHECK.json`, dibangkitkan oleh scripts/compliance/check-sbom-min-elements.ts @ ae7d11b).
 
 ## 5. Informasi yang tidak diketahui (*known unknowns*)
 Informasi yang tidak diketahui dinyatakan eksplisit dan dibedakan dari yang sengaja dirahasiakan (Finandex tidak merahasiakan komponen apa pun):

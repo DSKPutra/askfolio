@@ -1,0 +1,43 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Monthly regulation check (§17): `data:fetch-regulations -- --check` looks for status changes or new official versions
+# on the official pages. It never replaces documents; when something changed it opens an issue with the findings for
+# the owner to approve (then run data:fetch-regulations without --check in a reviewed PR).
+name: regulations
+on:
+  schedule:
+    - cron: '0 2 1 * *' # 1st of every month, 02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - name: Check official sources (no files are replaced)
+        run: npm run data:fetch-regulations -- --check | tee regulations-check.txt
+      - name: Open an issue when a document changed or became available
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! grep -qE '^(CHANGED|NEW) ' regulations-check.txt; then echo "No changes."; exit 0; fi
+          {
+            echo "Pemeriksaan bulanan menemukan perubahan pada sumber resmi regulasi. Dokumen **tidak** diganti otomatis."
+            echo
+            echo '```'
+            grep -E '^(CHANGED|NEW) ' regulations-check.txt
+            echo '```'
+            echo
+            echo "Setelah ditinjau: jalankan \`npm run data:fetch-regulations\` (tanpa --check) di PR, periksa diff \`src/config/regulations.lock.json\`, lalu \`npm run test:golden\`."
+          } > body.md
+          gh issue create --title "Regulasi: perubahan sumber resmi $(date -u +%Y-%m)" --body-file body.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: regulations-check
+          path: regulations-check.txt

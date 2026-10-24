@@ -24,3 +24,5 @@
 | 18 | Rating usia store | C13, C14 | — |
 | 19 | Izin DefiLlama untuk data DeFi CryptDex: dataset input menyebut DefiLlama sebagai sumber, sedangkan ketentuan DefiLlama (dibaca 2026-10-24) melarang "republish the data in any form without permission" | A06, docs/live-data/REPORT.md | minta izin tertulis atau batasi tampilan |
 | 20 | Lisensi penyedia harga saham/indeks/kripto (Yahoo Finance, CoinGecko, CoinMarketCap) untuk data live | scripts/live-data/sources.yaml | saat ini blocked-pending-license |
+| 21 | Kunci tanda tangan updater Tauri (TAURI_SIGNING_PRIVATE_KEY/PUBLIC_KEY), sertifikat Apple Developer ID + notarisasi, tanda tangan Authenticode Windows | A12, desktop.yml | secret repo; tanpa itu build desktop tidak bertanda tangan |
+| 22 | Kompilasi Rust src-tauri belum diverifikasi lokal (index.crates.io tidak dapat di-resolve dari mesin pengembang); verifikasi pertama di desktop.yml | A03, A12 | jalankan workflow desktop manual |

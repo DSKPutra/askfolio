@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C03 |
 | Judul | Penilaian Dampak Pelindungan Data Pribadi (DPIA) |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |

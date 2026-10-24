@@ -15,6 +15,7 @@ import '@fontsource/ibm-plex-serif/latin-400.css';
 import '@fontsource/ibm-plex-serif/latin-ext-400.css';
 import './i18n';
 import { App } from './app/App';
+import { initDesktop } from './desktop';
 import { registerPwa } from './pwa';
 import './styles/index.css';
 
@@ -26,4 +27,5 @@ createRoot(root).render(
   </StrictMode>,
 );
 registerPwa();
+initDesktop();
 void import('./native').then(({ initNative }) => initNative(() => window.confirm(document.documentElement.lang === 'en' ? 'Exit Finandex?' : 'Keluar dari Finandex?')));

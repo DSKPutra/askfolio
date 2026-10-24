@@ -37,6 +37,17 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
     Cross-Origin-Opener-Policy = "same-origin"
 
+# Stand-alone law apps (§14): their own index.html (own manifest) for every deep link under /apps/<id>/.
+[[redirects]]
+  from = "/apps/mylaiwyer/*"
+  to = "/apps/mylaiwyer/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/apps/finlaiwyer/*"
+  to = "/apps/finlaiwyer/index.html"
+  status = 200
+
 # SPA fallback. Functions with config.path (/api/*) take precedence, and existing static files
 # (/data/*, /assets/*) are served before this non-forced rule.
 [[redirects]]

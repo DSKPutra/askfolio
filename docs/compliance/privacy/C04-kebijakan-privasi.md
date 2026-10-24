@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C04 |
 | Judul | Kebijakan Privasi publik (ID & EN) |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -23,7 +23,7 @@
 |---|---|---|
 | 0.1.0 | 2026-10-24 | Versi pertama, dibangkitkan dari sumber kebenaran repo. |
 
-Versi kebijakan aktif di aplikasi: `2026-10-23` (`src/lib/store.ts#L8 @ 93c89df`). Teks di bawah dibangkitkan dari `src/content/legal.ts` — sumber yang sama dengan /legal/privacy.
+Versi kebijakan aktif di aplikasi: `2026-10-23` (`src/lib/store.ts#L8 @ ae7d11b`). Teks di bawah dibangkitkan dari `src/content/legal.ts` — sumber yang sama dengan /legal/privacy.
 
 ### Ringkasan · Summary
 Finandex tidak memakai akun, tidak memasang analytics pihak ketiga, dan tidak melacak Anda. Kebijakan ini disusun dengan mengacu pada Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).

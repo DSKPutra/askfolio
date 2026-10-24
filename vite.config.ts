@@ -53,6 +53,30 @@ function inlineCss(): Plugin {
   };
 }
 
+/** Stand-alone law apps (§14): apps/<id>/index.html = the final index.html with its own manifest, title and icon, emitted
+ *  into the bundle so the service worker precaches it and /apps/<id>/ is installable as a separate app. */
+function lawAppHtml(): Plugin {
+  const APPS = { mylaiwyer: 'My LAIwyer', finlaiwyer: 'FinLAIwyer' } as const;
+  return {
+    name: 'finandex-law-app-html',
+    apply: 'build',
+    enforce: 'post',
+    generateBundle(_o, bundle) {
+      const html = bundle['index.html'];
+      if (!html || html.type !== 'asset') return;
+      const base = String(html.source);
+      for (const [id, name] of Object.entries(APPS)) {
+        let src = base
+          .replace(/<title>[^<]*<\/title>/, `<title>${name}</title>`)
+          .replace(/<link rel="icon"[^>]*>/, `<link rel="icon" type="image/svg+xml" href="/icons/${id}.svg" />`)
+          .replace(/<link rel="manifest"[^>]*>/, '');
+        src = src.replace('</head>', `<link rel="manifest" href="/apps/${id}/manifest.webmanifest" /><link rel="apple-touch-icon" href="/icons/${id}-192.png" /><meta name="apple-mobile-web-app-title" content="${name}" /></head>`);
+        this.emitFile({ type: 'asset', fileName: `apps/${id}/index.html`, source: src });
+      }
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
@@ -60,6 +84,7 @@ export default defineConfig({
     devApi(),
     preloadFonts(),
     inlineCss(),
+    lawAppHtml(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',

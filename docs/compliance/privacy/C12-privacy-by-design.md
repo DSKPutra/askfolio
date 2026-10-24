@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C12 |
 | Judul | Privacy by design & by default |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -25,12 +25,12 @@
 
 | Fitur | Penerapan | Bukti |
 |---|---|---|
-| Chat | persetujuan, detektor data sensitif, tanpa penyimpanan server | `src/components/ConsentDialog.tsx @ 93c89df` |
-| AntiScamDex / Siapkan Laporan | terenkripsi di perangkat, hapus otomatis | `src/lib/secure-store.ts @ 93c89df` |
-| FinLAIwyer | rujukan teks resmi; tanpa pengiriman identitas | `kit/datasets/law/legal_qa_flows.json @ 93c89df` |
-| Riwayat & preferensi | hanya di perangkat, dapat dihapus | `src/lib/history.ts @ 93c89df` |
-| Install / PWA | tanpa pelacakan pemasangan | `src/features/install/InstallCenter.tsx @ 93c89df` |
-| Desktop | belum ada aplikasi desktop di repo | — |
+| Chat | persetujuan, detektor data sensitif, tanpa penyimpanan server | `src/components/ConsentDialog.tsx @ ae7d11b` |
+| AntiScamDex / Siapkan Laporan | terenkripsi di perangkat, hapus otomatis | `src/lib/secure-store.ts @ ae7d11b` |
+| FinLAIwyer | rujukan teks resmi; tanpa pengiriman identitas | `kit/datasets/law/legal_qa_flows.json @ ae7d11b` |
+| Riwayat & preferensi | hanya di perangkat, dapat dihapus | `src/lib/history.ts @ ae7d11b` |
+| Install / PWA | tanpa pelacakan pemasangan | `src/features/install/InstallCenter.tsx @ ae7d11b` |
+| Desktop | capabilities Tauri minimum | `src-tauri/tauri.conf.json @ ae7d11b` |
 | Feedback | belum ada fitur feedback | — |
 
 Default: tanpa akun, tanpa analytics, chat terkunci sampai persetujuan, data lokal saja.

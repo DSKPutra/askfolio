@@ -1,0 +1,44 @@
+{
+  "name": "FinLAIwyer",
+  "short_name": "FinLAIwyer",
+  "description": "Tanya-jawab hukum keuangan & perbankan Indonesia — fokus korban scam & sengketa lembaga keuangan. © 2026 Dea Saka Kurnia Putra.",
+  "lang": "id",
+  "id": "/apps/finlaiwyer/",
+  "start_url": "/apps/finlaiwyer/",
+  "scope": "/apps/finlaiwyer/",
+  "display": "standalone",
+  "theme_color": "#F6F7F9",
+  "background_color": "#F6F7F9",
+  "icons": [
+    {
+      "src": "/icons/finlaiwyer-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/finlaiwyer-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/finlaiwyer-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Baru kena scam?",
+      "short_name": "Darurat scam",
+      "url": "/apps/finlaiwyer/darurat-scam",
+      "icons": [
+        {
+          "src": "/icons/antiscamdex-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

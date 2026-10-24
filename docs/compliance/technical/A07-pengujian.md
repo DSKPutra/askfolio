@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A07 |
 | Judul | Dokumentasi pengujian |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -42,7 +42,7 @@
 | Eval chat (mock) | 161/161 lulus; keamanan 27/27 |
 | Eval routing agen | 67 butir, presisi 100 %, recall 100 % |
 | Eval keahlian agen | 534 butir, 100 % lulus |
-| Audit UI | 0 temuan di 125 file |
+| Audit UI | 0 temuan di 127 file |
 | Gate SBOM | 156 pemeriksaan, 0 gagal |
 | Coverage, Lighthouse, E2E pada rilis | belum diukur |
 

@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A08 |
 | Judul | Laporan evaluasi kualitas produk |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -28,7 +28,7 @@
 | Kesesuaian fungsional | tes Vitest lulus | 100 % | 100 % | lulus |
 | Kesesuaian fungsional | eval chat mock | 100 % | 100 % | lulus |
 | Efisiensi kinerja | bundel awal gzip | ≤ 250 KB | belum diukur | belum diukur |
-| Kompatibilitas | web, Android, iOS, desktop | semua target dibangun | web ✓; Android ✓; iOS ✓; desktop — | sebagian |
+| Kompatibilitas | web, Android, iOS, desktop | semua target dibangun | web ✓; Android ✓; iOS ✓; desktop ✓ | sebagian |
 | Kapabilitas interaksi | kontras teks AA | ≥ 4,5 : 1 | diuji di contrast.test.ts | lulus |
 | Keandalan | mode offline & mock LLM | tersedia | service worker + CHAT_MODE=mock | lulus |
 | Keamanan | eval keamanan chat | 100 % | 100 % | lulus |

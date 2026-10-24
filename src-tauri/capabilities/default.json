@@ -1,0 +1,19 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Minimal desktop permissions (§14.2): no shell, no free filesystem access, no webview HTTP beyond the CSP origins. Files are written only to paths the user picked in a save dialog (the dialog adds them to the fs scope).",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "dialog:allow-save",
+    "fs:allow-write-file",
+    "fs:allow-write-text-file",
+    "window-state:default",
+    "deep-link:default",
+    "updater:default",
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [{ "url": "https://*" }]
+    }
+  ]
+}

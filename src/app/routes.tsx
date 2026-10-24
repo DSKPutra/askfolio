@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react';
 import type { ReactNode } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 import { LoadingBlock } from '../components/ui';
+import { createLawRouter, lawAppFromPath } from './law-app';
 import { Layout } from './Layout';
 import { RouteError } from './RouteError';
 
@@ -54,4 +55,8 @@ export const routes = [
   },
 ];
 
-export const createRouter = () => createBrowserRouter(routes);
+/** Full Finandex, or a stand-alone law app when opened under /apps/mylaiwyer/ or /apps/finlaiwyer/ (§14). */
+export const createRouter = () => {
+  const law = typeof window !== 'undefined' ? lawAppFromPath(window.location.pathname) : null;
+  return law ? createLawRouter(law) : createBrowserRouter(routes);
+};

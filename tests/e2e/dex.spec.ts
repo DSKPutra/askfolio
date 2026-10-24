@@ -37,8 +37,9 @@ test('CSV export contains the watermark', async ({ page }) => {
 });
 
 test('My LAIwyer original page preview renders the scanned PDF', async ({ page }) => {
-  await page.goto('/dex/mylaiwyer/articles');
-  await page.getByRole('button', { name: 'Lihat halaman asli' }).first().click();
+  // Since v3.1 the page preview lives in the Sources tab ("Lihat halaman 1" on every available document).
+  await page.goto('/dex/mylaiwyer/sources');
+  await page.getByRole('button', { name: 'Lihat halaman 1' }).first().click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await expect

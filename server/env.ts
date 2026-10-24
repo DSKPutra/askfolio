@@ -33,6 +33,10 @@ export const DEFAULT_ORIGINS = [
   'http://localhost:4173',
   'https://*.lovable.app',
   'https://*.lovableproject.com',
+  // Desktop (Tauri 2, §14.2)
+  'tauri://localhost',
+  'http://tauri.localhost',
+  'https://tauri.localhost',
 ];
 
 export function parseEnv(raw: Record<string, string | undefined>): Env {

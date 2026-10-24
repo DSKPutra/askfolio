@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A12 |
 | Judul | Operasi & pemeliharaan |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -89,6 +89,8 @@
 | `cap:sync` | `npm run build:native && cap sync` |
 | `cap:android` | `npm run build:native && cap sync android && cap open android` |
 | `cap:ios` | `npm run build:native && cap sync ios && cap open ios` |
+| `tauri:dev` | `tauri dev` |
+| `tauri:build` | `tauri build` |
 | `assets:generate` | `python3 -I scripts/brand/make-native-assets.py` |
 | `assets:pdfjs` | `tsx scripts/build/copy-pdfjs-assets.ts` |
 | `predev` | `npm run assets:pdfjs && npm run whitepaper:copy` |
@@ -102,6 +104,7 @@
 | `test:flows` | `vitest run tests/golden/kb.test.ts -t "flow engine"` |
 | `feature-guide:check` | `vitest run tests/golden/kb.test.ts -t "feature guide"` |
 | `ui:audit` | `tsx scripts/ui/audit.ts` |
+| `ui:visual` | `playwright test -c playwright.visual.config.ts --update-snapshots=missing` |
 | `agents:gen` | `tsx scripts/build/gen-agents.ts` |
 | `eval:agents` | `tsx scripts/eval/eval-agents.ts` |
 | `sbom:generate` | `tsx scripts/compliance/sbom.ts` |

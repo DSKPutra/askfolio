@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Finandex",
+  "version": "../package.json",
+  "identifier": "com.deasakakurniaputra.finandex",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build:native"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Finandex",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 380,
+        "minHeight": 600,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' ipc: http://ipc.localhost https://finandex.vercel.app https://finandex.netlify.app; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app", "dmg", "nsis", "msi"],
+    "createUpdaterArtifacts": true,
+    "copyright": "© 2026 Dea Saka Kurnia Putra. All rights reserved.",
+    "publisher": "Dea Saka Kurnia Putra",
+    "category": "Finance",
+    "shortDescription": "Wawasan Indeks Pasar Keuangan Global",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "macOS": { "minimumSystemVersion": "11.0" },
+    "windows": { "nsis": { "installMode": "currentUser" } }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "REPLACE_WITH_TAURI_SIGNING_PUBLIC_KEY",
+      "endpoints": ["https://github.com/DSKPutra/finandex/releases/latest/download/latest.json"]
+    },
+    "deep-link": {
+      "desktop": { "schemes": ["finandex"] }
+    }
+  }
+}

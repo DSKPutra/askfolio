@@ -1,0 +1,101 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Desktop builds (§14.2, Tauri 2) on tag desktop-v* or manually: macOS universal (.app/.dmg + updater .app.tar.gz) and
+# Windows x64 & ARM64 (NSIS .exe + .msi). Code signing, notarisation and updater signatures use repository secrets when
+# present (APPLE_* for Developer ID + notarisation, TAURI_SIGNING_PRIVATE_KEY[_PASSWORD] + TAURI_SIGNING_PUBLIC_KEY for the
+# updater, Windows signing per OPEN_ITEMS); without them the job still builds unsigned artefacts for testing. Every build
+# runs the Rust unit tests (deep-link mapping) as a smoke test. On a tag, artefacts + SHA256SUMS (incl. updater .sig files)
+# go to the GitHub Release; `npm run downloads:manifest` then regenerates public/downloads/manifest.json. Publishing the
+# updater feed latest.json needs the signing key first (OPEN_ITEMS).
+name: desktop
+on:
+  push:
+    tags: ['desktop-v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: universal-apple-darwin
+            rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            rust_targets: x86_64-pc-windows-msvc
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
+            rust_targets: aarch64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    env:
+      TAURI_SIGNING_PUBLIC_KEY: ${{ secrets.TAURI_SIGNING_PUBLIC_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - name: Rust toolchain (preinstalled rustup on GitHub runners)
+        shell: bash
+        run: |
+          rustup update stable
+          rustup default stable
+          for t in $(echo "${{ matrix.rust_targets }}" | tr ',' ' '); do rustup target add "$t"; done
+      - name: Data core for the bundled offline data
+        shell: bash
+        run: npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build
+      - name: Smoke test — Rust unit tests
+        shell: bash
+        run: cd src-tauri && cargo test
+      - name: Updater public key
+        if: env.TAURI_SIGNING_PUBLIC_KEY != ''
+        shell: bash
+        run: node -e "const f='src-tauri/tauri.conf.json',fs=require('fs'),c=JSON.parse(fs.readFileSync(f));c.plugins.updater.pubkey=process.env.TAURI_SIGNING_PUBLIC_KEY;fs.writeFileSync(f,JSON.stringify(c,null,2))"
+      - name: Build
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+          APPLE_API_KEY_PATH: ${{ secrets.APPLE_API_KEY_PATH }}
+        run: |
+          if [ -z "$TAURI_SIGNING_PRIVATE_KEY" ]; then
+            echo "No updater signing key: building without updater artefacts."
+            node -e "const f='src-tauri/tauri.conf.json',fs=require('fs'),c=JSON.parse(fs.readFileSync(f));c.bundle.createUpdaterArtifacts=false;fs.writeFileSync(f,JSON.stringify(c,null,2))"
+          fi
+          npx tauri build --target ${{ matrix.target }}
+      - name: Collect artefacts + SHA-256
+        shell: bash
+        run: |
+          mkdir -p out
+          B="src-tauri/target/${{ matrix.target }}/release/bundle"
+          find "$B" -type f \( -name '*.dmg' -o -name '*.app.tar.gz' -o -name '*.app.tar.gz.sig' -o -name '*.exe' -o -name '*.msi' -o -name '*.sig' \) -exec cp {} out/ \;
+          ls -la out
+          test -n "$(ls out)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.target }}
+          path: out/*
+
+  release:
+    if: github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - name: Upload to the GitHub Release with SHA256SUMS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd out && sha256sum * > SHA256SUMS && cd ..
+          gh release view "${{ github.ref_name }}" >/dev/null 2>&1 || gh release create "${{ github.ref_name }}" --title "Finandex desktop ${{ github.ref_name }}" --notes "© 2026 Dea Saka Kurnia Putra. Verify downloads with SHA256SUMS."
+          gh release upload "${{ github.ref_name }}" out/* --clobber

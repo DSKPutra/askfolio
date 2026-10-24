@@ -1,0 +1,70 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# UI review on every PR that touches src/** (§17, UIUX_TEST_PROMPT): static UI audit + visual regression. Baselines are
+# captured from the base branch on this same runner (fonts/OS identical), then the PR is compared against them with a
+# ≤ 0.1 % difference threshold. Screenshots and the HTML report are uploaded; a summary comment is posted on the PR.
+name: ui-review
+on:
+  pull_request:
+    paths: ['src/**']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: '${{ github.base_ref }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - name: Data (shared by base and PR builds; public/data is not tracked by git)
+        run: npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build
+      - run: npx playwright install --with-deps chromium
+      - name: Baseline screenshots from the base branch
+        run: |
+          npm run build
+          npx playwright test -c playwright.visual.config.ts --update-snapshots=all || true
+          mv tests/visual/__screenshots__ "$RUNNER_TEMP/baseline"
+      - uses: actions/checkout@v4
+        with: { clean: false }
+      - run: npm ci
+      - name: UI audit
+        run: npm run ui:audit
+      - name: Compare the PR against the baseline
+        id: compare
+        run: |
+          npm run build
+          mkdir -p tests/visual && cp -r "$RUNNER_TEMP/baseline" tests/visual/__screenshots__
+          set +e
+          npx playwright test -c playwright.visual.config.ts --update-snapshots=missing > visual.txt 2>&1
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          tail -5 visual.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-review
+          path: |
+            playwright-report-visual
+            test-results
+            docs/ui-review/audit.json
+      - name: Comment summary
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "### UI review"
+            echo "- ui:audit: $(node -e "const a=require('./docs/ui-review/audit.json');console.log(a.findings+' temuan di '+a.files+' file')")"
+            echo "- Visual regression: $( [ '${{ steps.compare.outputs.code }}' = '0' ] && echo 'tidak ada perbedaan > 0,1 %' || echo 'ada perbedaan — lihat artifact ui-review' )"
+            echo
+            echo '```'
+            tail -5 visual.txt 2>/dev/null
+            echo '```'
+          } > comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
+      - name: Fail on visual differences
+        if: steps.compare.outputs.code != '0'
+        run: exit 1

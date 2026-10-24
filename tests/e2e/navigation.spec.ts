@@ -1,16 +1,17 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Routes (incl. /install, /agents, /legal/sbom — REQ-app-007), deep links + refresh, home feature map (27 cards / 8 categories), copyright placement, i18n, theme.
+// Routes (incl. /install, /agents, /legal/sbom — REQ-app-007), deep links + refresh, home feature map (every Dex / 8 categories), copyright placement, i18n, theme.
 import { expect, test } from '@playwright/test';
 import { COPYRIGHT_ID, CREDIT_EN, CREDIT_ID, PERSONAL_TAGLINE } from '../../src/config/brand';
 import { DEX_GROUPS } from '../../src/config/dex-groups';
+import { DEX_REGISTRY } from '../../src/config/dex-registry';
 import { isMobile, prime } from './helpers';
 
 test.beforeEach(async ({ page }) => prime(page));
 
-test('home shows all 27 Dex in 8 categories with copyright', async ({ page }) => {
+test('home shows every Dex in 8 categories with copyright', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Peta Fitur' })).toBeVisible();
-  await expect(page.locator('#feature-map ~ * article, section[aria-labelledby="feature-map"] article')).toHaveCount(27);
+  await expect(page.locator('#feature-map ~ * article, section[aria-labelledby="feature-map"] article')).toHaveCount(DEX_REGISTRY.length);
   for (const g of DEX_GROUPS) await expect(page.getByRole('heading', { level: 3, name: g.name.id, exact: true })).toBeVisible();
   await expect(page.getByText(COPYRIGHT_ID).first()).toBeAttached();
   await expect(page.getByText(/\d+,\d{2}%/).first()).toBeVisible(); // id-ID percent format
@@ -44,10 +45,10 @@ test('about shows credit and personal tagline; English locale switches copy', as
 
 test('light theme applies tokens', async ({ page }) => {
   await page.goto('/settings');
-  await page.getByLabel('Terang').check();
+  await page.getByRole('radio', { name: 'Terang', exact: true }).check();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  expect(bg).toBe('rgb(246, 248, 247)');
+  expect(bg).toBe('rgb(246, 247, 249)'); // Spektrum --field-1 #F6F7F9
 });
 
 test('navigation: sidebar on desktop, bottom tabs on mobile', async ({ page }) => {
@@ -71,3 +72,21 @@ test('global search opens a stock detail', async ({ page }) => {
   await page.getByRole('option').filter({ hasText: '· BBCA' }).first().click();
   await expect(page).toHaveURL(/\/dex\/idxdex\/.+\/BBCA/);
 });
+
+for (const [id, name] of [
+  ['mylaiwyer', 'My LAIwyer'],
+  ['finlaiwyer', 'FinLAIwyer'],
+] as const) {
+  test(`stand-alone law app /apps/${id}/ has its own manifest and only its Dex`, async ({ page, request }) => {
+    const html = await (await request.get(`/apps/${id}/`)).text();
+    expect(html).toContain(`<link rel="manifest" href="/apps/${id}/manifest.webmanifest"`);
+    expect(html).toContain(`<title>${name}</title>`);
+    const manifest = (await (await request.get(`/apps/${id}/manifest.webmanifest`)).json()) as { name: string; scope: string; start_url: string };
+    expect(manifest).toMatchObject({ name, scope: `/apps/${id}/`, start_url: `/apps/${id}/` });
+    await page.goto(`/apps/${id}/`);
+    await expect(page).toHaveURL(new RegExp(`/apps/${id}/dex/${id}`));
+    await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
+    await page.goto(`/apps/${id}/dex/rupiahdex`);
+    await expect(page.getByRole('link', { name: /RupiahDex/ })).toHaveAttribute('href', '/dex/rupiahdex');
+  });
+}

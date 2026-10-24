@@ -90,3 +90,9 @@
 - `scripts/live-data/`: registry `sources.yaml` (ketentuan 7 sumber dibaca 2026-10-24), konektor ECB & World Bank, normalisasi RupiahDex/InflationDex, validasi §4, snapshot append-only `data/live/` + manifest SHA-256, `public/data/live/*.json`, tool `live_latest`, badge "Data live per …" di header Dex, atribusi di tab Data & /legal/data-sources.
 - Hasil pertama: USD/IDR ECB 21–23 Okt 2026 (3 baris; selisih vs dataset ≤ 0,99 % pada 87 hari tumpang-tindih), inflasi World Bank 2025 untuk 168 negara (selisih vs dataset ≤ 0,19 pp).
 - `live:fetch|validate|build|report|verify` (29 pemeriksaan, 0 gagal); workflow harian `live-data.yml` membuka PR otomatis; `build:ci` menjalankan `live:build`.
+
+## Sisa UPDATE V3 (2026-10-24)
+- Entri PWA `/apps/mylaiwyer/` dan `/apps/finlaiwyer/` (manifest sendiri, router terbatas, rewrite Vercel/Netlify, rute SW) + tes E2E.
+- `src-tauri/` (Tauri 2.12.2, plugin updater/dialog/fs/deep-link/single-instance/window-state/opener), origin desktop di CORS, `desktop.yml` (macOS universal, Windows x64 & ARM64, SHA256SUMS ke release). Kompilasi Rust belum terverifikasi lokal (DNS crates.io).
+- `regulations.yml` (bulanan, `--check`, membuka issue), `ui-review.yml` + `npm run ui:visual` (4 halaman × 3 viewport × 2 tema × 2 bahasa).
+- Tes E2E lama diperbarui (29 Dex, label tema "Terang", pratinjau PDF di tab Sumber Hukum).

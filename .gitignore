@@ -44,3 +44,5 @@ public/whitepaper/
 
 # SBOM artefacts are generated per build/release (npm run sbom:generate; compliance.yml)
 public/sbom/
+tests/visual/__screenshots__/
+playwright-report-visual/

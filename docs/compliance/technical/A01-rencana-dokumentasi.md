@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A01 |
 | Judul | Rencana & indeks dokumentasi |
-| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `ae7d11b` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -56,8 +56,11 @@ Menetapkan dokumen apa yang dipelihara, siapa pemiliknya, dari mana isinya diban
 | ci | `.github/workflows/ci.yml` |
 | compliance | `.github/workflows/compliance.yml` |
 | deploy-fallback | `.github/workflows/deploy-fallback.yml` |
+| desktop | `.github/workflows/desktop.yml` |
 | eval-live | `.github/workflows/eval-live.yml` |
 | ios | `.github/workflows/ios.yml` |
 | live-data | `.github/workflows/live-data.yml` |
 | parity | `.github/workflows/parity.yml` |
 | promote | `.github/workflows/promote.yml` |
+| regulations | `.github/workflows/regulations.yml` |
+| ui-review | `.github/workflows/ui-review.yml` |
