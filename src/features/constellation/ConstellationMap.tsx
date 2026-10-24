@@ -145,7 +145,7 @@ export function ConstellationMap({ match, compact = false }: { match?: Set<strin
           <svg aria-hidden data-fallback="static" viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
             {nodes.map((n) => (
               <g key={n.id} opacity={dimmed?.includes(n.id) ? 0.15 : 0.35 + n.brightness * 0.65}>
-                <circle cx={n.x} cy={n.y} r={n.core ? 9 : 6} fill={n.id === (active ?? hover) ? 'var(--primary)' : 'var(--data)'} />
+                <circle cx={n.x} cy={n.y} r={n.core ? 9 : 6} fill={n.id === (active ?? hover) || n.core ? 'var(--primary)' : GROUP_HUES[n.gi]} />
                 {n.status !== 'pending-data' && <circle cx={n.x} cy={n.y} r={n.core ? 14 : 11} fill="none" stroke="var(--ink-muted)" strokeWidth={1.2} strokeDasharray={n.status === 'partial' ? '3 3' : undefined} />}
               </g>
             ))}

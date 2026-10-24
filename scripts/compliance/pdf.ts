@@ -17,9 +17,9 @@ const CSS = `
 @font-face { font-family: 'PlexSerif'; src: url('${font('ibm-plex-serif', 'ibm-plex-serif-latin-400-normal.woff2')}'); }
 @font-face { font-family: 'Unbounded'; src: url('${font('unbounded', 'unbounded-latin-600-normal.woff2')}'); font-weight: 600; }
 @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
-body { font-family: 'Plex', system-ui, sans-serif; font-size: 10pt; line-height: 1.5; color: #111827; background: #FFFFFF; }
-h1 { font-family: 'Unbounded', 'Plex', sans-serif; font-weight: 600; font-size: 18pt; color: #0F766E; margin: 0 0 8pt; }
-h2 { font-family: 'Unbounded', 'Plex', sans-serif; font-weight: 600; font-size: 12.5pt; color: #111827; margin: 16pt 0 6pt; border-bottom: 1px solid rgba(15,23,42,0.12); padding-bottom: 3pt; }
+body { font-family: 'Plex', system-ui, sans-serif; font-size: 10pt; line-height: 1.5; color: #1F2133; background: #FFFFFF; }
+h1 { font-family: 'Unbounded', 'Plex', sans-serif; font-weight: 600; font-size: 18pt; color: #4338CA; margin: 0 0 8pt; }
+h2 { font-family: 'Unbounded', 'Plex', sans-serif; font-weight: 600; font-size: 12.5pt; color: #1F2133; margin: 16pt 0 6pt; border-bottom: 1px solid rgba(15,23,42,0.12); padding-bottom: 3pt; }
 h3 { font-size: 11pt; margin: 12pt 0 4pt; }
 blockquote { margin: 6pt 0; padding: 4pt 10pt; background: #FBF5E6; color: #6B4E16; font-family: 'PlexSerif', serif; border-left: 3px solid #94600A; }
 table { border-collapse: collapse; width: 100%; margin: 6pt 0 10pt; font-size: 8.5pt; page-break-inside: auto; }
@@ -29,7 +29,7 @@ tr { page-break-inside: avoid; }
 code { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 8.5pt; background: #F6F7F9; padding: 0 2pt; border-radius: 2pt; word-break: break-all; }
 pre { background: #F6F7F9; padding: 6pt 8pt; border-radius: 4pt; white-space: pre-wrap; word-break: break-all; }
 pre code { background: none; padding: 0; }
-a { color: #0F766E; }
+a { color: #4338CA; }
 div.diagram { text-align: center; margin: 8pt 0; page-break-inside: avoid; }
 div.diagram svg { max-width: 100%; height: auto; }
 hr { border: 0; border-top: 1px solid rgba(15,23,42,0.12); margin: 14pt 0; }

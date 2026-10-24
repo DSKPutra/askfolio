@@ -2,11 +2,13 @@
 /// <reference lib="webworker" />
 // Service worker (§14): precache app shell + data `core/` (revision = SHA-256 from the data manifest),
 // stale-while-revalidate for `heavy/` with an LRU byte quota (≤ 300 MB), SPA navigation fallback
-// that never captures /api or /data, and "new version" prompt support (SKIP_WAITING message).
+// that never captures /api or /data. A new build activates immediately (skipWaiting + clientsClaim) and open pages
+// reload themselves (src/pwa.ts), so nobody keeps running an old, cached version of the app.
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching';
 import type { PrecacheEntry } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
 import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { clientsClaim } from 'workbox-core';
 import type { WorkboxPlugin } from 'workbox-core';
 import { createStore, get, set } from 'idb-keyval';
 
@@ -16,6 +18,8 @@ const HEAVY_CACHE = 'finandex-heavy';
 const HEAVY_MAX_BYTES = 300 * 1024 * 1024;
 const HEAVY_TARGET_BYTES = 270 * 1024 * 1024;
 
+void self.skipWaiting();
+clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 

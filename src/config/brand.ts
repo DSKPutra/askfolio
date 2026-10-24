@@ -35,51 +35,51 @@ export function appTaglineFor(locale: Locale): string {
 export type ThemeName = 'dark' | 'light';
 
 /**
- * Colour tokens — "Spektrum" (2026-10-24, supersedes "Obligasi & Brankas"; see docs/ui-review/benchmark.md): a cool
- * neutral canvas (like TradingView/Revolut) with a teal brand colour, a warm orange accent, and one colour per Dex
- * category so the app is never monotone. Provenance (§10.0.2) keeps distinct hues: data = teal, ai = indigo,
- * quote = serif on cream paper, flag = ochre, negative = red. Every text colour passes WCAG 2.2 AA (≥ 4.5:1) on page,
+ * Colour tokens — "Spektrum" v2 (2026-10-25, owner feedback: no green, easy on the eyes; see docs/ui-review/benchmark.md):
+ * a soft neutral canvas, indigo brand colour, warm amber accent, violet for AI, one colour per Dex category, and a calm
+ * blue-night dark theme (no pure black, no neon). Green appears only for gains. Provenance (§10.0.2) keeps distinct
+ * hues: data = blue, ai = violet, quote = serif on cream paper, flag = ochre, negative = red. Every text colour passes WCAG 2.2 AA (≥ 4.5:1) on page,
  * pane and pane-2 in both themes (tests/unit/contrast.test.ts). Brand neon #19F23A stays reserved for logo & icons.
  * The CSS variables in src/styles/index.css are the runtime copy of this table (tests compare both).
  */
 export const TOKENS = {
   light: {
-    'field-0': '#EBEEF3',
-    'field-1': '#F6F7F9',
+    'field-0': '#ECEDF3',
+    'field-1': '#F7F7FA',
     pane: '#FFFFFF',
-    'pane-2': '#EEF2F6',
-    edge: 'rgba(15,23,42,0.12)',
-    ink: '#111827',
-    'ink-muted': '#4B5563',
-    primary: '#0F766E',
+    'pane-2': '#F0F1F6',
+    edge: 'rgba(30,27,75,0.12)',
+    ink: '#1F2133',
+    'ink-muted': '#555770',
+    primary: '#4338CA',
     'on-primary': '#FFFFFF',
-    accent: '#C2410C',
-    data: '#0F766E',
-    ai: '#4F46E5',
+    accent: '#A1460A',
+    data: '#1D4ED8',
+    ai: '#7C3AED',
     quote: '#6B4E16',
     'quote-bg': '#FBF5E6',
     flag: '#A34D06',
     negative: '#C81E1E',
-    positive: '#127538',
+    positive: '#137336',
   },
   dark: {
-    'field-0': '#0A0F17',
-    'field-1': '#0F1520',
-    pane: '#161E2B',
-    'pane-2': '#1E2837',
-    edge: 'rgba(226,232,240,0.12)',
-    ink: '#E5E9F0',
-    'ink-muted': '#9AA5B5',
-    primary: '#2DD4BF',
-    'on-primary': '#0F1520',
-    accent: '#FB923C',
-    data: '#2DD4BF',
-    ai: '#A5B4FC',
+    'field-0': '#11121F',
+    'field-1': '#161827',
+    pane: '#1E2032',
+    'pane-2': '#272A3F',
+    edge: 'rgba(231,232,242,0.12)',
+    ink: '#E7E8F2',
+    'ink-muted': '#A3A6BF',
+    primary: '#A5B4FC',
+    'on-primary': '#1E1B4B',
+    accent: '#FDBA74',
+    data: '#93C5FD',
+    ai: '#C4B5FD',
     quote: '#F1E3C2',
     'quote-bg': '#2A2418',
-    flag: '#FBBF24',
-    negative: '#F87171',
-    positive: '#4ADE80',
+    flag: '#FCD34D',
+    negative: '#FCA5A5',
+    positive: '#86EFAC',
   },
 } as const satisfies Record<ThemeName, Record<string, string>>;
 
@@ -93,13 +93,13 @@ export const CONTRAST_PAIRS: [fg: TokenName, bg: TokenName][] = [
 
 /**
  * One colour per Dex category (order = DEX_GROUP_IDS): global markets blue, Indonesia orange, crypto & macro violet,
- * startup & VC cyan, living & work amber, social & development fuchsia, sentiment & personal finance lime, law maroon.
+ * startup & VC cyan, living & work amber, social & development fuchsia, sentiment & personal finance rose, law slate.
  * Used for card stripes, icon tiles, Dex headers, the rail, the constellation and the Agent Office rooms; every colour
  * is also legible as text (≥ 4.5:1) on the panes of its theme.
  */
 export const GROUP_COLORS = {
-  light: ['#1D4ED8', '#C2410C', '#6D28D9', '#0E7490', '#94600A', '#A21CAF', '#466F0C', '#9F1239'],
-  dark: ['#93C5FD', '#FDBA74', '#C4B5FD', '#67E8F9', '#FDE047', '#F0ABFC', '#BEF264', '#FDA4AF'],
+  light: ['#1D4ED8', '#C2410C', '#6D28D9', '#0E7490', '#94600A', '#A21CAF', '#BE123C', '#475569'],
+  dark: ['#93C5FD', '#FDBA74', '#C4B5FD', '#67E8F9', '#FDE047', '#F0ABFC', '#FDA4AF', '#CBD5E1'],
 } as const;
 
 /** Colour-blind-friendly overrides (positive / negative) per theme; ▲/▼ glyphs always accompany colour. */
@@ -107,8 +107,8 @@ export const COLORBLIND_OVERRIDES = { light: { positive: '#1D4ED8', negative: '#
 
 /** Chart series palettes (max 8, fixed order). */
 export const CHART_PALETTES = {
-  light: ['#0F766E', '#4F46E5', '#C2410C', '#BE185D', '#94600A', '#0E7490', '#6D28D9', '#466F0C'],
-  dark: ['#2DD4BF', '#A5B4FC', '#FDBA74', '#F9A8D4', '#FDE047', '#67E8F9', '#C4B5FD', '#BEF264'],
+  light: ['#4338CA', '#C2410C', '#1D4ED8', '#BE185D', '#94600A', '#0E7490', '#7C3AED', '#475569'],
+  dark: ['#A5B4FC', '#FDBA74', '#93C5FD', '#F9A8D4', '#FDE047', '#67E8F9', '#C4B5FD', '#CBD5E1'],
 } as const;
 export const CHART_PALETTE = CHART_PALETTES.light;
 
@@ -118,8 +118,8 @@ export const GROUP_HUES = Array.from({ length: 8 }, (_, i) => `var(--group-${i +
 /** Brand neon — ONLY for the personal logo and app/Dex icons (never UI, charts, focus or buttons). */
 export const BRAND_NEON = '#19F23A';
 
-export const THEME_COLOR = '#F6F7F9';
-export const THEME_COLOR_DARK = '#0F1520';
+export const THEME_COLOR = '#F7F7FA';
+export const THEME_COLOR_DARK = '#161827';
 export const THEME_COLOR_LIGHT = THEME_COLOR;
 
 /** Motion (§10.3): durations in ms and the shared easing. */

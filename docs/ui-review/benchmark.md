@@ -17,7 +17,10 @@ Data warna diambil dari situs publik masing-masing pada Oktober 2026 (CSS/halama
 
 Pola yang sama di aplikasi yang paling enak dilihat: **kanvas netral**, **satu warna utama untuk aksi**, **warna kedua yang hangat untuk sorotan**, dan **warna kategori/produk** agar pengguna bisa membedakan bagian aplikasi tanpa membaca.
 
-## 2. Keputusan "Spektrum"
+## 2a. Revisi 2026-10-25 — Spektrum v2 (tanpa hijau)
+Umpan balik pemilik: tampilan masih terasa hijau dan melelahkan mata. Penyebab: (1) service worker menyajikan versi lama dari cache sampai pengguna mengklik "Reload"; (2) primary teal dan ikon neon `#19F23A` tetap terbaca hijau. Perubahan: primary indigo, aksen amber, AI violet, data biru, mode gelap biru-malam lembut, ikon & logo berwarna kategori tanpa glow, update otomatis. Nilai di tabel bawah digantikan oleh `src/config/brand.ts` (sumber kebenaran).
+
+## 2. Keputusan "Spektrum" (versi pertama, 2026-10-24)
 
 | Peran | Terang | Gelap | Dipakai untuk |
 |---|---|---|---|

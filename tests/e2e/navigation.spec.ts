@@ -48,7 +48,7 @@ test('light theme applies tokens', async ({ page }) => {
   await page.getByRole('radio', { name: 'Terang', exact: true }).check();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  expect(bg).toBe('rgb(246, 247, 249)'); // Spektrum --field-1 #F6F7F9
+  expect(bg).toBe('rgb(247, 247, 250)'); // Spektrum --field-1 #F7F7FA
 });
 
 test('navigation: sidebar on desktop, bottom tabs on mobile', async ({ page }) => {

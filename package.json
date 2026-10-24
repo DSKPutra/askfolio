@@ -41,6 +41,7 @@
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
     "assets:generate": "python3 -I scripts/brand/make-native-assets.py",
+    "icons:generate": "tsx scripts/brand/make-icons.ts",
     "assets:pdfjs": "tsx scripts/build/copy-pdfjs-assets.ts",
     "predev": "npm run assets:pdfjs && npm run whitepaper:copy",
     "prebuild": "npm run assets:pdfjs && npm run whitepaper:copy && npm run check:licenses",
