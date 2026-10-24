@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B04 |
 | Judul | Register kerentanan & VEX |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |

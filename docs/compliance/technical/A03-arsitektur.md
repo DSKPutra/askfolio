@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A03 |
 | Judul | Deskripsi arsitektur |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -156,3 +156,5 @@ Lihat A10. Model dipilih lewat env (`ANTHROPIC_MODEL`, `ANTHROPIC_MODEL_FAST`); 
 | 2026-10-23 | Deck UTS: opsi `--uts` pada `kit/whitepaper/build_deck.js` (deck asli tidak berubah, hash diverifikasi) → `Finandex_UTS_Kelompok.pptx`, palet Brankas, warna placeholder hex eksplisit (tanpa modul tema eksternal judul menjadi hitam), kolom cover opsional yang belum diisi dihapus · UTS_PPTX_PROMPT · mengubah deck asli. |
 | 2026-10-23 | Deck UTS diperbarui dengan data terbaru (20 slide: + Agentic AI, + SBOM); angka dibaca saat build dari package.json, kartu agen, docs/agents/eval.json, reports/eval-mock.json, reports/vitest.json, regulations.lock.json dan SBOM_SUMMARY/CHECK — bila laporan tidak ada tertulis "belum diukur". Deck asli tidak berubah · permintaan pemilik · mengetik angka manual. |
 | 2026-10-24 | Tema "Spektrum" menggantikan "Obligasi & Brankas": kanvas netral abu dingin/biru malam, primer teal, aksen oranye, AI indigo, plus 8 warna kategori (`--group-1..8`, `GROUP_COLORS` di brand.ts) di kartu, header Dex, peta fitur, konstelasi dan Agent Room; semua token teks & warna kategori ≥ 4,5 : 1 di tiga permukaan kedua tema · permintaan pemilik (UI monoton) dan benchmark Bibit/Stockbit/TradingView/Revolut di `docs/ui-review/benchmark.md` · mempertahankan palet hijau tunggal; gradien/ilustrasi warna-warni (ditolak: melanggar ui:audit dan memperberat bundel). |
+| 2026-10-24 | Paket A (A01–A13) dan C (C01–C14) dibangkitkan oleh `scripts/compliance/build-docs.ts` dari registry, kode, konfigurasi, laporan CI, dan teks resmi UU PDP (chunk ber-hash); gate `docs:verify` (1.092 pemeriksaan) gagal bila Dex/tab, tool, rute, env, dataset, atau layanan baru tidak tercermin di dokumen. Rujukan PP 33/2026 ditandai "belum diverifikasi" karena teks resminya gagal diunduh · TECHNICAL_DOCS_PROMPT §0.1 (tidak boleh mengarang) · menulis dokumen secara manual. |
+| 2026-10-24 | VEX menilai "terkirim atau tidak" berdasarkan salinan terpasang yang terdampak (path node → versi), bukan nama paket: zod@3.25.76 (GHSA-mrhx-c7xc-m3w5) hanya ada di bawah @lhci/cli, sedangkan zod yang terkirim 4.6.7 sudah di luar rentang rentan · pencocokan nama menghasilkan `in_triage` palsu · mengabaikan temuan. |

@@ -30,6 +30,7 @@ export const FORMULAS = {
   drip: { id: 'Dengan reinvestasi = jumlah × AdjClose akhir ÷ AdjClose awal; tanpa reinvestasi = lembar × Close akhir + dividen tunai.', en: 'With reinvestment = amount × end AdjClose ÷ start AdjClose; without = shares × end Close + cash dividends.' },
   fx_lookup: { id: 'Kurs = penutupan terakhir pada/sebelum tanggal yang diminta (setelah membuang bad print).', en: 'Rate = last close on/before the requested date (after removing bad prints).' },
   fx_convert: { id: 'Konversi = jumlah × kurs (USD→IDR) atau jumlah ÷ kurs (IDR→USD).', en: 'Conversion = amount × rate (USD→IDR) or amount ÷ rate (IDR→USD).' },
+  live_extension: { id: 'Data live = baris setelah tanggal terakhir dataset dari sumber terdaftar (scripts/live-data/sources.yaml); USD/IDR = (IDR per EUR) ÷ (USD per EUR) dari kurs referensi ECB.', en: 'Live data = rows after the dataset\'s last date from a registered source (scripts/live-data/sources.yaml); USD/IDR = (IDR per EUR) ÷ (USD per EUR) from ECB reference rates.' },
   yearly_average: { id: 'Rata-rata tahunan = rata-rata penutupan harian dalam tahun kalender.', en: 'Yearly average = mean of daily closes in the calendar year.' },
   rate_diff: { id: 'Selisih = BI rate terakhir − suku bunga AS terakhir (poin persen).', en: 'Differential = latest BI rate − latest US rate (percentage points).' },
   monthly_return: { id: 'Return bulanan = NAB/unit ÷ NAB/unit bulan sebelumnya − 1 (hanya bulan berurutan).', en: 'Monthly return = NAV/unit ÷ previous month NAV/unit − 1 (consecutive months only).' },

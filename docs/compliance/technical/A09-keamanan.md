@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A09 |
 | Judul | Dokumentasi keamanan aplikasi |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -26,10 +26,10 @@
 ## 1. Model ancaman
 | Ancaman (STRIDE / LLM) | Contoh | Kontrol | Bukti |
 |---|---|---|---|
-| Spoofing | permintaan otomatis memakai banyak clientId | rate limit per clientId + IP, anggaran token harian | `server/security/ratelimit.ts @ 1cec7e2` |
+| Spoofing | permintaan otomatis memakai banyak clientId | rate limit per clientId + IP, anggaran token harian | `server/security/ratelimit.ts @ 93c89df` |
 | Tampering | data statis diubah | hash SHA-256 di manifest & SBOM | `public/data/manifest.json` |
 | Repudiation | sumber jawaban tidak jelas | sitasi + panel "Kenapa jawabannya begini?" | `src/features/chat/` |
-| Information disclosure | pengguna mengetik NIK/kartu | detektor data sensitif klien & server | `src/shared/text.ts @ 1cec7e2` |
+| Information disclosure | pengguna mengetik NIK/kartu | detektor data sensitif klien & server | `src/shared/text.ts @ 93c89df` |
 | Denial of service | banjir permintaan chat | rate limit, batas waktu chat, batas agen | `server/env.ts` CHAT_DEADLINE_MS |
 | Elevation of privilege | XSS | CSP & header keamanan | `vercel.json` |
 | LLM01 Prompt injection | dokumen/teks pengguna berisi instruksi | data diperlakukan sebagai data, tool read-only, Verifikator | `server/agents/guard.ts` |
@@ -63,4 +63,4 @@
 Variabel server: `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `ANTHROPIC_MODEL_FAST`, `ANTHROPIC_FALLBACKS`, `DATA_BASE_URL`, `CORS_ALLOWED_ORIGINS`, `CHAT_DEADLINE_MS`, `DAILY_TOKEN_BUDGET`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `LOG_LEVEL`, `APP_VERSION`, `BUILD_ID`, `VITE_DISTRIBUTION`, `CHAT_MODE` (nilai tidak pernah di repo; `npm run check:secrets`). Variabel klien (publik): `VITE_ANDROID_APK_DIRECT`, `VITE_API_BASE_URL`, `VITE_APP_STORE_URL`, `VITE_APP_VERSION`, `VITE_BUILD_ID`, `VITE_DATA_BASE_URL`, `VITE_DISTRIBUTION`, `VITE_MS_STORE_URL`, `VITE_PLAY_STORE_URL`, `VITE_SUPPORT_EMAIL`, `VITE_TESTFLIGHT_URL`. Pelaporan kerentanan: `SECURITY.md`.
 
 ## 5. CORS
-Origin yang diizinkan: lihat `server/env.ts#L28 @ 1cec7e2`.
+Origin yang diizinkan: lihat `server/env.ts#L28 @ 93c89df`.

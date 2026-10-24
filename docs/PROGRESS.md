@@ -85,3 +85,8 @@
 - `npm run docs:verify`: 1.092 pemeriksaan, 0 gagal; 205 kebutuhan `REQ-*` semuanya tertaut ke tes; 14/14 rujukan pasal UU PDP cocok dengan teks resmi; 13 rujukan PP 33/2026 belum dapat diverifikasi (teks resmi belum tersedia).
 - `npm run compliance:all` = SBOM + gate SBOM + dokumen + gate dokumen; langkah dokumen ditambahkan ke `compliance.yml`.
 - VEX diperbaiki (zod 3 hanya di alat dev) → 27/27 `not_affected`.
+
+## Data live (2026-10-24)
+- `scripts/live-data/`: registry `sources.yaml` (ketentuan 7 sumber dibaca 2026-10-24), konektor ECB & World Bank, normalisasi RupiahDex/InflationDex, validasi §4, snapshot append-only `data/live/` + manifest SHA-256, `public/data/live/*.json`, tool `live_latest`, badge "Data live per …" di header Dex, atribusi di tab Data & /legal/data-sources.
+- Hasil pertama: USD/IDR ECB 21–23 Okt 2026 (3 baris; selisih vs dataset ≤ 0,99 % pada 87 hari tumpang-tindih), inflasi World Bank 2025 untuk 168 negara (selisih vs dataset ≤ 0,19 pp).
+- `live:fetch|validate|build|report|verify` (29 pemeriksaan, 0 gagal); workflow harian `live-data.yml` membuka PR otomatis; `build:ci` menjalankan `live:build`.

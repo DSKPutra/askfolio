@@ -7,7 +7,7 @@ import { DEX_GROUPS, groupStyle } from '../config/dex-groups';
 import type { DexEntry } from '../config/dex-registry';
 import { FeatureGuideButton } from '../features/guide/FeatureGuide';
 import { useLocale } from '../lib/locale';
-import { AsOfBadge, LicenseBadge, QualityBadge, SampleBadge, StatusBadge } from './badges';
+import { AsOfBadge, LicenseBadge, LiveBadge, QualityBadge, SampleBadge, StatusBadge } from './badges';
 import { DexIcon } from './DexCard';
 import { EmergencyScamButton } from './EmergencyScamButton';
 
@@ -25,6 +25,7 @@ export function DexHeader({ dex, asOf, quality }: { dex: DexEntry; asOf: string 
           <p className="measure text-sm text-ink-muted">{dex.tagline[locale]}</p>
           <div className="mt-2 flex flex-wrap gap-1">
             <AsOfBadge asOf={asOf ?? dex.asOf} />
+            <LiveBadge dexId={dex.id} />
             <QualityBadge quality={quality} />
             <StatusBadge status={dex.status} />
             <LicenseBadge dex={dex} />

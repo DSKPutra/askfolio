@@ -1,0 +1,58 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Daily live-data update (LIVE_DATA_PROMPT §5): fetch enabled sources → validate → build public/data/live → golden tests
+# (original data untouched) → live tests → mock chatbot eval → live:verify gate → open a pull request with the report.
+# Merging the PR deploys through the normal `release` path. A failing source never deletes data: the Dex keeps its last
+# valid snapshot and the report marks it "tertunda".
+name: live-data
+on:
+  schedule:
+    - cron: '30 23 * * *' # 23:30 UTC = 06:30 WIB
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: live-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - name: Build the original datasets (needed for series junctions and cross-checks)
+        run: npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:build
+      - name: Fetch enabled sources (append-only snapshots)
+        run: npm run live:fetch
+      - name: Validate (§4) and build public/data/live
+        run: |
+          npm run live:validate
+          npm run live:build
+      - name: Golden tests stay 100 % on the original data
+        run: npm run test:golden
+      - name: Live-data unit tests and mock chatbot eval
+        run: |
+          npx vitest run tests/unit/live-data.test.ts
+          npm run eval:chat:mock
+      - name: Gate — terms, base_url, validation, attribution, compliance register
+        run: npm run live:verify
+      - name: Report
+        run: npm run live:report
+      - name: Open a pull request when snapshots changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/live docs/live-data; then echo "No new live data."; exit 0; fi
+          BRANCH="live-data/$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add data/live docs/live-data
+          git commit -m "chore(live-data): snapshots $(date -u +%Y-%m-%d)"
+          git push -u origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" --title "chore(live-data): $(date -u +%Y-%m-%d)" --body-file docs/live-data/REPORT.md

@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C08 |
 | Judul | Register prosesor & sub-prosesor |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -27,12 +27,12 @@ Kolom "Terdeteksi di repo" dibangkitkan dari `detectServices()` (pencarian pola 
 
 | Prosesor | Peran | Lokasi | Terdeteksi di repo | Bukti | Ketentuan/DPA |
 |---|---|---|---|---|---|
-| Anthropic | LLM — memproses teks percakapan | AS | ya | `server/chat/llm.ts#L4 @ 1cec7e2` | https://www.anthropic.com/legal/commercial-terms |
-| Vercel | hosting & fungsi serverless, log | global (region fungsi [KONFIRMASI]) | ya | `server/adapters/vercel.ts#L2 @ 1cec7e2` | https://vercel.com/legal/dpa |
-| Netlify | hosting cadangan | global | ya | `server/env.ts#L29 @ 1cec7e2` | https://www.netlify.com/pdf/netlify-dpa.pdf |
-| GitHub | repo, CI, rilis | AS | ya | `src/pages/Legal.tsx#L121 @ 1cec7e2` | https://github.com/customer-terms |
-| Upstash | rate limit (opsional) | region [KONFIRMASI] | ya | `server/env.ts#L15 @ 1cec7e2` | https://upstash.com/trust/dpa.pdf |
-| Apple | distribusi App Store | global | ya | `src/config/runtime.ts#L44 @ 1cec7e2` | https://www.apple.com/legal/privacy/ |
-| Google | distribusi Play Store | global | ya | `src/config/runtime.ts#L46 @ 1cec7e2` | https://policies.google.com/privacy |
+| Anthropic | LLM — memproses teks percakapan | AS | ya | `server/chat/llm.ts#L4 @ 93c89df` | https://www.anthropic.com/legal/commercial-terms |
+| Vercel | hosting & fungsi serverless, log | global (region fungsi [KONFIRMASI]) | ya | `server/adapters/vercel.ts#L2 @ 93c89df` | https://vercel.com/legal/dpa |
+| Netlify | hosting cadangan | global | ya | `server/env.ts#L29 @ 93c89df` | https://www.netlify.com/pdf/netlify-dpa.pdf |
+| GitHub | repo, CI, rilis | AS | ya | `src/pages/Legal.tsx#L121 @ 93c89df` | https://github.com/customer-terms |
+| Upstash | rate limit (opsional) | region [KONFIRMASI] | ya | `server/env.ts#L15 @ 93c89df` | https://upstash.com/trust/dpa.pdf |
+| Apple | distribusi App Store | global | ya | `src/config/runtime.ts#L44 @ 93c89df` | https://www.apple.com/legal/privacy/ |
+| Google | distribusi Play Store | global | ya | `src/config/runtime.ts#L46 @ 93c89df` | https://policies.google.com/privacy |
 
 Penyedia email dukungan: [KONFIRMASI]. Lovable: tidak terdeteksi sebagai layanan yang dipanggil kode.

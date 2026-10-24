@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:api && vite build && npm run typecheck:server",
-    "build:ci": "npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build && npm run whitepaper:copy && npm run test:golden && npm run sbom:generate && npm run build",
+    "build:ci": "npm run data:fetch && npm run data:verify && npm run data:extract && npm run data:fetch-regulations && npm run data:build && npm run live:build && npm run whitepaper:copy && npm run test:golden && npm run sbom:generate && npm run build",
     "preview": "vite preview",
     "data:fetch": "tsx scripts/data/fetch-inputs.ts",
     "data:verify": "tsx scripts/data/verify-inputs.ts",
@@ -64,7 +64,12 @@
     "docs:build": "npm run sbom:docs && tsx scripts/compliance/build-docs.ts && npm run docs:pdf",
     "docs:pdf": "tsx scripts/compliance/pdf.ts docs/compliance/technical/A*.md docs/compliance/sbom/B*.md docs/compliance/privacy/C*.md",
     "docs:verify": "tsx scripts/compliance/verify-docs.ts",
-    "compliance:all": "npm run sbom:generate && npm run sbom:verify && npm run docs:build && npm run docs:verify"
+    "compliance:all": "npm run sbom:generate && npm run sbom:verify && npm run docs:build && npm run docs:verify",
+    "live:fetch": "tsx scripts/live-data/fetch.ts",
+    "live:validate": "tsx scripts/live-data/build.ts --dry",
+    "live:build": "tsx scripts/live-data/build.ts",
+    "live:report": "tsx scripts/live-data/report.ts",
+    "live:verify": "tsx scripts/live-data/verify.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.0.0",
@@ -164,7 +169,8 @@
     "typescript-eslint": "8.72.0",
     "vite": "8.3.5",
     "vite-plugin-pwa": "2.0.0",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "yaml": "2.9.1"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

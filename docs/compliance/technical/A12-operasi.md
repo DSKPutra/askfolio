@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A12 |
 | Judul | Operasi & pemeliharaan |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -116,6 +116,11 @@
 | `docs:pdf` | `tsx scripts/compliance/pdf.ts docs/compliance/technical/A*.md docs/compliance/sbom/B*.md docs/compliance/priva…` |
 | `docs:verify` | `tsx scripts/compliance/verify-docs.ts` |
 | `compliance:all` | `npm run sbom:generate && npm run sbom:verify && npm run docs:build && npm run docs:verify` |
+| `live:fetch` | `tsx scripts/live-data/fetch.ts` |
+| `live:validate` | `tsx scripts/live-data/build.ts --dry` |
+| `live:build` | `tsx scripts/live-data/build.ts` |
+| `live:report` | `tsx scripts/live-data/report.ts` |
+| `live:verify` | `tsx scripts/live-data/verify.ts` |
 
 ## 4. Pembaruan data
 `npm run data:fetch` → `data:verify` (hash) → `data:extract` → `data:fetch-regulations` → `data:build` → `test:golden`.

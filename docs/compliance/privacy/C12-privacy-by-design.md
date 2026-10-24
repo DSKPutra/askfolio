@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C12 |
 | Judul | Privacy by design & by default |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -25,11 +25,11 @@
 
 | Fitur | Penerapan | Bukti |
 |---|---|---|
-| Chat | persetujuan, detektor data sensitif, tanpa penyimpanan server | `src/components/ConsentDialog.tsx @ 1cec7e2` |
-| AntiScamDex / Siapkan Laporan | terenkripsi di perangkat, hapus otomatis | `src/lib/secure-store.ts @ 1cec7e2` |
-| FinLAIwyer | rujukan teks resmi; tanpa pengiriman identitas | `kit/datasets/law/legal_qa_flows.json @ 1cec7e2` |
-| Riwayat & preferensi | hanya di perangkat, dapat dihapus | `src/lib/history.ts @ 1cec7e2` |
-| Install / PWA | tanpa pelacakan pemasangan | `src/features/install/InstallCenter.tsx @ 1cec7e2` |
+| Chat | persetujuan, detektor data sensitif, tanpa penyimpanan server | `src/components/ConsentDialog.tsx @ 93c89df` |
+| AntiScamDex / Siapkan Laporan | terenkripsi di perangkat, hapus otomatis | `src/lib/secure-store.ts @ 93c89df` |
+| FinLAIwyer | rujukan teks resmi; tanpa pengiriman identitas | `kit/datasets/law/legal_qa_flows.json @ 93c89df` |
+| Riwayat & preferensi | hanya di perangkat, dapat dihapus | `src/lib/history.ts @ 93c89df` |
+| Install / PWA | tanpa pelacakan pemasangan | `src/features/install/InstallCenter.tsx @ 93c89df` |
 | Desktop | belum ada aplikasi desktop di repo | — |
 | Feedback | belum ada fitur feedback | — |
 

@@ -57,7 +57,8 @@ export const DATA_NOTES: Record<DexId, DataNote> = {
   },
   rupiahdex: {
     rules: [b('Tanggal = 10 karakter pertama kolom Date (tanpa konversi zona waktu).', 'Date = first 10 characters of the Date column (no time-zone conversion).'), b('Aturan bad print FX iteratif: spike pulang-pergi & dataran vs median bergulir 11 baris.', 'Iterative FX bad-print rule: round-trip spikes & plateaus vs an 11-row rolling median.'), b('Konversi memakai close pada/sebelum tanggal yang diminta.', 'Conversion uses the close on/before the requested date.')],
-    limits: [b('USD/IDR naik = rupiah melemah.', 'USD/IDR up = rupiah weaker.')],
+    limits: [b('USD/IDR naik = rupiah melemah.', 'USD/IDR up = rupiah weaker.'), b('Data setelah tanggal terakhir dataset berasal dari kurs referensi ECB (bukan harga penutupan pasar); batasnya ditandai source_switch_date.', "Data after the dataset's last date comes from ECB reference rates (not market closes); the boundary is marked by source_switch_date.")],
+    attribution: [b('Sumber: ECB statistics (kurs referensi euro). USD/IDR dihitung Finandex dari dua kurs referensi ECB tanpa mengubah nilai aslinya.', 'Source: ECB statistics (euro reference rates). USD/IDR is calculated by Finandex from two ECB reference rates without modifying the original values.')],
   },
   idxdex: {
     rules: [...COMMON_TS, b('Baris kosong dibuang; Adj Close ≤ 0 dikecualikan dari seri total return; spike rule §4.2.', 'Empty rows dropped; Adj Close ≤ 0 excluded from total-return series; §4.2 spike rule.'), b('Rasio dihitung pada FY terbaru yang tersedia; EPS ≤ 0 → PER "n/m".', 'Ratios use the latest available FY; EPS ≤ 0 → P/E "n/m".')],
@@ -79,6 +80,7 @@ export const DATA_NOTES: Record<DexId, DataNote> = {
   inflationdex: {
     rules: [b('ISO3 dari country_code_y; region di-trim.', 'ISO3 from country_code_y; region trimmed.')],
     limits: [b('Tahun inflasi berbeda per negara — tahun selalu ditampilkan.', 'Inflation year differs per country — the year is always shown.'), b('Harga barang hanya untuk 45 negara; bisa berbeda dari IDFinanDex (tidak direkonsiliasi).', 'Goods prices only for 45 countries; may differ from IDFinanDex (not reconciled).')],
+    attribution: [b('Data inflasi terbaru: World Bank, World Development Indicators (FP.CPI.TOTL.ZG), CC BY 4.0.', 'Latest inflation data: World Bank, World Development Indicators (FP.CPI.TOTL.ZG), CC BY 4.0.')],
   },
   startupdex: {
     rules: [b('Analitik default memakai amount_status = verified.', 'Default analytics use amount_status = verified.'), b('Mega-round = ≥ US$100 juta.', 'Mega-round = ≥ US$100 million.')],

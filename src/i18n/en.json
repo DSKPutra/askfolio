@@ -60,6 +60,8 @@
     "status_pending-data": "pending data",
     "sample": "sample",
     "nc": "NC",
+    "live": "Live data as of {{date}} · {{source}}",
+    "liveFlags": "quality notes",
     "asOf": "Data as of",
     "askAbout": "Ask about this",
     "export": "Export",

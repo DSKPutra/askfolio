@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T11:24:34.234Z",
+ "generated": "2026-10-24T13:50:01.389Z",
  "mode": "data (deterministic Dex composers; mock for collaboration stubs)",
  "routing": {
   "items": 67,
@@ -60,21 +60,21 @@
   ]
  },
  "latency": {
-  "median_ms_1_agent": 22,
-  "median_ms_3_agents": 19,
+  "median_ms_1_agent": 21,
+  "median_ms_3_agents": 16,
   "median_tokens": 0,
   "samples": {
    "one": [
-    7,
-    1,
-    22,
-    43,
-    333
+    6,
+    2,
+    21,
+    38,
+    320
    ],
    "three": [
-    7,
-    753,
-    19
+    6,
+    710,
+    16
    ]
   }
  },

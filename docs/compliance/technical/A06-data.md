@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A06 |
 | Judul | Spesifikasi data & kamus data |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -120,6 +120,19 @@
 
 ## 4. Lineage
 input (hash dicek `data:verify`) → ekstraksi → ETL `scripts/data/build-*.ts` → `public/data/**` (manifest + hash) → golden `tests/golden/**` → tool server.
+
+## 4a. Sumber data live (`scripts/live-data/sources.yaml`)
+Data live memperpanjang Dex setelah tanggal terakhir dataset asli, disimpan sebagai snapshot append-only ber-hash di `data/live/` dan dipublikasikan di `public/data/live/<dex>.json`; data historis tidak diubah.
+
+| ID | Sumber | Status | Dex | Penggunaan diizinkan | Ketentuan dibaca |
+|---|---|---|---|---|---|
+| `ecb` | European Central Bank — Data Portal (euro foreign exchange reference rates) | enabled | rupiahdex | commercial | 2026-10-24 |
+| `worldbank` | World Bank — Indicators API (World Development Indicators) | enabled | inflationdex | commercial | 2026-10-24 |
+| `coingecko` | CoinGecko API | blocked-pending-license | cryptdex | per selected plan | 2026-10-24 |
+| `coinmarketcap` | CoinMarketCap API | blocked-pending-license | cryptdex | unknown | belum (halaman tidak tersedia) |
+| `defillama` | DefiLlama API | blocked-pending-license | cryptdex | view only without permission | 2026-10-24 |
+| `fred` | FRED API (Federal Reserve Bank of St. Louis) | disabled | centralbankdex | per series owner | 2026-10-24 |
+| `yahoo-finance` | Yahoo Finance | blocked-pending-license | finandex-ai | none without a licence | 2026-10-24 |
 
 ## 5. Karakteristik kualitas data (ISO/IEC 25012)
 | Karakteristik | Bukti di Finandex |

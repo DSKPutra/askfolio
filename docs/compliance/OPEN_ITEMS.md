@@ -22,3 +22,5 @@
 | 16 | Pin versi paket Python referensi | B01, B03 | parity.yml |
 | 17 | Mengaktifkan OpenSSF Scorecard | B03 | workflow terpisah |
 | 18 | Rating usia store | C13, C14 | — |
+| 19 | Izin DefiLlama untuk data DeFi CryptDex: dataset input menyebut DefiLlama sebagai sumber, sedangkan ketentuan DefiLlama (dibaca 2026-10-24) melarang "republish the data in any form without permission" | A06, docs/live-data/REPORT.md | minta izin tertulis atau batasi tampilan |
+| 20 | Lisensi penyedia harga saham/indeks/kripto (Yahoo Finance, CoinGecko, CoinMarketCap) untuk data live | scripts/live-data/sources.yaml | saat ini blocked-pending-license |

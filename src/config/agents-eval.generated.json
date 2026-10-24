@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23",
+ "generated": "2026-10-24",
  "mode": "data",
  "routing": {
   "items": 67,
@@ -16,8 +16,8 @@
  },
  "chat_mock": "npm run eval:chat:mock",
  "latency": {
-  "median_ms_1_agent": 22,
-  "median_ms_3_agents": 19
+  "median_ms_1_agent": 21,
+  "median_ms_3_agents": 16
  },
  "per_agent": {
   "conductor": {

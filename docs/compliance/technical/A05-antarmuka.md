@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A05 |
 | Judul | Spesifikasi antarmuka |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -167,6 +167,7 @@ Jenis event yang didefinisikan di protokol: .
 | RupiahDex | `change` | Change of USD/IDR between two dates (positive = rupiah weakened), plus the high and low in between. |
 | RupiahDex | `compare_sources` | Cross-check of this USD/IDR dataset against the USDIDR column of the IDFinanDex dataset on overlapping days: overlap, maximum absolute difference, days with >1% |
 | RupiahDex | `event_window` | Price behaviour around a dated event: return from the last close before the event to the window end (default −5 to +20 trading days), with the low point inside  |
+| RupiahDex | `live_latest` | Latest live data after the original dataset ends (validated snapshots from a registered open-data source): as-of date, source, switch date, flags. rupiahdex: US |
 | IDXDex | `dataset_info` | Describe this Dex dataset: exact source file names, coverage, as-of date, entity count, licence, cleaning rules, and limitations. Use when the user asks what da |
 | IDXDex | `data_quality` | Data-quality report for the dataset or one entity: removed spikes, systemic breaks/reliable_from, carry-forward, bad prints, duplicates, OCR gaps, samples, synt |
 | IDXDex | `app_info` | Information about the Finandex app and its creator. Use when asked who made the app. |
@@ -262,6 +263,7 @@ Jenis event yang didefinisikan di protokol: .
 | InflationDex | `cost_items` | Cost items for one country in USD: bread, one-way transport, monthly pass, monthly rent, utilities (where available). |
 | InflationDex | `region_summary` | Median annual inflation (percent) grouped by region or income level. |
 | InflationDex | `compare_countries` | Annual inflation (with year) and cost indices for 2–8 countries side by side. |
+| InflationDex | `live_latest` | Latest live data after the original dataset ends (validated snapshots from a registered open-data source): as-of date, source, switch date, flags. rupiahdex: US |
 | StartupDex | `dataset_info` | Describe this Dex dataset: exact source file names, coverage, as-of date, entity count, licence, cleaning rules, and limitations. Use when the user asks what da |
 | StartupDex | `data_quality` | Data-quality report for the dataset or one entity: removed spikes, systemic breaks/reliable_from, carry-forward, bad prints, duplicates, OCR gaps, samples, synt |
 | StartupDex | `app_info` | Information about the Finandex app and its creator. Use when asked who made the app. |

@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A10 |
 | Judul | Dokumentasi sistem AI |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -27,7 +27,7 @@
 Menjawab pertanyaan tentang data pasar, ekonomi, sosial, dan hukum dengan angka yang berasal dari tool. Bukan nasihat investasi, keuangan, pajak, maupun hukum.
 
 ## 2. Model
-Default `claude-sonnet-5-5` (`ANTHROPIC_MODEL`) dan `claude-haiku-5-5` (`ANTHROPIC_MODEL_FAST`), dapat diganti lewat env (`server/env.ts#L7 @ 1cec7e2`). Mode `CHAT_MODE=mock` menjalankan seluruh alur tanpa LLM untuk eval dan uji.
+Default `claude-sonnet-5-5` (`ANTHROPIC_MODEL`) dan `claude-haiku-5-5` (`ANTHROPIC_MODEL_FAST`), dapat diganti lewat env (`server/env.ts#L7 @ 93c89df`). Mode `CHAT_MODE=mock` menjalankan seluruh alur tanpa LLM untuk eval dan uji.
 
 ## 3. Data yang dikirim ke penyedia
 Teks percakapan (≤ 20 pesan terakhir), hasil tool, prompt sistem Dex. Tidak ada clientId atau IP yang diteruskan ke penyedia. Lihat C01 (D01) dan C09.

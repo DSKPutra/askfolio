@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B01 |
 | Judul | Kebijakan & prosedur SBOM |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -65,7 +65,7 @@ Cakupan mencakup semua dependensi transitif tanpa batas kedalaman. Lockfile beri
 | Coverage | seluruh komponen transitif; `compositions[].aggregate` | — | ya (selisih lockfile = 0 atau *known unknown*) |
 | Distribution and Delivery, Frequency | proses di dokumen ini (§6) | proses | — |
 
-Hasil pemeriksaan terakhir: **156 pemeriksaan, 0 gagal** (`docs/compliance/sbom/SBOM_CHECK.json`, dibangkitkan oleh scripts/compliance/check-sbom-min-elements.ts @ 1cec7e2).
+Hasil pemeriksaan terakhir: **156 pemeriksaan, 0 gagal** (`docs/compliance/sbom/SBOM_CHECK.json`, dibangkitkan oleh scripts/compliance/check-sbom-min-elements.ts @ 93c89df).
 
 ## 5. Informasi yang tidak diketahui (*known unknowns*)
 Informasi yang tidak diketahui dinyatakan eksplisit dan dibedakan dari yang sengaja dirahasiakan (Finandex tidak merahasiakan komponen apa pun):

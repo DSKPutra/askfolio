@@ -1,0 +1,152 @@
+# © 2026 Dea Saka Kurnia Putra. All rights reserved.
+# Live-data source registry (LIVE_DATA_PROMPT §2). A source may only be `enabled` after its current terms were read and
+# summarised here; when in doubt or prohibited → `blocked-pending-license` (no connector). `terms_checked_at` must be
+# ≤ 90 days old for enabled sources (npm run live:verify). Quotes are from the terms page on the date shown.
+
+sources:
+  - id: ecb
+    name: European Central Bank — Data Portal (euro foreign exchange reference rates)
+    kind: open-data
+    base_url: https://data-api.ecb.europa.eu/service/data/
+    auth: none
+    terms_url: https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html
+    terms_checked_at: 2026-10-24
+    allowed_use: commercial
+    terms_summary: '"All publicly available ESCB statistics may be reused free of charge on the condition that the source is quoted (e.g. Source: ECB statistics.) and that the statistics (including metadata) are not modified."'
+    attribution: 'Sumber: ECB statistics (kurs referensi euro). USD/IDR dihitung Finandex dari dua kurs referensi ECB tanpa mengubah nilai aslinya.'
+    attribution_en: 'Source: ECB statistics (euro reference rates). USD/IDR is calculated by Finandex from two ECB reference rates without modifying the original values.'
+    rate_limit: 1 request per run; ≥ 2 s between requests
+    redistribution: allowed with source quoted; original values stored unmodified next to the derived rate
+    status: enabled
+    schedule: daily
+    datasets:
+      - id: exr-idr-usd
+        endpoint: EXR/D.IDR+USD.EUR.SP00.A
+        dex: rupiahdex
+        series: USDIDR
+
+  - id: worldbank
+    name: World Bank — Indicators API (World Development Indicators)
+    kind: open-data
+    base_url: https://api.worldbank.org/v2/
+    auth: none
+    terms_url: https://datacatalog.worldbank.org/public-licenses
+    terms_checked_at: 2026-10-24
+    allowed_use: commercial
+    terms_summary: 'Datasets licensed under CC BY 4.0, which "allows users to copy, modify and distribute data in any format for any purpose, including commercial use"; users must give appropriate credit and indicate changes.'
+    attribution: 'Data inflasi terbaru: World Bank, World Development Indicators (FP.CPI.TOTL.ZG), CC BY 4.0.'
+    attribution_en: 'Latest inflation data: World Bank, World Development Indicators (FP.CPI.TOTL.ZG), CC BY 4.0.'
+    rate_limit: 1 request per run; ≥ 2 s between requests
+    redistribution: allowed (CC BY 4.0)
+    status: enabled
+    schedule: daily
+    datasets:
+      - id: cpi-inflation
+        endpoint: country/all/indicator/FP.CPI.TOTL.ZG
+        dex: inflationdex
+        series: inflation_annual_pct
+
+  - id: coingecko
+    name: CoinGecko API
+    kind: licensed
+    base_url: https://api.coingecko.com/api/v3/
+    auth: api_key
+    terms_url: https://www.coingecko.com/en/api_terms
+    terms_checked_at: 2026-10-24
+    allowed_use: per selected plan
+    terms_summary: 'Attribution "Powered by CoinGecko" required; "you are not permitted to sell, rent, lease, sub-license, re-distribute or syndicate access to the CoinGecko API"; "you are not allowed to duplicate, reproduce, copy, store, derive from or translate any Data" except as expressly permitted; cache refreshed at least every 24 hours.'
+    attribution: 'Powered by CoinGecko'
+    attribution_en: 'Powered by CoinGecko'
+    rate_limit: per plan (https://www.coingecko.com/en/api/pricing)
+    redistribution: not allowed without an executed agreement; append-only historical snapshots conflict with the storage clause
+    status: blocked-pending-license
+    schedule: daily
+    datasets:
+      - id: markets
+        endpoint: coins/markets
+        dex: cryptdex
+        series: price
+
+  - id: coinmarketcap
+    name: CoinMarketCap API
+    kind: licensed
+    base_url: https://pro-api.coinmarketcap.com/
+    auth: api_key
+    terms_url: https://coinmarketcap.com/api/terms/
+    terms_checked_at: null
+    allowed_use: unknown
+    terms_summary: 'Terms page returned HTTP 404 on 2026-10-24; terms not read, so the source cannot be enabled.'
+    attribution: ''
+    attribution_en: ''
+    rate_limit: unknown
+    redistribution: unknown
+    status: blocked-pending-license
+    schedule: daily
+    datasets:
+      - id: listings
+        endpoint: v1/cryptocurrency/listings/latest
+        dex: cryptdex
+        series: price
+
+  - id: defillama
+    name: DefiLlama API
+    kind: api
+    base_url: https://api.llama.fi/
+    auth: none
+    terms_url: https://defillama.com/terms
+    terms_checked_at: 2026-10-24
+    allowed_use: view only without permission
+    terms_summary: 'Users agree not to "republish the data in any form without permission" nor "copy, scrape, harvest or otherwise exploit the Content & Data for commercial purposes without prior written consent".'
+    attribution: ''
+    attribution_en: ''
+    rate_limit: not stated
+    redistribution: not allowed without permission
+    status: blocked-pending-license
+    schedule: daily
+    datasets:
+      - id: tvl
+        endpoint: v2/historicalChainTvl
+        dex: cryptdex
+        series: tvl
+
+  - id: fred
+    name: FRED API (Federal Reserve Bank of St. Louis)
+    kind: api
+    base_url: https://api.stlouisfed.org/fred/
+    auth: api_key
+    terms_url: https://fred.stlouisfed.org/docs/api/terms_of_use.html
+    terms_checked_at: 2026-10-24
+    allowed_use: per series owner
+    terms_summary: 'API key required; notice "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis." required; third-party series need the owner''s permission for anything other than personal use.'
+    attribution: 'This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.'
+    attribution_en: 'This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.'
+    rate_limit: per API key
+    redistribution: depends on series owner
+    status: disabled
+    schedule: daily
+    datasets:
+      - id: policy-rates
+        endpoint: series/observations
+        dex: centralbankdex
+        series: policy_rate
+
+  - id: yahoo-finance
+    name: Yahoo Finance
+    kind: licensed
+    base_url: https://finance.yahoo.com/
+    auth: oauth
+    terms_url: https://legal.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.html
+    terms_checked_at: 2026-10-24
+    allowed_use: none without a licence
+    terms_summary: 'The Yahoo developer API terms do not grant access to Yahoo Finance market data; there is no official public Yahoo Finance API. Scraping is not allowed by this pipeline.'
+    attribution: ''
+    attribution_en: ''
+    rate_limit: n/a
+    redistribution: not allowed without a licence
+    status: blocked-pending-license
+    schedule: daily
+    datasets:
+      - id: quotes
+        endpoint: n/a
+        dex: finandex-ai
+        series: close

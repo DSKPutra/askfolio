@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C01 |
 | Judul | Inventaris & peta data pribadi |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -27,15 +27,15 @@ Pengendali: Finandex (pemilik: Dea Saka Kurnia Putra) [KONFIRMASI identitas & al
 
 | ID | Elemen data | Lokasi | Tujuan | Peran | Retensi | Bukti |
 |---|---|---|---|---|---|---|
-| D01 | Isi pesan chat (≤ 20 pesan terakhir), bahasa, Dex, konteks tampilan — dapat memuat data yang diketik pengguna (nama, keuangan, kronologi korban) | perangkat → server Finandex (memori, tidak disimpan) → Anthropic | menghasilkan jawaban chat | Finandex pengendali; Anthropic & Vercel prosesor | server: tidak disimpan (hanya selama permintaan); penyedia LLM: sesuai ketentuan penyedia [KONFIRMASI] | `server/chat/orchestrator.ts @ 1cec7e2` |
-| D02 | clientId (UUID acak lokal) | perangkat; dikirim bersama permintaan chat | pembatasan laju | pengendali | perangkat: sampai direset pengguna; server: kunci rate limit ber-TTL | `src/lib/store.ts#L61 @ 1cec7e2` |
-| D03 | Alamat IP | server (memori / Upstash Redis bila dikonfigurasi) | pembatasan laju & pencegahan penyalahgunaan | pengendali; Upstash & Vercel prosesor | TTL kunci: 600 detik (jendela) dan 1 hari (harian) | `server/security/ratelimit.ts#L54 @ 1cec7e2` |
-| D04 | Log operasional: requestId, Dex, tool, latensi, token, kode galat (tanpa isi pesan) | log platform Vercel | operasi & penanganan galat | pengendali; Vercel prosesor | [KONFIRMASI] default 30 hari | `server/handler.ts#L148 @ 1cec7e2` |
-| D05 | Riwayat chat (≤ 50 percakapan per Dex) | perangkat (IndexedDB) | melanjutkan percakapan | tidak diproses Finandex | sampai dihapus pengguna | `src/lib/history.ts @ 1cec7e2` |
-| D06 | Watchlist, preferensi tema/bahasa/aksesibilitas, status persetujuan + versi kebijakan | perangkat (localStorage) | preferensi & bukti persetujuan lokal | tidak diproses Finandex | sampai direset pengguna | `src/lib/store.ts#L18 @ 1cec7e2` |
-| D07 | Isian "Siapkan Laporan" (kronologi korban penipuan, nominal, kanal) | perangkat (IndexedDB, AES-GCM, kunci tidak dapat diekspor) | menyiapkan laporan ke kanal resmi | tidak diproses Finandex | 30 hari otomatis, kecuali pengguna memilih simpan | `src/lib/secure-store.ts#L9 @ 1cec7e2` |
-| D08 | Data pasar/regulasi yang dibuka (cache) | perangkat (Cache Storage) | pemakaian offline | bukan data pribadi | sampai cache dibersihkan | `vite.config.ts @ 1cec7e2` |
-| D09 | Data unduhan/pembaruan aplikasi (akun store pengguna) | Apple App Store, Google Play, GitHub Releases | distribusi aplikasi | store = pengendali mandiri | sesuai kebijakan store | `capacitor.config.ts @ 1cec7e2` |
+| D01 | Isi pesan chat (≤ 20 pesan terakhir), bahasa, Dex, konteks tampilan — dapat memuat data yang diketik pengguna (nama, keuangan, kronologi korban) | perangkat → server Finandex (memori, tidak disimpan) → Anthropic | menghasilkan jawaban chat | Finandex pengendali; Anthropic & Vercel prosesor | server: tidak disimpan (hanya selama permintaan); penyedia LLM: sesuai ketentuan penyedia [KONFIRMASI] | `server/chat/orchestrator.ts @ 93c89df` |
+| D02 | clientId (UUID acak lokal) | perangkat; dikirim bersama permintaan chat | pembatasan laju | pengendali | perangkat: sampai direset pengguna; server: kunci rate limit ber-TTL | `src/lib/store.ts#L61 @ 93c89df` |
+| D03 | Alamat IP | server (memori / Upstash Redis bila dikonfigurasi) | pembatasan laju & pencegahan penyalahgunaan | pengendali; Upstash & Vercel prosesor | TTL kunci: 600 detik (jendela) dan 1 hari (harian) | `server/security/ratelimit.ts#L54 @ 93c89df` |
+| D04 | Log operasional: requestId, Dex, tool, latensi, token, kode galat (tanpa isi pesan) | log platform Vercel | operasi & penanganan galat | pengendali; Vercel prosesor | [KONFIRMASI] default 30 hari | `server/handler.ts#L148 @ 93c89df` |
+| D05 | Riwayat chat (≤ 50 percakapan per Dex) | perangkat (IndexedDB) | melanjutkan percakapan | tidak diproses Finandex | sampai dihapus pengguna | `src/lib/history.ts @ 93c89df` |
+| D06 | Watchlist, preferensi tema/bahasa/aksesibilitas, status persetujuan + versi kebijakan | perangkat (localStorage) | preferensi & bukti persetujuan lokal | tidak diproses Finandex | sampai direset pengguna | `src/lib/store.ts#L18 @ 93c89df` |
+| D07 | Isian "Siapkan Laporan" (kronologi korban penipuan, nominal, kanal) | perangkat (IndexedDB, AES-GCM, kunci tidak dapat diekspor) | menyiapkan laporan ke kanal resmi | tidak diproses Finandex | 30 hari otomatis, kecuali pengguna memilih simpan | `src/lib/secure-store.ts#L9 @ 93c89df` |
+| D08 | Data pasar/regulasi yang dibuka (cache) | perangkat (Cache Storage) | pemakaian offline | bukan data pribadi | sampai cache dibersihkan | `vite.config.ts @ 93c89df` |
+| D09 | Data unduhan/pembaruan aplikasi (akun store pengguna) | Apple App Store, Google Play, GitHub Releases | distribusi aplikasi | store = pengendali mandiri | sesuai kebijakan store | `capacitor.config.ts @ 93c89df` |
 
 ```mermaid
 flowchart LR

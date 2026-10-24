@@ -34,6 +34,7 @@ import * as sp500 from './snp500dex/tools';
 import * as startup from './startupdex/tools';
 import * as vc from './vcdex/tools';
 import * as vcnet from './vcnetworkdex/tools';
+import { liveTools } from './live-tools';
 
 const cache = new WeakMap<DataStore, Map<DexId, ToolDef[]>>();
 
@@ -75,7 +76,7 @@ export function toolsFor(dex: DexId, store: DataStore): ToolDef[] {
     finlaiwyer: () => lawTools('finlaiwyer'),
     antiscamdex: () => antiscam.tools(),
   };
-  const list = [...sharedTools(dex, a), ...specific[dex]()];
+  const list = [...sharedTools(dex, a), ...specific[dex](), ...liveTools(dex)];
   const names = new Set<string>();
   for (const t of list) {
     if (names.has(t.name)) throw new Error(`Duplicate tool ${t.name} in ${dex}`);

@@ -1,10 +1,13 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// AsOfBadge, QualityBadge, LicenseBadge, SampleBadge, StatusBadge (§9, §10.4).
+// AsOfBadge, LiveBadge, QualityBadge, LicenseBadge, SampleBadge, StatusBadge (§9, §10.4).
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import type { DexEntry } from '../config/dex-registry';
 import { formatDate } from '../shared/format';
+import { getJson } from '../lib/data';
+import type { LiveIndexT } from '../shared/live';
 import { useLocale } from '../lib/locale';
 
 function Badge({ children, tone = 'muted', title }: { children: ReactNode; tone?: 'muted' | 'brand' | 'warning' | 'info' | 'negative'; title?: string }) {
@@ -43,6 +46,22 @@ export function AsOfBadge({ asOf }: { asOf: string | undefined }) {
   const { t } = useTranslation();
   const fmt = useAsOfLabel();
   return <Badge tone="info">{`${t('dex.asOf')} ${fmt(asOf)}`}</Badge>;
+}
+
+/** "Data live per <as-of> · <source>" when scripts/live-data published an extension for this Dex (LIVE_DATA_PROMPT §3). */
+export function LiveBadge({ dexId }: { dexId: string }) {
+  const { t } = useTranslation();
+  const fmt = useAsOfLabel();
+  const q = useQuery({ queryKey: ['live-index'], queryFn: () => getJson<LiveIndexT>('live/index.json').catch(() => null), staleTime: 10 * 60_000, retry: 0 });
+  const e = q.data?.dex[dexId];
+  if (!e) return null;
+  const source = e.source.split(' — ')[0]!;
+  return (
+    <Badge tone={e.flags ? 'warning' : 'brand'} title={e.source}>
+      {t('dex.live', { date: fmt(e.as_of), source })}
+      {e.flags ? ` · ${t('dex.liveFlags')}` : ''}
+    </Badge>
+  );
 }
 
 export function StatusBadge({ status }: { status: DexEntry['status'] }) {

@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A04 |
 | Judul | Deskripsi desain perangkat lunak |
-| Versi | 0.1.0 (= versi aplikasi) · commit `1cec7e2` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `93c89df` |
 | Tanggal | 2026-10-24 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -48,12 +48,12 @@ Setiap Dex didaftarkan sekali di `src/config/dex-registry.ts` (id, grup, tab, in
 | CommerceDex | Pasar Global & Saham | live | Chat, Peta Global, Perusahaan, Fundamental, Indeks E-Commerce, Makro, Data | 19 | CC BY 4.0 |
 | IPODex | Pasar Global & Saham | live | Chat, Ringkasan, Negara & Bursa, India SME vs Mainboard, Cari IPO, Data | 10 | CC BY-NC 4.0 |
 | IDFinanDex | Pasar & Ekonomi Indonesia | live | Chat, Dashboard Makro, Aset, Tren Ter-normalisasi, Korelasi, Rezim Suku Bunga, Data | 19 | unknown |
-| RupiahDex | Pasar & Ekonomi Indonesia | live | Chat, Kurs, Konverter Historis, Statistik Tahunan, Peristiwa, Data | 20 | unknown |
+| RupiahDex | Pasar & Ekonomi Indonesia | live | Chat, Kurs, Konverter Historis, Statistik Tahunan, Peristiwa, Data | 21 | unknown |
 | IDXDex | Pasar & Ekonomi Indonesia | live | Chat, Saham, Fundamental, IPO Center, Direktori Emiten, Data | 23 | unknown |
 | ReksaDex | Pasar & Ekonomi Indonesia | live | Chat, Industri, Manajer Investasi, Cari Reksa Dana, Peringkat, Bank Kustodian, Data | 22 | unknown |
 | CryptDex | Kripto & Makro Global | live | Chat, Pasar Kripto, Harga Historis, DeFi, Yield, Fees & Revenue, Bot & AI Agent, Data | 29 | mixed |
 | CentralBankDex | Kripto & Makro Global | live | Chat, Neraca G3, Suku Bunga & Kurva Imbal Hasil, Uang Beredar, Peta Negara, Label Rezim, Data | 11 | unknown |
-| InflationDex | Kripto & Makro Global | live | Chat, Peta Inflasi, Peringkat, Biaya Barang, Wilayah & Pendapatan, Data | 10 | unknown |
+| InflationDex | Kripto & Makro Global | live | Chat, Peta Inflasi, Peringkat, Biaya Barang, Wilayah & Pendapatan, Data | 11 | unknown |
 | StartupDex | Startup, VC & Perusahaan | live | Chat, Ringkasan, Tahapan, Negara & Sektor, Mega-round, Cari Putaran, Data | 11 | CC BY-NC 4.0 |
 | VCDex | Startup, VC & Perusahaan | live | Chat, Direktori, Peringkat, Stage Mix, Negara, Data | 10 | CC BY-NC 4.0 |
 | VCNetworkDex | Startup, VC & Perusahaan | live | Chat, Graf Jaringan, Pasangan Teratas, Investor, Data | 10 | CC BY-NC 4.0 |
@@ -73,7 +73,7 @@ Setiap Dex didaftarkan sekali di `src/config/dex-registry.ts` (id, grup, tab, in
 | AntiScamDex | Hukum | live | Chat, Baru Kena Scam, Siapkan Laporan, Statistik Penanganan, Kenali Modus, Kanal Resmi, Cegah & Bukti, Data | 17 | public-info |
 
 ## 3. Orkestrator chat & loop tool
-Penjaga memeriksa pesan → Konduktor menyusun rencana (deterministik; mode live memakai `submit_plan`) → agen Dex memanggil tool (≤ 8) → Verifikator mencocokkan setiap angka dengan keluaran tool → Penjaga memeriksa jawaban. Semua langkah dialirkan sebagai event SSE (`server/agents/run.ts @ 1cec7e2`).
+Penjaga memeriksa pesan → Konduktor menyusun rencana (deterministik; mode live memakai `submit_plan`) → agen Dex memanggil tool (≤ 8) → Verifikator mencocokkan setiap angka dengan keluaran tool → Penjaga memeriksa jawaban. Semua langkah dialirkan sebagai event SSE (`server/agents/run.ts @ 93c89df`).
 
 ## 4. Mesin alur hukum
 Konsultasi Terpandu memakai `kit/datasets/law/legal_qa_flows.json`; setiap rujukan pasal diambil dari potongan teks resmi yang hash-nya tercatat di `src/config/regulations.lock.json`.

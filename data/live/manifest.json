@@ -1,0 +1,16 @@
+{
+  "files": {
+    "data/live/ecb/2026-10-24.json": {
+      "sha256": "f3b5f746e4c7230dbf760d144733ab58f0d220a20104c956cb1e6c7864eddc6d",
+      "bytes": 23381,
+      "source_id": "ecb",
+      "retrieved_at": "2026-10-24T13:46:04.657Z"
+    },
+    "data/live/worldbank/2026-10-24.json": {
+      "sha256": "849f764711448dc986d7d177641467919447676e52cc1866a1b40cfbaffc1b4d",
+      "bytes": 186589,
+      "source_id": "worldbank",
+      "retrieved_at": "2026-10-24T13:46:06.690Z"
+    }
+  }
+}

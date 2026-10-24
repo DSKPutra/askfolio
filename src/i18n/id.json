@@ -60,6 +60,8 @@
     "status_pending-data": "menunggu data",
     "sample": "sampel",
     "nc": "NC",
+    "live": "Data live per {{date}} · {{source}}",
+    "liveFlags": "ada catatan kualitas",
     "asOf": "Data per",
     "askAbout": "Tanya tentang ini",
     "export": "Ekspor",

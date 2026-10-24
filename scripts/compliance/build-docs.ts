@@ -14,6 +14,7 @@ import { WINDOW_SEC } from '../../server/security/ratelimit';
 import { controlBlock, fmtInt, table } from './control';
 import type { DocMeta } from './control';
 import { collectFacts, detectServices, ref } from './facts';
+import { loadSources } from '../live-data/registry';
 
 const f = collectFacts();
 const V = f.app.version;
@@ -348,6 +349,11 @@ ${table(['Dokumen', 'Status', 'Halaman', 'Diambil'], lockDocs.map((d) => [d.doc_
 
 ## 4. Lineage
 input (hash dicek \`data:verify\`) → ekstraksi → ETL \`scripts/data/build-*.ts\` → \`public/data/**\` (manifest + hash) → golden \`tests/golden/**\` → tool server.
+
+## 4a. Sumber data live (\`scripts/live-data/sources.yaml\`)
+Data live memperpanjang Dex setelah tanggal terakhir dataset asli, disimpan sebagai snapshot append-only ber-hash di \`data/live/\` dan dipublikasikan di \`public/data/live/<dex>.json\`; data historis tidak diubah.
+
+${table(['ID', 'Sumber', 'Status', 'Dex', 'Penggunaan diizinkan', 'Ketentuan dibaca'], loadSources().map((s) => [`\`${s.id}\``, s.name, s.status, s.datasets.map((d) => d.dex).join(', '), s.allowed_use, s.terms_checked_at ?? 'belum (halaman tidak tersedia)']))}
 
 ## 5. Karakteristik kualitas data (ISO/IEC 25012)
 ${table(['Karakteristik', 'Bukti di Finandex'], [
@@ -836,6 +842,8 @@ const openItems = [
   ['Pin versi paket Python referensi', 'B01, B03', 'parity.yml'],
   ['Mengaktifkan OpenSSF Scorecard', 'B03', 'workflow terpisah'],
   ['Rating usia store', 'C13, C14', '—'],
+  ['Izin DefiLlama untuk data DeFi CryptDex: dataset input menyebut DefiLlama sebagai sumber, sedangkan ketentuan DefiLlama (dibaca 2026-10-24) melarang "republish the data in any form without permission"', 'A06, docs/live-data/REPORT.md', 'minta izin tertulis atau batasi tampilan'],
+  ['Lisensi penyedia harga saham/indeks/kripto (Yahoo Finance, CoinGecko, CoinMarketCap) untuk data live', 'scripts/live-data/sources.yaml', 'saat ini blocked-pending-license'],
 ];
 writeFileSync('docs/compliance/OPEN_ITEMS.md', `# Butir yang memerlukan keputusan pemilik — [KONFIRMASI]
 
