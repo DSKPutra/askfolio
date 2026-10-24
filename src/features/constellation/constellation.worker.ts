@@ -1,7 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // Index Constellation renderer (§10.0.1) — Canvas 2D on an OffscreenCanvas in a Web Worker, ≤ 30 fps.
 // One orchestrated moment: lines draw from the core outward once (≤ 1.2 s), then everything rests (no glow, no
-// breathing — "Obligasi & Brankas" theme). Nodes are ink dots in --data whose opacity encodes freshness, with a status
+// breathing — "Spektrum" theme). Nodes are ink dots in --data whose opacity encodes freshness, with a status
 // ring; the selected node uses --primary. The page pauses the loop when the tab is hidden, the canvas is off-screen, or
 // motion is reduced (then a single static frame is drawn).
 import type { CEdge, CNode } from './layout';

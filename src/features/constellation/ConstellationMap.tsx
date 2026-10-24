@@ -22,7 +22,7 @@ import { layout, neighbour, VIEW } from './layout';
 function cssColors() {
   const cs = getComputedStyle(document.documentElement);
   const v = (n: string) => cs.getPropertyValue(n).trim();
-  return { data: v('--data'), primary: v('--primary'), edge: v('--edge'), muted: v('--ink-muted'), hues: GROUP_HUES.map((_, i) => v(`--series-${i + 1}`)), bg: v('--field-1') };
+  return { data: v('--data'), primary: v('--primary'), edge: v('--edge'), muted: v('--ink-muted'), hues: GROUP_HUES.map((_, i) => v(`--group-${i + 1}`)), bg: v('--field-1') };
 }
 
 export function useReducedMotion(): boolean {

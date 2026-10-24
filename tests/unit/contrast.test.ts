@@ -3,7 +3,7 @@
 // and the CSS variables in src/styles/index.css must equal the token table in src/config/brand.ts.
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { CHART_PALETTES, COLORBLIND_OVERRIDES, CONTRAST_PAIRS, TOKENS } from '../../src/config/brand';
+import { CHART_PALETTES, COLORBLIND_OVERRIDES, CONTRAST_PAIRS, GROUP_COLORS, TOKENS } from '../../src/config/brand';
 
 function lum(hex: string): number {
   const n = hex.replace('#', '');
@@ -24,6 +24,9 @@ describe('token contrast (AA, 4.5:1 for text)', () => {
         for (const bg of ['field-1', 'pane', 'pane-2'] as const) expect(contrast(c, TOKENS[theme][bg])).toBeGreaterThanOrEqual(4.5);
     });
     it(`${theme}: text on the emergency button (on-primary on negative)`, () => expect(contrast(TOKENS[theme]['on-primary'], TOKENS[theme].negative)).toBeGreaterThanOrEqual(4.5));
+    it(`${theme}: category colours are legible as text (≥ 4.5:1) on page, pane and pane-2`, () => {
+      for (const c of GROUP_COLORS[theme]) for (const bg of ['field-1', 'pane', 'pane-2'] as const) expect(contrast(c, TOKENS[theme][bg]), `${c} on ${bg}`).toBeGreaterThanOrEqual(4.5);
+    });
     it(`${theme}: chart series ≥ 3:1 against panes (non-text, WCAG 1.4.11)`, () => {
       for (const c of CHART_PALETTES[theme]) expect(contrast(c, TOKENS[theme].pane)).toBeGreaterThanOrEqual(3);
     });

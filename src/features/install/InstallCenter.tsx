@@ -50,7 +50,7 @@ export function QrCode({ url, size = 132 }: { url: string; size?: number }) {
   const [src, setSrc] = useState<string | null>(null);
   useEffect(() => {
     let on = true;
-    // Always dark ink on light paper (Obligasi tokens) so phone cameras can scan it in either theme.
+    // Always dark ink on light paper (light theme tokens) so phone cameras can scan it in either theme.
     void import('qrcode').then((q) => q.toDataURL(url, { margin: 1, width: size * 2, color: { dark: TOKENS.light.ink, light: TOKENS.light.pane } })).then((s) => on && setSrc(s));
     return () => {
       on = false;

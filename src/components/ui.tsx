@@ -33,7 +33,7 @@ export function Card({ className, children, as: As = 'section', level = 1, ...re
   );
 }
 
-export function Chip({ children, active, onClick, className, title, shortcut }: { children: ReactNode; active?: boolean | undefined; onClick?: (() => void) | undefined; className?: string | undefined; title?: string | undefined; shortcut?: number | undefined }) {
+export function Chip({ children, active, onClick, className, title, shortcut, style }: { children: ReactNode; active?: boolean | undefined; onClick?: (() => void) | undefined; className?: string | undefined; title?: string | undefined; shortcut?: number | undefined; style?: Record<string, string> | undefined }) {
   return (
     <button
       type="button"
@@ -41,9 +41,10 @@ export function Chip({ children, active, onClick, className, title, shortcut }: 
       aria-pressed={active}
       aria-keyshortcuts={shortcut ? String(shortcut) : undefined}
       onClick={onClick}
+      style={style}
       className={clsx(
         'inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-1 text-left text-sm transition-colors duration-[120ms]',
-        active ? 'border-primary bg-pane-2 text-data' : 'border-edge bg-pane hover:bg-pane-2',
+        active ? 'border-primary bg-[color-mix(in_srgb,var(--primary)_10%,var(--pane))] font-medium text-ink' : 'border-edge bg-pane hover:bg-pane-2',
         className,
       )}
     >

@@ -1,5 +1,5 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Settings (§10.3 Obligasi/Brankas, §13.2): theme (system default), language, colour-blind mode, reduce motion,
+// Settings ("Spektrum" colours, §13.2): theme (system default), language, colour-blind mode, reduce motion,
 // high contrast, haptics, and deletion of on-device data.
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';

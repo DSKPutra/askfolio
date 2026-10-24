@@ -74,3 +74,8 @@
 - `npm run sbom:verify`: 156 pemeriksaan (skema CycloneDX 1.7, elemen minimum CISA 2026, cakupan lockfile, hash, VEX, kebocoran) — 0 gagal; sbomqs SBOM induk 9,0/10.
 - Dokumen B01–B05 (+ PDF) di `docs/compliance/sbom/`, `STANDARDS_REFERENCED.md`, `OPEN_ITEMS.md`, `INDEX.md`; halaman `/legal/sbom` & `/legal/security`; `SECURITY.md`; workflow `compliance.yml` (sbomqs, osv-scanner, grype, cosign keyless, attest-sbom, attest-build-provenance, unggah ke Release).
 - Belum: Paket A (A01–A13) dan Paket C (C01–C14), tanda tangan/atestasi nyata (menunggu tag rilis).
+
+## UI "Spektrum" (2026-10-24)
+- Benchmark Bibit, Stockbit, TradingView, Revolut → `docs/ui-review/benchmark.md`; tema Obligasi & Brankas diganti Spektrum (teal + oranye + indigo, 8 warna kategori).
+- Kartu Dex bergaris warna kategori dengan ikon bertinta, header Dex berpita kategori, chip & judul bagian bertitik warna, konstelasi dan ruangan Agent Room memakai warna kategori; splash/PWA/status bar `#F6F7F9`/`#0F1520`; Pengaturan: Terang/Gelap.
+- `ui:audit` 0 temuan (fallback literal di scene Agent Room diganti token), 923 test lulus, tangkapan sebelum/sesudah di `docs/ui-review/spektrum/`.

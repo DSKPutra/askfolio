@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAsOfLabel } from '../../components/badges';
 import { DexCard } from '../../components/DexCard';
 import { Chip, EmptyState } from '../../components/ui';
-import { GROUP_HUES } from '../../config/brand';
-import { DEX_GROUPS } from '../../config/dex-groups';
+import { DEX_GROUPS, groupStyle } from '../../config/dex-groups';
 import type { DexGroupId } from '../../config/dex-groups';
 import { visibleDex } from '../../config/dex-registry';
 import type { DexEntry } from '../../config/dex-registry';
@@ -67,7 +66,7 @@ export function FeatureMap({ state }: { state?: ReturnType<typeof useFeatureFilt
             {t('home.allCategories')}
           </Chip>
           {DEX_GROUPS.map((g) => (
-            <Chip key={g.id} active={group === g.id} onClick={() => setGroup(group === g.id ? null : g.id)} className="whitespace-nowrap">
+            <Chip key={g.id} active={group === g.id} onClick={() => setGroup(group === g.id ? null : g.id)} className="g-dot whitespace-nowrap" style={groupStyle(g.id)}>
               {g.name[locale]}
             </Chip>
           ))}
@@ -91,8 +90,8 @@ export function FeatureMap({ state }: { state?: ReturnType<typeof useFeatureFilt
         const items = shown.filter((d) => d.group === g.id).sort((a, b) => a.order - b.order);
         if (!items.length) return null;
         return (
-          <section key={g.id} className="mt-8 border-l-2 pl-4 [contain-intrinsic-size:auto_640px] [content-visibility:auto]" style={{ borderColor: GROUP_HUES[gi] }} aria-labelledby={`grp-${g.id}`}>
-            <h3 id={`grp-${g.id}`} className="font-display text-lg">
+          <section key={g.id} className="mt-8 [contain-intrinsic-size:auto_640px] [content-visibility:auto]" style={groupStyle(g.id)} aria-labelledby={`grp-${g.id}`} data-gi={gi}>
+            <h3 id={`grp-${g.id}`} className="g-dot font-display text-lg">
               {g.name[locale]}
             </h3>
             <p className="mb-3 text-sm text-ink-muted">{g.description[locale]}</p>

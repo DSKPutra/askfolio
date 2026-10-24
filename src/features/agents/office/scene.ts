@@ -3,13 +3,14 @@
 // its own desk with a monitor; the Conductor's round table is in the central corridor, the Guard at the lobby gate
 // (questions in, answers out), the Verifier at the end of the corridor with a stamp and a "removed claims" box.
 // Everything that moves is driven by real SSE events — never by a fake "busy" loop. Colours come from the active theme
-// tokens (Obligasi/Brankas) and are re-read when the theme changes. Rendering stops when the tab is hidden or the
+// tokens ("Spektrum" light/dark; rooms use the category colours) and are re-read when the theme changes. Rendering stops when the tab is hidden or the
 // canvas is off-screen; DPR ≤ 2 (≤ 1.5 on mobile); shadows off on mobile; reduced motion = static camera, no walking or
 // flying, state still visible on monitors, floor rings and labels.
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { OFFICE_ROOMS } from '../../../config/agents';
+import { GROUP_COLORS, TOKENS } from '../../../config/brand';
 import type { DexGroupId } from '../../../config/dex-groups';
 import type { AgentId, AgentPhase } from '../../../shared/agents';
 import type { SseEvent } from '../../../shared/chat-protocol';
@@ -24,7 +25,7 @@ function parseCss(c: string): Rgb {
     const [r, g, b, a] = m[1]!.split(',').map((x) => parseFloat(x));
     return { r: r! / 255, g: g! / 255, b: b! / 255, a: a ?? 1 };
   }
-  const col = new THREE.Color(s.startsWith('#') ? s : '#888888');
+  const col = new THREE.Color(s.startsWith('#') ? s : TOKENS.light['ink-muted']);
   return { r: col.r, g: col.g, b: col.b, a: 1 };
 }
 /** Blend a translucent token (e.g. --edge) over the page background into an opaque colour. */
@@ -37,10 +38,11 @@ function solid(c: string, over: string): THREE.Color {
 export function readPalette(el: HTMLElement = document.documentElement): Palette {
   const cs = getComputedStyle(el);
   const v = (n: string, d: string) => cs.getPropertyValue(n).trim() || d;
+  const t = TOKENS.light;
   return {
-    field: v('--field-1', '#EEF2EC'), pane: v('--pane', '#F8FAF6'), pane2: v('--pane-2', '#E3EBE2'), edge: v('--edge', 'rgba(20,58,40,0.16)'), ink: v('--ink', '#13261C'), muted: v('--ink-muted', '#4C6355'),
-    primary: v('--primary', '#1D6A44'), data: v('--data', '#1D6A44'), ai: v('--ai', '#256C7C'), flag: v('--flag', '#8A5A0E'), negative: v('--negative', '#A63B28'), quote: v('--quote', '#5A4630'),
-    series: Array.from({ length: 8 }, (_, i) => v(`--series-${i + 1}`, '#1D6A44')),
+    field: v('--field-1', t['field-1']), pane: v('--pane', t.pane), pane2: v('--pane-2', t['pane-2']), edge: v('--edge', t.edge), ink: v('--ink', t.ink), muted: v('--ink-muted', t['ink-muted']),
+    primary: v('--primary', t.primary), data: v('--data', t.data), ai: v('--ai', t.ai), flag: v('--flag', t.flag), negative: v('--negative', t.negative), quote: v('--quote', t.quote),
+    series: GROUP_COLORS.light.map((c, i) => v(`--group-${i + 1}`, c)),
   };
 }
 

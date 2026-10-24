@@ -95,3 +95,8 @@ export const DEX_GROUPS: readonly DexGroup[] = [
     },
   },
 ];
+
+/** CSS variable of a category colour (resolved per theme; order = DEX_GROUP_IDS). */
+export const groupColor = (id: DexGroupId): string => `var(--group-${DEX_GROUP_IDS.indexOf(id) + 1})`;
+/** Inline style that exposes the category colour as --g for the .g-* utilities in index.css. */
+export const groupStyle = (id: DexGroupId): Record<string, string> => ({ '--g': groupColor(id) });

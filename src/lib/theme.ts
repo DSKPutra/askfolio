@@ -6,7 +6,7 @@ import { THEME_COLOR, THEME_COLOR_DARK } from '../config/brand';
 import i18n from '../i18n';
 import { useApp } from './store';
 
-/** System preference; light "Obligasi" is the default when the system says nothing (THEME_RECOLOR_PROMPT §4.2). */
+/** System preference; the light theme is the default when the system says nothing (THEME_RECOLOR_PROMPT §4.2). */
 function systemDark(): boolean {
   return typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches === true;
 }
