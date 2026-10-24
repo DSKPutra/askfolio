@@ -15,6 +15,7 @@ import { useManifest } from '../../lib/data';
 import { useLocale } from '../../lib/locale';
 import { useApp } from '../../lib/store';
 import { normaliseKey } from '../../shared/text';
+import { DexName } from '../../components/DexName';
 
 export function filterDex(list: DexEntry[], o: { q: string; group: DexGroupId | null; indonesia: boolean; hideNc: boolean }): DexEntry[] {
   const k = normaliseKey(o.q);
@@ -23,7 +24,7 @@ export function filterDex(list: DexEntry[], o: { q: string; group: DexGroupId | 
       (!o.group || d.group === o.group) &&
       (!o.indonesia || d.indonesia) &&
       (!o.hideNc || d.commercialUseAllowed !== false) &&
-      (!k || normaliseKey([d.name, d.tagline.id, d.tagline.en, ...d.keywords].join(' ')).includes(k)),
+      (!k || normaliseKey([d.name, d.nameEn, d.legacyName, d.tagline.id, d.tagline.en, ...d.keywords].join(' ')).includes(k)),
   );
 }
 
@@ -118,7 +119,7 @@ export function AsOfStrip() {
       <span className="shrink-0 text-xs font-semibold text-ink-muted">{t('home.asOfStrip')}:</span>
       {dex.map((d) => (
         <span key={d.id} className="shrink-0 whitespace-nowrap rounded-full border border-edge px-2 py-0.5 text-xs text-ink-muted">
-          {d.name} <span className="text-data">{fmt(m.data?.dex[d.id]?.as_of ?? d.asOf)}</span>
+          <DexName dex={d} /> <span className="text-data">{fmt(m.data?.dex[d.id]?.as_of ?? d.asOf)}</span>
         </span>
       ))}
     </section>

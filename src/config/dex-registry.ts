@@ -45,7 +45,11 @@ export type DexStatus = 'live' | 'partial' | 'pending-data';
 
 export type DexEntry = {
   id: DexId;
+  /** Display name (Indonesian) — plain feature names since the Askfolio rebrand (docs/DECISIONS.md 2026-10-25). */
   name: string;
+  nameEn: string;
+  /** Former "…Dex" name, kept for search and for old links/answers that still mention it. */
+  legacyName: string;
   group: DexGroupId;
   order: number;
   tagline: Bilingual;
@@ -98,7 +102,9 @@ const UNKNOWN: Pick<DexEntry, 'license' | 'commercialUseAllowed'> = {
 export const DEX_REGISTRY: readonly DexEntry[] = [
   {
     id: 'finandex-ai',
-    name: 'Finandex AI',
+    name: 'Pasar Global',
+    nameEn: 'Global Markets',
+    legacyName: 'Finandex AI',
     group: 'global-markets',
     order: 1,
     tagline: {
@@ -122,7 +128,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'nasdaqdex',
-    name: 'NASDAQDex',
+    name: 'Saham Teknologi AS',
+    nameEn: 'US Tech Stocks',
+    legacyName: 'NASDAQDex',
     group: 'global-markets',
     order: 2,
     tagline: { id: '500 saham NASDAQ, 1962–2026', en: '500 NASDAQ stocks, 1962–2026' },
@@ -143,7 +151,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'snp500dex',
-    name: 'SnP500Dex',
+    name: '500 Saham Besar AS',
+    nameEn: 'US Large-Cap 500',
+    legacyName: 'SnP500Dex',
     group: 'global-markets',
     order: 3,
     tagline: {
@@ -167,7 +177,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'commercedex',
-    name: 'CommerceDex',
+    name: 'Raksasa E-Commerce',
+    nameEn: 'E-Commerce Giants',
+    legacyName: 'CommerceDex',
     group: 'global-markets',
     order: 4,
     tagline: {
@@ -192,7 +204,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'ipodex',
-    name: 'IPODex',
+    name: 'IPO Global',
+    nameEn: 'Global IPOs',
+    legacyName: 'IPODex',
     group: 'global-markets',
     order: 5,
     tagline: {
@@ -216,7 +230,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'idfinandex',
-    name: 'IDFinanDex',
+    name: 'Ekonomi Indonesia',
+    nameEn: 'Indonesian Economy',
+    legacyName: 'IDFinanDex',
     group: 'indonesia-markets',
     order: 6,
     tagline: {
@@ -240,7 +256,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'rupiahdex',
-    name: 'RupiahDex',
+    name: 'Kurs Rupiah',
+    nameEn: 'Rupiah Exchange Rate',
+    legacyName: 'RupiahDex',
     group: 'indonesia-markets',
     order: 7,
     tagline: { id: 'Kurs USD/IDR harian sejak 2001', en: 'Daily USD/IDR exchange rate since 2001' },
@@ -260,7 +278,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'idxdex',
-    name: 'IDXDex',
+    name: 'Saham Indonesia',
+    nameEn: 'Indonesian Stocks',
+    legacyName: 'IDXDex',
     group: 'indonesia-markets',
     order: 8,
     tagline: {
@@ -283,7 +303,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'reksadex',
-    name: 'ReksaDex',
+    name: 'Reksa Dana',
+    nameEn: 'Mutual Funds',
+    legacyName: 'ReksaDex',
     group: 'indonesia-markets',
     order: 9,
     tagline: {
@@ -307,7 +329,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'cryptdex',
-    name: 'CryptDex',
+    name: 'Kripto & DeFi',
+    nameEn: 'Crypto & DeFi',
+    legacyName: 'CryptDex',
     group: 'crypto-macro',
     order: 10,
     tagline: {
@@ -333,7 +357,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'centralbankdex',
-    name: 'CentralBankDex',
+    name: 'Bank Sentral Dunia',
+    nameEn: 'Central Banks',
+    legacyName: 'CentralBankDex',
     group: 'crypto-macro',
     order: 11,
     tagline: {
@@ -357,7 +383,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'inflationdex',
-    name: 'InflationDex',
+    name: 'Inflasi Dunia',
+    nameEn: 'Global Inflation',
+    legacyName: 'InflationDex',
     group: 'crypto-macro',
     order: 12,
     tagline: {
@@ -380,7 +408,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'startupdex',
-    name: 'StartupDex',
+    name: 'Pendanaan Startup',
+    nameEn: 'Startup Funding',
+    legacyName: 'StartupDex',
     group: 'startup-business',
     order: 13,
     tagline: {
@@ -405,7 +435,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'vcdex',
-    name: 'VCDex',
+    name: 'Direktori Investor',
+    nameEn: 'Investor Directory',
+    legacyName: 'VCDex',
     group: 'startup-business',
     order: 14,
     tagline: { id: 'Direktori investor startup 2026', en: 'Startup investor directory 2026' },
@@ -426,7 +458,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'vcnetworkdex',
-    name: 'VCNetworkDex',
+    name: 'Jaringan Investor',
+    nameEn: 'Investor Network',
+    legacyName: 'VCNetworkDex',
     group: 'startup-business',
     order: 15,
     tagline: {
@@ -449,7 +483,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'opencompanydex',
-    name: 'OpenCompanyDex',
+    name: 'Data Perusahaan',
+    nameEn: 'Company Data',
+    legacyName: 'OpenCompanyDex',
     group: 'startup-business',
     order: 16,
     tagline: {
@@ -473,7 +509,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'salarydex',
-    name: 'SalaryDex',
+    name: 'Gaji Global',
+    nameEn: 'Global Salaries',
+    legacyName: 'SalaryDex',
     group: 'living-work',
     order: 17,
     tagline: {
@@ -497,7 +535,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'costlivingdex',
-    name: 'CostLivingDex',
+    name: 'Biaya Hidup Kota',
+    nameEn: 'City Cost of Living',
+    legacyName: 'CostLivingDex',
     group: 'living-work',
     order: 18,
     tagline: {
@@ -520,7 +560,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'idhousingdex',
-    name: 'IDHousingDex',
+    name: 'Rumah Subsidi',
+    nameEn: 'Affordable Housing',
+    legacyName: 'IDHousingDex',
     group: 'living-work',
     order: 19,
     tagline: {
@@ -544,7 +586,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'idfooddeliverydex',
-    name: 'IDFoodDeliveryDex',
+    name: 'Harga Pesan-Antar Makanan',
+    nameEn: 'Food Delivery Prices',
+    legacyName: 'IDFoodDeliveryDex',
     group: 'living-work',
     order: 20,
     tagline: {
@@ -568,7 +612,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'povertydex',
-    name: 'PovertyDex',
+    name: 'Kemiskinan Multidimensi',
+    nameEn: 'Multidimensional Poverty',
+    legacyName: 'PovertyDex',
     group: 'social-development',
     order: 21,
     tagline: {
@@ -591,7 +637,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'populationdex',
-    name: 'PopulationDex',
+    name: 'Berita Kependudukan',
+    nameEn: 'Population News',
+    legacyName: 'PopulationDex',
     group: 'social-development',
     order: 22,
     tagline: {
@@ -609,7 +657,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'homelessnessdex',
-    name: 'HomelessnessDex',
+    name: 'Berita Tunawisma',
+    nameEn: 'Homelessness News',
+    legacyName: 'HomelessnessDex',
     group: 'social-development',
     order: 23,
     tagline: {
@@ -627,7 +677,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'housingdex',
-    name: 'HousingDex',
+    name: 'Berita Perumahan',
+    nameEn: 'Housing News',
+    legacyName: 'HousingDex',
     group: 'social-development',
     order: 24,
     tagline: {
@@ -645,7 +697,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'fintechdex',
-    name: 'FintechDex',
+    name: 'Ulasan Aplikasi Fintech',
+    nameEn: 'Fintech App Reviews',
+    legacyName: 'FintechDex',
     group: 'sentiment-personal',
     order: 25,
     tagline: {
@@ -668,7 +722,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'personalfinandex',
-    name: 'PersonalFinanDex',
+    name: 'Diskusi Keuangan Pribadi',
+    nameEn: 'Personal Finance Talk',
+    legacyName: 'PersonalFinanDex',
     group: 'sentiment-personal',
     order: 26,
     tagline: {
@@ -691,7 +747,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'mylaiwyer',
-    name: 'My LAIwyer',
+    name: 'Tanya Hukum Umum',
+    nameEn: 'General Law Q&A',
+    legacyName: 'My LAIwyer',
     group: 'law',
     order: 27,
     tagline: {
@@ -722,7 +780,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'finlaiwyer',
-    name: 'FinLAIwyer',
+    name: 'Tanya Hak Keuangan',
+    nameEn: 'Financial Rights Q&A',
+    legacyName: 'FinLAIwyer',
     group: 'law',
     order: 28,
     tagline: {
@@ -737,8 +797,8 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     license: 'official-text',
     commercialUseAllowed: true,
     licenseNote: {
-      id: 'Teks peraturan dari situs resmi (UU 28/2014 Pasal 42); katalog & alur karya Finandex.',
-      en: 'Regulation texts from official sites (Law 28/2014 Art. 42); catalogue & flows by Finandex.',
+      id: 'Teks peraturan dari situs resmi (UU 28/2014 Pasal 42); katalog & alur karya Askfolio.',
+      en: 'Regulation texts from official sites (Law 28/2014 Art. 42); catalogue & flows by Askfolio.',
     },
     tabs: withChatAndData(
       tab('guided', 'Konsultasi Terpandu', 'Guided Consultation'),
@@ -754,7 +814,9 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
   },
   {
     id: 'antiscamdex',
-    name: 'AntiScamDex',
+    name: 'Lawan Penipuan',
+    nameEn: 'Fight Scams',
+    legacyName: 'AntiScamDex',
     group: 'law',
     order: 29,
     tagline: {
@@ -768,8 +830,8 @@ export const DEX_REGISTRY: readonly DexEntry[] = [
     license: 'public-info',
     commercialUseAllowed: true,
     licenseNote: {
-      id: 'Ringkasan karya Finandex atas informasi publik (setiap fakta beratribusi); tanpa logo lembaga.',
-      en: 'Finandex summary of public information (every fact attributed); no institutional logos.',
+      id: 'Ringkasan karya Askfolio atas informasi publik (setiap fakta beratribusi); tanpa logo lembaga.',
+      en: 'Askfolio summary of public information (every fact attributed); no institutional logos.',
     },
     tabs: withChatAndData(
       tab('emergency', 'Baru Kena Scam', 'Just Scammed'),
@@ -801,3 +863,11 @@ export function getDex(id: string): DexEntry | undefined {
 export function isDexId(id: string): id is DexId {
   return BY_ID.has(id);
 }
+
+/** Display name of a Dex in the UI language. */
+export const dexName = (d: Pick<DexEntry, 'name' | 'nameEn'>, locale: 'id' | 'en'): string => (locale === 'id' ? d.name : d.nameEn);
+
+/** Name used when an answer points to another topic: the new name plus the former one while people still know it,
+ *  e.g. "Kurs Rupiah (sebelumnya RupiahDex)". */
+export const dexRefName = (d: Pick<DexEntry, 'name' | 'nameEn' | 'legacyName'>, locale: 'id' | 'en'): string =>
+  d.legacyName === d.name ? dexName(d, locale) : `${dexName(d, locale)} (${locale === 'id' ? 'sebelumnya' : 'formerly'} ${d.legacyName})`;

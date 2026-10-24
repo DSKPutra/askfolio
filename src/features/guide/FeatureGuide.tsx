@@ -14,6 +14,7 @@ import { getDex } from '../../config/dex-registry';
 import { useJson } from '../../lib/data';
 import { useLocale } from '../../lib/locale';
 import { useApp } from '../../lib/store';
+import { DexName } from '../../components/DexName';
 
 export type GuideDex = { id: string; name: string; group: string; purpose: string; ask_examples: string[]; functions: { tab: string; what: string }[]; limitations: string; data_as_of: string; related: string[] };
 export type Guide = { app: { name: string; creator: string; dex_count: number; app_functions: { name: string; what: string }[] }; dex: GuideDex[] };
@@ -101,7 +102,7 @@ export function FeatureGuideButton({ dex }: { dex: DexEntry }) {
         <Dialog.Content className="pane fixed inset-x-0 bottom-0 z-50 max-h-[85dvh] overflow-y-auto rounded-b-none p-5 md:inset-y-0 md:left-auto md:right-0 md:max-h-none md:w-[30rem] md:rounded-none" aria-describedby={undefined}>
           <div className="mb-3 flex items-center justify-between gap-2">
             <Dialog.Title className="font-display text-lg">
-              {t('guide.about')} · {dex.name}
+              {t('guide.about')} · <DexName dex={dex} />
             </Dialog.Title>
             <Dialog.Close asChild>
               <Button size="sm">{t('dex.close')}</Button>
@@ -183,7 +184,7 @@ export function GuidePage() {
                   <details key={g.id} className="pane p-4">
                     <summary className="flex min-h-11 cursor-pointer items-center gap-3">
                       <img src={`/icons/${d.icon}.svg`} alt="" width={32} height={32} className="rounded-xl" />
-                      <span className="font-medium">{d.name}</span>
+                      <span className="font-medium"><DexName dex={d} /></span>
                     </summary>
                     <div className="mt-3">
                       <GuideBody g={g} dex={d} />
