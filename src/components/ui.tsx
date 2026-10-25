@@ -9,7 +9,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { ref?: Ref<HTMLBut
 
 export function buttonClass(variant: ButtonProps['variant'] = 'outline', size: ButtonProps['size'] = 'md', className?: string): string {
   return clsx(
-    'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-[background-color,border-color,filter] duration-[120ms] ease-out disabled:cursor-not-allowed disabled:opacity-50',
+    'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-[background-color,border-color,filter] duration-[120ms] ease-out disabled:cursor-not-allowed disabled:opacity-50',
     size === 'sm' ? 'min-h-11 px-3 text-sm' : size === 'lg' ? 'min-h-14 px-5 text-base' : 'min-h-11 px-4 text-sm',
     variant === 'primary' && 'bg-primary text-on-primary hover:brightness-110 active:brightness-95',
     variant === 'emergency' && 'bg-negative text-on-primary hover:brightness-110 active:brightness-95',

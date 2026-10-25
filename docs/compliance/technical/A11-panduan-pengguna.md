@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A11 |
 | Judul | Informasi untuk pengguna (ID & EN) |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -24,7 +24,7 @@
 | 0.1.0 | 2026-10-25 | Versi pertama, dibangkitkan dari sumber kebenaran repo. |
 
 ## 1. Memulai · Getting started
-Buka https://finandex.vercel.app. Tanpa akun. Beranda menampilkan Index Constellation: setiap bintang adalah satu Dex. — *No account needed. The home page shows the Index Constellation: each star is one Dex.*
+Buka https://askfolio-id.vercel.app. Tanpa akun. Beranda menampilkan Index Constellation: setiap bintang adalah satu Dex. — *No account needed. The home page shows the Index Constellation: each star is one Dex.*
 
 ## 2. Setiap Dex · Every Dex
 ### Pasar Global

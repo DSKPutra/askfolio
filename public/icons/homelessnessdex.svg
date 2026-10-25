@@ -2,7 +2,7 @@
   <title>HomelessnessDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#97239F"/><stop offset="1" stop-color="#4A044E"/>
+      <stop offset="0" stop-color="#E57BEA"/><stop offset="1" stop-color="#B845C2"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -18,5 +18,5 @@
 
   <rect x="140" y="152" width="232" height="214" rx="18" fill="none" stroke="#FFFFFF" stroke-width="20"/>
   <g fill="#FFFFFF"><rect x="170" y="186" width="172" height="16" rx="8"/><rect x="170" y="218" width="120" height="12" rx="6" fill-opacity="0.6"/></g>
-  <path d="M256 338 C256 338 196 300 196 268 C196 250 210 238 226 238 C240 238 250 246 256 256 C262 246 272 238 286 238 C302 238 316 250 316 268 C316 300 256 338 256 338 Z" fill="#F5D0FE"/>
+  <path d="M256 338 C256 338 196 300 196 268 C196 250 210 238 226 238 C240 238 250 246 256 256 C262 246 272 238 286 238 C302 238 316 250 316 268 C316 300 256 338 256 338 Z" fill="#FFFFFF"/>
 </svg>

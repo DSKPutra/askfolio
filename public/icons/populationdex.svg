@@ -2,7 +2,7 @@
   <title>PopulationDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#97239F"/><stop offset="1" stop-color="#4A044E"/>
+      <stop offset="0" stop-color="#E57BEA"/><stop offset="1" stop-color="#B845C2"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -18,6 +18,6 @@
 
   <circle cx="256" cy="176" r="40" fill="#FFFFFF"/><path d="M188 312 C188 262 220 236 256 236 C292 236 324 262 324 312 Z" fill="#FFFFFF"/>
   <circle cx="154" cy="214" r="30" fill="#FFFFFF" fill-opacity="0.75"/><path d="M104 324 C104 284 126 264 154 264 C182 264 204 284 204 324 Z" fill="#FFFFFF" fill-opacity="0.75"/>
-  <circle cx="358" cy="214" r="30" fill="#F5D0FE"/><path d="M308 324 C308 284 330 264 358 264 C386 264 408 284 408 324 Z" fill="#F5D0FE"/>
+  <circle cx="358" cy="214" r="30" fill="#FFFFFF"/><path d="M308 324 C308 284 330 264 358 264 C386 264 408 284 408 324 Z" fill="#FFFFFF"/>
   <rect x="112" y="356" width="288" height="14" rx="7" fill="#FFFFFF" fill-opacity="0.35"/>
 </svg>

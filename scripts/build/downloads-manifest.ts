@@ -5,7 +5,7 @@
 import { execFileSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
-const REPO = process.env.GITHUB_REPOSITORY ?? 'DSKPutra/finandex';
+const REPO = process.env.GITHUB_REPOSITORY ?? 'DSKPutra/askfolio';
 type Asset = { name: string; size: number; url: string };
 type Rel = { tagName: string; publishedAt: string; assets: Asset[] };
 const gh = (args: string[]) => execFileSync('gh', args, { encoding: 'utf8' });

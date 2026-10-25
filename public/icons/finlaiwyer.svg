@@ -2,7 +2,7 @@
   <title>FinLAIwyer</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#45526A"/><stop offset="1" stop-color="#0F172A"/>
+      <stop offset="0" stop-color="#8EA0BC"/><stop offset="1" stop-color="#5F7191"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -17,10 +17,10 @@
   <rect x="2" y="2" width="508" height="508" rx="114" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="2"/>
 
   <polygon points="256,112 396,196 116,196" fill="#FFFFFF"/>
-  <circle cx="256" cy="166" r="20" fill="#E2E8F0"/>
+  <circle cx="256" cy="166" r="20" fill="#FFFFFF"/>
   <rect x="128" y="208" width="256" height="18" rx="6" fill="#FFFFFF"/>
   <g fill="#FFFFFF"><rect x="146" y="238" width="34" height="104" rx="6"/><rect x="212" y="238" width="34" height="104" rx="6"/><rect x="266" y="238" width="34" height="104" rx="6"/><rect x="332" y="238" width="34" height="104" rx="6"/></g>
   <rect x="120" y="354" width="272" height="20" rx="6" fill="#FFFFFF"/>
-  <rect x="104" y="382" width="304" height="16" rx="8" fill="#E2E8F0"/>
+  <rect x="104" y="382" width="304" height="16" rx="8" fill="#FFFFFF"/>
   <path d="M372 96 l7 17 17 7 -17 7 -7 17 -7 -17 -17 -7 17 -7 Z" fill="#FFFFFF"/>
 </svg>

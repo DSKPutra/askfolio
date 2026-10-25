@@ -16,12 +16,9 @@ if (!missing.length) {
   console.log('data:fetch — all inputs present locally, nothing to download.');
   process.exit(0);
 }
-const repo = process.env.GITHUB_REPOSITORY ?? process.env.DATA_INPUTS_REPO;
+// Inputs are published as a release of the public DSKPutra/finandex repository (shared with Askfolio).
+const repo = process.env.DATA_INPUTS_REPO ?? 'DSKPutra/finandex';
 const tag = process.env.DATA_INPUTS_RELEASE_TAG ?? 'data-inputs-v1';
-if (!repo) {
-  console.error('data:fetch — inputs missing and GITHUB_REPOSITORY/DATA_INPUTS_REPO is not set.');
-  process.exit(1);
-}
 const headers: Record<string, string> = { Accept: 'application/vnd.github+json', 'User-Agent': 'finandex-etl' };
 if (process.env.GH_RELEASE_TOKEN) headers.Authorization = `Bearer ${process.env.GH_RELEASE_TOKEN}`;
 const rel = await fetch(`https://api.github.com/repos/${repo}/releases/tags/${tag}`, { headers });

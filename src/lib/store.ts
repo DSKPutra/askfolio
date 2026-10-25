@@ -56,7 +56,7 @@ const uuid = () => (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? cr
 export const useApp = create<State>()(
   persist(
     (set, get) => ({
-      theme: 'system',
+      theme: 'light',
       locale: deviceLocale(),
       colorblind: false,
       hideNc: false,

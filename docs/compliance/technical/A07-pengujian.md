@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A07 |
 | Judul | Dokumentasi pengujian |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -38,8 +38,8 @@
 ## 2. Laporan penyelesaian uji (artefak CI terakhir)
 | Ukuran | Nilai |
 |---|---|
-| Tes Vitest | 909 lulus / 909 (0 gagal) |
-| Eval chat (mock) | 161/161 lulus; keamanan 27/27 |
+| Tes Vitest | belum diukur |
+| Eval chat (mock) | belum diukur |
 | Eval routing agen | 67 butir, presisi 100 %, recall 100 % |
 | Eval keahlian agen | 534 butir, 100 % lulus |
 | Audit UI | 0 temuan di 132 file |

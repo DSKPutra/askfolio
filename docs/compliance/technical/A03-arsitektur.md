@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A03 |
 | Judul | Deskripsi arsitektur |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -51,7 +51,7 @@ flowchart LR
 ## 4. View deployment
 | Target | Bukti | Status |
 |---|---|---|
-| Vercel (produksi) | `vercel.json`; https://finandex.vercel.app | aktif |
+| Vercel (produksi) | `vercel.json`; https://askfolio-id.vercel.app | aktif |
 | Netlify (cadangan) | `netlify.toml` | dikonfigurasi |
 | Android / iOS (Capacitor) | `capacitor.config.ts` | proyek Android ada; proyek iOS ada |
 | Desktop (Tauri) | `src-tauri/tauri.conf.json` | ada |
@@ -165,3 +165,5 @@ Lihat A10. Model dipilih lewat env (`ANTHROPIC_MODEL`, `ANTHROPIC_MODEL_FAST`); 
 | 2026-10-25 | "Spektrum" v2: tanpa hijau (umpan balik pemilik: "semua hijau, bikin mata sakit"). Primary indigo #4338CA / #A5B4FC, aksen amber, AI violet, data biru, latar netral lembut, mode gelap biru-malam (#161827, tanpa hitam pekat & tanpa neon); hijau hanya untuk angka naik. 30 ikon Dex + logo dibangkitkan ulang (`npm run icons:generate`) dengan kotak warna kategori, glyph putih, aksen pastel, tanpa glow; node konstelasi berwarna kategori. Service worker kini aktif otomatis + halaman memuat ulang sendiri, karena versi lama yang ter-cache membuat pengunjung tidak pernah melihat tampilan baru · teal masih terbaca hijau; banner "Reload" jarang diklik. |
 | 2026-10-25 | Arah produk: **asisten AI investasi untuk investor ritel Indonesia** dengan angka terverifikasi (anti-scam & hukum menjadi fitur pendukung). Merek baru **Askfolio** (askfolio.com tersedia per cek GoDaddy 2026-10-25; cek merek PDKI belum). Nama tampilan topik deskriptif (Kurs Rupiah, Saham Indonesia, Reksa Dana, …) menggantikan "…Dex": "DEX" berarti bursa kripto terdesentralisasi, tiga nama memakai merek pihak lain (Nasdaq, S&P 500, IDX), "LAIwyer" terbaca sebagai advokat. ID internal, nama berkas ikon, bundle ID, skema `finandex://` dan domain tetap (tidak memutus pemasangan/tautan lama); `legacyName` dipakai untuk pencarian dan dalam rujukan jawaban ("Kurs Rupiah (sebelumnya RupiahDex)") selama transisi. Teks kit tetap byte-identik; `src/shared/rebrand.ts` memetakan nama saat build · permintaan pemilik · mengganti ID internal (merusak data, golden, tautan). |
 | 2026-10-25 | Beranda = kotak tanya + profil risiko + pintasan kelas aset; konstelasi & peta fitur pindah ke `/data`; menu bawah Beranda · Profil · Tanya · Data · Lainnya. Profil risiko: 8 pertanyaan (4 kemauan, 4 kemampuan), profil = yang lebih rendah; hanya kelas aset (tanpa produk/penerbit), penafian OJK, jawaban hanya di perangkat · menghindari rekomendasi investasi personal yang memerlukan izin · robo-advisor dengan alokasi persentase/produk. |
+| 2026-10-25 | Askfolio dipisah dari Finandex: repo `DSKPutra/askfolio`, proyek Vercel `askfolio-id` (askfolio.vercel.app sudah dipakai pihak lain); repo & domain finandex kembali ke versi Finandex (commit pembalik 877a0d6). Dataset tetap diunduh dari rilis repo publik `DSKPutra/finandex` (`DATA_INPUTS_REPO`) · permintaan pemilik · menyalin rilis data ke repo baru (duplikasi 1+ GB). |
+| 2026-10-25 | Desain "Cerah" Askfolio (umpan balik: lebih sederhana, cerah, ramah): mode terang bawaan, latar biru-putih, biru merek #2158E8, aksen oranye, ungu untuk AI; satu keluarga huruf (IBM Plex Sans, Unbounded dihapus), tombol pil; menu samping 5 tujuan berlabel (tanpa pohon kategori), tanpa chip "Data per" di bilah atas; beranda: tanya + profil risiko + 4 kelas aset + satu baris perlindungan; ikon kotak cerah warna kategori · kesederhanaan & keterbacaan untuk investor ritel · mempertahankan konstelasi di beranda. |

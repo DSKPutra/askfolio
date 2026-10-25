@@ -23,7 +23,8 @@
     "guide": "Panduan fitur",
     "install": "Pasang aplikasi",
     "profile": "Profil",
-    "data": "Data"
+    "data": "Data",
+    "ask": "Tanya"
   },
   "home": {
     "askPlaceholder": "Tanya Askfolio…",

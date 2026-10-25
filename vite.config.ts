@@ -18,7 +18,7 @@ function coreDataEntries(): { url: string; revision: string }[] {
   return [...out].map(([url, revision]) => ({ url, revision }));
 }
 
-/** Preloads the two above-the-fold font files (IBM Plex Sans 400 latin, Unbounded 600 latin) to cut LCP. */
+/** Preloads the two above-the-fold font files (IBM Plex Sans 400 + 600 latin) to cut LCP. */
 function preloadFonts(): Plugin {
   return {
     name: 'finandex-preload-fonts',
@@ -26,7 +26,7 @@ function preloadFonts(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(_html, ctx) {
-        const files = Object.keys(ctx.bundle ?? {}).filter((f) => /(ibm-plex-sans-latin-400-normal|unbounded-latin-600-normal)-[\w-]+\.woff2$/.test(f));
+        const files = Object.keys(ctx.bundle ?? {}).filter((f) => /(ibm-plex-sans-latin-400-normal|ibm-plex-sans-latin-600-normal)-[\w-]+\.woff2$/.test(f));
         return files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', href: `/${f}`, as: 'font', type: 'font/woff2', crossorigin: '' }, injectTo: 'head' as const }));
       },
     },
@@ -96,8 +96,8 @@ export default defineConfig({
         short_name: 'Askfolio',
         description: 'Askfolio — asisten AI investasi dengan angka terverifikasi. © 2026 Dea Saka Kurnia Putra.',
         lang: 'id',
-        theme_color: '#F7F7FA',
-        background_color: '#F7F7FA',
+        theme_color: '#F6F9FF',
+        background_color: '#F6F9FF',
         display: 'standalone',
         start_url: '/',
         scope: '/',

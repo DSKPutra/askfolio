@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B05 |
 | Judul | AI-BOM (SBOM untuk sistem AI) |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Publik |

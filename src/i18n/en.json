@@ -23,7 +23,8 @@
     "guide": "Feature guide",
     "install": "Install the app",
     "profile": "Profile",
-    "data": "Data"
+    "data": "Data",
+    "ask": "Ask"
   },
   "home": {
     "askPlaceholder": "Ask Askfolio…",

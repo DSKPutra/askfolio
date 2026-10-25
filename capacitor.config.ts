@@ -8,10 +8,10 @@ const config: CapacitorConfig = {
   appName: 'Askfolio',
   webDir: 'dist',
   server: { androidScheme: 'https' },
-  backgroundColor: '#F7F7FA',
+  backgroundColor: '#F6F9FF',
   plugins: {
-    SplashScreen: { launchShowDuration: 1200, launchAutoHide: false, backgroundColor: '#F7F7FA', showSpinner: false, androidScaleType: 'CENTER_CROP' },
-    StatusBar: { style: 'LIGHT', backgroundColor: '#F7F7FA', overlaysWebView: false },
+    SplashScreen: { launchShowDuration: 1200, launchAutoHide: false, backgroundColor: '#F6F9FF', showSpinner: false, androidScaleType: 'CENTER_CROP' },
+    StatusBar: { style: 'LIGHT', backgroundColor: '#F6F9FF', overlaysWebView: false },
     Keyboard: { resize: 'body', resizeOnFullScreen: true },
   },
   ios: { contentInset: 'automatic' },

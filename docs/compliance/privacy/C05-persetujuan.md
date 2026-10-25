@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C05 |
 | Judul | Spesifikasi persetujuan & pemberitahuan |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -27,11 +27,11 @@ Rujukan: UU PDP Pasal 20 ✓; UU PDP Pasal 9 ✓.
 
 | Syarat | Implementasi | Bukti |
 |---|---|---|
-| Eksplisit & spesifik | dialog khusus chat sebelum pesan pertama | `src/components/ConsentDialog.tsx @ fd1db6c` |
+| Eksplisit & spesifik | dialog khusus chat sebelum pesan pertama | `src/components/ConsentDialog.tsx @ d5961b2` |
 | Tidak digabung dengan syarat & ketentuan | dialog persetujuan terpisah dari halaman Ketentuan | `src/content/legal.ts` (PRIVACY vs TERMS) |
 | Layanan tetap tersedia tanpa persetujuan | Dex, grafik, statistik dapat dipakai tanpa chat | `src/features/dex/` |
-| Penarikan persetujuan | Pengaturan → reset semua menghapus consentVersion dan clientId | `src/lib/store.ts#L40 @ fd1db6c` |
-| Bukti persetujuan | versi kebijakan disimpan di perangkat (`consentVersion` = `2026-10-25`); server tidak mencatat persetujuan | `src/lib/store.ts#L39 @ fd1db6c` |
-| Re-consent | bila POLICY_VERSION berubah, dialog muncul lagi | `src/components/ConsentDialog.tsx#L6 @ fd1db6c` |
+| Penarikan persetujuan | Pengaturan → reset semua menghapus consentVersion dan clientId | `src/lib/store.ts#L40 @ d5961b2` |
+| Bukti persetujuan | versi kebijakan disimpan di perangkat (`consentVersion` = `2026-10-25`); server tidak mencatat persetujuan | `src/lib/store.ts#L39 @ d5961b2` |
+| Re-consent | bila POLICY_VERSION berubah, dialog muncul lagi | `src/components/ConsentDialog.tsx#L6 @ d5961b2` |
 
 Catatan: bukti persetujuan hanya di perangkat (data minimum). Bila PP 33/2026 Pasal 36 mensyaratkan bukti di sisi pengendali, rancangan tambahan: catat `(POLICY_VERSION, waktu, hash clientId)` di server — [KONFIRMASI] setelah teks resmi diverifikasi.

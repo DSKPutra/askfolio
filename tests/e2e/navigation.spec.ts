@@ -48,10 +48,10 @@ test('light theme applies tokens', async ({ page }) => {
   await page.getByRole('radio', { name: 'Terang', exact: true }).check();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  expect(bg).toBe('rgb(247, 247, 250)'); // Spektrum --field-1 #F7F7FA
+  expect(bg).toBe('rgb(246, 249, 255)'); // Askfolio --field-1 #F6F9FF
 });
 
-test('navigation: sidebar on desktop, bottom tabs on mobile', async ({ page }) => {
+test('navigation: side menu on desktop, bottom tabs on mobile', async ({ page }) => {
   await page.goto('/');
   if (isMobile(page)) {
     await page.getByRole('link', { name: 'Data', exact: true }).click();
@@ -59,7 +59,9 @@ test('navigation: sidebar on desktop, bottom tabs on mobile', async ({ page }) =
     await page.getByRole('link', { name: 'Lainnya' }).click();
     await expect(page.getByRole('heading', { name: 'Lainnya' })).toBeVisible();
   } else {
-    await page.getByRole('link', { name: 'Kurs Rupiah' }).first().click();
+    await page.getByRole('navigation', { name: 'Orbit Rail' }).getByRole('link', { name: 'Data' }).click();
+    await expect(page).toHaveURL(/\/data$/);
+    await page.getByRole('link', { name: /Kurs Rupiah/ }).first().click();
     await expect(page.getByRole('heading', { level: 1, name: 'Kurs Rupiah' })).toBeVisible();
   }
 });

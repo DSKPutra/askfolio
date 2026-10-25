@@ -2,7 +2,7 @@
   <title>RupiahDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#B4471A"/><stop offset="1" stop-color="#4A1608"/>
+      <stop offset="0" stop-color="#FF9A57"/><stop offset="1" stop-color="#E2621F"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -21,7 +21,7 @@
   <polygon points="200,268 254,268 294,350 238,350" fill="#FFFFFF"/>
   <rect x="312" y="214" width="46" height="176" fill="#FFFFFF"/>
   <path fill-rule="evenodd" fill="#FFFFFF" d="M358 214 H364 A56 56 0 0 1 364 326 H358 Z M358 252 H362 A18 18 0 0 1 362 288 H358 Z"/>
-  <g stroke="#FED7AA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <g stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <path d="M136 414 H376"/><path d="M158 392 L136 414 L158 436"/><path d="M354 392 L376 414 L354 436"/>
   </g>
 </svg>

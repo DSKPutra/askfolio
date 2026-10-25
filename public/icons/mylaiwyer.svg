@@ -2,7 +2,7 @@
   <title>My LAIwyer</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#45526A"/><stop offset="1" stop-color="#0F172A"/>
+      <stop offset="0" stop-color="#8EA0BC"/><stop offset="1" stop-color="#5F7191"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -22,6 +22,6 @@
   <circle cx="256" cy="128" r="18" fill="#FFFFFF"/>
   <g stroke="#FFFFFF" stroke-width="6"><line x1="150" y1="176" x2="116" y2="268"/><line x1="150" y1="176" x2="184" y2="268"/><line x1="362" y1="176" x2="328" y2="268"/><line x1="362" y1="176" x2="396" y2="268"/></g>
   <path d="M104 268 H196 A46 46 0 0 1 104 268 Z" fill="#FFFFFF"/>
-  <path d="M316 268 H408 A46 46 0 0 1 316 268 Z" fill="#E2E8F0"/>
+  <path d="M316 268 H408 A46 46 0 0 1 316 268 Z" fill="#FFFFFF"/>
   <path d="M352 96 l7 17 17 7 -17 7 -7 17 -7 -17 -17 -7 17 -7 Z" fill="#FFFFFF"/>
 </svg>

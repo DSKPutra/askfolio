@@ -1,8 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
-// Beranda Askfolio (2026-10-25): an AI investing assistant for Indonesian retail investors. (1) one big question box with
-// investor suggestions; (2) the risk profile — a call to action until it is done, then the matching asset classes;
-// (3) data shortcuts for the classes retail investors use most; (4) global market summary; (5) protection tools
-// (scam emergency, financial rights) as secondary actions; (6) a link to every dataset (/data).
+// Beranda Askfolio — kept deliberately short: (1) the question box with three suggestions on a bright card; (2) the risk
+// profile — a call to action until it is done, then the matching asset classes; (3) four asset-class shortcuts;
+// (4) one protection row (scam emergency, financial rights); (5) a link to every dataset (/data).
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { DexIcon } from '../components/DexCard';
@@ -10,8 +9,6 @@ import { DexName } from '../components/DexName';
 import { EmergencyScamButton } from '../components/EmergencyScamButton';
 import { Button, Card, Chip } from '../components/ui';
 import { DEX_REGISTRY } from '../config/dex-registry';
-import { MarketSummary } from '../features/home/MarketSummary';
-import { InstallRibbon } from '../features/install/InstallCenter';
 import { useLocale } from '../lib/locale';
 import { useApp } from '../lib/store';
 import { ProfileResult } from './RiskProfile';
@@ -22,7 +19,7 @@ const T = {
   placeholder: { id: 'Misal: reksa dana pasar uang mana yang paling stabil?', en: 'E.g. which money-market funds have been the most stable?' },
   ask: { id: 'Tanya', en: 'Ask' },
   profileCta: { id: 'Kenali profil risikomu', en: 'Find your risk profile' },
-  profileCtaSub: { id: '8 pertanyaan, 2 menit. Askfolio lalu menunjukkan kelas aset yang umumnya cocok untukmu.', en: '8 questions, 2 minutes. Askfolio then shows the asset classes that usually fit you.' },
+  profileCtaSub: { id: '8 pertanyaan singkat. Askfolio lalu menunjukkan kelas aset yang umumnya cocok untukmu.', en: '8 questions, 2 minutes. Askfolio then shows the asset classes that usually fit you.' },
   start: { id: 'Mulai', en: 'Start' },
   details: { id: 'Lihat detail & ulangi', en: 'Details & retake' },
   data: { id: 'Pelajari kelas aset', en: 'Study asset classes' },
@@ -31,11 +28,11 @@ const T = {
 } as const;
 
 const SUGGEST = {
-  id: ['Reksa dana pasar uang dengan return paling stabil', 'Saham Indonesia mana yang paling kuat tahun ini?', 'Kurs USD/IDR hari ini dibanding awal tahun', 'Berapa inflasi Indonesia terbaru?'],
-  en: ['Money-market funds with the most stable returns', 'Which Indonesian stocks are strongest this year?', 'USD/IDR today vs the start of the year', 'What is Indonesia’s latest inflation?'],
+  id: ['Reksa dana pasar uang paling stabil', 'Saham Indonesia terkuat tahun ini', 'Kurs USD/IDR terbaru'],
+  en: ['Most stable money-market funds', 'Strongest Indonesian stocks this year', 'Latest USD/IDR rate'],
 } as const;
-const SUGGEST_DEX = ['reksadex', 'idxdex', 'rupiahdex', 'inflationdex'] as const;
-const CLASSES = ['reksadex', 'idxdex', 'rupiahdex', 'inflationdex', 'snp500dex', 'cryptdex'] as const;
+const SUGGEST_DEX = ['reksadex', 'idxdex', 'rupiahdex'] as const;
+const CLASSES = ['reksadex', 'idxdex', 'rupiahdex', 'inflationdex'] as const;
 
 export default function Home() {
   const L = useLocale();
@@ -44,8 +41,8 @@ export default function Home() {
   const profile = useApp((s) => s.riskProfile);
   const ask = (text: string, dex = 'finandex-ai') => void nav(`/dex/${dex}/chat?q=${encodeURIComponent(text)}`);
   return (
-    <div className="space-y-8">
-      <section aria-labelledby="hero-title" className="mx-auto max-w-3xl pt-2 text-center">
+    <div className="mx-auto max-w-5xl space-y-8">
+      <section aria-labelledby="hero-title" className="rounded-[28px] bg-[color-mix(in_srgb,var(--primary)_9%,var(--pane))] px-5 py-8 text-center sm:px-10">
         <h1 id="hero-title" className="font-display text-3xl sm:text-4xl">
           {T.title[L]}
         </h1>
@@ -74,7 +71,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Card className="mx-auto max-w-3xl p-5">
+      <Card className="p-5">
         {profile ? (
           <div className="space-y-3">
             <ProfileResult level={profile.level} compact />
@@ -88,7 +85,7 @@ export default function Home() {
               <h2 className="font-display text-xl">{T.profileCta[L]}</h2>
               <p className="text-sm text-ink-muted">{T.profileCtaSub[L]}</p>
             </div>
-            <Link to="/profil-risiko" className="inline-flex min-h-12 items-center rounded-xl bg-primary px-5 font-medium text-on-primary">
+            <Link to="/profil-risiko" className="inline-flex min-h-12 items-center rounded-full bg-primary px-6 font-medium text-on-primary">
               {T.start[L]}
             </Link>
           </div>
@@ -99,41 +96,33 @@ export default function Home() {
         <h2 id="classes-title" className="font-display text-xl">
           {T.data[L]}
         </h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {CLASSES.map((id) => {
             const d = DEX_REGISTRY.find((x) => x.id === id)!;
             return (
-              <Link key={id} to={`/dex/${id}`} className="pane flex items-center gap-3 p-3 hover:bg-pane-2">
+              <Link key={id} to={`/dex/${id}`} className="pane flex flex-col items-start gap-2 p-4 hover:bg-pane-2">
                 <DexIcon dex={d} size={40} />
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-medium">
                     <DexName dex={d} />
                   </span>
-                  <span className="line-clamp-2 block text-xs text-ink-muted">{d.tagline[L]}</span>
-                </span>
+                                  </span>
               </Link>
             );
           })}
         </div>
       </section>
 
-      <MarketSummary />
-
-      <section aria-labelledby="protect-title" className="space-y-3">
-        <h2 id="protect-title" className="font-display text-xl">
+      <section aria-labelledby="protect-title" className="pane flex flex-wrap items-center gap-3 p-4">
+        <h2 id="protect-title" className="mr-auto text-base font-semibold">
           {T.protect[L]}
         </h2>
-        <div className="flex flex-wrap items-center gap-2">
-          <EmergencyScamButton />
-          {(['finlaiwyer', 'antiscamdex', 'mylaiwyer'] as const).map((id) => (
-            <Link key={id} to={`/dex/${id}`} className="inline-flex min-h-12 items-center rounded-xl border border-edge bg-pane px-4 text-sm hover:bg-pane-2">
-              <DexName dex={DEX_REGISTRY.find((x) => x.id === id)!} />
-            </Link>
-          ))}
-        </div>
+        <EmergencyScamButton size="sm" />
+        <Link to="/dex/finlaiwyer" className="inline-flex min-h-11 items-center rounded-full border border-edge px-4 text-sm hover:bg-pane-2">
+          <DexName dex={DEX_REGISTRY.find((x) => x.id === 'finlaiwyer')!} />
+        </Link>
       </section>
 
-      <InstallRibbon />
       <p className="text-center">
         <Link to="/data" className="inline-flex min-h-11 items-center text-primary underline-offset-2 hover:underline">
           {T.explore[L]} →

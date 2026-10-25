@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | B02 |
 | Judul | Panduan verifikasi untuk penerima SBOM |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -25,7 +25,7 @@
 
 ## 1. Unduh
 ```bash
-gh release download v0.1.0 -R DSKPutra/finandex -p 'finandex-*' -p SHA256SUMS -p '*.sigstore.json'
+gh release download v0.1.0 -R DSKPutra/askfolio -p 'finandex-*' -p SHA256SUMS -p '*.sigstore.json'
 ```
 atau dari aplikasi: **/legal/sbom** → `/sbom/0.1.0/…`.
 
@@ -39,15 +39,15 @@ Setiap baris harus `OK`. `SHA256SUMS` sendiri ikut ditandatangani.
 ```bash
 cosign verify-blob finandex-0.1.0.cdx.json \
   --bundle finandex-0.1.0.cdx.json.sigstore.json \
-  --certificate-identity-regexp 'https://github.com/DSKPutra/finandex/.github/workflows/compliance.yml@.*' \
+  --certificate-identity-regexp 'https://github.com/DSKPutra/askfolio/.github/workflows/compliance.yml@.*' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 ```
-Identitas penanda tangan harus workflow `compliance.yml` milik repo `DSKPutra/finandex`.
+Identitas penanda tangan harus workflow `compliance.yml` milik repo `DSKPutra/askfolio`.
 
 ## 4. Periksa atestasi GitHub
 ```bash
-gh attestation verify finandex-web-dist.tgz -R DSKPutra/finandex
-gh attestation verify finandex-0.1.0.cdx.json -R DSKPutra/finandex
+gh attestation verify finandex-web-dist.tgz -R DSKPutra/askfolio
+gh attestation verify finandex-0.1.0.cdx.json -R DSKPutra/askfolio
 ```
 Atestasi SBOM mengikat SBOM induk ke *digest* artefak web; atestasi *build provenance* mengikat artefak & SBOM ke commit dan workflow yang membangunnya.
 
@@ -63,4 +63,4 @@ sbomqs score finandex-0.1.0.cdx.json
 ---
 
 ## English
-Download from the GitHub Release or **/legal/sbom**; check `SHA256SUMS` with `shasum -a 256 -c`; verify Sigstore bundles with `cosign verify-blob --bundle … --certificate-identity-regexp '…/compliance.yml@.*' --certificate-oidc-issuer https://token.actions.githubusercontent.com`; verify attestations with `gh attestation verify <file> -R DSKPutra/finandex`; read the VEX statuses as above.
+Download from the GitHub Release or **/legal/sbom**; check `SHA256SUMS` with `shasum -a 256 -c`; verify Sigstore bundles with `cosign verify-blob --bundle … --certificate-identity-regexp '…/compliance.yml@.*' --certificate-oidc-issuer https://token.actions.githubusercontent.com`; verify attestations with `gh attestation verify <file> -R DSKPutra/askfolio`; read the VEX statuses as above.

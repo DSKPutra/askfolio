@@ -2,7 +2,7 @@
   <title>OpenCompanyDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1A6F86"/><stop offset="1" stop-color="#082F3C"/>
+      <stop offset="0" stop-color="#3CC3E0"/><stop offset="1" stop-color="#1593B5"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -19,7 +19,7 @@
   <rect x="124" y="214" width="80" height="170" rx="8" fill="#FFFFFF"/>
   <rect x="216" y="130" width="92" height="254" rx="8" fill="#FFFFFF"/>
   <rect x="320" y="250" width="68" height="134" rx="8" fill="#FFFFFF"/>
-  <g fill="#082F3C"><rect x="240" y="160" width="16" height="22" rx="3"/><rect x="268" y="160" width="16" height="22" rx="3"/><rect x="240" y="200" width="16" height="22" rx="3"/><rect x="268" y="200" width="16" height="22" rx="3"/><rect x="146" y="240" width="14" height="20" rx="3"/><rect x="170" y="240" width="14" height="20" rx="3"/></g>
-  <rect x="240" y="240" width="44" height="22" rx="4" fill="#A5F3FC"/>
-  <line x1="112" y1="408" x2="400" y2="408" stroke="#A5F3FC" stroke-width="12" stroke-linecap="round"/>
+  <g fill="#1593B5"><rect x="240" y="160" width="16" height="22" rx="3"/><rect x="268" y="160" width="16" height="22" rx="3"/><rect x="240" y="200" width="16" height="22" rx="3"/><rect x="268" y="200" width="16" height="22" rx="3"/><rect x="146" y="240" width="14" height="20" rx="3"/><rect x="170" y="240" width="14" height="20" rx="3"/></g>
+  <rect x="240" y="240" width="44" height="22" rx="4" fill="#FFFFFF"/>
+  <line x1="112" y1="408" x2="400" y2="408" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
 </svg>

@@ -1,7 +1,7 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 // `npm run icons:generate`: app & Dex icons in the "Spektrum" palette (owner feedback 2026-10-25: no neon green). Reads the
 // original glyphs from kit/brand/icons/*.svg (kept unchanged) and writes public/icons/*.svg (+ the PNG sizes that exist
-// there) with a tile in the Dex category colour, white glyphs and a pastel accent instead of the neon glow. The app mark
+// there) with a bright tile in the Dex category colour and white glyphs instead of the neon glow (Askfolio "Cerah"). The app mark
 // (finandex.svg, file name kept so every reference stays valid) is the Askfolio speech-bubble mark.
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -13,16 +13,16 @@ const SRC = 'kit/brand/icons';
 const OUT = 'public/icons';
 // [tile top, tile bottom, accent] per category (order = DEX_GROUP_IDS), and the brand tile for Finandex itself.
 const GROUP_TILES: [string, string, string][] = [
-  ['#2B4FC7', '#172554', '#BFDBFE'], // global markets — blue
-  ['#B4471A', '#4A1608', '#FED7AA'], // Indonesia — orange
-  ['#6A35C9', '#2E1065', '#DDD6FE'], // crypto & macro — violet
-  ['#1A6F86', '#082F3C', '#A5F3FC'], // startup & VC — cyan
-  ['#9A5B12', '#451A03', '#FDE68A'], // living & work — amber
-  ['#97239F', '#4A044E', '#F5D0FE'], // social & development — fuchsia
-  ['#B3254A', '#4C0519', '#FECDD3'], // sentiment & personal finance — rose
-  ['#45526A', '#0F172A', '#E2E8F0'], // law — slate
+  ['#5B8CFF', '#2F5FE0', '#FFFFFF'], // global markets — blue
+  ['#FF9A57', '#E2621F', '#FFFFFF'], // Indonesia — orange
+  ['#9B7BFF', '#6D46E8', '#FFFFFF'], // crypto & macro — violet
+  ['#3CC3E0', '#1593B5', '#FFFFFF'], // startup & VC — cyan
+  ['#F7C14B', '#D9940F', '#FFFFFF'], // living & work — amber
+  ['#E57BEA', '#B845C2', '#FFFFFF'], // social & development — pink
+  ['#FF7C93', '#E0425F', '#FFFFFF'], // sentiment & personal finance — rose
+  ['#8EA0BC', '#5F7191', '#FFFFFF'], // law — slate
 ];
-const BRAND_TILE: [string, string, string] = ['#4F46E5', '#1E1B4B', '#C7D2FE'];
+const BRAND_TILE: [string, string, string] = ['#3D74FF', '#1F4FD6', '#FFC266'];
 
 function tileFor(name: string): [string, string, string] {
   if (name === 'finandex' || name === 'finandex-ai') return BRAND_TILE;

@@ -106,7 +106,7 @@ Every Finandex release ships machine-readable SBOMs: one per artefact (web/PWA &
 const b02 = `${controlBlock(meta('B02', 'Panduan verifikasi untuk penerima SBOM', 'Publik', ['Sigstore (cosign) keyless', 'GitHub artifact attestations (in-toto / SLSA provenance)', 'CycloneDX 1.7 VEX'], ['B01', 'B04'], 'Penerima SBOM Finandex (pengguna, auditor, mitra)'))}
 ## 1. Unduh
 \`\`\`bash
-gh release download v${V} -R DSKPutra/finandex -p 'finandex-*' -p SHA256SUMS -p '*.sigstore.json'
+gh release download v${V} -R DSKPutra/askfolio -p 'finandex-*' -p SHA256SUMS -p '*.sigstore.json'
 \`\`\`
 atau dari aplikasi: **/legal/sbom** → \`/sbom/${V}/…\`.
 
@@ -120,15 +120,15 @@ Setiap baris harus \`OK\`. \`SHA256SUMS\` sendiri ikut ditandatangani.
 \`\`\`bash
 cosign verify-blob finandex-${V}.cdx.json \\
   --bundle finandex-${V}.cdx.json.sigstore.json \\
-  --certificate-identity-regexp 'https://github.com/DSKPutra/finandex/.github/workflows/compliance.yml@.*' \\
+  --certificate-identity-regexp 'https://github.com/DSKPutra/askfolio/.github/workflows/compliance.yml@.*' \\
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 \`\`\`
-Identitas penanda tangan harus workflow \`compliance.yml\` milik repo \`DSKPutra/finandex\`.
+Identitas penanda tangan harus workflow \`compliance.yml\` milik repo \`DSKPutra/askfolio\`.
 
 ## 4. Periksa atestasi GitHub
 \`\`\`bash
-gh attestation verify finandex-web-dist.tgz -R DSKPutra/finandex
-gh attestation verify finandex-${V}.cdx.json -R DSKPutra/finandex
+gh attestation verify finandex-web-dist.tgz -R DSKPutra/askfolio
+gh attestation verify finandex-${V}.cdx.json -R DSKPutra/askfolio
 \`\`\`
 Atestasi SBOM mengikat SBOM induk ke *digest* artefak web; atestasi *build provenance* mengikat artefak & SBOM ke commit dan workflow yang membangunnya.
 
@@ -144,12 +144,12 @@ sbomqs score finandex-${V}.cdx.json
 ---
 
 ## English
-Download from the GitHub Release or **/legal/sbom**; check \`SHA256SUMS\` with \`shasum -a 256 -c\`; verify Sigstore bundles with \`cosign verify-blob --bundle … --certificate-identity-regexp '…/compliance.yml@.*' --certificate-oidc-issuer https://token.actions.githubusercontent.com\`; verify attestations with \`gh attestation verify <file> -R DSKPutra/finandex\`; read the VEX statuses as above.
+Download from the GitHub Release or **/legal/sbom**; check \`SHA256SUMS\` with \`shasum -a 256 -c\`; verify Sigstore bundles with \`cosign verify-blob --bundle … --certificate-identity-regexp '…/compliance.yml@.*' --certificate-oidc-issuer https://token.actions.githubusercontent.com\`; verify attestations with \`gh attestation verify <file> -R DSKPutra/askfolio\`; read the VEX statuses as above.
 `;
 
 // ------------------------------------------------------------------ B03
 const scripts = f.pkg.scripts;
-const b03 = `${controlBlock(meta('B03', 'Keamanan rantai pasok perangkat lunak', 'Internal', ['NIST SP 800-218 (SSDF) — praktik PO/PS/PW/RV', 'SLSA (Build track)', 'OpenSSF Scorecard', 'ISO/IEC 5230:2020', 'ISO/IEC 18974:2023'], ['B01', 'B04', 'A09'], 'Repo DSKPutra/finandex, CI GitHub Actions, rilis'))}
+const b03 = `${controlBlock(meta('B03', 'Keamanan rantai pasok perangkat lunak', 'Internal', ['NIST SP 800-218 (SSDF) — praktik PO/PS/PW/RV', 'SLSA (Build track)', 'OpenSSF Scorecard', 'ISO/IEC 5230:2020', 'ISO/IEC 18974:2023'], ['B01', 'B04', 'A09'], 'Repo DSKPutra/askfolio, CI GitHub Actions, rilis'))}
 ## 1. Praktik yang diterapkan (bukti di repo)
 ${table(['Praktik', 'Implementasi', 'Bukti'], [
   ['Lockfile & versi eksak', 'semua dependensi dipin persis (`--save-exact`); `npm ci` di CI & Vercel', `${ref('package.json')}, ${ref('vercel.json', 'installCommand')}`],

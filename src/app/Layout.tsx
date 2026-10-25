@@ -4,14 +4,12 @@
 // g h home, g d Dex Hub, / or ⌘K search, Esc closes panels. Offline banner, update prompt, compare tray, footer.
 import * as Dialog from '@radix-ui/react-dialog';
 import { clsx } from 'clsx';
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router';
-import { useAsOfLabel } from '../components/badges';
 import { Button } from '../components/ui';
 import { APP_NAME } from '../config/brand';
 import { CompareDnd, CompareTray } from '../features/compare/CompareTray';
-import { useManifest } from '../lib/data';
 import { useLocale } from '../lib/locale';
 import { useOnline } from '../lib/online';
 import { useApp } from '../lib/store';
@@ -37,21 +35,6 @@ function ThemeLangControls() {
         {locale === 'id' ? 'ID' : 'EN'}
       </button>
     </div>
-  );
-}
-
-/** Global "Data per" indicator: newest as-of among the Dex (each Dex shows its own). */
-function GlobalAsOf() {
-  const { t } = useTranslation();
-  const m = useManifest();
-  const fmt = useAsOfLabel();
-  const newest = useMemo(() => Object.values(m.data?.dex ?? {}).map((d) => d.as_of).filter((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)).sort().at(-1), [m.data]);
-  if (!newest) return null;
-  return (
-    <Link to="/legal/data-sources" className="hidden items-center gap-2 rounded-full border border-edge px-3 py-1 text-xs text-ink-muted hover:text-ink lg:inline-flex" title={t('nav.asOfHint')}>
-      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
-      {t('nav.dataAsOf', { date: fmt(newest) })}
-    </Link>
   );
 }
 
@@ -172,7 +155,6 @@ export function Layout() {
             <kbd className="hidden rounded-xl border border-edge px-1.5 text-xs md:inline">⌘K</kbd>
           </button>
           <div className="ml-auto flex items-center gap-2">
-            <GlobalAsOf />
             <ThemeLangControls />
           </div>
         </header>

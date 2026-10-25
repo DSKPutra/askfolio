@@ -69,7 +69,7 @@ export function collectFacts() {
   const agentsEval = existsSync('docs/agents/eval.json') ? (JSON.parse(read('docs/agents/eval.json')) as Record<string, unknown>) : null;
   const lockPkgs = Object.entries(lock.packages).filter(([k]) => k.startsWith('node_modules/'));
   return {
-    app: { name: 'Finandex', version: pkg.version, commit: commit(), date: sh('git log -1 --format=%cs') || new Date().toISOString().slice(0, 10), repo: 'https://github.com/DSKPutra/finandex', production: 'https://finandex.vercel.app' },
+    app: { name: 'Askfolio', version: pkg.version, commit: commit(), date: sh('git log -1 --format=%cs') || new Date().toISOString().slice(0, 10), repo: 'https://github.com/DSKPutra/askfolio', production: 'https://askfolio-id.vercel.app' },
     pkg,
     lockCounts: { total: lockPkgs.length, prod: lockPkgs.filter(([, v]) => !v.dev).length, dev: lockPkgs.filter(([, v]) => v.dev).length },
     dex: DEX_REGISTRY,

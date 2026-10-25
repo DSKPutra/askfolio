@@ -2,7 +2,7 @@
   <title>IPODex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2B4FC7"/><stop offset="1" stop-color="#172554"/>
+      <stop offset="0" stop-color="#5B8CFF"/><stop offset="1" stop-color="#2F5FE0"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -18,6 +18,6 @@
 
   <path d="M256 122 C200 122 176 168 176 218 V292 L146 336 H366 L336 292 V218 C336 168 312 122 256 122 Z" fill="#FFFFFF"/>
   <rect x="246" y="96" width="20" height="30" rx="6" fill="#FFFFFF"/>
-  <circle cx="256" cy="360" r="22" fill="#BFDBFE"/>
-  <g stroke="#BFDBFE" stroke-width="12" stroke-linecap="round"><line x1="118" y1="190" x2="146" y2="206"/><line x1="394" y1="190" x2="366" y2="206"/><line x1="110" y1="252" x2="140" y2="252"/><line x1="402" y1="252" x2="372" y2="252"/></g>
+  <circle cx="256" cy="360" r="22" fill="#FFFFFF"/>
+  <g stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"><line x1="118" y1="190" x2="146" y2="206"/><line x1="394" y1="190" x2="366" y2="206"/><line x1="110" y1="252" x2="140" y2="252"/><line x1="402" y1="252" x2="372" y2="252"/></g>
 </svg>

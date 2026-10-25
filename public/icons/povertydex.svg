@@ -2,7 +2,7 @@
   <title>PovertyDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#97239F"/><stop offset="1" stop-color="#4A044E"/>
+      <stop offset="0" stop-color="#E57BEA"/><stop offset="1" stop-color="#B845C2"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -19,5 +19,5 @@
   <g fill="#FFFFFF"><rect x="132" y="132" width="70" height="70" rx="14"/><rect x="221" y="132" width="70" height="70" rx="14"/><rect x="310" y="132" width="70" height="70" rx="14"/>
   <rect x="132" y="221" width="70" height="70" rx="14"/><rect x="310" y="221" width="70" height="70" rx="14"/>
   <rect x="132" y="310" width="70" height="70" rx="14"/><rect x="221" y="310" width="70" height="70" rx="14"/><rect x="310" y="310" width="70" height="70" rx="14"/></g>
-  <rect x="221" y="221" width="70" height="70" rx="14" fill="#F5D0FE"/>
+  <rect x="221" y="221" width="70" height="70" rx="14" fill="#FFFFFF"/>
 </svg>

@@ -35,27 +35,25 @@ export function appTaglineFor(locale: Locale): string {
 export type ThemeName = 'dark' | 'light';
 
 /**
- * Colour tokens — "Spektrum" v2 (2026-10-25, owner feedback: no green, easy on the eyes; see docs/ui-review/benchmark.md):
- * a soft neutral canvas, indigo brand colour, warm amber accent, violet for AI, one colour per Dex category, and a calm
- * blue-night dark theme (no pure black, no neon). Green appears only for gains. Provenance (§10.0.2) keeps distinct
- * hues: data = blue, ai = violet, quote = serif on cream paper, flag = ochre, negative = red. Every text colour passes WCAG 2.2 AA (≥ 4.5:1) on page,
- * pane and pane-2 in both themes (tests/unit/contrast.test.ts). Brand neon #19F23A stays reserved for logo & icons.
- * The CSS variables in src/styles/index.css are the runtime copy of this table (tests compare both).
+ * Colour tokens — Askfolio "Cerah" (2026-10-25, owner feedback: simpler, brighter, friendlier): an airy blue-white canvas,
+ * a bright friendly blue brand colour, a warm orange accent and violet for AI; light theme by default, a calm navy dark
+ * theme as an option. Green only marks gains. Every text colour passes WCAG 2.2 AA (≥ 4.5:1) on page, pane and pane-2 in
+ * both themes (tests/unit/contrast.test.ts). The CSS variables in src/styles/index.css are the runtime copy of this table.
  */
 export const TOKENS = {
   light: {
-    'field-0': '#ECEDF3',
-    'field-1': '#F7F7FA',
+    'field-0': '#EAF0FC',
+    'field-1': '#F6F9FF',
     pane: '#FFFFFF',
-    'pane-2': '#F0F1F6',
-    edge: 'rgba(30,27,75,0.12)',
-    ink: '#1F2133',
-    'ink-muted': '#555770',
-    primary: '#4338CA',
+    'pane-2': '#EDF2FD',
+    edge: 'rgba(33,88,232,0.14)',
+    ink: '#172033',
+    'ink-muted': '#525C72',
+    primary: '#2158E8',
     'on-primary': '#FFFFFF',
-    accent: '#A1460A',
-    data: '#1D4ED8',
-    ai: '#7C3AED',
+    accent: '#B9480A',
+    data: '#0B6BA8',
+    ai: '#6D3BE0',
     quote: '#6B4E16',
     'quote-bg': '#FBF5E6',
     flag: '#A34D06',
@@ -63,18 +61,18 @@ export const TOKENS = {
     positive: '#137336',
   },
   dark: {
-    'field-0': '#11121F',
-    'field-1': '#161827',
-    pane: '#1E2032',
-    'pane-2': '#272A3F',
-    edge: 'rgba(231,232,242,0.12)',
-    ink: '#E7E8F2',
-    'ink-muted': '#A3A6BF',
-    primary: '#A5B4FC',
-    'on-primary': '#1E1B4B',
-    accent: '#FDBA74',
-    data: '#93C5FD',
-    ai: '#C4B5FD',
+    'field-0': '#0F1422',
+    'field-1': '#141A2B',
+    pane: '#1B2236',
+    'pane-2': '#242C44',
+    edge: 'rgba(238,241,250,0.12)',
+    ink: '#EEF1FA',
+    'ink-muted': '#A9B1C8',
+    primary: '#86A8FF',
+    'on-primary': '#0E1A3D',
+    accent: '#FFB86B',
+    data: '#7CC4F5',
+    ai: '#C3B1FF',
     quote: '#F1E3C2',
     'quote-bg': '#2A2418',
     flag: '#FCD34D',
@@ -107,8 +105,8 @@ export const COLORBLIND_OVERRIDES = { light: { positive: '#1D4ED8', negative: '#
 
 /** Chart series palettes (max 8, fixed order). */
 export const CHART_PALETTES = {
-  light: ['#4338CA', '#C2410C', '#1D4ED8', '#BE185D', '#94600A', '#0E7490', '#7C3AED', '#475569'],
-  dark: ['#A5B4FC', '#FDBA74', '#93C5FD', '#F9A8D4', '#FDE047', '#67E8F9', '#C4B5FD', '#CBD5E1'],
+  light: ['#2158E8', '#B9480A', '#6D3BE0', '#BE185D', '#94600A', '#0B6BA8', '#A21CAF', '#475569'],
+  dark: ['#86A8FF', '#FFB86B', '#C3B1FF', '#F9A8D4', '#FDE047', '#7CC4F5', '#F0ABFC', '#CBD5E1'],
 } as const;
 export const CHART_PALETTE = CHART_PALETTES.light;
 
@@ -118,8 +116,8 @@ export const GROUP_HUES = Array.from({ length: 8 }, (_, i) => `var(--group-${i +
 /** Brand neon — ONLY for the personal logo and app/Dex icons (never UI, charts, focus or buttons). */
 export const BRAND_NEON = '#19F23A';
 
-export const THEME_COLOR = '#F7F7FA';
-export const THEME_COLOR_DARK = '#161827';
+export const THEME_COLOR = '#F6F9FF';
+export const THEME_COLOR_DARK = '#141A2B';
 export const THEME_COLOR_LIGHT = THEME_COLOR;
 
 /** Motion (§10.3): durations in ms and the shared easing. */

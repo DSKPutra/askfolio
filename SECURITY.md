@@ -3,12 +3,12 @@
 © 2026 Dea Saka Kurnia Putra. All rights reserved.
 
 ## Melaporkan kerentanan
-Laporkan secara privat melalui **GitHub Security Advisories** di repo `DSKPutra/finandex` (tab *Security → Report a vulnerability*) atau ke kontak keamanan **[KONFIRMASI]**. Jangan membuka *issue* publik. Sertakan langkah reproduksi, versi/commit, dan dampak. Kami mengonfirmasi penerimaan dan menyampaikan rencana penanganan; perbaikan dirilis bersama pernyataan VEX (`finandex-<versi>.vex.cdx.json`).
+Laporkan secara privat melalui **GitHub Security Advisories** di repo `DSKPutra/askfolio` (tab *Security → Report a vulnerability*) atau ke kontak keamanan **[KONFIRMASI]**. Jangan membuka *issue* publik. Sertakan langkah reproduksi, versi/commit, dan dampak. Kami mengonfirmasi penerimaan dan menyampaikan rencana penanganan; perbaikan dirilis bersama pernyataan VEX (`finandex-<versi>.vex.cdx.json`).
 
 Jangan menguji dengan data pribadi orang lain, jangan melakukan serangan penolakan layanan, dan jangan mengakses data di luar akun/perangkat Anda sendiri.
 
 ## Versi yang didukung
-Hanya rilis terbaru di cabang `release` (produksi https://finandex.vercel.app).
+Hanya rilis terbaru di cabang `release` (produksi https://askfolio-id.vercel.app).
 
 ## Kontrol yang diterapkan (ringkas)
 - Secret (kunci API) hanya di server/CI; bundel klien dipindai pola kunci (`npm run check:secrets`), gitleaks di CI.
@@ -20,4 +20,4 @@ Hanya rilis terbaru di cabang `release` (produksi https://finandex.vercel.app).
 - Rantai pasok: dependensi dipin, SBOM CycloneDX 1.7 + SPDX 2.3 per rilis, VEX, tanda tangan Sigstore & atestasi GitHub (`.github/workflows/compliance.yml`). Lihat `/legal/sbom` dan `docs/compliance/sbom/`.
 
 ## English
-Report vulnerabilities privately via GitHub Security Advisories on `DSKPutra/finandex` (or the security contact, to be confirmed). Do not open public issues. Fixes ship with a CycloneDX VEX statement. Controls: server-only secrets, strict CSP/HSTS, CORS allowlist, zod validation, rate limits, sensitive-data detection on client and server, read-only AI tools with user-confirmed actions, no accounts or third-party analytics, signed & attested SBOMs per release.
+Report vulnerabilities privately via GitHub Security Advisories on `DSKPutra/askfolio` (or the security contact, to be confirmed). Do not open public issues. Fixes ship with a CycloneDX VEX statement. Controls: server-only secrets, strict CSP/HSTS, CORS allowlist, zod validation, rate limits, sensitive-data detection on client and server, read-only AI tools with user-confirmed actions, no accounts or third-party analytics, signed & attested SBOMs per release.

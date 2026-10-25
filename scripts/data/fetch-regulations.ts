@@ -23,7 +23,8 @@ const CATALOG: Catalog = { ...KIT_CATALOG, documents: [...KIT_CATALOG.documents,
 const EXTRA: Record<string, string[]> = JSON.parse(readFileSync(join(ROOT, 'scripts/data/regulation-sources.extra.json'), 'utf8')).urls;
 export const LOCK_PATH = join(ROOT, 'src/config/regulations.lock.json');
 const TAG = process.env.DATA_REGULATIONS_RELEASE_TAG ?? 'data-regulations-v1';
-const REPO = process.env.GITHUB_REPOSITORY ?? process.env.DATA_INPUTS_REPO ?? 'DSKPutra/finandex';
+// Dataset and regulation releases are published in the public DSKPutra/finandex repository (shared with Askfolio).
+const REPO = process.env.DATA_INPUTS_REPO ?? 'DSKPutra/finandex';
 const UA = `FinandexBuild/1.0 (+kontak ${process.env.SUPPORT_EMAIL ?? process.env.VITE_SUPPORT_EMAIL ?? 'deasakakurniaputra@gmail.com'})`;
 const MAX_BYTES = 50 * 1024 * 1024;
 const args = new Set(process.argv.slice(2));

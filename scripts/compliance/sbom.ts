@@ -228,9 +228,9 @@ function dataBom(): Cdx {
 function services() {
   const flows: Record<string, { endpoints: string[]; data: string; terms: string }> = {
     anthropic: { endpoints: ['https://api.anthropic.com/v1/messages'], data: 'chat messages + tool results per request (no account data); not stored by Finandex servers', terms: 'https://www.anthropic.com/legal/commercial-terms' },
-    vercel: { endpoints: ['https://finandex.vercel.app/api/*'], data: 'HTTP requests incl. IP (rate limiting), chat payload in transit; operational logs (metadata only)', terms: 'https://vercel.com/legal/terms' },
+    vercel: { endpoints: ['https://askfolio-id.vercel.app/api/*'], data: 'HTTP requests incl. IP (rate limiting), chat payload in transit; operational logs (metadata only)', terms: 'https://vercel.com/legal/terms' },
     netlify: { endpoints: ['https://finandex.netlify.app/api/*'], data: 'as Vercel (fallback host)', terms: 'https://www.netlify.com/legal/terms-of-use/' },
-    github: { endpoints: ['https://github.com/DSKPutra/finandex'], data: 'source code, release artefacts, SBOMs; no user data', terms: 'https://docs.github.com/site-policy/github-terms/github-terms-of-service' },
+    github: { endpoints: ['https://github.com/DSKPutra/askfolio'], data: 'source code, release artefacts, SBOMs; no user data', terms: 'https://docs.github.com/site-policy/github-terms/github-terms-of-service' },
     upstash: { endpoints: ['UPSTASH_REDIS_REST_URL (configured per deployment)'], data: 'rate-limit counters keyed by hashed clientId/IP with TTL (optional)', terms: 'https://upstash.com/trust/terms.pdf' },
     apple: { endpoints: ['App Store / TestFlight'], data: 'app distribution; Apple processes store-account data under its own terms', terms: 'https://www.apple.com/legal/internet-services/itunes/' },
     google: { endpoints: ['Google Play'], data: 'app distribution; Google processes store-account data under its own terms', terms: 'https://play.google/developer-content-policy/' },
@@ -353,7 +353,7 @@ function toSpdxWeb(): Record<string, unknown> {
   raw.creationInfo.creators = [...raw.creationInfo.creators, 'Person: Dea Saka Kurnia Putra', `Tool: finandex-sbom-${VERSION}`];
   raw.creationInfo.created = TIMESTAMP.replace(/\.\d{3}Z$/, 'Z');
   raw.creationInfo.comment = `Generation context: build (production npm dependencies of the web/PWA/server artefact). Commit ${f.app.commit}.`;
-  raw.documentNamespace = `https://github.com/DSKPutra/finandex/sbom/${VERSION}/web/${f.app.commit}`;
+  raw.documentNamespace = `https://github.com/DSKPutra/askfolio/sbom/${VERSION}/web/${f.app.commit}`;
   const idx = lockIndex();
   for (const p of (raw.packages ?? []) as { name?: string; versionInfo?: string; checksums?: unknown[]; licenseDeclared?: string; licenseConcluded?: string }[]) {
     const h = sriHash(idx.get(`${p.name}@${p.versionInfo}`)?.integrity);

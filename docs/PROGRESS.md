@@ -102,3 +102,8 @@
 - Beranda baru (tanya + profil risiko + kelas aset + ringkasan pasar + "Lindungi dirimu"), `/data` untuk konstelasi & peta fitur, `/profil-risiko` (kemauan vs kemampuan → Konservatif/Moderat/Agresif → kelas aset).
 - Palet tanpa hijau + update service worker otomatis (sebelumnya pengunjung tertahan di versi lama).
 - Tes: 942 unit, 72 golden, 682 tool, eval chat 161/161, eval agen 100 %, E2E 83 desktop + 29 mobile; bundel 241 KB.
+
+## Askfolio — repo & domain sendiri, desain "Cerah" (2026-10-25)
+- Repo `DSKPutra/askfolio`, produksi https://askfolio-id.vercel.app; Finandex dikembalikan di repo & domain lamanya.
+- Desain cerah & sederhana (mode terang bawaan, biru merek, satu font, tombol pil, menu 5 tujuan, beranda ringkas, ikon cerah); bundel 236 KB.
+- Tes: 942 unit, E2E 83 desktop + 29 mobile.

@@ -25,7 +25,8 @@ export const EnvSchema = z.object({
 export type Env = z.infer<typeof EnvSchema>;
 
 export const DEFAULT_ORIGINS = [
-  'https://finandex.vercel.app',
+  'https://askfolio-id.vercel.app',
+  'https://askfolio.com',
   'https://finandex.netlify.app',
   'capacitor://localhost',
   'https://localhost',

@@ -30,7 +30,7 @@ export type SourceT = z.infer<typeof Source>;
 export const REGISTRY = 'scripts/live-data/sources.yaml';
 export const loadSources = (path = REGISTRY): SourceT[] => z.object({ sources: z.array(Source) }).parse(parse(readFileSync(path, 'utf8'))).sources;
 
-export const USER_AGENT = 'Finandex-live-data/0.1 (+https://github.com/DSKPutra/finandex)';
+export const USER_AGENT = 'Askfolio-live-data/0.1 (+https://github.com/DSKPutra/askfolio)';
 const PAUSE_MS = 2000;
 let last = 0;
 

@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A04 |
 | Judul | Deskripsi desain perangkat lunak |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -73,7 +73,7 @@ Setiap Dex didaftarkan sekali di `src/config/dex-registry.ts` (id, grup, tab, in
 | Lawan Penipuan | Hukum | live | Chat, Baru Kena Scam, Siapkan Laporan, Statistik Penanganan, Kenali Modus, Kanal Resmi, Cegah & Bukti, Data | 17 | public-info |
 
 ## 3. Orkestrator chat & loop tool
-Penjaga memeriksa pesan → Konduktor menyusun rencana (deterministik; mode live memakai `submit_plan`) → agen Dex memanggil tool (≤ 8) → Verifikator mencocokkan setiap angka dengan keluaran tool → Penjaga memeriksa jawaban. Semua langkah dialirkan sebagai event SSE (`server/agents/run.ts @ fd1db6c`).
+Penjaga memeriksa pesan → Konduktor menyusun rencana (deterministik; mode live memakai `submit_plan`) → agen Dex memanggil tool (≤ 8) → Verifikator mencocokkan setiap angka dengan keluaran tool → Penjaga memeriksa jawaban. Semua langkah dialirkan sebagai event SSE (`server/agents/run.ts @ d5961b2`).
 
 ## 4. Mesin alur hukum
 Konsultasi Terpandu memakai `kit/datasets/law/legal_qa_flows.json`; setiap rujukan pasal diambil dari potongan teks resmi yang hash-nya tercatat di `src/config/regulations.lock.json`.

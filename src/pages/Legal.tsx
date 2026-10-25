@@ -119,9 +119,9 @@ function Sbom() {
         <h2 className="text-base font-semibold">{L('Cara memverifikasi', 'How to verify')}</h2>
         <pre className="overflow-x-auto rounded-xl bg-pane-2 p-3 font-mono text-xs">{`shasum -a 256 -c SHA256SUMS
 cosign verify-blob <file> --bundle <file>.sigstore.json \\
-  --certificate-identity-regexp 'https://github.com/DSKPutra/finandex/.github/workflows/compliance.yml@.*' \\
+  --certificate-identity-regexp 'https://github.com/DSKPutra/askfolio/.github/workflows/compliance.yml@.*' \\
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
-gh attestation verify <file> -R DSKPutra/finandex`}</pre>
+gh attestation verify <file> -R DSKPutra/askfolio`}</pre>
         <p className="text-xs text-muted">{L('Tanda tangan & atestasi dibuat oleh workflow rilis (tag v*). Panduan lengkap: docs/compliance/sbom/B02 di repo.', 'Signatures & attestations are produced by the release workflow (tag v*). Full guide: docs/compliance/sbom/B02 in the repository.')}</p>
       </section>
     </div>

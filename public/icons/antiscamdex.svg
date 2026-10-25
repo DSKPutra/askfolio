@@ -2,7 +2,7 @@
   <title>AntiScamDex</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#45526A"/><stop offset="1" stop-color="#0F172A"/>
+      <stop offset="0" stop-color="#8EA0BC"/><stop offset="1" stop-color="#5F7191"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.72" cy="0.28" r="0.75">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
@@ -19,5 +19,5 @@
   <path d="M256 104 L384 152 V246 C384 328 328 382 256 408 C184 382 128 328 128 246 V152 Z" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linejoin="round"/>
   <circle cx="262" cy="168" r="14" fill="none" stroke="#FFFFFF" stroke-width="10"/>
   <path d="M262 182 V282 A42 42 0 0 1 178 282 V262 L204 286" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="168" y1="352" x2="348" y2="172" stroke="#E2E8F0" stroke-width="24" stroke-linecap="round"/>
+  <line x1="168" y1="352" x2="348" y2="172" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round"/>
 </svg>

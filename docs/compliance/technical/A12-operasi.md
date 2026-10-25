@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A12 |
 | Judul | Operasi & pemeliharaan |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -24,7 +24,7 @@
 | 0.1.0 | 2026-10-25 | Versi pertama, dibangkitkan dari sumber kebenaran repo. |
 
 ## 1. Deploy
-- `main` → Vercel produksi (https://finandex.vercel.app); cadangan Netlify.
+- `main` → Vercel produksi (https://askfolio-id.vercel.app); cadangan Netlify.
 - Rollback: Vercel → Deployments → *Promote* deployment sebelumnya; atau revert commit.
 - Rilis: tag `v*` memicu `compliance.yml` (SBOM, tanda tangan, atestasi, dokumen).
 
@@ -96,7 +96,7 @@
 | `assets:pdfjs` | `tsx scripts/build/copy-pdfjs-assets.ts` |
 | `predev` | `npm run assets:pdfjs && npm run whitepaper:copy` |
 | `prebuild` | `npm run assets:pdfjs && npm run whitepaper:copy && npm run check:licenses` |
-| `build:native` | `cross-env VITE_API_BASE_URL=https://finandex.vercel.app VITE_DATA_BASE_URL=https://finandex.vercel.app/data VI…` |
+| `build:native` | `cross-env VITE_API_BASE_URL=https://askfolio-id.vercel.app VITE_DATA_BASE_URL=https://askfolio-id.vercel.app/d…` |
 | `build:api` | `tsx scripts/build/bundle-api.ts` |
 | `whitepaper:copy` | `tsx scripts/whitepaper/copy-whitepaper.ts` |
 | `data:fetch-regulations` | `tsx scripts/data/fetch-regulations.ts` |

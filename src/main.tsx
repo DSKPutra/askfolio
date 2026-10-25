@@ -1,11 +1,8 @@
 // © 2026 Dea Saka Kurnia Putra. All rights reserved.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-// Self-hosted OFL fonts, Latin + Latin-ext subsets only (§10.4): Unbounded (display & big numbers),
-// IBM Plex Sans (UI, body, tables), IBM Plex Serif (official quotations only).
-import '@fontsource/unbounded/latin-500.css';
-import '@fontsource/unbounded/latin-600.css';
-import '@fontsource/unbounded/latin-ext-600.css';
+// Self-hosted OFL fonts, Latin + Latin-ext subsets only (§10.4): IBM Plex Sans (headings, UI, body, tables — one friendly
+// family since the Askfolio redesign), IBM Plex Serif (official quotations only).
 import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-ext-400.css';
 import '@fontsource/ibm-plex-sans/latin-500.css';

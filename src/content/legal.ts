@@ -90,7 +90,7 @@ export const SECURITY: LegalSection[] = [
   {
     title: { id: 'Melaporkan kerentanan', en: 'Reporting a vulnerability' },
     body: [
-      { id: 'Laporkan secara privat melalui GitHub Security Advisories di repo DSKPutra/finandex (Security → Report a vulnerability). Jangan membuka issue publik. Sertakan langkah reproduksi, versi atau commit, dan dampaknya.', en: 'Report privately via GitHub Security Advisories on the DSKPutra/finandex repository (Security → Report a vulnerability). Do not open a public issue. Include reproduction steps, the version or commit, and the impact.' },
+      { id: 'Laporkan secara privat melalui GitHub Security Advisories di repo DSKPutra/askfolio (Security → Report a vulnerability). Jangan membuka issue publik. Sertakan langkah reproduksi, versi atau commit, dan dampaknya.', en: 'Report privately via GitHub Security Advisories on the DSKPutra/askfolio repository (Security → Report a vulnerability). Do not open a public issue. Include reproduction steps, the version or commit, and the impact.' },
       { id: 'Jangan menguji dengan data pribadi orang lain atau melakukan serangan penolakan layanan. Perbaikan dirilis bersama pernyataan VEX di halaman SBOM.', en: 'Do not test with other people’s personal data or run denial-of-service attacks. Fixes are released with a VEX statement on the SBOM page.' },
     ],
   },

@@ -48,7 +48,8 @@ test.describe('offline', () => {
   test('offline: banner shown, cached core data still renders, chat send disabled', async ({ page, context, browserName }) => {
     test.skip(browserName !== 'chromium', 'service-worker offline replay is verified on Chromium');
     await prime(page);
-    await page.goto('/');
+    // The market summary lives on the Data page since the Askfolio home was simplified.
+    await page.goto('/data');
     await page.evaluate(async () => {
       await navigator.serviceWorker.ready;
     });

@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://finandex.vercel.app"
+      "url": "https://askfolio-id.vercel.app"
     }
   ],
   "paths": {

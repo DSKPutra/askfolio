@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | A05 |
 | Judul | Spesifikasi antarmuka |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Internal |
@@ -481,7 +481,7 @@ Jenis event yang didefinisikan di protokol: .
 | `/data/(.*)` | Cache-Control: public, max-age=3600, stale-while-revalidate=86400 |
 | `/assets/(.*)` | Cache-Control: public, max-age=31536000, immutable |
 | `/sw.js` | Cache-Control: no-cache |
-| `/(.*)` | Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://finandex.vercel.app https://finande |
+| `/(.*)` | Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://askfolio-id.vercel.app https://fina |
 | `/(.*)` | Strict-Transport-Security: max-age=63072000; includeSubDomains; preload |
 | `/(.*)` | X-Content-Type-Options: nosniff |
 | `/(.*)` | Referrer-Policy: strict-origin-when-cross-origin |

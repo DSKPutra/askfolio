@@ -1,12 +1,14 @@
-# Finandex
+# Askfolio
 
-**Wawasan Indeks Pasar Keuangan Global** · *Global Financial Market Indexing Insights*
+**Asisten AI investasi dengan angka terverifikasi** · *Your AI investing assistant, with verified numbers*
 
-© 2026 Dea Saka Kurnia Putra. All rights reserved. Finandex dirancang dan dikembangkan oleh Dea Saka Kurnia Putra.
+© 2026 Dea Saka Kurnia Putra. All rights reserved. Askfolio dirancang dan dikembangkan oleh Dea Saka Kurnia Putra.
 
-Finandex is a web app / PWA (with Capacitor Android & iOS builds) offering 27 data-grounded chatbots ("Dex")
-over global and Indonesian market, macro, startup, social, and legal datasets. Historical data for information
-and education only — not investment, financial, or legal advice.
+Askfolio is an AI investing assistant for Indonesian retail investors: ask in plain language and get answers whose
+numbers come from the data (with charts and sources), plus an onboarding risk profile (risk appetite vs risk
+capacity) that points to the asset classes that usually fit. It grew out of [Finandex](https://github.com/DSKPutra/finandex)
+and reuses its datasets (published as releases of that repository). Production: https://askfolio-id.vercel.app.
+Education only — not investment, financial, or legal advice.
 
 ## Development
 

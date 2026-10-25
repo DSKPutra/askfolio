@@ -6,7 +6,7 @@
 |---|---|
 | ID dokumen | C04 |
 | Judul | Kebijakan Privasi publik (ID & EN) |
-| Versi | 0.1.0 (= versi aplikasi) · commit `fd1db6c` |
+| Versi | 0.1.0 (= versi aplikasi) · commit `d5961b2` |
 | Tanggal | 2026-10-25 |
 | Status | Draf |
 | Klasifikasi | Publik |
@@ -23,7 +23,7 @@
 |---|---|---|
 | 0.1.0 | 2026-10-25 | Versi pertama, dibangkitkan dari sumber kebenaran repo. |
 
-Versi kebijakan aktif di aplikasi: `2026-10-25` (`src/lib/store.ts#L9 @ fd1db6c`). Teks di bawah dibangkitkan dari `src/content/legal.ts` — sumber yang sama dengan /legal/privacy.
+Versi kebijakan aktif di aplikasi: `2026-10-25` (`src/lib/store.ts#L9 @ d5961b2`). Teks di bawah dibangkitkan dari `src/content/legal.ts` — sumber yang sama dengan /legal/privacy.
 
 ### Ringkasan · Summary
 Askfolio tidak memakai akun, tidak memasang analytics pihak ketiga, dan tidak melacak Anda. Kebijakan ini disusun dengan mengacu pada Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).

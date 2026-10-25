@@ -4,30 +4,30 @@
 
 :root,
 [data-theme='light'] {
-  --field-0: #ecedf3;
-  --field-1: #f7f7fa;
+  --field-0: #eaf0fc;
+  --field-1: #f6f9ff;
   --pane: #ffffff;
-  --pane-2: #f0f1f6;
-  --edge: rgba(30, 27, 75, 0.12);
-  --ink: #1f2133;
-  --ink-muted: #555770;
-  --primary: #4338ca;
+  --pane-2: #edf2fd;
+  --edge: rgba(33, 88, 232, 0.14);
+  --ink: #172033;
+  --ink-muted: #525c72;
+  --primary: #2158e8;
   --on-primary: #ffffff;
-  --accent: #a1460a;
-  --data: #1d4ed8;
-  --ai: #7c3aed;
+  --accent: #b9480a;
+  --data: #0b6ba8;
+  --ai: #6d3be0;
   --quote: #6b4e16;
   --quote-bg: #fbf5e6;
   --flag: #a34d06;
   --negative: #c81e1e;
   --positive: #137336;
-  --series-1: #4338ca;
-  --series-2: #c2410c;
-  --series-3: #1d4ed8;
+  --series-1: #2158e8;
+  --series-2: #b9480a;
+  --series-3: #6d3be0;
   --series-4: #be185d;
   --series-5: #94600a;
-  --series-6: #0e7490;
-  --series-7: #7c3aed;
+  --series-6: #0b6ba8;
+  --series-7: #a21caf;
   --series-8: #475569;
   --group-1: #1d4ed8;
   --group-2: #c2410c;
@@ -42,30 +42,30 @@
 }
 
 [data-theme='dark'] {
-  --field-0: #11121f;
-  --field-1: #161827;
-  --pane: #1e2032;
-  --pane-2: #272a3f;
-  --edge: rgba(231, 232, 242, 0.12);
-  --ink: #e7e8f2;
-  --ink-muted: #a3a6bf;
-  --primary: #a5b4fc;
-  --on-primary: #1e1b4b;
-  --accent: #fdba74;
-  --data: #93c5fd;
-  --ai: #c4b5fd;
+  --field-0: #0f1422;
+  --field-1: #141a2b;
+  --pane: #1b2236;
+  --pane-2: #242c44;
+  --edge: rgba(238, 241, 250, 0.12);
+  --ink: #eef1fa;
+  --ink-muted: #a9b1c8;
+  --primary: #86a8ff;
+  --on-primary: #0e1a3d;
+  --accent: #ffb86b;
+  --data: #7cc4f5;
+  --ai: #c3b1ff;
   --quote: #f1e3c2;
   --quote-bg: #2a2418;
   --flag: #fcd34d;
   --negative: #fca5a5;
   --positive: #86efac;
-  --series-1: #a5b4fc;
-  --series-2: #fdba74;
-  --series-3: #93c5fd;
+  --series-1: #86a8ff;
+  --series-2: #ffb86b;
+  --series-3: #c3b1ff;
   --series-4: #f9a8d4;
   --series-5: #fde047;
-  --series-6: #67e8f9;
-  --series-7: #c4b5fd;
+  --series-6: #7cc4f5;
+  --series-7: #f0abfc;
   --series-8: #cbd5e1;
   --group-1: #93c5fd;
   --group-2: #fdba74;
@@ -138,7 +138,7 @@
   --color-warning: var(--flag);
   --color-info: var(--ai);
   --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
-  --font-display: 'Unbounded', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'IBM Plex Sans', system-ui, sans-serif;
   --font-serif: 'IBM Plex Serif', serif;
   /* three radii by hierarchy (§10.0): pane 20 px, control 12 px (--radius-xl), chip = full */
   --radius-pane: 20px;
@@ -175,7 +175,7 @@ h1,
 h2,
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.015em;
   font-weight: 600;
 }
 h3,
@@ -222,6 +222,11 @@ h4 {
 .focus-ring:hover,
 .focus-ring:focus-visible {
   border-color: var(--primary);
+}
+/* The main landmark receives focus programmatically on navigation (skip link / route change); it is not a control. */
+main[tabindex='-1']:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Guilloche texture (deterministic SVG, opacity ≤ 6 %), hero & whitepaper cover only. */
