@@ -26,7 +26,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Cache dataset inputs
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: data/inputs
           key: inputs-${{ hashFiles('kit/manifest/input_files_manifest.json') }}
