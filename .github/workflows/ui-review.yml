@@ -15,7 +15,7 @@ jobs:
   visual:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { ref: '${{ github.base_ref }}' }
       - uses: actions/setup-node@v4
         with: { node-version: '24', cache: npm }
@@ -28,7 +28,7 @@ jobs:
           npm run build
           npx playwright test -c playwright.visual.config.ts --update-snapshots=all || true
           mv tests/visual/__screenshots__ "$RUNNER_TEMP/baseline"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { clean: false }
       - run: npm ci
       - name: UI audit
