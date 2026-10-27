@@ -26,7 +26,7 @@ export function OrbitRail() {
           key={x.to}
           to={x.to}
           end={x.end ?? false}
-          className={({ isActive }) => clsx('flex w-[72px] flex-col items-center gap-0.5 rounded-2xl py-2 text-[11px] font-medium transition-colors', isActive ? 'bg-[color-mix(in_srgb,var(--primary)_12%,var(--pane))] text-primary' : 'text-ink-muted hover:bg-pane-2 hover:text-ink')}
+          className={({ isActive }) => clsx('flex w-[72px] flex-col items-center gap-0.5 rounded-2xl py-2 text-[11px] font-medium', isActive ? 'bg-[color-mix(in_srgb,var(--primary)_12%,var(--pane))] text-primary' : 'text-ink-muted hover:bg-pane-2 hover:text-ink')}
         >
           <span aria-hidden className="text-lg leading-none">
             {x.glyph}
