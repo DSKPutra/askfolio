@@ -15,14 +15,18 @@
       .splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#f6f9ff;color:#172033;font:14px system-ui,sans-serif}
       .splash-by{display:flex;align-items:center;gap:8px;color:#525c72}
       .splash small{position:absolute;bottom:24px;color:#525c72}
+      .splash-name{font:600 28px/1 system-ui,sans-serif;letter-spacing:-.01em}
+      .splash-q{font:600 48px/1.12 system-ui,sans-serif;letter-spacing:-.02em;text-align:center;max-width:22rem;padding:0 16px;color:#2158e8}
       .splash .on-dark{display:none}
-      @media (prefers-color-scheme: dark){.splash{background:#141A2B;color:#eef1fa}.splash-by,.splash small{color:#a9b1c8}.splash .on-dark{display:inline}.splash .on-light{display:none}}
+      @media (prefers-color-scheme: dark){.splash-q{color:#86a8ff}.splash{background:#141A2B;color:#eef1fa}.splash-by,.splash small{color:#a9b1c8}.splash .on-dark{display:inline}.splash .on-light{display:none}}
     </style>
   </head>
   <body>
     <div id="root">
       <div class="splash" role="img" aria-label="Askfolio — by Dea Saka Kurnia Putra">
         <img src="/icons/finandex.svg" alt="" width="96" height="96" />
+        <div class="splash-name">Askfolio</div>
+        <div class="splash-q">Tanya apa saja soal investasimu</div>
         <div class="splash-by"><img class="on-light" src="/brand/dskp-mark-on-light-64.png" alt="" width="28" height="28" /><img class="on-dark" src="/brand/dskp-mark-on-dark-64.png" alt="" width="28" height="28" /><span>by Dea Saka Kurnia Putra</span></div>
         <small>© 2026 Dea Saka Kurnia Putra</small>
       </div>
