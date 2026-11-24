@@ -11,6 +11,18 @@
       "bytes": 186589,
       "source_id": "worldbank",
       "retrieved_at": "2026-10-24T13:46:06.690Z"
+    },
+    "data/live/ecb/2026-11-24.json": {
+      "sha256": "0e4b9e2f2e91262fdb9b86c645dbda83cc7b8ecb7d65c3c0db03aae66d381226",
+      "bytes": 28750,
+      "source_id": "ecb",
+      "retrieved_at": "2026-11-24T07:10:25.424Z"
+    },
+    "data/live/worldbank/2026-11-24.json": {
+      "sha256": "9d9c9bb69a433754b88cdb9026189389777d35d4b1fa789b046f6b3a7a59fa98",
+      "bytes": 186589,
+      "source_id": "worldbank",
+      "retrieved_at": "2026-11-24T07:10:28.882Z"
     }
   }
 }
